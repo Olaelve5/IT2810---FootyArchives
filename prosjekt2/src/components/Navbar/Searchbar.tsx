@@ -9,7 +9,7 @@ export default function Searchbar() {
 
   return (
     <Input
-      leftSection={<IconSearch size={18}/>}
+      leftSection={<IconSearch size={18} className={classes.icon}/>}
       placeholder="Search"
       variant="filled"
       size='sm'

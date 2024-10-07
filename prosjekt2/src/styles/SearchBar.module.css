@@ -1,7 +1,14 @@
 .wrapper {
-    width: 40%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 30rem;
-} 
+    width: 60%;
+    max-width: 40rem;
+}
+
+.input {
+    &::placeholder {
+        color: #a2abb5;
+    }
+}
+
+.icon {
+    color: #a2abb5;
+}
