@@ -1,5 +1,5 @@
 #root {
-  max-width: 1500px;
+  /* max-width: 1500px; */
   margin: 0 auto;
   text-align: center;
 }
@@ -48,4 +48,5 @@
 /* For dark mode */
 :root[data-mantine-color-scheme="dark"] {
   --mantine-color-body: rgb(29, 36, 48) !important;
+  --mantine-color-text: white !important;
 }

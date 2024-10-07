@@ -1,8 +1,0 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem 3rem;
-    min-height: 100dvh;
-    min-width: 18rem;
-    border-right: 1px solid #2b374a;
-}
