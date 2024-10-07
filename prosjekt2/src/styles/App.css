@@ -1,7 +1,6 @@
 #root {
-  max-width: 1280px;
+  max-width: 1500px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
@@ -39,4 +38,14 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* For light mode */
+:root[data-mantine-color-scheme="light"] {
+  --mantine-color-body: white !important;
+}
+
+/* For dark mode */
+:root[data-mantine-color-scheme="dark"] {
+  --mantine-color-body: rgb(29, 36, 48) !important;
 }

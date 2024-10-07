@@ -1,0 +1,7 @@
+.wrapper {
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 30rem;
+} 
