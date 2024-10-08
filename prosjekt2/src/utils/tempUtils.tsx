@@ -1,3 +1,4 @@
+import { CommentType } from "../types/comment";
 
 
 export const matchup = {
@@ -15,3 +16,24 @@ export const matchup = {
       { name: 'Kjetil Rekdal', minute: 89, penalty: true, own_goal: false },
     ],
   };
+
+  export const mockupComments: CommentType[] = [
+    {
+      username: 'john_doe',
+      text: "Great match! The last-minute goal was incredible.",
+      date: "2023-10-01T14:30:00Z",
+      matchId: "match123"
+    },
+    {
+      username: 'brainiac',
+      text: "I can't believe the referee missed that foul.",
+      date: "2023-10-02T16:45:00Z",
+      matchId: "match124"
+    },
+    {
+      username: '12keeper',
+      text: "What a performance by the goalkeeper!",
+      date: "2023-10-03T18:00:00Z",
+      matchId: "match125"
+    }
+  ];

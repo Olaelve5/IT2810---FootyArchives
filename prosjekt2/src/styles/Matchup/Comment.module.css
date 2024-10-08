@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+    gap: 0.2rem;
+}
+
+.nameTimeContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
