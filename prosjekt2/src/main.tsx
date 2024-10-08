@@ -4,7 +4,8 @@ import App from './pages/Home.tsx';
 import { createTheme, MantineProvider, virtualColor } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound.tsx';
-import Competition from './pages/Competition.tsx';
+import Competition from './pages/Tournament.tsx';
+import { isCompetitionValid } from './utils/tournamentUtils.tsx';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -42,8 +43,9 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/project2/competition/:competition',
+    path: '/project2/tournament/:tournamentName',
     element: <Competition />,
+    loader: isCompetitionValid,
     errorElement: <NotFound />,
   },
   {
