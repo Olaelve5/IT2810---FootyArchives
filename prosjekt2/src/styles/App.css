@@ -57,6 +57,7 @@ body {
   color: var(--mantine-color-text);
   transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
   overflow-x: hidden;
+  overscroll-behavior: none;
 
   a {
     text-decoration: none;
@@ -73,6 +74,6 @@ body {
   width: 100%;
 }
 
-.leftContainer {
+.rightContainer {
   width: 100%;
 }

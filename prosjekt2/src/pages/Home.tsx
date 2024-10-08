@@ -8,7 +8,7 @@ function App() {
   return (
     <div className='layoutContainer'>
       <SideBar />
-      <div className='leftContainer'>
+      <div className='rightContainer'>
         <Navbar />
         <h1>Prosjekt 2</h1>
         <p>Velkommen til prosjekt</p> 

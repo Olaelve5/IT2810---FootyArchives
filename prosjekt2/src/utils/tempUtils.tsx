@@ -6,7 +6,7 @@ export const matchup = {
     home_score: 1,
     away_score: 2,
     tournament: 'FIFA World Cup',
-    date: '2022-09-01',
+    date: '1998-06-23',
     city: 'Marsielle',
     country: 'France',
     goal_scorers_home: [{ name: 'Jose Oliveira', minute: 78, penalty: false, own_goal: false }],
