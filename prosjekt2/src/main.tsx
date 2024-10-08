@@ -7,6 +7,8 @@ import NotFound from './pages/NotFound.tsx';
 import Competition from './pages/Tournament.tsx';
 import { isCompetitionValid } from './utils/tournamentUtils.tsx';
 import Matchup from './pages/Matchup.tsx';
+import '@mantine/carousel/styles.css';
+
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
