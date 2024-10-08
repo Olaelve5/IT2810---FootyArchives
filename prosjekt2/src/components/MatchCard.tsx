@@ -1,25 +1,42 @@
-import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
-import  {MatchCardType}  from '../types/MatchcardType';
+import { Card, Image, Text, Badge, Group, Flex, Stack } from '@mantine/core';
+import { MatchCardType } from '../types/MatchcardType';
+import classes from '../styles/MatchCard.module.css';
+import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 
 
 export function MatchCard(props: MatchCardType) {
+    const theme = useMantineTheme();
+    const { colorScheme } = useMantineColorScheme();
+
   return (
-    <Card shadow="xs" padding="md" radius="md">
-      <Group align="center">
-        <Image src={props.HometeamFlag} alt={props.homeTeam} width={50} height={50} />
-        <Text>{props.homeTeam}</Text>
-        <Text>{props.homeScore}</Text>
-      </Group>
-      <Group align="center">
-        <Image src={props.AwayteamFlag} alt={props.awayTeam} width={50} height={50} />
-        <Text>{props.awayTeam}</Text>
-        <Text>{props.awayScore}</Text>
-      </Group>
-      <Group align="center">
+    <div className={classes.container}>
+    <Card shadow="xs" padding="md" radius="md" style={{ width: 290, height: 150, backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
+            borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6], }}>
+      <Group align="center" justify="center" mb='sm'>
+        <Badge color='primary' >{props.tournament}</Badge>
         <Text>{props.date}</Text>
-        <Badge>{props.tournament}</Badge>
       </Group>
-      <Button>Read more</Button>
+      <Flex align="center" justify="space-between">
+        <Stack align="center">
+          <Image src={props.HometeamFlag} alt={props.homeTeam} width={50} height={50} />
+          <Text>{props.homeTeam}</Text>
+        </Stack>
+        <Stack align="center">
+          <Group align="center" mb='lg'>
+            <Text>{props.homeScore}</Text>
+            <Text>-</Text>
+            <Text>{props.awayScore}</Text>
+          </Group>
+        </Stack>
+        <Stack align="center">
+          <Image src={props.AwayteamFlag} alt={props.awayTeam} width={50} height={50} />
+          <Text>{props.awayTeam}</Text>
+        </Stack>
+      </Flex>
     </Card>
+    </div>
   );
 }
+
+
+
