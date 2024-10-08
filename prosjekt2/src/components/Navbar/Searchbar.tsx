@@ -9,7 +9,7 @@ export default function Searchbar() {
 
   return (
     <Input
-      leftSection={<IconSearch size={18}/>}
+      leftSection={<IconSearch size={18} className={classes.icon}/>}
       placeholder="Search"
       variant="filled"
       size='sm'
@@ -18,7 +18,6 @@ export default function Searchbar() {
       styles={{
         input: {
             backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
-            borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6],
         },
     }}
     />
