@@ -10,7 +10,7 @@ export function MatchCard(props: MatchCardType) {
 
   return (
     <div className={classes.container}>
-    <Card shadow="xs"  padding="xs" radius="md" style={{ width: '75%', height: 150, backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
+    <Card shadow="xl"  padding="xs" radius="md" style={{ width: '75%', height: 150, backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
             borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6], }}>
       <Group align="center" justify="center" mb='sm'>
         <Badge color='primary' >{props.tournament}</Badge>
