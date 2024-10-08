@@ -9,7 +9,7 @@ export default function MatchDetails() {
   const isDark = colorScheme === 'dark';
 
   const getColor = () => {
-    return isDark ? theme.colors.darkmode[6] : 'black';
+    return isDark ? theme.colors.darkmode[8] : 'black';
   };
 
   return (

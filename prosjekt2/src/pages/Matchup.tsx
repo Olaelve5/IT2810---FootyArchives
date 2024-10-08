@@ -2,6 +2,7 @@ import MatchDetails from '../components/Matchup/MatchDetails';
 import MatchScore from '../components/Matchup/MatchScore';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
+import MatchScorers from '../components/Matchup/MatchScorers';
 
 export default function Matchup() {
   return (
@@ -11,6 +12,7 @@ export default function Matchup() {
         <Navbar />
         <MatchDetails />
         <MatchScore />
+        <MatchScorers />
       </div>
     </div>
   );
