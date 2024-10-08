@@ -18,7 +18,6 @@ export default function Searchbar() {
       styles={{
         input: {
             backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
-            borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6],
         },
     }}
     />

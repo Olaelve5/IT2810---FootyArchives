@@ -11,7 +11,7 @@ export default function ColorSchemeBtn() {
         <Button
         onClick={() => setColorScheme(colorScheme === 'dark' ? 'light' : 'dark')}
         color="primary"
-        style={{ height: '35px', width: '35px', padding: '0' }}
+        style={{ height: '35px', width: '35px', padding: '0', border: 'none' }}
         >
         {colorScheme === 'dark' ? <IconSun size={20}/> : <IconMoon size={20}/>}
         </Button>

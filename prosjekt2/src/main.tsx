@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/project2/competition/:id',
+    path: '/project2/competition/:competition-name',
     element: <App />,
     errorElement: <NotFound />,
   },

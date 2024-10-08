@@ -11,20 +11,15 @@ export default function SideBar() {
   const [selected, setSelected] = useState('Home');
   const isDark = colorScheme === 'dark';
 
-  const handleSelect = (label: string) => {
-    setSelected(label);
-  };
-
   return (
     <div
       className={classes.container}
       style={{
         backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
-        borderColor: isDark ? theme.colors.darkmode[3] : theme.colors.dark[1],
       }}
     >
       <Logo />
-      <Group className={classes.topLinks}>
+      <Group className={classes.links}>
         <div className={classes.linkContainer}>
           <Link to={'/project2'}>
             <NavLink
@@ -32,7 +27,7 @@ export default function SideBar() {
               color="primary"
               active={selected === 'Home'}
               variant="filled"
-              onClick={() => handleSelect('Home')}
+              onClick={() => setSelected('Home')}
               noWrap
               className={selected === 'Home' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
             />
@@ -45,14 +40,14 @@ export default function SideBar() {
               color="primary"
               active={selected === 'Find Matchups'}
               variant="filled"
-              onClick={() => handleSelect('Find Matchups')}
+              onClick={() => setSelected('Find Matchups')}
               noWrap
               className={selected === 'Find Matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
             />
           </Link>
         </div>
       </Group>
-      <Competitions />
+      <Competitions selected={selected} setSelected={setSelected}/>
     </div>
   );
 }
