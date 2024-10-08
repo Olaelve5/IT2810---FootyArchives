@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound.tsx';
 import Competition from './pages/Tournament.tsx';
 import { isCompetitionValid } from './utils/tournamentUtils.tsx';
+import Matchup from './pages/Matchup.tsx';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
     path: '/project2/tournament/:tournamentName',
     element: <Competition />,
     loader: isCompetitionValid,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/project2/matchup/:mathupId',
+    element: <Matchup />,
     errorElement: <NotFound />,
   },
   {
