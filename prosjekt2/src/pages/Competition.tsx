@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import SideBar from "../components/SideBar/SideBar";
+import Navbar from "../components/Navbar/Navbar";
 
 
 export default function Competition() {
@@ -12,9 +14,13 @@ export default function Competition() {
     }
 
     return (
-        <div>
+        <div className='layoutContainer'>
+          <SideBar />
+          <div className='leftContainer'>
+            <Navbar />
             <h1>{getCleanName()}</h1>
-            <p>Competition page</p>
+            <p>Info om {getCleanName()}</p> 
+          </div>
         </div>
-    );
+      );
 }

@@ -6,12 +6,12 @@ import SideBar from '../components/SideBar/SideBar';
 
 function App() {
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <div className='layoutContainer'>
       <SideBar />
-      <div style={{ width: '100%' }}>
+      <div className='leftContainer'>
         <Navbar />
         <h1>Prosjekt 2</h1>
-        <p>Velkommen til prosjekt</p>
+        <p>Velkommen til prosjekt</p> 
       </div>
     </div>
   );
