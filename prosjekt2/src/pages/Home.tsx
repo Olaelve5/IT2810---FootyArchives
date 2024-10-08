@@ -1,7 +1,9 @@
-import './styles/App.css';
+import '../styles/App.css';
 import '@mantine/core/styles.css';
-import Navbar from './components/Navbar/Navbar';
-import SideBar from './components/SideBar/SideBar';
+import Navbar from '../components/Navbar/Navbar';
+import SideBar from '../components/SideBar/SideBar';
+
+
 function App() {
   return (
     <div style={{ display: 'flex', width: '100%' }}>
