@@ -4,6 +4,8 @@ import App from './pages/Home.tsx';
 import { createTheme, MantineProvider, virtualColor } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound.tsx';
+import '@mantine/carousel/styles.css';
+
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
