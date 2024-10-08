@@ -4,6 +4,7 @@
     left: 10%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 4rem;
 }
 
 .topContainer {
