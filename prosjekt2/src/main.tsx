@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './pages/Home.tsx';
 import { createTheme, MantineProvider, virtualColor } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import NotFound from './pages/NotFound.tsx';
 
 const theme = createTheme({
   fontFamily: 'Open Sans, sans-serif',
@@ -30,17 +31,23 @@ const theme = createTheme({
 
 const router = createBrowserRouter([
   {
-    path: '/project2/',
+    path: '/project2',
     element: <App />,
-    errorElement: <div>404</div>,
+    errorElement: <NotFound />,
   },
   {
     path: '/project2/matchups',
     element: <App />,
+    errorElement: <NotFound />,
   },
   {
     path: '/project2/competition/:id',
     element: <App />,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   }
 ]);
 

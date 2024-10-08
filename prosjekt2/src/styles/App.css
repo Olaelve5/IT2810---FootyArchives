@@ -45,6 +45,11 @@
   --mantine-color-body: white !important;
   --mantine-color-text: black !important;
   transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+
+  a {
+    color: black;
+  }
+  
 }
 
 /* For dark mode */
@@ -52,6 +57,10 @@
   --mantine-color-body: rgb(29, 36, 48) !important;
   --mantine-color-text: white !important;
   transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+
+  a {
+    color: white;
+  }
 }
 
 /* Apply the transition to the body or any other element */
@@ -59,6 +68,10 @@ body {
   background-color: var(--mantine-color-body);
   color: var(--mantine-color-text);
   transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+
+  a {
+    text-decoration: none;
+  }
 }
 
 * {
