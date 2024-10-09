@@ -1,4 +1,4 @@
-import Logo from '../Navbar/Logo';
+import Logo from './Logo';
 import { Group, useMantineTheme, useMantineColorScheme, NavLink } from '@mantine/core';
 import Competitions from './Tournaments';
 import classes from '../../styles/SideBar/SideBar.module.css';

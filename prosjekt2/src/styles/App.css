@@ -4,7 +4,6 @@
   text-align: center;
 }
 
-
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -14,13 +13,13 @@
   border-radius: 10px;
 }
 
-
-
 /* For light mode */
-:root[data-mantine-color-scheme="light"] {
+:root[data-mantine-color-scheme='light'] {
   --mantine-color-body: white !important;
   --mantine-color-text: black !important;
-  transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease; /* Add transition */
 
   a {
     color: black;
@@ -32,10 +31,12 @@
 }
 
 /* For dark mode */
-:root[data-mantine-color-scheme="dark"] {
+:root[data-mantine-color-scheme='dark'] {
   --mantine-color-body: rgb(29, 36, 48) !important;
   --mantine-color-text: white !important;
-  transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease; /* Add transition */
 
   a {
     color: white;
@@ -50,7 +51,9 @@
 body {
   background-color: var(--mantine-color-body);
   color: var(--mantine-color-text);
-  transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease; /* Add transition */
   overflow-x: hidden;
   overscroll-behavior: none;
 
@@ -60,9 +63,10 @@ body {
 }
 
 * {
-  transition: background-color 0.2s ease, border 0.2s ease; 
+  transition:
+    background-color 0.2s ease,
+    border 0.2s ease;
 }
-
 
 .layoutContainer {
   display: flex;
@@ -70,5 +74,14 @@ body {
 }
 
 .rightContainer {
+  display: flex;
   width: 100%;
+  justify-content: center;
 }
+
+.rightInnerContainer {
+  max-width: 1400px;
+  padding: 0 4rem;
+}
+
+

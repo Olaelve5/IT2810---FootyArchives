@@ -1,8 +1,10 @@
 .container {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 3rem;
+  padding: 1.5rem 0rem;
   position: relative;
   margin-bottom: 1rem;
+  gap: 30%;
 }
