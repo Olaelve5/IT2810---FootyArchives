@@ -19,7 +19,7 @@
 }
 
 .buttonLight:hover {
-    background-color: var(--mantine-color-dark-1);
+    background-color: white;
 }
 
 .buttonLight:focus {
