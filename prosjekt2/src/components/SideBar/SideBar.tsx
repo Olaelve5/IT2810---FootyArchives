@@ -12,7 +12,7 @@ export default function SideBar() {
   const location = useLocation();
   const { tournamentName } = useParams<{ tournamentName: string }>(); // Get the tournament name from the URL
   const [selected, setSelected] = useState('');
-  
+
   const isDark = colorScheme === 'dark';
 
   // Set the selected link based on the current URL
@@ -37,36 +37,38 @@ export default function SideBar() {
         backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
       }}
     >
-      <Logo />
-      <Group className={classes.links}>
-        <div className={classes.linkContainer}>
-          <NavLink
-            component={Link}
-            to="/project2"
-            label="Home"
-            color="primary"
-            active={selected === 'Home'}
-            variant="filled"
-            onClick={() => setSelected('Home')}
-            noWrap
-            className={selected === 'Home' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
-          />
-        </div>
-        <div className={classes.linkContainer}>
-          <NavLink
-            component={Link}
-            to="/project2/matchups"
-            label="Find Matchups"
-            color="primary"
-            active={selected === 'Find Matchups'}
-            variant="filled"
-            onClick={() => setSelected('Find Matchups')}
-            noWrap
-            className={selected === 'Find Matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
-          />
-        </div>
-      </Group>
-      <Competitions selected={selected} setSelected={setSelected} />
+      <div>
+        <Logo />
+        <Group className={classes.links}>
+          <div className={classes.linkContainer}>
+            <NavLink
+              component={Link}
+              to="/project2"
+              label="Home"
+              color="primary"
+              active={selected === 'Home'}
+              variant="filled"
+              onClick={() => setSelected('Home')}
+              noWrap
+              className={selected === 'Home' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
+            />
+          </div>
+          <div className={classes.linkContainer}>
+            <NavLink
+              component={Link}
+              to="/project2/matchups"
+              label="Find Matchups"
+              color="primary"
+              active={selected === 'Find Matchups'}
+              variant="filled"
+              onClick={() => setSelected('Find Matchups')}
+              noWrap
+              className={selected === 'Find Matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
+            />
+          </div>
+        </Group>
+        <Competitions selected={selected} setSelected={setSelected} />
+      </div>
     </div>
   );
 }

@@ -35,5 +35,5 @@ export const matchup = {
       text: "What a performance by the goalkeeper!",
       date: "2023-10-03T18:00:00Z",
       matchId: "match125"
-    }
+    },
   ];
