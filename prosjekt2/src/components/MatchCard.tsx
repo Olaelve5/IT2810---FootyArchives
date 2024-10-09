@@ -2,6 +2,7 @@ import { Card, Image, Text, Badge, Group, Flex, Stack } from '@mantine/core';
 import { MatchCardType } from '../types/MatchcardType';
 import classes from '../styles/MatchCard.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
+import { Link } from 'react-router-dom';
 
 
 export function MatchCard(props: MatchCardType) {
@@ -9,6 +10,7 @@ export function MatchCard(props: MatchCardType) {
     const { colorScheme } = useMantineColorScheme();
 
   return (
+    <Link to={`/project2/matchup/ex`}>
     <div className={classes.container}>
     <Card shadow="xl"  padding="xs" radius="md" style={{ width: '75%', height: 150, backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
             borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6], }}>
@@ -35,6 +37,7 @@ export function MatchCard(props: MatchCardType) {
       </Flex>
     </Card>
     </div>
+    </Link>
   );
 }
 
