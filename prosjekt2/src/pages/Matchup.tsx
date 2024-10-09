@@ -11,13 +11,15 @@ export default function Matchup() {
     <div className="layoutContainer">
       <SideBar />
       <div className="rightContainer">
-        <Navbar />
-        <Group gap={10}>
-          <MatchDetails />
-          <MatchScore />
-          <MatchScorers />
-          <MatchComments />
-        </Group>
+        <div className='rightInnerContainer'>
+          <Navbar />
+          <Group gap={10}>
+            <MatchDetails />
+            <MatchScore />
+            <MatchScorers />
+            <MatchComments />
+          </Group>
+        </div>
       </div>
     </div>
   );

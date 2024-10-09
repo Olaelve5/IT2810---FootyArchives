@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     padding: 1.5rem 0rem;
-    min-height: 100dvh;
+    height: 100vh;
     min-width: 17rem;
     border-right: 1px solid;
+    position: fixed;
 }
 
 .links {

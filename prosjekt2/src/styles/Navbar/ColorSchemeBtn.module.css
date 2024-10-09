@@ -1,7 +1,5 @@
 .buttonDark {
-    height: 2.2rem;
     width: 2.2rem;
-    padding: 0;
     border: 1px solid;
     box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
 }
@@ -15,17 +13,22 @@
 }
 
 .buttonLight {
-    height: 2.2rem;
     width: 2.2rem;
-    padding: 0;
     border: 1px solid;
     box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
 }
 
 .buttonLight:hover {
-    background-color: var(--mantine-color-dark-1);
+    background-color: white;
 }
 
 .buttonLight:focus {
     outline: none;
+}
+
+.icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }

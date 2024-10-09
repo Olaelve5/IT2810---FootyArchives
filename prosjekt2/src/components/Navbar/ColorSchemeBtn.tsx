@@ -15,7 +15,11 @@ export default function ColorSchemeBtn() {
       onClick={() => setColorScheme(isDark ? 'light' : 'dark')}
       className={isDark ? classes.buttonDark : classes.buttonLight}
     >
-      {isDark ? <IconSun size={20} color='white'/> : <IconMoon size={20} color={theme.colors.dark[4]}/>}
+      {isDark ? (
+        <IconSun size={22} color="white" className={classes.icon} />
+      ) : (
+        <IconMoon size={22} color={theme.colors.dark[4]} className={classes.icon} />
+      )}
     </Button>
   );
 }

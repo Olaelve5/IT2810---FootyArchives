@@ -10,7 +10,7 @@ export default function Searchbar() {
   return (
     <Input
       leftSection={<IconSearch size={18} className={classes.icon}/>}
-      placeholder="Search"
+      placeholder="e.g. 'norway' or '1998'"
       variant="filled"
       size='sm'
       radius="xl"
