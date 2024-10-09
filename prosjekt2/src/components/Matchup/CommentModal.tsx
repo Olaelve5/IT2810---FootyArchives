@@ -39,9 +39,14 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
 
       // Add the new comment to the list of comments
       setComments([newComment, ...comments]);
-      onClose();
+      handleClose();
     }
   };
+
+  const handleClose = () => {
+    setButtonPressed(false);
+    onClose();
+  }
 
   return (
     <Modal opened={opened} onClose={onClose} title="Add comment" className={classes.container}>

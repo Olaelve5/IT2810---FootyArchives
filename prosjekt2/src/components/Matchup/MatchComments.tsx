@@ -16,12 +16,13 @@ export default function MatchComments() {
     <div className={classes.container}>
       <CommentModal opened={opened} onClose={close} comments={comments} setComments={setComments} />
       <div className={classes.topContainer}>
-        <h1 className={classes.title}>3 comments</h1>
+        <h1 className={classes.title}>{comments.length} comments</h1>
         <Button color="primary" className={classes.button} leftSection={<IconPlus size={20} />} onClick={open}>
           Add comment
         </Button>
       </div>
       <div className={classes.commentsContainer}>
+        {comments.length === 0 && <p className={classes.noComments}>No comments yet</p>}
         {comments.map((comment, index) => (
           <Comment key={index} comment={comment} />
         ))}
