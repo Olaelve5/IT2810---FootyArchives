@@ -29,11 +29,6 @@
   * {
     border-color: var(--mantine-color-dark-1) !important;
   }
-
-  button:hover {
-    background-color: white;
-  }
-  
 }
 
 /* For dark mode */

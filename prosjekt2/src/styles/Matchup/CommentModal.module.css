@@ -1,0 +1,16 @@
+.contentContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    margin-top: 2rem;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+}
+
+.button:active {
+    transform: translateX(-50%) translateY(1px);
+}
