@@ -4,6 +4,9 @@ import App from './pages/Home.tsx';
 import { createTheme, MantineProvider, virtualColor } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound.tsx';
+import Competition from './pages/Tournament.tsx';
+import { isCompetitionValid } from './utils/tournamentUtils.tsx';
+import Matchup from './pages/Matchup.tsx';
 import '@mantine/carousel/styles.css';
 
 
@@ -43,8 +46,14 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/project2/competition/:competition-name',
-    element: <App />,
+    path: '/project2/tournament/:tournamentName',
+    element: <Competition />,
+    loader: isCompetitionValid,
+    errorElement: <NotFound />,
+  },
+  {
+    path: '/project2/matchup/:mathupId',
+    element: <Matchup />,
     errorElement: <NotFound />,
   },
   {

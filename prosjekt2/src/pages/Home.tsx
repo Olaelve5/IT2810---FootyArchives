@@ -5,11 +5,12 @@ import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
 
 
+
 function App() {
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <div className='layoutContainer'>
       <SideBar />
-      <div style={{ width: '100%' }}>
+      <div className='rightContainer'>
         <Navbar />
         <h1>Prosjekt 2</h1>
         <p>Velkommen til prosjekt</p>

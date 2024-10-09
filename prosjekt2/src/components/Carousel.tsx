@@ -62,9 +62,9 @@ const matchCard6 = {
   awayTeam: 'England',
   HometeamFlag: Norge,
   AwayteamFlag: England,
-  homeScore: 2,
+  homeScore: 4,
   awayScore: 3,
-  date: '2018',
+  date: '2020',
   tournament: 'Copa America',
 };
 

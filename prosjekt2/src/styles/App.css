@@ -29,11 +29,6 @@
   * {
     border-color: var(--mantine-color-dark-1) !important;
   }
-
-  button:hover {
-    background-color: white;
-  }
-  
 }
 
 /* For dark mode */
@@ -56,6 +51,8 @@ body {
   background-color: var(--mantine-color-body);
   color: var(--mantine-color-text);
   transition: background-color 0.2s ease, color 0.2s ease; /* Add transition */
+  overflow-x: hidden;
+  overscroll-behavior: none;
 
   a {
     text-decoration: none;
@@ -64,4 +61,14 @@ body {
 
 * {
   transition: background-color 0.2s ease, border 0.2s ease; 
+}
+
+
+.layoutContainer {
+  display: flex;
+  width: 100%;
+}
+
+.rightContainer {
+  width: 100%;
 }
