@@ -29,11 +29,7 @@ function Home() {
             <h2>Biggest wins</h2>
             <MatchCardCarousel />
           </div>
-          {/* <DiscoverButton /> */}
-          <h1>Prosjekt 2</h1>
-          <p>Velkommen til prosjekt</p>
-          <CountryCard />          
-          <MatchCardCarousel />
+          {/* <DiscoverButton /> */}        
         </div>
       </div>
     </div>
