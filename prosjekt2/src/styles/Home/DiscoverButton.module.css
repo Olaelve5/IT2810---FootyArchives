@@ -6,7 +6,6 @@
 
 .root {
   border: none;
-  color: white;
   border-radius: 500px;
   margin-bottom: 2rem;
   margin-top: 0;
@@ -45,4 +44,20 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+#lightButton {
+  background: var(--mantine-color-primary-9);
+  color: rgb(255, 255, 255) !important;
+  overflow: hidden;
+}
+
+#lightButton:hover {
+  box-shadow:
+    40px 0 100px #b9d10053,
+    -40px 0 100px #00d1314b;
+}
+
+#darkButton {
+  color: white !important;
 }
