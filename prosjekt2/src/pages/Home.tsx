@@ -3,16 +3,16 @@ import '@mantine/core/styles.css';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
+import Logo from '../components/BigLogo';
 
-function App() {
+function Home() {
   return (
     <div className="layoutContainer">
       <SideBar />
       <div className="rightContainer">
         <div className="rightInnerContainer">
           <Navbar />
-          <h1>Prosjekt 2</h1>
-          <p>Velkommen til prosjekt</p>
+          <Logo />
           <MatchCardCarousel />
         </div>
       </div>
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
