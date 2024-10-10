@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
 import Logo from '../components/BigLogo';
+import classes from '../styles/Home.module.css';
 
 function Home() {
   return (
@@ -13,7 +14,10 @@ function Home() {
         <div className="rightInnerContainer">
           <Navbar />
           <Logo />
-          <MatchCardCarousel />
+          <div className={classes.carouselSection}>
+            <h2>Recent results</h2>
+            <MatchCardCarousel />
+          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export default function BigLogo() {
         <h1 className={classes.headerGreen}>Footy</h1>
         <h1 className={classes.header}>Archives</h1>
       </div>
-      <p className={classes.subHeader}>Welcome to FootyArchives! Discover and explore international matches from 1872 to 2024. </p>
+      <p className={classes.subHeader}>Discover and explore international matches from 1872 to 2024. </p>
     </div>
   );
 }
