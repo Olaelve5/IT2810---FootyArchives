@@ -8,3 +8,33 @@
   margin-bottom: 1rem;
   gap: 30%;
 }
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.languageButton {
+  overflow: hidden;
+  border-radius: 500px;
+  border: none;
+  cursor: pointer;
+  border: 1px solid;
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+}
+
+.countryImage {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-radius: 100px;
+  background-color: var(--mantine-color-darkmode-3);
+}
