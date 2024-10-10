@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.root {
+  border: none;
+  color: white;
+  border-radius: 500px;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  background-color: var(--mantine-color-darkmode-1);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: box-shadow 0.2s ease;
+}
+
+.root::after {
+  position: absolute;
+  content: '';
+  height: 107%;
+  width: 102%;
+  border-radius: 500px;
+  background: linear-gradient(45deg, var(--mantine-color-primary-6), #b9d100);
+  z-index: -1;
+}
+
+.root:hover {
+  box-shadow:
+    40px 0 100px #b9d10053,
+    -40px 0 100px #00d1314b;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

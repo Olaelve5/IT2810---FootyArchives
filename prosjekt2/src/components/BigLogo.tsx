@@ -1,4 +1,4 @@
-import classes from '../styles/BigLogo.module.css';
+import classes from '../styles/Home/BigLogo.module.css';
 
 export default function BigLogo() {
   return (

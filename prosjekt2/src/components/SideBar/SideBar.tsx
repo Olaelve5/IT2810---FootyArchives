@@ -21,8 +21,8 @@ export default function SideBar() {
 
     if (path === '/project2') {
       setSelected('Home');
-    } else if (path.startsWith('/project2/matchups')) {
-      setSelected('Find Matchups');
+    } else if (path.startsWith('/project2/discover')) {
+      setSelected('Discover');
     } else if (path.startsWith('/project2/tournament')) {
       setSelected(tournamentName || '');
     } else {
@@ -56,14 +56,14 @@ export default function SideBar() {
           <div className={classes.linkContainer}>
             <NavLink
               component={Link}
-              to="/project2/matchups"
-              label="Find Matchups"
+              to="/project2/discover"
+              label="Discover"
               color="primary"
-              active={selected === 'Find Matchups'}
+              active={selected === 'Discover'}
               variant="filled"
-              onClick={() => setSelected('Find Matchups')}
+              onClick={() => setSelected('Discover')}
               noWrap
-              className={selected === 'Find Matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
+              className={selected === 'Discover' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
             />
           </div>
         </Group>
