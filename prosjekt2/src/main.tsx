@@ -5,6 +5,7 @@ import { createTheme, MantineProvider, virtualColor } from '@mantine/core';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NotFound from './pages/NotFound.tsx';
 import Competition from './pages/Tournament.tsx';
+import Country from './pages/Country.tsx';
 import { isCompetitionValid } from './utils/tournamentUtils.tsx';
 import Matchup from './pages/Matchup.tsx';
 import '@mantine/carousel/styles.css';
@@ -59,6 +60,12 @@ const router = createBrowserRouter([
   {
     path: '*',
     element: <NotFound />,
+  },
+  {
+    path: '/project2/Country/:countryName',
+    element: <Country />,
+    errorElement: <NotFound />,
+
   }
 ]);
 
