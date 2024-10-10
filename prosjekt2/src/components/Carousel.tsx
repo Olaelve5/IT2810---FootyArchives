@@ -2,6 +2,7 @@ import { Carousel } from '@mantine/carousel';
 import { MatchCard } from './Cards/MatchCard';
 import England from '../assets/England.png';
 import Norge from '../assets/Norge.png';
+import classes from '../styles/Carousel.module.css';
 
 const matchCard1 = {
   homeTeam: 'Norway',
@@ -67,18 +68,28 @@ const matchCard6 = {
   date: '2020',
   tournament: 'Copa America',
 };
+const matchCard7 = {
+  homeTeam: 'Norway',
+  awayTeam: 'England',
+  HometeamFlag: Norge,
+  AwayteamFlag: England,
+  homeScore: 4,
+  awayScore: 3,
+  date: '2020',
+  tournament: 'Copa America',
+};
 
 function MatchcardCarousel() {
   
   return (
     <Carousel
-      withIndicators
-      height={300}
+      controlSize={30}
       slideSize="33%"
       slideGap="xs"
-      loop = {false}
+      loop={false}
       align="start"
       slidesToScroll={3}
+      classNames={classes}
     >
       <Carousel.Slide>
         <MatchCard {...matchCard1} />
@@ -97,6 +108,9 @@ function MatchcardCarousel() {
       </Carousel.Slide>
       <Carousel.Slide>
         <MatchCard {...matchCard6} />
+      </Carousel.Slide>
+      <Carousel.Slide>
+        <MatchCard {...matchCard7} />
       </Carousel.Slide>
     </Carousel>
   );
