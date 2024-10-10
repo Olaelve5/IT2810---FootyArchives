@@ -1,6 +1,6 @@
 import { Card, Image, Text, Badge, Group, Flex, Stack } from '@mantine/core';
-import { MatchCardType } from '../types/MatchcardType';
-import classes from '../styles/MatchCard.module.css';
+import { MatchCardType } from '../../types/MatchcardType';
+import classes from '../../styles/Cards/MatchCard.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 

@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { MatchCard } from './MatchCard';
+import { MatchCard } from './Cards/MatchCard';
 import England from '../assets/England.png';
 import Norge from '../assets/Norge.png';
 
@@ -69,6 +69,7 @@ const matchCard6 = {
 };
 
 function MatchcardCarousel() {
+  
   return (
     <Carousel
       withIndicators

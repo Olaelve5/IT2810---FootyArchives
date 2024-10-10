@@ -3,6 +3,7 @@ import '@mantine/core/styles.css';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
+import { CountryCard } from '../components/Cards/CountryCard';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Navbar />
           <h1>Prosjekt 2</h1>
           <p>Velkommen til prosjekt</p>
+          <CountryCard />          
           <MatchCardCarousel />
         </div>
       </div>
