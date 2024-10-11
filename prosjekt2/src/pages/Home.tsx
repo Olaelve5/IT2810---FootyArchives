@@ -6,7 +6,6 @@ import MatchCardCarousel from '../components/Carousel';
 import Logo from '../components/BigLogo';
 import classes from '../styles/Home/Home.module.css';
 import DiscoverButton from '../components/DiscoverButton';
-import { CountryCard } from '../components/Cards/CountryCard';
 
 function Home() {
   return (
