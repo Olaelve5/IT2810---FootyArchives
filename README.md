@@ -2,6 +2,8 @@
 This project is powered by React and Vite and will use a dataset to show every international football match played from 1872 to 2024!
 The project can be viewed here: (sett inn link)
 
+This is a work in progress, and a wide range of aspects to this project still needs work (database, searching and filtering, styling of light mode etc..)
+
 
 ## Project - Build and run tests :gear: :wrench:
 ### Build and run the project
