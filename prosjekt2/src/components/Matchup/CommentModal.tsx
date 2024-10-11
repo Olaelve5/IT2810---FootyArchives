@@ -3,6 +3,7 @@ import { CommentType } from '../../types/comment';
 import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import classes from '../../styles/Matchup/CommentModal.module.css';
+import { useLanguageStore } from '../../stores/language-store';
 
 interface CommentModalProps {
   opened: boolean;
@@ -15,6 +16,7 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
+  const language = useLanguageStore((state) => state.language);
 
   const [commentText, setCommentText] = useState('');
   const [username, setUsername] = useState('');
@@ -46,14 +48,21 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
   const handleClose = () => {
     setButtonPressed(false);
     onClose();
-  }
+  };
 
   return (
-    <Modal opened={opened} onClose={onClose} title="Add comment" className={classes.container}>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title={language === 'en' ? 'Add comment' : 'Legg til kommentar'}
+      className={classes.container}
+    >
       <TextInput
-        label="Username"
+        label={language === 'en' ? 'Username' : 'Brukernavn'}
         required
-        error={buttonPressed && !username ? 'Username is required' : null}
+        error={
+          buttonPressed && !username ? (language === 'en' ? 'Username is required' : 'Brukernavn er påkrevd') : null
+        }
         value={username}
         onChange={(event) => {
           setUsername(event.currentTarget.value);
@@ -69,10 +78,12 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
         }}
       />
       <Textarea
-        label="Comment"
+        label={language === 'en' ? 'Comment' : 'Kommentar'}
         required
         value={commentText}
-        error={buttonPressed && !commentText ? 'Comment is required' : null}
+        error={
+          buttonPressed && !commentText ? (language === 'en' ? 'Comment is required' : 'Kommentar er påkrevd') : null
+        }
         onChange={(event) => {
           setCommentText(event.currentTarget.value);
           setButtonPressed(false);
@@ -83,8 +94,8 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
           },
         }}
       />
-      <Button color="primary" onClick={handleClick} className={classes.button}>
-        Post comment
+      <Button radius={100} color="primary" onClick={handleClick} className={classes.button}>
+        {language === 'en' ? 'Post comment' : 'Post kommentar'}
       </Button>
     </Modal>
   );

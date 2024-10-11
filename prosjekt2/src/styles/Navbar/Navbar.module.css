@@ -8,3 +8,66 @@
   margin-bottom: 1rem;
   gap: 30%;
 }
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+.languageButtonDark {
+  overflow: hidden;
+  border-radius: 500px;
+  cursor: pointer;
+  border: 1px solid;
+  display: flex;
+}
+
+.languageButtonLight {
+  overflow: hidden;
+  border-radius: 500px;
+  cursor: pointer;
+  border: 1px solid;
+  display: flex;
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+.languageButtonLight:hover {
+  background: white;
+}
+
+.languageButtonDropdown {
+  border: none;
+}
+
+.languageButtonDropdownLight {
+  border: none;
+}
+
+.languageButtonDropdownLight:hover {
+  background: var(--mantine-color-primary-3);
+}
+
+.countryImage {
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid white;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background-color: var(--mantine-color-darkmode-2);
+}
+
+#dropdownLight {
+  background-color: white;
+}
+
+.chevron {
+  transition: all 0.15s ease;
+}

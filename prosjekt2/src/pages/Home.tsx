@@ -28,7 +28,6 @@ function Home() {
             <h2>Biggest wins</h2>
             <MatchCardCarousel />
           </div>
-          {/* <DiscoverButton /> */}        
         </div>
       </div>
     </div>

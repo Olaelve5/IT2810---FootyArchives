@@ -4,10 +4,12 @@ import Competitions from './Tournaments';
 import classes from '../../styles/SideBar/SideBar.module.css';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLanguageStore } from '../../stores/language-store';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
+  const language = useLanguageStore((state) => state.language);
 
   const location = useLocation();
   const { tournamentName } = useParams<{ tournamentName: string }>(); // Get the tournament name from the URL
@@ -44,7 +46,7 @@ export default function SideBar() {
             <NavLink
               component={Link}
               to="/project2"
-              label="Home"
+              label={language === 'en' ? 'Home' : 'Hjem'}
               color="primary"
               active={selected === 'Home'}
               variant="filled"
@@ -57,7 +59,7 @@ export default function SideBar() {
             <NavLink
               component={Link}
               to="/project2/discover"
-              label="Discover"
+              label={language === 'en' ? 'Discover' : 'Oppdag'}
               color="primary"
               active={selected === 'Discover'}
               variant="filled"
