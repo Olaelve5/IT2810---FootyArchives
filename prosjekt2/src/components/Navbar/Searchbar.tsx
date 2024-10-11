@@ -1,6 +1,6 @@
 import { Input } from '@mantine/core';
 import {IconSearch} from '@tabler/icons-react';
-import classes from '../../styles/Searchbar.module.css';
+import classes from '../../styles/NavBar/Searchbar.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 

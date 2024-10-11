@@ -1,0 +1,10 @@
+.inputField {
+    &::placeholder {
+        color: #a2abb5;
+    }
+}
+
+.pill {
+    background-color: var(--mantine-color-primary-9);
+    color: white;
+}
