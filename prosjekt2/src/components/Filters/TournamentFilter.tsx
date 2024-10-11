@@ -1,7 +1,7 @@
 import { MultiSelect } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { useState } from 'react';
-import classes from '../../styles/Filters/TournamentFilter.module.css';
+import classes from '../../styles/Filters/MultiSelect.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
 
@@ -25,21 +25,13 @@ function TournamentFilter() {
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
 
-  const placeholder = () => {
-    if (language === 'en') {
-      return value.length > 0 ? '' : 'Select one or more tournaments';
-    } else {
-      return value.length > 0 ? '' : 'Velg en eller flere turneringer';
-    }
-  }
-
   return (
     <MultiSelect
       classNames={classes}
       onChange={setValue}
       radius="xl"
       label={language === 'en' ? 'Tournaments' : 'Turneringer'}
-      placeholder={placeholder()}
+      placeholder={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
       data={options}
       clearable
       value={value}
