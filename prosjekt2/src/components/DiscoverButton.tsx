@@ -10,9 +10,9 @@ export default function DiscoverButton() {
 
   return (
     <div className={classes.container}>
-      <Link to={'/project2/discover'}>
+      <Link to={'/project2/matchups'}>
         <button className={classes.root} id={isDark ? classes.darkButton : classes.lightButton}>
-          {language === 'en' ? 'Discover matchups' : 'Oppdag kamper'}
+          {language === 'en' ? 'Browse matchups' : 'Utforsk kamper'}
         </button>
       </Link>
     </div>
