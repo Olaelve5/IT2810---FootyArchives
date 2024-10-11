@@ -9,6 +9,7 @@ import Country from './pages/Country.tsx';
 import { isCompetitionValid } from './utils/tournamentUtils.tsx';
 import Matchup from './pages/Matchup.tsx';
 import '@mantine/carousel/styles.css';
+import Matchups from './pages/Matchups.tsx';
 
 
 const theme = createTheme({
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/project2/matchups',
-    element: <App />,
+    element: <Matchups />,
     errorElement: <NotFound />,
   },
   {

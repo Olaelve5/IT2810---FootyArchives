@@ -1,6 +1,6 @@
 import { Input } from '@mantine/core';
 import {IconSearch} from '@tabler/icons-react';
-import classes from '../../styles/Searchbar.module.css';
+import classes from '../../styles/NavBar/Searchbar.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 
@@ -12,7 +12,7 @@ export default function Searchbar() {
   return (
     <Input
       leftSection={<IconSearch size={18} className={classes.icon}/>}
-      placeholder={language === 'en' ? 'Search for a team or a matchup' : 'Søk etter et lag eller en kamp'}
+      placeholder={language === 'en' ? 'Search for a nation or a matchup' : 'Søk etter en nasjon eller en kamp'}
       variant="filled"
       size='sm'
       radius="xl"

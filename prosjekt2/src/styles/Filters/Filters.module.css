@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid;
+  margin-top: 3rem;
+}
+
+.innerContainer {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 55% 42%;
+  align-items: center;
+  justify-content: space-between;
+}
