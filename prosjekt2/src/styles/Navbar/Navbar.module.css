@@ -17,24 +17,28 @@
 .languageButton {
   overflow: hidden;
   border-radius: 500px;
-  border: none;
   cursor: pointer;
   border: 1px solid;
-  width: 2.2rem !important;
-  height: 2.2rem !important;
+  display: flex;
+}
+
+.languageButtonDropdown {
+  border: none;
 }
 
 .countryImage {
-  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 50%;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: 60px;
+  border: 1px solid white;
 }
 
 .dropdown {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  border-radius: 100px;
-  background-color: var(--mantine-color-darkmode-3);
+  background-color: var(--mantine-color-darkmode-2);
 }
