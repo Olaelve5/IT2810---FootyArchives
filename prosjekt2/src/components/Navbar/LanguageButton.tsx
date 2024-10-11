@@ -4,17 +4,24 @@ import UKFlag from '../../assets/images/uk.jpg';
 import NorwayFlag from '../../assets/images/no.jpg';
 import { Menu } from '@mantine/core';
 import { useState } from 'react';
+import { useLanguageStore } from '../../stores/language-store';
+import { Language } from '../../types/language';
 
 export default function LanguageButton() {
-    const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState('en');
+  const [opened, setOpened] = useState(false);
+  const language = useLanguageStore((state) => state.language);
+  const setLanguage = useLanguageStore((state) => state.setLanguage);
 
-  const handleSelect = (value: string) => {
-    setSelected(value);
+  const handleSelect = (value: Language) => {
+    if (value === language) {
+        setOpened(false);
+        return;
+    }
+    setLanguage(value);
     setOpened(false);
   };
 
-  const languageImage = selected === 'en' ? UKFlag : NorwayFlag;
+  const languageImage = language === 'en' ? UKFlag : NorwayFlag;
 
   return (
     <Menu opened={opened} onChange={setOpened}>
