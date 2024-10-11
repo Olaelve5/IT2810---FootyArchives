@@ -3,21 +3,35 @@ import '@mantine/core/styles.css';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
+import Logo from '../components/BigLogo';
+import classes from '../styles/Home/Home.module.css';
+import DiscoverButton from '../components/DiscoverButton';
 
-function App() {
+function Home() {
   return (
     <div className="layoutContainer">
       <SideBar />
       <div className="rightContainer">
         <div className="rightInnerContainer">
           <Navbar />
-          <h1>Prosjekt 2</h1>
-          <p>Velkommen til prosjekt</p>
-          <MatchCardCarousel />
+          <Logo />
+          <DiscoverButton />
+          <div className={classes.carouselSection}>
+            <h2>Top teams</h2>
+            <MatchCardCarousel />
+          </div>
+          <div className={classes.carouselSection}>
+            <h2>Recent matchups</h2>
+            <MatchCardCarousel />
+          </div>
+          <div className={classes.carouselSection}>
+            <h2>Biggest wins</h2>
+            <MatchCardCarousel />
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default App;
+export default Home;

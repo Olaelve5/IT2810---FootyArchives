@@ -11,6 +11,7 @@ export default function ColorSchemeBtn() {
 
   return (
     <Button
+    radius={100}
       color={isDark ? theme.colors.darkmode[2] : 'white'}
       onClick={() => setColorScheme(isDark ? 'light' : 'dark')}
       className={isDark ? classes.buttonDark : classes.buttonLight}
