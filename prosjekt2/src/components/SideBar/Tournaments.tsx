@@ -1,6 +1,7 @@
 import classes from '../../styles/SideBar/SideBar.module.css';
 import { Group, NavLink, Text, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
+import { useLanguageStore } from '../../stores/language-store';
 
 const data = [
   {
@@ -33,6 +34,7 @@ interface CompetitionsProps {
 export default function Tournaments({ selected, setSelected }: CompetitionsProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+  const language = useLanguageStore((state) => state.language);
 
   const links = data.map((item) => {
     return (
@@ -55,7 +57,7 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
   return (
     <div className={classes.container}>
       <div className={classes.subTitleContainer}>
-        <Text size="xs">Tournaments</Text>
+        <Text size="xs">{language === 'en' ? 'Tournaments' : 'Turneringer'}</Text>
       </div>
       <Group className={classes.links} style={{ border: 'none' }}>
         {links}
