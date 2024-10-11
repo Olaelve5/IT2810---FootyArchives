@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.numbersContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+  align-items: center;
+  padding: 0;
+  p {
+    font-size: 2rem;
+  }
+}
+
+.numberInputDark {
+  text-align: center;
+  background-color: var(--mantine-color-darkmode-2);
+  margin: 0;
+}
+
+.label {
+    color: #a2abb5;
+}
+
+.numberInputLight {
+  text-align: center;
+}
+
+.track {
+  background-color: var(--mantine-color-darkmode-2) !important;
+}
+
+.mark {
+  background: transparent;
+  border: none;
+}
+
+.markLabelDark {
+  color: #a2abb5;
+}
+
+.thumb {
+  background-color: var(--mantine-color-cyan-8);
+  border-color: white !important;
+}

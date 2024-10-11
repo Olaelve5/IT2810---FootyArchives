@@ -3,6 +3,7 @@ import { useLanguageStore } from '../../stores/language-store';
 import classes from '../../styles/Filters/MultiSelect.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 
 const optionsFilter: OptionsFilter = ({ options, search }) => {
   const splittedSearch = search.toLowerCase().trim().split(' ');
@@ -21,9 +22,10 @@ export default function CountryFilter() {
   return (
     <MultiSelect
       classNames={classes}
-      label={language === 'en' ? 'Teams' : 'Lag'}
-      placeholder={language === 'en' ? 'Select one or more teams' : 'Velg ett eller flere lag'}
-      data={['Norway', 'Brazil', 'France']}
+      leftSection={<IconSearch size={18} className={classes.icon} />}
+      label={language === 'en' ? 'Nations' : 'Nasjoner'}
+      placeholder={language === 'en' ? 'Select one or more nation' : 'Velg en eller flere nasjoner'}
+      data={['Norway', 'Brazil', 'France', 'Germany', 'Spain']}
       filter={optionsFilter}
       searchable
       clearable
