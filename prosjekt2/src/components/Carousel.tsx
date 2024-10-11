@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { MatchCard } from './MatchCard';
+import { MatchCard } from './Cards/MatchCard';
 import England from '../assets/England.png';
 import Norge from '../assets/Norge.png';
 import classes from '../styles/Carousel.module.css';
@@ -80,6 +80,7 @@ const matchCard7 = {
 };
 
 function MatchcardCarousel() {
+  
   return (
     <Carousel
       controlSize={30}
