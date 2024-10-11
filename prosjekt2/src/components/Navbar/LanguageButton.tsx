@@ -8,7 +8,7 @@ import { useLanguageStore } from '../../stores/language-store';
 import { Language } from '../../types/language';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
-import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 
 export default function LanguageButton() {
   const [opened, setOpened] = useState(false);
@@ -30,24 +30,35 @@ export default function LanguageButton() {
   const languageImage = language === 'en' ? UKFlag : NorwayFlag;
 
   return (
-    <Menu opened={opened} onChange={setOpened} radius={10}>
+    <Menu opened={opened} onChange={setOpened} radius={10} shadow='lg'>
       <Menu.Target>
         <Button
-          rightSection={opened ? <IconChevronUp size={20} /> : <IconChevronDown size={20} />}
+          rightSection={
+            <IconChevronDown
+              size={20}
+              className={classes.chevron}
+              style={{
+                transform: opened ? 'rotate(-180deg)' : 'rotate(0deg)',
+              }}
+            />
+          }
           leftSection={<Image src={languageImage} alt={'UK flag'} className={classes.countryImage} />}
-          className={classes.languageButton}
+          className={isDark ? classes.languageButtonDark : classes.languageButtonLight}
+          id={isDark ? classes.darkButton : classes.lightButton}
           color={isDark ? theme.colors.darkmode[2] : 'white'}
+          c={isDark ? 'white' : theme.colors.darkmode[2]}
         >
           <h4>{language === 'en' ? 'EN' : 'NO'}</h4>
         </Button>
       </Menu.Target>
 
-      <Menu.Dropdown className={classes.dropdown}>
+      <Menu.Dropdown className={classes.dropdown} id={isDark ? classes.dropdownDark : classes.dropdownLight}>
         <Button
           leftSection={<Image src={UKFlag} alt={'UK flag'} className={classes.countryImage} />}
-          className={classes.languageButtonDropdown}
+          className={isDark ? classes.languageButtonDropdown : classes.languageButtonDropdownLight}
           onClick={() => handleSelect('en')}
           color={isDark ? theme.colors.darkmode[2] : 'white'}
+          c={isDark ? 'white' : theme.colors.darkmode[2]}
         >
           EN
         </Button>
@@ -55,7 +66,8 @@ export default function LanguageButton() {
           leftSection={<Image src={NorwayFlag} alt={'UK flag'} className={classes.countryImage} />}
           onClick={() => handleSelect('no')}
           color={isDark ? theme.colors.darkmode[2] : 'white'}
-          className={classes.languageButtonDropdown}
+          className={isDark ? classes.languageButtonDropdown : classes.languageButtonDropdownLight}
+          c={isDark ? 'white' : theme.colors.darkmode[2]}
         >
           NO
         </Button>
