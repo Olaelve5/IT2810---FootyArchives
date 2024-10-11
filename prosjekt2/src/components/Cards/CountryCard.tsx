@@ -5,10 +5,10 @@ import Norge from '../../assets/Norge.png';
 const Norway = {
   country: 'Norway',
   flag: Norge,
-  totalGames: 862,
-  wins: 531,
-  draws: 109,
-  losses: 222,
+  totalGames: 130,
+  wins: 100,
+  draws: 20,
+  losses: 10,
 };
 
 export function CountryCard() {
@@ -22,30 +22,34 @@ export function CountryCard() {
         padding="xs"
         radius="md"
         style={{
-          width: '24%', // Adjust card width for better scaling
-          height: 150, // Adjust card height to accommodate new text
-          backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
-          borderColor: colorScheme === 'dark' ? theme.colors.darkmode[3] : theme.colors.darkmode[6],
+          width: '100%', // Adjust card width for better scaling
+          height: 300, // Adjust card height to accommodate new text
+          backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[0] : 'white',
+          borderColor: colorScheme === 'dark' ? theme.colors.darkmode[0] : theme.colors.darkmode[0],
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {/* Top section: Flag and Country Name */}
-        <Group align="center" style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
-          <Image src={Norway.flag} alt={Norway.country} width={55} height={55} />
-          <Text size="xl" style={{ marginLeft: '10px', fontWeight: 'bold' }}>
-            {Norway.country}
-          </Text>
-        </Group>
-
-        {/* Middle section: Total games played */}
-        <Text size="md" color="#a9a9a9" style={{ marginBottom: '10px', marginTop: '15px' }}>
-          {Norway.totalGames} games
-        </Text>
-
-        {/* Bottom section: Wins, Draws, and Losses */}
-        <Group align="center" style={{ justifyContent: 'center' }}>
-          <Text size="sm">{Norway.wins} W</Text>
-          <Text size="sm">{Norway.draws} D</Text>
-          <Text size="sm">{Norway.losses} L</Text>
+        <Group align="center" style={{ display: 'flex', }}>
+          <Image src={Norway.flag} alt={Norway.country} width={180} height={180} />
+          <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Text size="xl" style={{ fontWeight: 'bold' }}>
+              {Norway.country}
+            </Text>
+            <Text size="md" color="#a9a9a9" style={{ marginBottom: '10px', marginTop: '15px' }}>
+              {Norway.totalGames} games
+            </Text>
+            <Group align="center" style={{ justifyContent: 'center' }}>
+              <Text size="sm" style={{ marginRight: '10px' }}>
+                {Norway.wins} W
+              </Text>
+              <Text size="sm" style={{ marginRight: '10px' }}>
+                {Norway.draws} D
+              </Text>
+              <Text size="sm">{Norway.losses} L</Text>
+            </Group>
+          </div>
         </Group>
       </Card>
     </div>

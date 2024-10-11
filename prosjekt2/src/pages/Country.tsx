@@ -15,7 +15,6 @@ function Country() {
       <div className="rightContainer">
         <div className="rightInnerContainer">
           <Navbar />
-          <Logo />
           <CountryCard />
           <div className={classes.carouselSection}>
             <h2>Recent matchups</h2>
