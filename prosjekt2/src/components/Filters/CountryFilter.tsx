@@ -24,7 +24,7 @@ export default function CountryFilter() {
       classNames={classes}
       leftSection={<IconSearch size={18} className={classes.icon} />}
       label={language === 'en' ? 'Nations' : 'Nasjoner'}
-      placeholder={language === 'en' ? 'Select one or more nation' : 'Velg en eller flere nasjoner'}
+      placeholder={language === 'en' ? 'Search for one or more nation' : 'Søk etter en eller flere nasjoner'}
       data={['Norway', 'Brazil', 'France', 'Germany', 'Spain']}
       filter={optionsFilter}
       searchable

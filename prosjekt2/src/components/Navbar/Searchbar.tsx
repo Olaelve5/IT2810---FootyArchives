@@ -12,7 +12,7 @@ export default function Searchbar() {
   return (
     <Input
       leftSection={<IconSearch size={18} className={classes.icon}/>}
-      placeholder={language === 'en' ? 'Search for a team or a matchup' : 'Søk etter et lag eller en kamp'}
+      placeholder={language === 'en' ? 'Search for a nation or a matchup' : 'Søk etter en nasjon eller en kamp'}
       variant="filled"
       size='sm'
       radius="xl"
