@@ -3,83 +3,43 @@ import { MatchCard } from './Cards/MatchCard';
 import England from '../assets/England.png';
 import Norge from '../assets/Norge.png';
 import classes from '../styles/Carousel.module.css';
+import { GET_RESULTS } from '../graphql/queries';
+import { useQuery } from '@apollo/client';
+import { ResultType } from '../types/Result';
 
-const matchCard1 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 0,
-  awayScore: 0,
-  date: '2002',
-  tournament: 'World Cup',
-};
 
-const matchCard2 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 1,
-  awayScore: 2,
-  date: '2006',
-  tournament: 'Euro Cup',
-};
-
-const matchCard3 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 1,
-  awayScore: 7,
-  date: '2014',
-  tournament: 'World Cup',
-};
-
-const matchCard4 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 0,
-  awayScore: 1,
-  date: '2016',
-  tournament: 'Euro Cup',
-};
-
-const matchCard5 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 2,
-  awayScore: 3,
-  date: '2018',
-  tournament: 'Copa America',
-};
-const matchCard6 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 4,
-  awayScore: 3,
-  date: '2020',
-  tournament: 'Copa America',
-};
-const matchCard7 = {
-  homeTeam: 'Norway',
-  awayTeam: 'England',
-  HometeamFlag: Norge,
-  AwayteamFlag: England,
-  homeScore: 4,
-  awayScore: 3,
-  date: '2020',
-  tournament: 'Copa America',
-};
 
 function MatchcardCarousel() {
+  const {loading, error, data} = useQuery(GET_RESULTS, {
+    variables: {amount: 10}
+  })
+
+  if(loading || error) {
+    return null;
+  }
+
+  const slides = data.results.map((result: ResultType) => {
+    return (
+      <Carousel.Slide key={result._id}>
+        <MatchCard
+          _id={result._id}
+          home_team={result.home_team}
+          away_team={result.away_team}
+          home_score={result.home_score}
+          HometeamFlag={England}
+          AwayteamFlag={Norge}
+          away_score={result.away_score}
+          tournament={result.tournament}
+          city={result.city}
+          country={result.country}
+          neutral={result.neutral}
+          date={result.date}
+        />
+      </Carousel.Slide>
+    )
+  })
+
+
   
   return (
     <Carousel
@@ -91,27 +51,7 @@ function MatchcardCarousel() {
       slidesToScroll={3}
       classNames={classes}
     >
-      <Carousel.Slide>
-        <MatchCard {...matchCard1} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard2} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard3} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard4} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard5} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard6} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <MatchCard {...matchCard7} />
-      </Carousel.Slide>
+      {slides}
     </Carousel>
   );
 }

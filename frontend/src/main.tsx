@@ -6,7 +6,7 @@ import '@mantine/carousel/styles.css';
 import theme from './config/theme.ts';
 import router from './config/router.tsx';
 import { ApolloProvider } from '@apollo/client';
-import client from './apollo/apolloClient.ts';
+import client from './graphql/apolloClient.ts';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
