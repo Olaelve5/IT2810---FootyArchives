@@ -1,6 +1,7 @@
 import { ObjectId } from 'mongodb';
 import { model, Schema } from "mongoose";
 
+// Scheme for the results collection in the MongoDB database
 const matchupSchema = new Schema({
   _id: {
     type: ObjectId,
@@ -44,6 +45,7 @@ const matchupSchema = new Schema({
   },
 });
 
+// Model for the results collection in the MongoDB database
 const Result = model("Result", matchupSchema, 'results');
 
 export default Result;

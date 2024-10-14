@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server';
 
+// Define the GraphQL schema - the types and queries
 const typeDefs = gql`
   type Result {
     _id: ID!

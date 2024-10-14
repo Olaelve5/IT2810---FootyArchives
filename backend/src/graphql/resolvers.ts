@@ -6,6 +6,7 @@ interface Args {
   _id?: string;
 }
 
+// Resolvers for the GraphQL queries
 const resolvers = {
   Query: {
     results: async (_: any, { amount }: Args) => {
@@ -18,7 +19,6 @@ const resolvers = {
       }
 
       const objectId = new ObjectId(_id);
-      console.log(objectId);
       const result = await Result.findOne({ _id: objectId });
 
       if (!result) {
