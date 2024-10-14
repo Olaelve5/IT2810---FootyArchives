@@ -1,9 +1,9 @@
-import { gql } from 'apollo-server'
+import { gql } from 'apollo-server';
 
-module.exports = gql`
-type Matchup {
-    id: ID!
-    date: String
+const typeDefs = gql`
+  type Result {
+    _id: ID!
+    date: String!
     home_team: String!
     away_team: String!
     home_score: Int!
@@ -12,13 +12,12 @@ type Matchup {
     city: String
     country: String
     neutral: Boolean
-}
+  }
 
-type Query {
-    matchups(amount: Int): [Matchup]
-    matchup(id: ID!): Matchup
-}
+  type Query {
+    results(amount: Int): [Result]
+    result(_id: ID!): Result!
+  }
+`;
 
-
-
-`
+export default typeDefs;

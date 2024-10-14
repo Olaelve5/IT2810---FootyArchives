@@ -1,13 +1,14 @@
+import { ObjectId } from 'mongodb';
 import { model, Schema } from "mongoose";
 
 const matchupSchema = new Schema({
-  id: {
-    type: String,
-    required: false,
+  _id: {
+    type: ObjectId,
+    required: true,
   },
   date: {
     type: Date,
-    required: false,
+    required: true,
   },
   home_team: {
     type: String,
@@ -43,6 +44,6 @@ const matchupSchema = new Schema({
   },
 });
 
-const Matchup = model("Matchup", matchupSchema);
+const Result = model("Result", matchupSchema, 'results');
 
-export default Matchup;
+export default Result;
