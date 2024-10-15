@@ -11,7 +11,7 @@ export function MatchCard(props: ResultType) {
   const date = formatDate(props.date);
 
   return (
-    <Link to={`/project2/matchup/ex`}>
+    <Link to={`/project2/matchup/${props._id}`}>
       <div className={classes.container}>
         <Card
           shadow="xl"
