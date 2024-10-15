@@ -20,6 +20,7 @@
     "chroma-js": "^3.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^7.1.0",
+    "flag-icons": "^7.2.3",
     "graphql": "^16.9.0",
     "prosjekt2": "file:",
     "react": "^18.3.1",
