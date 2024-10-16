@@ -7,10 +7,14 @@ import { ResultType } from '../types/Result';
 
 function MatchcardCarousel() {
   const { loading, error, data } = useQuery(GET_RESULTS, {
-    variables: { amount: 10 },
+    variables: { amount: 12 },
   });
 
-  if (loading || error) {
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
     return <p> Data not found</p>;
   }
 
@@ -24,12 +28,13 @@ function MatchcardCarousel() {
 
   return (
     <Carousel
+      containScroll="keepSnaps"
       controlSize={30}
-      slideSize="33%"
-      slideGap="xs"
+      slideSize="1%"
+      slideGap="xl"
       loop={false}
       align="start"
-      slidesToScroll={3}
+      slidesToScroll="auto"
       classNames={classes}
     >
       {slides}

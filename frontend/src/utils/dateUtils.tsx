@@ -42,5 +42,5 @@ export const formatDate = (date: string): string => {
     return 'Invalid Date';
   }
 
-  return format(dateObj, 'dd/MM/yyyy');
+  return format(dateObj, 'dd.MM.yyyy');
 };

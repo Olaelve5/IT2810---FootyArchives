@@ -1,6 +1,11 @@
 .control {
-    &[data-inactive] {
-      opacity: 0;
-      cursor: default;
-    }
+  &[data-inactive] {
+    opacity: 0;
+    cursor: default;
   }
+}
+
+
+.viewPort {
+  overflow: visible;
+}
