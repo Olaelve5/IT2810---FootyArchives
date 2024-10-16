@@ -12,15 +12,21 @@
   align-items: center;
   border: 1px solid;
   gap: 1rem;
-  padding: 1rem 1rem;
+  padding: 1rem 1rem 2rem 1rem;
   width: 15rem;
   max-width: 15rem;
-  box-shadow: 0 0 10px -5px rgb(0, 0, 0);
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
 }
 
-.card:hover {
+#darkCard:hover {
   background-color: var(--mantine-color-darkmode-2) !important;
   border-color: var(--mantine-color-darkmode-8);
+}
+
+#lightCard:hover {
+  background-color: rgb(255, 255, 255) !important;
+  border-color: var(--mantine-color-primary-4) !important;
+  box-shadow: 0 0 10px -5px rgb(0, 0, 0) !important;
 }
 
 .dateTournamentContainer {

@@ -24,7 +24,9 @@ export function MatchCard(props: ResultType) {
       <Card
         padding="xs"
         radius="md"
+        shadow='xl'
         className={classes.card}
+        id={isDark ? classes.darkCard : classes.lightCard}
         style={{
           backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
         }}
@@ -62,9 +64,6 @@ export function MatchCard(props: ResultType) {
             <span className={`fi fi-${countryCodes[1]}`} id={classes.image}></span>
           </div>
         </Group>
-        <Text size="sm" className={isDark ? classes.darkText : classes.lightText}>
-          {props.city}, {props.country}
-        </Text>
       </Card>
     </Link>
   );
