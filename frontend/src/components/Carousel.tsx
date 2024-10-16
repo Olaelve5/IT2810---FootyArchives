@@ -4,36 +4,18 @@ import classes from '../styles/Carousel.module.css';
 import { GET_RESULTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { ResultType } from '../types/Result';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useMantineColorScheme } from '@mantine/core';
+import { useMantineTheme } from '@mantine/core';
 
 function MatchcardCarousel() {
-  const [showGradient, setShowGradient] = useState(false);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
   const { loading, error, data } = useQuery(GET_RESULTS, {
     variables: { amount: 12 },
   });
 
-  const handleScroll = useCallback(() => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setShowGradient(scrollLeft + clientWidth < scrollWidth);
-      console.log(showGradient);
-    }
-  }, [showGradient]);
-
-  useEffect(() => {
-    const carouselNode = carouselRef.current; // Copy the ref value to a local variable
-    handleScroll(); // Initial check
-    if (carouselNode) {
-      carouselNode.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-      if (carouselNode) {
-        carouselNode.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [handleScroll]);
-
+  
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -52,14 +34,16 @@ function MatchcardCarousel() {
 
   return (
     <Carousel
-      ref={carouselRef}
       slideSize="1%"
       slideGap="lg"
       loop={false}
       align="start"
       slidesToScroll="auto"
       classNames={classes}
-      onSlideChange={(index) => console.log(index)}
+      styles={{ control: {
+        backgroundColor: isDark ? 'white' : theme.colors.darkmode[1],
+        color: isDark ? '' : 'white',
+      } }}
     >
       {slides}
     </Carousel>
