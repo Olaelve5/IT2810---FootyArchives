@@ -12,3 +12,22 @@
 .icon {
     color: #a2abb5;
 }
+
+.darkDropdown {
+    background-color: var(--mantine-color-darkmode-2);
+    color: #fff;
+}
+
+.lightDropdown {
+    background-color: #fff;
+    color: #000;
+}
+
+.option {
+    display: flex;
+    gap: 10px;
+}
+
+#optionDark:hover {
+    background-color: var(--mantine-color-darkmode-3);
+}

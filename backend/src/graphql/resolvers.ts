@@ -34,6 +34,10 @@ const resolvers = {
 
     // This resolver is used to search for teams
     searchTeams: async (_: any, { teamName }: Args) => {
+      if (!teamName) {
+        return [];
+      }
+
       const pipeline: PipelineStage[] = [
         {
           $group: {
