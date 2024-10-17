@@ -6,7 +6,5 @@ export const getCountryCode = (countries: string[]) => {
     return countryObj?.Code.toLowerCase();
   });
 
-  console.log(countries, countryCodes);
-
   return countryCodes;
 };

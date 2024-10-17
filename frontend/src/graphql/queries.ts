@@ -16,3 +16,11 @@ export const GET_RESULTS = gql`
     }
   }
 `;
+
+
+export const SEARCH_TEAMS = gql`
+  query SearchTeams($teamName: String) {
+    searchTeams(teamName: $teamName)
+  }
+`;
+

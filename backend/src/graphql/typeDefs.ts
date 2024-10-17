@@ -18,6 +18,7 @@ const typeDefs = gql`
   type Query {
     results(amount: Int): [Result]
     result(_id: ID!): Result!
+    searchTeams(teamName: String): [String]
   }
 `;
 
