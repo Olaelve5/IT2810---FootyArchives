@@ -14,10 +14,26 @@ const typeDefs = gql`
     country: String
     neutral: Boolean
   }
+  type Goalscorer {
+    _id: ID!
+    home_team: String!
+    away_team: String!
+    minute: Int!
+    own_goal: Boolean
+    penalty: Boolean
+    scorer: String!
+    team: String!
+    date: String!
+  }
 
   type Query {
     results(amount: Int): [Result]
     result(_id: ID!): Result!
+    goalscorers(
+      home_team: String!
+      away_team: String!
+      date: String!
+    ): [Goalscorer]
   }
 `;
 
