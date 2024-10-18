@@ -46,7 +46,9 @@ export default function Searchbar() {
 
   const options = data?.searchTeams.map((team: string) => (
     <Combobox.Option key={team} value={team} className={classes.option} id={isDark ? classes.optionDark : ''}>
-      <span className={`fi fi-${getCountryCode([team])}`} id={classes.image}></span>
+      <div className={classes.imageContainer}>
+        <span className={`fi fi-${getCountryCode([team])}`} id={classes.image}></span>
+      </div>
       {team}
     </Combobox.Option>
   ));

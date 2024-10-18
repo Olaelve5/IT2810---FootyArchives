@@ -1,59 +1,74 @@
 .wrapper {
-    width: 100%;
-    max-width: 40rem;
+  width: 100%;
+  max-width: 40rem;
 }
 
 .root {
-    width: 100%;
+  width: 100%;
 }
 
 .input {
-    box-shadow: 0 2px 10px -5px rgba(43, 43, 43, 0.265);
-    &::placeholder {
-        color: #a2abb5;
-    }
+  box-shadow: 0 2px 10px -5px rgba(43, 43, 43, 0.265);
+  &::placeholder {
+    color: #a2abb5;
+  }
 }
 
 .icon {
-    color: #a2abb5;
+  color: #a2abb5;
 }
 
 .darkDropdown {
-    background-color: var(--mantine-color-darkmode-2);
-    color: #fff;
+  background-color: var(--mantine-color-darkmode-2);
+  color: #fff;
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
 }
 
 .lightDropdown {
-    background-color: #fff;
-    color: #000;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
 }
 
 .option {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 
-    &[data-combobox-selected] {
-        background-color: var(--mantine-color-primary-9);
-    }
+  &[data-combobox-selected] {
+    background-color: var(--mantine-color-primary-9);
+  }
 
-    &[data-combobox-selected]:hover {
-        background-color: var(--mantine-color-primary-8) !important;
-    }
+  &[data-combobox-selected]:hover {
+    background-color: var(--mantine-color-primary-8) !important;
+  }
 }
 
 #optionDark:hover {
-    background-color: var(--mantine-color-darkmode-3);
+  background-color: var(--mantine-color-darkmode-3);
 }
 
 .visibleClose {
-    cursor: pointer;
-    z-index: 100;
+  cursor: pointer;
+  z-index: 100;
 }
 
 .visibleClose:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .hiddenClose {
-    display: none;
+  display: none;
+}
+
+.imageContainer {
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
 }
