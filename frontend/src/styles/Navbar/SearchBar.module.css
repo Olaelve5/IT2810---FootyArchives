@@ -28,8 +28,12 @@
     display: flex;
     gap: 10px;
 
-    &[data-active] {
-        background-color: var(--mantine-color-primary-3);
+    &[data-combobox-selected] {
+        background-color: var(--mantine-color-primary-9);
+    }
+
+    &[data-combobox-selected]:hover {
+        background-color: var(--mantine-color-primary-8) !important;
     }
 }
 
