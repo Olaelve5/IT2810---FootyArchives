@@ -1,6 +1,6 @@
 import { IconSearch } from '@tabler/icons-react';
 import classes from '../../styles/NavBar/Searchbar.module.css';
-import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, Input } from '@mantine/core';
+import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, CloseButton, TextInput } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { SEARCH_TEAMS } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
@@ -61,7 +61,7 @@ export default function Searchbar() {
   return (
     <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
       <Combobox.Target>
-        <Input
+        <TextInput
           leftSection={<IconSearch size={18} className={classes.icon} />}
           placeholder={language === 'en' ? 'Search for a nation or a matchup' : 'Søk etter en nasjon eller en kamp'}
           variant="filled"
@@ -69,6 +69,13 @@ export default function Searchbar() {
           radius="xl"
           value={teamName}
           classNames={classes}
+          rightSection={
+            <CloseButton
+              onClick={() => setTeamName('')}
+              className={teamName ? classes.visibleClose : classes.hiddenClose}
+              onMouseDown={(event) => event.preventDefault()}
+            />
+          }
           onChange={(event) => {
             setTeamName(event.currentTarget.value);
             combobox.openDropdown();
