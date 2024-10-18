@@ -1,13 +1,13 @@
-import { Input } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';
 import classes from '../../styles/NavBar/Searchbar.module.css';
-import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox } from '@mantine/core';
+import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, Input } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { SEARCH_TEAMS } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
-import { useEffect, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useNavigate } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 
 export default function Searchbar() {
   const theme = useMantineTheme();
@@ -15,12 +15,34 @@ export default function Searchbar() {
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
   const [teamName, setTeamName] = useState('');
+  const [teamNameToSearch, setTeamNameToSearch] = useState('');
+  const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
   const navigate = useNavigate();
-
   const { loading, error, data } = useQuery(SEARCH_TEAMS, {
-    variables: { teamName },
+    variables: { teamName: teamNameToSearch },
   });
+
+  // Debounce the setTeamNameToSearch function to avoid unnecessary calls to the DB
+  const debouncedSetTeamNameToSearch = useMemo(() => debounce(setTeamNameToSearch, 200), []);
+
+  useEffect(() => {
+    debouncedSetTeamNameToSearch(teamName);
+  }, [teamName, debouncedSetTeamNameToSearch]);
+
+  useEffect(() => {
+    if (loading) {
+      setDropDownMessage(language === 'en' ? 'Loading...' : 'Laster...');
+    }
+
+    if (error) {
+      setDropDownMessage(language === 'en' ? 'Something went wrong' : 'Noe gikk galt');
+    }
+
+    if (data?.searchTeams.length === 0) {
+      setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
+    }
+  }, [data, error, loading, language]);
 
   const options = data?.searchTeams.map((team: string) => (
     <Combobox.Option key={team} value={team} className={classes.option} id={isDark ? classes.optionDark : ''}>
@@ -32,20 +54,9 @@ export default function Searchbar() {
   const handleOptionSubmit = (value: string) => {
     navigate(`/project2/Country/${value}`);
     setTeamName('');
+    setTeamNameToSearch('');
     combobox.closeDropdown();
   };
-
-  if (loading) {
-    console.log('Loading...');
-  }
-
-  if (error) {
-    console.log(error);
-  }
-
-  useEffect(() => {
-    console.log(options);
-  }, [data, options]);
 
   return (
     <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
@@ -56,8 +67,8 @@ export default function Searchbar() {
           variant="filled"
           size="sm"
           radius="xl"
-          classNames={classes}
           value={teamName}
+          classNames={classes}
           onChange={(event) => {
             setTeamName(event.currentTarget.value);
             combobox.openDropdown();
@@ -75,7 +86,7 @@ export default function Searchbar() {
           {data?.searchTeams.length > 0 ? (
             options
           ) : (
-            <Combobox.Empty style={{color: theme.colors.dark[1]}}>{language === 'en' ? 'No results found' : 'Ingen resultater funnet'}</Combobox.Empty>
+            <Combobox.Empty style={{ color: theme.colors.dark[1] }}>{dropDownMessage}</Combobox.Empty>
           )}
         </Combobox.Options>
       </Combobox.Dropdown>
