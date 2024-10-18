@@ -36,11 +36,11 @@
   align-items: center;
 
   &[data-combobox-selected] {
-    background-color: var(--mantine-color-primary-9);
+    background-color: var(--mantine-color-darkmode-4);
   }
 
   &[data-combobox-selected]:hover {
-    background-color: var(--mantine-color-primary-8) !important;
+    background-color: var(--mantine-color-darkmode-5) !important;
   }
 }
 
