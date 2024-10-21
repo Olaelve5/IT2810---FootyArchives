@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { model, Schema } from "mongoose";
 
 // Scheme for the results collection in the MongoDB database
-const matchupSchema = new Schema({
+const ResultSchema = new Schema({
   _id: {
     type: ObjectId,
     required: true,
@@ -45,7 +45,12 @@ const matchupSchema = new Schema({
   },
 });
 
+ResultSchema.virtual('goal_difference').get(function() {
+  return Math.abs(this.home_score - this.away_score);
+})
+
 // Model for the results collection in the MongoDB database
-const Result = model("Result", matchupSchema, 'results');
+const Result = model("Result", ResultSchema, 'results');
+
 
 export default Result;

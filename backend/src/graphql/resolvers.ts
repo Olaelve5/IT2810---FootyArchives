@@ -22,7 +22,6 @@ interface PaginatedResults {
 // Resolvers for the GraphQL queries
 const resolvers = {
   Query: {
-    // This resolver is used to get a list of results based on the filters, sort, limit, and page
     results: async (
       _: any,
       { filters, sort, limit = 20, page = 1 }: Args
@@ -53,21 +52,38 @@ const resolvers = {
         }
       }
 
-      // Sort the results
-      const sortOptions: any = {};
-      if (sort) {
-        sortOptions[sort.field] = sort.order;
-      }
-
-      // Paginate the results
       const skip = (page - 1) * limit;
 
-      const results = await Result.find(query)
-        .sort(sortOptions)
-        .skip(skip)
-        .limit(limit)
-        .exec();
+      // Build the aggregation pipeline
+      const aggregationPipeline: any[] = [
+        { $match: query },
+        {
+          $addFields: {
+            goal_difference: { $abs: { $subtract: ["$home_score", "$away_score"] } },
+          },
+        },
+      ];
 
+      // Apply sorting logic based on the sort field
+      if (sort) {
+        if (sort.field === "goal_difference") {
+          // Sort by goal difference if specified
+          aggregationPipeline.push({
+            $sort: { goal_difference: sort.order },
+          });
+        } else {
+          // Sort by any other field
+          aggregationPipeline.push({
+            $sort: { [sort.field]: sort.order },
+          });
+        }
+      }
+
+      // Apply pagination
+      aggregationPipeline.push({ $skip: skip });
+      aggregationPipeline.push({ $limit: limit });
+
+      const results = await Result.aggregate(aggregationPipeline).exec();
       const total = await Result.countDocuments(query).exec();
 
       return {
@@ -78,7 +94,6 @@ const resolvers = {
       };
     },
 
-    // This resolver is used to get a single result based on the ID
     result: async (_: any, { _id }: Args) => {
       if (!_id) {
         throw new Error("ID is required");
@@ -93,7 +108,6 @@ const resolvers = {
       return result;
     },
 
-    // This resolver is used to search for teams based on the team name
     searchTeams: async (_: any, { teamName }: { teamName: string }) => {
       if (!teamName) {
         return [];
