@@ -11,8 +11,9 @@ function MatchcardCarousel() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+
   const { loading, error, data } = useQuery(GET_RESULTS, {
-    variables: { amount: 12 },
+    variables: {sort : {field: "date", order: -1}, limit: 10},
   });
 
   
@@ -24,7 +25,7 @@ function MatchcardCarousel() {
     return <p> Data not found</p>;
   }
 
-  const slides = data.results.map((result: ResultType) => {
+  const slides = data.results.results.map((result: ResultType) => {
     return (
       <Carousel.Slide key={result._id}>
         <MatchCard {...result} />
