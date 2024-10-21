@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 // Function that takes a date string and returns a string that represents the time difference between the current date and the date given as a parameter.
 export const calculateTimeDifference = (date: string): string => {
   const currentDate = new Date();
@@ -26,4 +28,19 @@ export const calculateTimeDifference = (date: string): string => {
     }
     return `${Math.floor(years)} years ago`;
   }
+};
+
+
+
+export const formatDate = (date: string): string => {
+
+  const dateObj = new Date(parseInt(date));
+
+  // handle invalid date
+  if (isNaN(dateObj.getTime())) {
+    console.log('Invalid Date', date);
+    return 'Invalid Date';
+  }
+
+  return format(dateObj, 'dd.MM.yyyy');
 };

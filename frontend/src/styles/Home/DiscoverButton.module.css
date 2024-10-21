@@ -7,7 +7,7 @@
 .root {
   border: none;
   border-radius: 500px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   margin-top: 0;
   background-color: var(--mantine-color-darkmode-1);
   padding: 0.5rem 1rem;

@@ -1,5 +1,6 @@
 import { gql } from 'apollo-server';
 
+// Define the GraphQL schema - the types and queries that can be made
 const typeDefs = gql`
   type Result {
     _id: ID!
@@ -17,6 +18,7 @@ const typeDefs = gql`
   type Query {
     results(amount: Int): [Result]
     result(_id: ID!): Result!
+    searchTeams(teamName: String): [String]
   }
 `;
 

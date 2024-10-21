@@ -1,6 +1,47 @@
 .control {
-    &[data-inactive] {
-      opacity: 0;
-      cursor: default;
-    }
+  &[data-inactive] {
+    opacity: 0;
+    cursor: default;
   }
+  background-color: rgb(255, 255, 255);
+  opacity: 1;
+  color: rgb(0, 0, 0);
+  z-index: 21;
+  transition: transform 0.2s ease;
+}
+
+.control:hover {
+  transform: scale(1.1);
+}
+
+/* Overlay for the carousel, to make the controls more visible
+ - not used */
+
+/* .controls::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #00000000 0%, #00000000 10%, #00000000 90%, var(--mantine-color-darkmode-0) 100%);
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 20;
+} */
+
+.controls {
+  height: 100%;
+  top: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  overflow: visible;
+}
+
+.slide {
+  overflow: visible;
+}

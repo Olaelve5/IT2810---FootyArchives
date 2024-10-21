@@ -24,7 +24,7 @@ function Home() {
             <h2>Recent matchups</h2>
             <MatchCardCarousel />
           </div>
-          <div className={classes.carouselSection}>
+          <div className={classes.carouselSection} style={{border: 'none'}}>
             <h2>Biggest wins</h2>
             <MatchCardCarousel />
           </div>
