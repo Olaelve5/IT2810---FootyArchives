@@ -43,10 +43,14 @@
 
 .darkText {
   color: var(--mantine-color-darkmode-8);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .lightText {
   color: var(--mantine-color-dark-4);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .imageContainer {
