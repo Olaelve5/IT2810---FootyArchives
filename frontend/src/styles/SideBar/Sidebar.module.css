@@ -95,26 +95,23 @@
 #logoText {
   transition: width 0.3s ease;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 .hiddenLogoTextF {
   min-width: 12px;
-  overflow: hidden;
 }
 
 .visibleLogoTextF {
-  width: fit-content;
-  overflow: hidden;
+  min-width: 12px;
 }
 
 .hiddenLogoTextA {
   min-width: 14px;
-  overflow: hidden;
 }
 
 .visibleLogoTextA {
-  width: fit-content;
-  overflow: hidden;
+  min-width: 14px;
 }
 
 
