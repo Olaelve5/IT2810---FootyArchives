@@ -91,3 +91,30 @@
   padding: 0 2rem;
   text-align: left;
 }
+
+#logoText {
+  transition: width 0.3s ease;
+  white-space: nowrap;
+}
+
+.hiddenLogoTextF {
+  min-width: 12px;
+  overflow: hidden;
+}
+
+.visibleLogoTextF {
+  width: fit-content;
+  overflow: hidden;
+}
+
+.hiddenLogoTextA {
+  min-width: 14px;
+  overflow: hidden;
+}
+
+.visibleLogoTextA {
+  width: fit-content;
+  overflow: hidden;
+}
+
+
