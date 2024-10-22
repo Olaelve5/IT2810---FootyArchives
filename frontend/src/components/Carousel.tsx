@@ -1,6 +1,6 @@
 import { Carousel } from '@mantine/carousel';
 import { MatchCard } from './Cards/MatchCard';
-import { CountryCard } from './Cards/CountryCard';
+import NationCard from './Cards/NationCard';
 import classes from '../styles/Carousel.module.css';
 import { GET_RESULTS } from '../graphql/queries';
 import { GET_NATION_STATS } from '../graphql/queries';
@@ -53,7 +53,7 @@ function MatchcardCarousel({ filters, sort, cardType }: MatchcardCarouselProps) 
     slides = data?.nationStats?.map((nation: NationType) => {
       return (
         <Carousel.Slide key={nation._id}>
-          <CountryCard {...nation} />
+          <NationCard {...nation} />
         </Carousel.Slide>
       );
     });

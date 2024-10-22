@@ -1,6 +1,6 @@
 import { Card, Text, Group } from '@mantine/core';
 import { ResultType } from '../../types/Result';
-import classes from '../../styles/Cards/MatchCard.module.css';
+import classes from '../../styles/Cards/Cards.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/dateUtils';
@@ -46,8 +46,8 @@ export function MatchCard(props: ResultType) {
         </Group>
 
         <Group>
-          <div className={classes.imageContainer}>
-            <span className={`fi fi-${countryCodes[0]}`} id={classes.image}></span>
+          <div className="flagImageContainer">
+            <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
           </div>
           <Group gap="xs">
             <Text fw={600} size="lg">
@@ -60,8 +60,8 @@ export function MatchCard(props: ResultType) {
               {props.away_score}
             </Text>
           </Group>
-          <div className={classes.imageContainer}>
-            <span className={`fi fi-${countryCodes[1]}`} id={classes.image}></span>
+          <div className="flagImageContainer">
+            <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
           </div>
         </Group>
       </Card>
