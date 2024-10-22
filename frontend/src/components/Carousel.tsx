@@ -6,16 +6,26 @@ import { useQuery } from '@apollo/client';
 import { ResultType } from '../types/Result';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
+import { QueryFilterType } from '../types/QueryFilterType';
+import { QuerySortType } from '../types/QuerySortType';
 
-function MatchcardCarousel() {
+interface MatchcardCarouselProps {
+  filters?: QueryFilterType;
+  sort?: QuerySortType;
+}
+
+function MatchcardCarousel({ filters, sort }: MatchcardCarouselProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+
+  // The limit for all carousels
+  const LIMIT = 12;
+
   const { loading, error, data } = useQuery(GET_RESULTS, {
-    variables: { amount: 12 },
+    variables: { filters, limit: LIMIT, sort },
   });
 
-  
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -24,7 +34,7 @@ function MatchcardCarousel() {
     return <p> Data not found</p>;
   }
 
-  const slides = data.results.map((result: ResultType) => {
+  const slides = data.results.results.map((result: ResultType) => {
     return (
       <Carousel.Slide key={result._id}>
         <MatchCard {...result} />
@@ -40,10 +50,12 @@ function MatchcardCarousel() {
       align="start"
       slidesToScroll="auto"
       classNames={classes}
-      styles={{ control: {
-        backgroundColor: isDark ? 'white' : theme.colors.darkmode[1],
-        color: isDark ? '' : 'white',
-      } }}
+      styles={{
+        control: {
+          backgroundColor: isDark ? 'white' : theme.colors.darkmode[1],
+          color: isDark ? '' : 'white',
+        },
+      }}
     >
       {slides}
     </Carousel>

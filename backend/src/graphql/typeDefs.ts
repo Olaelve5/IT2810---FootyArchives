@@ -1,4 +1,4 @@
-import { gql } from 'apollo-server';
+import { gql } from "apollo-server";
 
 // Define the GraphQL schema - the types and queries that can be made
 const typeDefs = gql`
@@ -26,8 +26,36 @@ const typeDefs = gql`
     date: String!
   }
 
+  input YearRange {
+    startYear: Int!
+    endYear: Int!
+  }
+
+  input FiltersInput {
+    teams: [String]
+    tournaments: [String]
+    yearRange: YearRange
+  }
+
+  input SortInput {
+    field: String!
+    order: Int!
+  }
+
+  type PaginatedResults {
+    results: [Result]
+    total: Int
+    currentPage: Int
+    totalPages: Int
+  }
+
   type Query {
-    results(amount: Int): [Result]
+    results(
+      filters: FiltersInput
+      sort: SortInput
+      limit: Int
+      page: Int
+    ): PaginatedResults
     result(_id: ID!): Result!
     searchTeams(teamName: String): [String]
     goalscorers(
