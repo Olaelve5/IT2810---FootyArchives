@@ -1,7 +1,7 @@
 import { gql } from "apollo-server";
 
 // Define the GraphQL schema - the types and queries that can be made
-const typeDefs = gql`
+const resultTypeDefs = gql`
   type Result {
     _id: ID!
     date: String!
@@ -66,4 +66,4 @@ const typeDefs = gql`
   }
 `;
 
-export default typeDefs;
+export default resultTypeDefs;

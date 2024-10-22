@@ -18,6 +18,11 @@ const biggestWinsFilter: QuerySortType = {
   order: -1,
 };
 
+const nationStatsFilter: QuerySortType = {
+  field: 'total_team_wins',
+  order: -1,
+}
+
 function Home() {
   return (
     <div className="layoutContainer">
@@ -29,15 +34,15 @@ function Home() {
           <DiscoverButton />
           <div className={classes.carouselSection}>
             <h2>Top teams</h2>
-            <MatchCardCarousel />
+            <MatchCardCarousel cardType={"team"} sort={nationStatsFilter}/>
           </div>
           <div className={classes.carouselSection}>
             <h2>Recent matchups</h2>
-            <MatchCardCarousel sort={recentMatchupsFilter}/>
+            <MatchCardCarousel sort={recentMatchupsFilter} cardType={"match"}/>
           </div>
           <div className={classes.carouselSection} style={{ border: 'none' }}>
             <h2>Biggest wins</h2>
-            <MatchCardCarousel sort={biggestWinsFilter} />
+            <MatchCardCarousel sort={biggestWinsFilter} cardType={"match"}/>
           </div>
         </div>
       </div>

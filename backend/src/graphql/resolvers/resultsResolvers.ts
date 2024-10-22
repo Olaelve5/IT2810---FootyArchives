@@ -1,13 +1,8 @@
 import { ObjectId } from "mongodb";
-import Result from "../models/Result";
-
-import { PipelineStage } from "mongoose";
-import Goalscorer from "../models/Goalscorer";
-
-
-import { Filters, SortInput } from "../types/FiltersType";
-import { QueryType } from "../types/QueryType";
-
+import Result from "../../models/Result";
+import Goalscorer from "../../models/Goalscorer";
+import { Filters, SortInput } from "../../types/FiltersType";
+import { QueryType } from "../../types/QueryType";
 
 interface Args {
   filters?: Filters;
@@ -29,7 +24,7 @@ interface PaginatedResults {
 }
 
 // Resolvers for the GraphQL queries
-const resolvers = {
+const resultResolvers = {
   Query: {
     results: async (
       _: any,
@@ -68,7 +63,9 @@ const resolvers = {
         { $match: query },
         {
           $addFields: {
-            goal_difference: { $abs: { $subtract: ["$home_score", "$away_score"] } },
+            goal_difference: {
+              $abs: { $subtract: ["$home_score", "$away_score"] },
+            },
           },
         },
       ];
@@ -143,24 +140,18 @@ const resolvers = {
       return allTeams.slice(0, 5);
     },
     goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
-        console.log("Received variables:", { home_team, away_team, date });
-         const goalscorers = await Goalscorer.find({
-           home_team,
-           away_team,
-           date,
-         });
-         console.log("Fetched goalscorers:", goalscorers);
-         return goalscorers;
+      console.log("Received variables:", { home_team, away_team, date });
+      const goalscorers = await Goalscorer.find({
+        home_team,
+        away_team,
+        date,
+      });
+      console.log("Fetched goalscorers:", goalscorers);
+      return goalscorers;
 
-      
-      
-      [
-  
-]
-
-      
-    }
-  }
+      [];
+    },
+  },
 };
 
-export default resolvers;
+export default resultResolvers;

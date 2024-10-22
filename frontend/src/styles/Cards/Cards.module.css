@@ -53,22 +53,3 @@
   white-space: nowrap;
 }
 
-.imageContainer {
-  width: calc(4rem * 0.8);
-  height: calc(3rem * 0.8);
-  border-radius: 5px;
-  border: 1px solid;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-  padding: 0;
-}
-
-#image {
-  padding: 0;
-  position: absolute;
-  width: 100%;
-  height: 102%;
-}

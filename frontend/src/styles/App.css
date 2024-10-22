@@ -100,4 +100,24 @@ h2 {
   margin: 0;
 }
 
+.flagImageContainer {
+  width: calc(4rem * 0.8);
+  height: calc(3rem * 0.8);
+  border-radius: 5px;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+}
+
+#flagImage {
+  padding: 0;
+  position: absolute;
+  width: 102%;
+  height: 104%;
+}
+
 

@@ -39,12 +39,12 @@ export default function Searchbar() {
       setDropDownMessage(language === 'en' ? 'Something went wrong' : 'Noe gikk galt');
     }
 
-    if (data?.searchTeams.length === 0) {
+    if (data?.searchTeams?.length === 0) {
       setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
     }
   }, [data, error, loading, language]);
 
-  const options = data?.searchTeams.map((team: string) => (
+  const options = data?.searchTeams?.map((team: string) => (
     <Combobox.Option key={team} value={team} className={classes.option} id={isDark ? classes.optionDark : ''}>
       <div className={classes.imageContainer}>
         <span className={`fi fi-${getCountryCode([team])}`} id={classes.image}></span>
@@ -92,7 +92,7 @@ export default function Searchbar() {
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
         <Combobox.Options>
-          {data?.searchTeams.length > 0 ? (
+          {data?.searchTeams?.length > 0 ? (
             options
           ) : (
             <Combobox.Empty style={{ color: theme.colors.dark[1] }}>{dropDownMessage}</Combobox.Empty>
