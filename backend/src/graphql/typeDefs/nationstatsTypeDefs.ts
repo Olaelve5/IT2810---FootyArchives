@@ -2,7 +2,7 @@ import { gql } from "apollo-server";
 
 
 // Define the GraphQL schema - the types and queries that can be made
-const typeDefs = gql`
+const nationStatTypeDefs = gql`
     type NationStat {
         _id: ID!
         total_team_games: Int!
@@ -30,10 +30,10 @@ const typeDefs = gql`
     }
 
     extend type Query {
-        nationStats(limit: Int!, sort: SortInput!): [NationStat]
+        nationStats(limit: Int, sort: SortInput): [NationStat]
         nationStat(_id: ID!): NationStat
     }
 `
 
 
-export default typeDefs;
+export default nationStatTypeDefs;

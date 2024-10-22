@@ -1,7 +1,7 @@
 import { SortInput } from "../../types/FiltersType";
 import NationStatModel from "../../models/NationStat";
 
-const resolvers = {
+const nationStatsResolvers = {
   Query: {
     nationStats: async (
       _: any,
@@ -27,4 +27,4 @@ const resolvers = {
   },
 };
 
-export default resolvers;
+export default nationStatsResolvers;

@@ -20,7 +20,7 @@ interface PaginatedResults {
 }
 
 // Resolvers for the GraphQL queries
-const resolvers = {
+const resultResolvers = {
   Query: {
     results: async (
       _: any,
@@ -136,4 +136,4 @@ const resolvers = {
   },
 };
 
-export default resolvers;
+export default resultResolvers;

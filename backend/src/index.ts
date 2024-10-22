@@ -1,4 +1,5 @@
 import { ApolloServer } from "apollo-server";
+import { mergeResolvers } from "@graphql-tools/merge";
 import mongoose from "mongoose";
 import resultsTypeDefs from "./graphql/typeDefs/resultsTypeDefs";
 import nationStatsTypeDefs from "./graphql/typeDefs/nationstatsTypeDefs";
@@ -10,10 +11,7 @@ const MONGODB =
   "mongodb://user12:password12@it2810-36.idi.ntnu.no:27017/footy_archives?authSource=footy_archives&appName=mongosh+2.3.2";
 
 // Combine resolvers
-const resolvers = {
-  ...resultsResolvers,
-  ...nationStatsResolvers,
-};
+const resolvers = mergeResolvers([resultsResolvers, nationStatsResolvers]);
 
 // Combine typeDefs
 const typeDefs = [resultsTypeDefs, nationStatsTypeDefs];
