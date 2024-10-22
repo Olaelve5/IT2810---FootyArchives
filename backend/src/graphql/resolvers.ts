@@ -1,7 +1,6 @@
 import { ObjectId } from 'mongodb';
 import Result from "../models/Result";
 import Goalscorer from "../models/Goalscorer";
-import { isValid, parseISO } from 'date-fns'; // Import date-fns to validate and parse date strings
 
 
 interface Args {
