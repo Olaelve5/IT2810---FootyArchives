@@ -20,6 +20,7 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease; /* Add transition */
+    box-shadow: 0.2s ease;
 
   a {
     color: black;
@@ -37,6 +38,7 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease; /* Add transition */
+    box-shadow: 0.2s ease;
 
   a {
     color: white;

@@ -51,3 +51,11 @@ export const GET_GOALSCORERS = gql`
     }
   }
 `;
+
+
+export const SEARCH_TEAMS = gql`
+  query SearchTeams($teamName: String) {
+    searchTeams(teamName: $teamName)
+  }
+`;
+

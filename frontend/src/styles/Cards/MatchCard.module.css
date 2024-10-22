@@ -2,7 +2,69 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
+}
 
- 
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  gap: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
+  width: 15rem;
+  max-width: 15rem;
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
+}
+
+#darkCard:hover {
+  background-color: var(--mantine-color-darkmode-2) !important;
+  border-color: var(--mantine-color-darkmode-8);
+}
+
+#lightCard:hover {
+  background-color: rgb(255, 255, 255) !important;
+  border-color: var(--mantine-color-primary-4) !important;
+  box-shadow: 0 0 10px -5px rgb(0, 0, 0) !important;
+}
+
+.dateTournamentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.darkText {
+  color: var(--mantine-color-darkmode-8);
+}
+
+.lightText {
+  color: var(--mantine-color-dark-4);
+}
+
+.imageContainer {
+  width: calc(4rem * 0.8);
+  height: calc(3rem * 0.8);
+  border-radius: 5px;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 0;
+}
+
+#image {
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 102%;
 }
