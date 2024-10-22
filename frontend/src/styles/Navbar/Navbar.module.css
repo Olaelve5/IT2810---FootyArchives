@@ -71,3 +71,12 @@
 .chevron {
   transition: all 0.15s ease;
 }
+
+
+.searchbarContainer {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  min-height: fit-content;
+  align-items: center;
+}

@@ -3,7 +3,7 @@
     flex-direction: column;
     padding: 1.5rem 0rem;
     height: 100vh;
-    min-width: 17rem;
+    min-width: 16rem;
     border-right: 1px solid;
     position: fixed;
 }
@@ -40,7 +40,7 @@
     width: calc(100% - 4rem);
     margin: 0 2rem;
     text-align: left;
-    padding: 0.8rem 1rem 0.8rem 3rem;
+    padding: 0.8rem 1rem 0.8rem 2rem;
     border-radius: 5px;
     font-weight: 500;
     white-space: nowrap;
@@ -60,7 +60,7 @@
     width: calc(100% - 4rem);
     margin: 0 2rem;
     text-align: left;
-    padding: 0.8rem 3rem;
+    padding: 0.8rem 0rem 0.8rem 2rem;
     border-radius: 5px;
     font-weight: 500;
     white-space: nowrap;
@@ -73,7 +73,7 @@
     position: absolute;
     left: 0;
     height: 100%;
-    width: 0.5rem;
+    width: 0.3rem;
     background-color: var(--mantine-color-primary-9);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;

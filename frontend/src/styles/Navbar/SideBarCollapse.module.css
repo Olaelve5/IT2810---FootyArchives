@@ -1,0 +1,17 @@
+.button {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.darkIcon {
+    color: white
+}
+
+.lightIcon {
+    color: var(--mantine-color-darkmode-1);
+}
