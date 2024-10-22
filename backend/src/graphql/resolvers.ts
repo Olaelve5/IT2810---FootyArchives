@@ -1,7 +1,13 @@
 import { ObjectId } from "mongodb";
 import Result from "../models/Result";
+
+import { PipelineStage } from "mongoose";
+import Goalscorer from "../models/Goalscorer";
+
+
 import { Filters, SortInput } from "../types/FiltersType";
 import { QueryType } from "../types/QueryType";
+
 
 interface Args {
   filters?: Filters;
@@ -10,6 +16,9 @@ interface Args {
   page?: number;
   _id?: string;
   teamName?: string;
+  home_team?: string;
+  away_team?: string;
+  date?: Date;
 }
 
 interface PaginatedResults {
@@ -103,8 +112,10 @@ const resolvers = {
       const result = await Result.findOne({ _id: objectId });
 
       if (!result) {
+        console.log("Result not found");
         throw new Error("Result not found");
       }
+      console.log(result);
       return result;
     },
 
@@ -131,7 +142,25 @@ const resolvers = {
       // Limit the results to the first 5 unique teams
       return allTeams.slice(0, 5);
     },
-  },
+    goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
+        console.log("Received variables:", { home_team, away_team, date });
+         const goalscorers = await Goalscorer.find({
+           home_team,
+           away_team,
+           date,
+         });
+         console.log("Fetched goalscorers:", goalscorers);
+         return goalscorers;
+
+      
+      
+      [
+  
+]
+
+      
+    }
+  }
 };
 
 export default resolvers;

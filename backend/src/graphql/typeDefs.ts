@@ -14,6 +14,17 @@ const typeDefs = gql`
     country: String
     neutral: Boolean
   }
+  type Goalscorer {
+    _id: ID!
+    home_team: String!
+    away_team: String!
+    minute: Int!
+    own_goal: Boolean
+    penalty: Boolean
+    scorer: String!
+    team: String!
+    date: String!
+  }
 
   input YearRange {
     startYear: Int!
@@ -47,6 +58,11 @@ const typeDefs = gql`
     ): PaginatedResults
     result(_id: ID!): Result!
     searchTeams(teamName: String): [String]
+    goalscorers(
+      home_team: String!
+      away_team: String!
+      date: String!
+    ): [Goalscorer]
   }
 `;
 
