@@ -10,6 +10,8 @@ const nationStatsResolvers = {
       const sortOptions: any = {};
       if (sort) {
         sortOptions[sort.field] = sort.order;
+      } else {
+        sortOptions["total_team_games"] = -1;
       }
 
       const allNationStats = await NationStatModel.find()
