@@ -5,7 +5,7 @@ function Logo() {
   const { isCollapsed } = useSidebarCollapseStore();
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', padding: '0 2rem', marginBottom: '1rem' }}>
+    <div style={{ display: 'flex', alignItems: 'center', padding: '0 2rem', marginBottom: '1rem', justifyContent: isCollapsed ? 'center' : '' }}>
       {isCollapsed ? (
         <Text size="xl" fw={700} c="primary">
           F

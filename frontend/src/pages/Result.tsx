@@ -5,12 +5,14 @@ import SideBar from '../components/SideBar/SideBar';
 import MatchScorers from '../components/Matchup/MatchScorers';
 import MatchComments from '../components/Matchup/MatchComments';
 import { Group } from '@mantine/core';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { GET_RESULT } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
+import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 
 export default function Result() {
   const { resultId } = useParams<{ resultId: string }>();
+  const { isCollapsed } = useSidebarCollapseStore();
   const { loading, error, data } = useQuery(GET_RESULT, {
     variables: { id: resultId },
   });
@@ -21,7 +23,7 @@ export default function Result() {
   return (
     <div className="layoutContainer">
       <SideBar />
-      <div className="rightContainer">
+      <div id='rightContainer' className={isCollapsed ? "rightContainerCollapsed" : "rightContainerExpanded"}>
         <div className="rightInnerContainer">
           <Navbar />
           <Group gap={10}>

@@ -7,6 +7,7 @@ import Logo from '../components/BigLogo';
 import classes from '../styles/Home/Home.module.css';
 import DiscoverButton from '../components/DiscoverButton';
 import { QuerySortType } from '../types/QuerySortType';
+import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 
 const recentMatchupsFilter: QuerySortType = {
   field: 'date',
@@ -24,10 +25,12 @@ const nationStatsFilter: QuerySortType = {
 }
 
 function Home() {
+  const { isCollapsed } = useSidebarCollapseStore();
+
   return (
     <div className="layoutContainer">
       <SideBar />
-      <div className="rightContainer">
+      <div id='rightContainer' className={isCollapsed ? "rightContainerCollapsed" : "rightContainerExpanded"}>
         <div className="rightInnerContainer">
           <Navbar />
           <Logo />

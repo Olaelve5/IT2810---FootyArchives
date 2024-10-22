@@ -6,6 +6,7 @@ import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel';
 import classes from '../styles/Home/Home.module.css';
 import Norge from '../assets/Norge.png';
+import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 
 const Norway = {
   country: 'Norway',
@@ -19,12 +20,13 @@ const Norway = {
 function Country() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
+  const { isCollapsed } = useSidebarCollapseStore();
 
   const totalGamesColor = colorScheme === 'dark' ? '#a9a9a9' : theme.colors.dark[6];
   return (
     <div className="layoutContainer">
       <SideBar />
-      <div className="rightContainer">
+      <div id='rightContainer' className={isCollapsed ? "rightContainerCollapsed" : "rightContainerExpanded"}>
         <div className="rightInnerContainer">
           <Navbar />
           <div

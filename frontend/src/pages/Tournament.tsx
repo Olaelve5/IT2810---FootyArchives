@@ -3,15 +3,18 @@ import SideBar from "../components/SideBar/SideBar";
 import Navbar from "../components/Navbar/Navbar";
 import MatchcardCarousel from "../components/Carousel";
 import classes from "../styles/Tournament/Tournament.module.css";
+import { useSidebarCollapseStore } from "../stores/sidebar-collapse-store";
+
 
 
 export default function Tournament() {
     const { tournamentName } = useParams<{ tournamentName: string }>();
+    const { isCollapsed } = useSidebarCollapseStore();
 
     return (
       <div className="layoutContainer">
         <SideBar />
-        <div className="rightContainer">
+        <div id='rightContainer' className={isCollapsed ? "rightContainerCollapsed" : "rightContainerExpanded"}>
           <div className="rightInnerContainer">
             <Navbar />
             <h1>{tournamentName}</h1>
