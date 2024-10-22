@@ -2,6 +2,7 @@ import classes from '../../styles/SideBar/SideBar.module.css';
 import { Group, NavLink, Text, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
+import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 
 const data = [
   {
@@ -35,6 +36,7 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
+  const { isCollapsed } = useSidebarCollapseStore();
 
   const links = data.map((item) => {
     return (
@@ -55,9 +57,11 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
   });
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} id={isCollapsed ? classes.containerCollapsed : classes.containerExpanded}>
       <div className={classes.subTitleContainer}>
-        <Text size="xs">{language === 'en' ? 'Tournaments' : 'Turneringer'}</Text>
+        <Text size="xs" style={{ opacity: isCollapsed ? 0 : 1 }} className={classes.subTitle}>
+          {language === 'en' ? 'Tournaments' : 'Turneringer'}
+        </Text>
       </div>
       <Group className={classes.links} style={{ border: 'none' }}>
         {links}

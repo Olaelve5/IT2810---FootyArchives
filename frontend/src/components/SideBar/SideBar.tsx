@@ -5,11 +5,13 @@ import classes from '../../styles/SideBar/SideBar.module.css';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
+import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
+  const { isCollapsed } = useSidebarCollapseStore();
 
   const location = useLocation();
   const { tournamentName } = useParams<{ tournamentName: string }>(); // Get the tournament name from the URL
@@ -35,6 +37,7 @@ export default function SideBar() {
   return (
     <div
       className={classes.container}
+      id={isCollapsed ? classes.containerCollapsed : classes.containerExpanded}
       style={{
         backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
       }}
