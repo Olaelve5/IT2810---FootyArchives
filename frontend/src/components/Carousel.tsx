@@ -34,7 +34,7 @@ function MatchcardCarousel({ filters, sort }: MatchcardCarouselProps) {
     return <p> Data not found</p>;
   }
 
-  const slides = data.results.results.map((result: ResultType) => {
+  const slides = data?.results?.results?.map((result: ResultType) => {
     return (
       <Carousel.Slide key={result._id}>
         <MatchCard {...result} />

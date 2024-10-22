@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
-import Result from "../models/Result";
-import { Filters, SortInput } from "../types/FiltersType";
-import { QueryType } from "../types/QueryType";
+import Result from "../../models/Result";
+import { Filters, SortInput } from "../../types/FiltersType";
+import { QueryType } from "../../types/QueryType";
 
 interface Args {
   filters?: Filters;
@@ -59,7 +59,9 @@ const resolvers = {
         { $match: query },
         {
           $addFields: {
-            goal_difference: { $abs: { $subtract: ["$home_score", "$away_score"] } },
+            goal_difference: {
+              $abs: { $subtract: ["$home_score", "$away_score"] },
+            },
           },
         },
       ];
