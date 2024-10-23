@@ -10,7 +10,7 @@ function Logo() {
       style={{
         display: 'flex',
         alignItems: 'center',
-        padding: '0 2rem',
+        padding: '0 1.7rem',
         marginBottom: '1rem',
       }}
     >

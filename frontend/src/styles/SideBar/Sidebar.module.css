@@ -24,6 +24,7 @@
   gap: 0.5rem;
   padding: 1rem 0rem;
   border-bottom: 1px solid var(--mantine-color-darkmode-3);
+  overflow: hidden;
 }
 
 .linkContainer {
@@ -36,8 +37,7 @@
   width: calc(100% - 4rem);
   margin: 0 2rem;
   text-align: left;
-  padding: 0.8rem 1rem 0.8rem 2rem;
-  border-radius: 5px;
+  padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
   white-space: nowrap;
   transition: background-color 0.15s ease, width 0.3s ease;
@@ -47,7 +47,7 @@
   text-decoration: none;
   margin: 0 0rem;
   text-align: left;
-  padding: 0.8rem 0rem 0.8rem 2rem;
+  padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
   white-space: nowrap;
   transition: background-color 0.15s ease, width 0.3s ease;
@@ -66,7 +66,7 @@
   width: calc(100% - 0rem);
   margin: 0 0rem;
   text-align: left;
-  padding: 0.8rem 0rem 0.8rem 2rem;
+  padding: 0.8rem 0rem 0.8rem 1.7rem;
   border-radius: 0px;
   font-weight: 500;
   white-space: nowrap;
@@ -90,9 +90,18 @@
   border-bottom-left-radius: 3px;
 }
 
+.linkLabel {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
 
-#linkCollapsed {
-  width: 1rem;
+.linkLabelCollapsed {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.linkLabelBody {
+  text-overflow: clip;
 }
 
 .subTitleContainer {

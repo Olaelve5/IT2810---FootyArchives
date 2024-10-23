@@ -51,14 +51,18 @@ export default function SideBar() {
               component={Link}
               to="/project2"
               label={language === 'en' ? 'Home' : 'Hjem'}
-              leftSection={<IconHome stroke={1.5} size={25}/>}
+              leftSection={<IconHome stroke={1.5} size={25} />}
               color="primary"
               active={selected === 'Home'}
               variant="filled"
               onClick={() => setSelected('Home')}
               noWrap
               className={selected === 'Home' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
-              id={isCollapsed ? classes.linkCollapsed : ''}
+              classNames={{
+                label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
+                body: classes.linkLabelBody,
+              }}
+              id={classes.link}
             />
           </div>
           <div className={classes.linkContainer}>
@@ -66,14 +70,20 @@ export default function SideBar() {
               component={Link}
               to="/project2/matchups"
               label={language === 'en' ? 'Browse matchups' : 'Uforsk kamper'}
-              leftSection={<IconListSearch stroke={1.5} size={25}/>}
+              leftSection={<IconListSearch stroke={1.5} size={25} />}
               color="primary"
               active={selected === 'Browse matchups'}
               variant="filled"
               onClick={() => setSelected('Browse matchups')}
               noWrap
-              className={selected === 'Browse matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
-              id={isCollapsed ? classes.linkCollapsed : ''}
+              className={
+                selected === 'Browse matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link
+              }
+              classNames={{
+                label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
+                body: classes.linkLabelBody,
+              }}
+              id={classes.link}
             />
           </div>
         </Group>

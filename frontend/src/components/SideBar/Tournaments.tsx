@@ -70,7 +70,11 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
           noWrap
           className={selected === item.name ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
           onClick={() => setSelected(item.name)}
-          id={isCollapsed ? classes.linkCollapsed : ''}
+          classNames={{
+            label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
+            body: classes.linkLabelBody,
+          }}
+          id={classes.link}
         />
       </div>
     );
