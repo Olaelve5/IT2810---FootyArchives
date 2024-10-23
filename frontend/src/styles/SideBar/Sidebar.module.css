@@ -34,8 +34,6 @@
 
 .link {
   text-decoration: none;
-  width: calc(100% - 4rem);
-  margin: 0 2rem;
   text-align: left;
   padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
@@ -45,7 +43,6 @@
 
 .linkDark {
   text-decoration: none;
-  margin: 0 0rem;
   text-align: left;
   padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
@@ -58,28 +55,41 @@
 }
 
 .link:hover {
-  background-color: var(--mantine-color-primary-3);
+  background-color: #d4dbde;
 }
 
-.linkSelected {
+
+#linkSelected {
   text-decoration: none;
-  width: calc(100% - 0rem);
-  margin: 0 0rem;
+  width: 100%;
   text-align: left;
   padding: 0.8rem 0rem 0.8rem 1.7rem;
   border-radius: 0px;
   font-weight: 500;
   white-space: nowrap;
   transition: all 0.15s ease;
+}
+
+.linkSelectedDark {
   color: white !important;
   background-color: var(--mantine-color-darkmode-4);
 }
 
-.linkSelected:hover {
+.linkSelectedDark:hover {
   background-color: var(--mantine-color-darkmode-4);
 }
 
-.linkSelected::before {
+.linkSelected {
+  background-color: #d4dbde;
+}
+
+.linkSelected:hover {
+  background-color: #d4dbde;
+}
+
+
+
+#linkSelected::before {
   content: '';
   position: absolute;
   right: 0;

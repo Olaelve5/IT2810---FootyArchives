@@ -68,13 +68,21 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
           variant="filled"
           leftSection={<IconTrophyFilled stroke={1.5} size={25} color={themeColor} />}
           noWrap
-          className={selected === item.name ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
+          className={
+            selected === item.name
+              ? isDark
+                ? classes.linkSelectedDark
+                : classes.linkSelected
+              : isDark
+                ? classes.linkDark
+                : classes.link
+          }
           onClick={() => setSelected(item.name)}
           classNames={{
             label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
             body: classes.linkLabelBody,
           }}
-          id={classes.link}
+          id={selected === item.name ? classes.linkSelected : classes.link}
         />
       </div>
     );

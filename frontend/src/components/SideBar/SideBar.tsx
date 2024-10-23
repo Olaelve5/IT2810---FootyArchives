@@ -27,7 +27,7 @@ export default function SideBar() {
     if (path === '/project2') {
       setSelected('Home');
     } else if (path.startsWith('/project2/matchups')) {
-      setSelected('Browse matchups');
+      setSelected('Browse Matchups');
     } else if (path.startsWith('/project2/tournament')) {
       setSelected(tournamentName || '');
     } else {
@@ -57,33 +57,47 @@ export default function SideBar() {
               variant="filled"
               onClick={() => setSelected('Home')}
               noWrap
-              className={selected === 'Home' ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
+              className={
+                selected === 'Home'
+                  ? isDark
+                    ? classes.linkSelectedDark
+                    : classes.linkSelected
+                  : isDark
+                    ? classes.linkDark
+                    : classes.link
+              }
               classNames={{
                 label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
                 body: classes.linkLabelBody,
               }}
-              id={classes.link}
+              id={selected === 'Home' ? classes.linkSelected : classes.link}
             />
           </div>
           <div className={classes.linkContainer}>
             <NavLink
               component={Link}
               to="/project2/matchups"
-              label={language === 'en' ? 'Browse matchups' : 'Uforsk kamper'}
+              label={language === 'en' ? 'Browse Matchups' : 'Uforsk kamper'}
               leftSection={<IconListSearch stroke={1.5} size={25} />}
               color="primary"
-              active={selected === 'Browse matchups'}
+              active={selected === 'Browse Matchups'}
               variant="filled"
-              onClick={() => setSelected('Browse matchups')}
+              onClick={() => setSelected('Browse Matchups')}
               noWrap
               className={
-                selected === 'Browse matchups' ? classes.linkSelected : isDark ? classes.linkDark : classes.link
+                selected === 'Browse Matchups'
+                  ? isDark
+                    ? classes.linkSelectedDark
+                    : classes.linkSelected
+                  : isDark
+                    ? classes.linkDark
+                    : classes.link
               }
               classNames={{
                 label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
                 body: classes.linkLabelBody,
               }}
-              id={classes.link}
+              id={selected === 'Browse Matchups' ? classes.linkSelected : classes.link}
             />
           </div>
         </Group>
