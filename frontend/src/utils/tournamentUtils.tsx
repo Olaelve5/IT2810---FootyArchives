@@ -3,10 +3,10 @@ import { LoaderFunction, LoaderFunctionArgs, redirect } from 'react-router-dom';
 // List of valid tournaments
 const validTournaments = [
     "FIFA World Cup",
-    "Euros",
-    "Copa America",
-    "Asian Cup",
-    "African Cup",
+    "UEFA Euro",
+    "Copa América",
+    "AFC Asian Cup",
+    "African Cup of Nations",
 ];
 
 // Loader function to check if the competition is valid, if not redirect to 404 page

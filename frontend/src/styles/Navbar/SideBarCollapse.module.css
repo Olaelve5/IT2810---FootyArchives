@@ -6,10 +6,15 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: scale(1.1);
 }
 
 .darkIcon {
-    color: white
+    color: #ffffff;
 }
 
 .lightIcon {

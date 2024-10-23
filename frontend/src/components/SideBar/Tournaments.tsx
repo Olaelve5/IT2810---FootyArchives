@@ -1,29 +1,35 @@
 import classes from '../../styles/SideBar/SideBar.module.css';
-import { Group, NavLink, Text, useMantineColorScheme } from '@mantine/core';
+import { Group, NavLink, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
+import { IconTrophyFilled } from '@tabler/icons-react';
 
 const data = [
   {
     name: 'FIFA World Cup',
     link: 'FIFA World Cup',
+    color: 'yellow',
   },
   {
-    name: 'Euros',
-    link: 'Euros',
+    name: 'UEFA Euro',
+    link: 'UEFA Euro',
+    color: 'blue',
   },
   {
-    name: 'Copa America',
-    link: 'Copa America',
+    name: 'Copa América',
+    link: 'Copa América',
+    color: 'orange',
   },
   {
-    name: 'Asian Cup',
-    link: 'Asian Cup',
+    name: 'AFC Asian Cup',
+    link: 'AFC Asian Cup',
+    color: 'red',
   },
   {
-    name: 'African Cup',
-    link: 'African Cup',
+    name: 'African Cup of Nations',
+    link: 'African Cup of Nations',
+    color: 'green',
   },
 ];
 
@@ -37,8 +43,20 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
   const { isCollapsed } = useSidebarCollapseStore();
+  const theme = useMantineTheme();
+
+  // Map data colors to Mantine theme colors
+  const colorMap: { [key: string]: string } = {
+    yellow: theme.colors.yellow[8],
+    blue: theme.colors.blue[8],
+    orange: theme.colors.orange[8],
+    red: theme.colors.red[8],
+    green: theme.colors.green[8],
+  };
 
   const links = data.map((item) => {
+    const themeColor = colorMap[item.color];
+
     return (
       <div className={classes.linkContainer} key={item.name}>
         <NavLink
@@ -48,9 +66,11 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
           active={selected === item.name}
           color="primary"
           variant="filled"
+          leftSection={<IconTrophyFilled stroke={1.5} size={25} color={themeColor} />}
           noWrap
           className={selected === item.name ? classes.linkSelected : isDark ? classes.linkDark : classes.link}
           onClick={() => setSelected(item.name)}
+          id={isCollapsed ? classes.linkCollapsed : ''}
         />
       </div>
     );
