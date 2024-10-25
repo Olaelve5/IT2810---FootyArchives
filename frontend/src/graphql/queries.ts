@@ -86,3 +86,22 @@ export const GET_NATION_STATS = gql`
     }
   }
 `
+
+export const GET_TOURNAMENTS = gql`
+  query GetTournaments($tournamentName: String) {
+    tournaments(tournamentName: $tournamentName) {
+      _id
+      tournament
+      matches {
+        tournament
+        home_team
+        away_team
+        home_score
+        away_score
+        city
+        country
+        date
+      }
+    }
+  }
+`
