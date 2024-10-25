@@ -52,7 +52,7 @@ const resultTypeDefs = gql`
 
   type Tournament {
     tournament: String!
-    matches: [Match!]!
+    results: [Result!]!
   }
 
   type YearGroup {
@@ -74,7 +74,7 @@ const resultTypeDefs = gql`
       away_team: String!
       date: String!
     ): [Goalscorer]
-    tournaments(tournamentName: String!): [YearGroup!]!
+    tournaments(tournamentName: String!, page: Int!): [YearGroup!]!
   }
 `;
 
