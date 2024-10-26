@@ -15,20 +15,24 @@ const tournamentResolvers = {
       _: any,
       { tournamentName, page }: tournamentResolversI
     ) => {
+      if (!tournamentName || page === undefined) {
+        throw new Error("tournamentName and page are required parameters.");
+      }
+      
       const aggregationPipeline: PipelineStage[] = [
         {
           $match: {
-            tournament: tournamentName
-          }
+            tournament: tournamentName,
+          },
         },
         {
-          $sort: { date: -1 } 
+          $sort: { date: -1 },
         },
         {
           $group: {
             _id: {
               year: { $year: "$date" },
-              tournament: "$tournament"
+              tournament: "$tournament",
             },
             results: {
               $push: {
@@ -40,31 +44,30 @@ const tournamentResolvers = {
                 away_score: "$away_score",
                 city: "$city",
                 country: "$country",
-                date: "$date"
-              }
-            }
-          }
+                date: "$date",
+              },
+            },
+          },
         },
         {
           $project: {
             _id: "$_id.year",
             tournament: "$_id.tournament",
-            results: { $slice: ["$results", RESULT_LIMIT] } // Fetch the last 5 matches after sorting
-          }
+            results: { $slice: ["$results", RESULT_LIMIT] }, // Fetch the last 5 matches after sorting
+          },
         },
         {
           $sort: {
-            _id: -1 as 1 | -1 // Sort by year in descending order
-          }
+            _id: -1 as 1 | -1, // Sort by year in descending order
+          },
         },
         {
-          $skip: (page - 1) * LIMIT
+          $skip: (page - 1) * LIMIT,
         },
         {
-          $limit: LIMIT
-        }
-      ]
-      
+          $limit: LIMIT,
+        },
+      ];
 
       const tournaments = await Result.aggregate(aggregationPipeline).exec();
 
