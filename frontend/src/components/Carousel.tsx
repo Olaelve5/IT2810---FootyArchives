@@ -2,80 +2,59 @@ import { Carousel } from '@mantine/carousel';
 import { MatchCard } from './Cards/MatchCard';
 import NationCard from './Cards/NationCard';
 import classes from '../styles/Carousel.module.css';
-import { GET_RESULTS } from '../graphql/queries';
-import { GET_NATION_STATS } from '../graphql/queries';
-import { useQuery } from '@apollo/client';
+import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { ResultType } from '../types/Result';
-import { useMantineColorScheme } from '@mantine/core';
-import { useMantineTheme } from '@mantine/core';
-import { QueryFilterType } from '../types/QueryFilterType';
-import { QuerySortType } from '../types/QuerySortType';
 import { NationType } from '../types/Nation';
+import { ApolloError } from '@apollo/client';
+import { Loader } from '@mantine/core';
 
 interface MatchcardCarouselProps {
-  filters?: QueryFilterType;
-  sort?: QuerySortType;
+  title: string;
+  data: ResultType[] | NationType[];
   cardType: 'match' | 'team';
+  loading?: boolean;
+  error?: ApolloError;
 }
 
-function MatchcardCarousel({ filters, sort, cardType }: MatchcardCarouselProps) {
+function MatchcardCarousel({ data, cardType, loading, error, title }: MatchcardCarouselProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
-  let slides = [];
 
-  // The limit for all carousels
-  const LIMIT = 12;
-
-  const query = cardType === 'team' ? GET_NATION_STATS : GET_RESULTS;
-
-  const { loading, error, data } = useQuery(query, {
-    variables: { filters, limit: LIMIT, sort },
+  const slides = data?.map((item) => {
+    return (
+      <Carousel.Slide key={item._id}>
+        {cardType === 'team' ? <NationCard {...(item as NationType)} /> : <MatchCard {...(item as ResultType)} />}
+      </Carousel.Slide>
+    );
   });
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
   if (error) {
-    return <p> Data not found</p>;
-  }
-
-  if (cardType === 'match') {
-    slides = data?.results?.results?.map((result: ResultType) => {
-      return (
-        <Carousel.Slide key={result._id}>
-          <MatchCard {...result} />
-        </Carousel.Slide>
-      );
-    });
-  } else {
-    slides = data?.nationStats?.map((nation: NationType) => {
-      return (
-        <Carousel.Slide key={nation._id}>
-          <NationCard {...nation} />
-        </Carousel.Slide>
-      );
-    });
+    console.error(error);
+    return <div>Error fetching data</div>;
   }
 
   return (
-    <Carousel
-      slideSize="1%"
-      slideGap="lg"
-      loop={false}
-      align="start"
-      slidesToScroll="auto"
-      classNames={classes}
-      styles={{
-        control: {
-          backgroundColor: isDark ? 'white' : theme.colors.darkmode[1],
-          color: isDark ? '' : 'white',
-        },
-      }}
-    >
-      {slides}
-    </Carousel>
+    <div>
+      <h2>{title}</h2>
+      {loading && <Loader size={25} color={theme.colors.primary[5]}/>}
+      <Carousel
+        slideSize="1%"
+        slideGap="lg"
+        loop={false}
+        align="start"
+        slidesToScroll="auto"
+        classNames={classes}
+        styles={{
+          control: {
+            backgroundColor: isDark ? 'white' : theme.colors.darkmode[1],
+            color: isDark ? '' : 'white',
+          },
+        }}
+      >
+        {slides}
+      </Carousel>
+    </div>
   );
 }
 
