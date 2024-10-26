@@ -65,16 +65,28 @@ const tournamentResolvers = {
           },
         },
         {
-          $skip: (page - 1) * LIMIT,
-        },
-        {
-          $limit: LIMIT,
+          $facet: {
+            paginatedResults: [
+              { $skip: (page - 1) * LIMIT }, // Skip the first n tournament groups
+              { $limit: LIMIT }, // Limit the number of tournament groups
+            ],
+            totalCount: [
+              { $count: "count" }, // Count the total number of tournament groups
+            ],
+          },
         },
       ];
 
       const tournaments = await Result.aggregate(aggregationPipeline).exec();
 
-      return tournaments.length > 0 ? tournaments : [];
+      // Ensure that the paginatedResults and totalCount are always returned
+      const paginatedResults = tournaments[0]?.paginatedResults || [];
+      const totalCount = tournaments[0]?.totalCount?.[0]?.count || 0;
+
+      return {
+        paginatedResults,
+        totalCount,
+      };
     },
   },
 };

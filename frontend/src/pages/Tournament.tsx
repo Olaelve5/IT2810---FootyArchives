@@ -7,7 +7,7 @@ import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
 import { GET_TOURNAMENTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
-import { TournamentType } from '../types/Tournament';
+import { TournamentType } from '../types/TournamentType';
 import { Button, Loader, useMantineTheme } from '@mantine/core';
 import { tournamentData } from '../utils/tournamentUtils';
 import { IconTrophyFilled } from '@tabler/icons-react';
@@ -17,6 +17,7 @@ export default function Tournament() {
   const navigate = useNavigate();
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
   const [tournaments, setTournaments] = useState<TournamentType[]>([]);
   const theme = useMantineTheme();
 
@@ -33,7 +34,8 @@ export default function Tournament() {
 
   // Initialize tournaments
   if (data && tournaments.length === 0) {
-    setTournaments(data.tournaments);
+    setTournaments(data.tournaments.paginatedResults);
+    setTotalCount(data.tournaments.totalCount);
   }
 
   // Fetch more tournaments when button is clicked
@@ -44,8 +46,7 @@ export default function Tournament() {
 
     if (data) {
       setPage((prevPage) => prevPage + 1);
-      setTournaments((prevTournaments) => [...prevTournaments, ...data.tournaments]);
-      console.log([...tournaments, ...data.tournaments]);
+      setTournaments((prevTournaments) => [...prevTournaments, ...data.tournaments.paginatedResults]);
     }
   };
 
@@ -54,10 +55,6 @@ export default function Tournament() {
     setTournaments([]);
     setPage(1);
   }, [tournamentName]);
-
-  useEffect(() => {
-    console.log(tournaments);
-  }, [tournaments]);
 
   const carousels = tournaments.map((tournament: TournamentType) => {
     return (
@@ -85,12 +82,12 @@ export default function Tournament() {
         <div className="rightInnerContainer">
           <Navbar />
           <div className={classes.titleContainer}>
-            <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy}/>
+            <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
             <h1>{tournamentName}</h1>
           </div>
           {loading && <Loader size={25} color={theme.colors.primary[5]} />}
           <div className={classes.carouselSection}>{carousels}</div>
-          <Button onClick={handleClick} className={classes.loadButton} radius="xl">
+          <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
             Load More
           </Button>
         </div>

@@ -57,6 +57,11 @@ const resultTypeDefs = gql`
     results: [Result!]!
   }
 
+  type TournamentsResponse {
+    paginatedResults: [Tournament!]!
+    totalCount: Int!
+  }
+
   type Query {
     results(
       filters: FiltersInput
@@ -71,7 +76,7 @@ const resultTypeDefs = gql`
       away_team: String!
       date: String!
     ): [Goalscorer]
-    tournaments(tournamentName: String!, page: Int!): [Tournament!]!
+    tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
   }
 `;
 

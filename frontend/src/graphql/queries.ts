@@ -90,20 +90,23 @@ export const GET_NATION_STATS = gql`
 export const GET_TOURNAMENTS = gql`
   query GetTournaments($tournamentName: String!, $page: Int!) {
     tournaments(tournamentName: $tournamentName, page: $page) {
-      _id
-      year
-      tournament
-      results {
+      totalCount
+      paginatedResults {
         _id
+        year
         tournament
-        home_team
-        away_team
-        home_score
-        away_score
-        city
-        country
-        date
+        results {
+          _id
+          tournament
+          home_team
+          away_team
+          home_score
+          away_score
+          city
+          country
+          date
+        }
       }
     }
   }
-`
+`;
