@@ -93,6 +93,7 @@ export const GET_TOURNAMENTS = gql`
       _id
       tournament
       results {
+        _id
         tournament
         home_team
         away_team
