@@ -51,7 +51,8 @@ const resultTypeDefs = gql`
   }
 
   type Tournament {
-    _id: Int!
+    _id: String!
+    year: Int!
     tournament: String!
     results: [Result!]!
   }

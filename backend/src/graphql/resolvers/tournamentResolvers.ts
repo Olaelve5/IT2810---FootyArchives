@@ -18,7 +18,7 @@ const tournamentResolvers = {
       if (!tournamentName || page === undefined) {
         throw new Error("tournamentName and page are required parameters.");
       }
-      
+
       const aggregationPipeline: PipelineStage[] = [
         {
           $match: {
@@ -51,7 +51,10 @@ const tournamentResolvers = {
         },
         {
           $project: {
-            _id: "$_id.year",
+            _id: {
+              $concat: [{ $toString: "$_id.year" }, "_", "$_id.tournament"],
+            },
+            year: "$_id.year",
             tournament: "$_id.tournament",
             results: { $slice: ["$results", RESULT_LIMIT] }, // Fetch the last 5 matches after sorting
           },

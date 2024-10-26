@@ -65,7 +65,7 @@ export default function Tournament() {
         <MatchcardCarousel
           cardType={'match'}
           data={tournament.results}
-          title={tournament._id}
+          title={tournament.year.toString()}
           loading={loading}
           error={error}
         />

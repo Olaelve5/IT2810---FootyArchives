@@ -91,6 +91,7 @@ export const GET_TOURNAMENTS = gql`
   query GetTournaments($tournamentName: String!, $page: Int!) {
     tournaments(tournamentName: $tournamentName, page: $page) {
       _id
+      year
       tournament
       results {
         _id
