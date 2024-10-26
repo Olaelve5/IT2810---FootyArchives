@@ -75,16 +75,24 @@ body {
   width: 100%;
 }
 
-.rightContainer {
+#rightContainer {
   display: flex;
   width: 100%;
   justify-content: center;
-  padding-left: 17rem;
+  transition: padding 0.3s ease-in-out;
+}
+
+.rightContainerCollapsed {
+  padding-left: 5rem;
+}
+
+.rightContainerExpanded {
+  padding-left: 16rem;
 }
 
 .rightInnerContainer {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   padding: 0 4rem;
 }
 

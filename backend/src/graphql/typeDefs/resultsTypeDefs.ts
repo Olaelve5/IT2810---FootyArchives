@@ -1,3 +1,4 @@
+import { YearRange } from './../../types/FiltersType';
 import { gql } from "apollo-server";
 
 // Define the GraphQL schema - the types and queries that can be made
@@ -49,6 +50,18 @@ const resultTypeDefs = gql`
     totalPages: Int
   }
 
+  type Tournament {
+    _id: String!
+    year: Int!
+    tournament: String!
+    results: [Result!]!
+  }
+
+  type TournamentsResponse {
+    paginatedResults: [Tournament!]!
+    totalCount: Int!
+  }
+
   type Query {
     results(
       filters: FiltersInput
@@ -63,6 +76,7 @@ const resultTypeDefs = gql`
       away_team: String!
       date: String!
     ): [Goalscorer]
+    tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
   }
 `;
 

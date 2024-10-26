@@ -5,7 +5,7 @@
   align-items: center;
   padding: 1.5rem 0rem;
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   gap: 2rem;
 }
 
@@ -70,4 +70,13 @@
 
 .chevron {
   transition: all 0.15s ease;
+}
+
+
+.searchbarContainer {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  min-height: fit-content;
+  align-items: center;
 }
