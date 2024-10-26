@@ -8,36 +8,46 @@ import { useState } from 'react';
 import { GET_TOURNAMENTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { TournamentType } from '../types/Tournament';
+import { Button, Loader, useMantineTheme } from '@mantine/core';
 
 export default function Tournament() {
   const { tournamentName } = useParams<{ tournamentName: string }>();
   const navigate = useNavigate();
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
+  const [tournaments, setTournaments] = useState<TournamentType[]>([]);
+  const theme = useMantineTheme();
 
-  const { data, loading, error } = useQuery(GET_TOURNAMENTS, {
-    variables: { tournamentName: tournamentName, page: page }, // Adjust as needed
-    onCompleted: (data) => console.log("Data:", data.tournaments),
-    onError: (error) => console.log("Error:", error),
+  const { loading, error, fetchMore } = useQuery(GET_TOURNAMENTS, {
+    variables: { tournamentName: tournamentName, page: page },
+    onCompleted: (data) => setTournaments(data.tournaments),
+    onError: (error) => console.log('Error:', error),
   });
 
-  if (loading) {
-    return <div>Loading {tournamentName}</div>;
-  }
+  const handleClick = async () => {
+    const { data } = await fetchMore({
+      variables: { tournamentName: tournamentName, page: page + 1 },
+    });
+
+    if (data) {
+      setPage((prevPage) => prevPage + 1);
+      setTournaments((prevTournaments) => [...prevTournaments, ...data.tournaments]);
+      console.log([...tournaments, ...data.tournaments]);
+    }
+  };
+
+  const carousels = tournaments.map((tournament: TournamentType) => {
+    return (
+      <div key={tournament._id}>
+        <MatchcardCarousel cardType={'match'} data={tournament.results} title={tournament._id} loading={loading} error={error}/>
+      </div>
+    );
+  });
 
   if (error) {
     console.error(error);
     navigate('/not-found');
   }
-
-  const carousels = data.tournaments.map((tournament: TournamentType) => {
-    return (
-      <div key={tournament._id}>
-        <h2>{tournament.tournament}</h2>
-        <MatchcardCarousel />
-      </div>
-    );
-  });
 
   return (
     <div className="layoutContainer">
@@ -46,7 +56,11 @@ export default function Tournament() {
         <div className="rightInnerContainer">
           <Navbar />
           <h1>{tournamentName}</h1>
-          <p>Info om {tournamentName}</p>{' '}
+          {loading && <Loader size={25} color={theme.colors.primary[5]}/>}
+          <div className={classes.carouselSection}>{carousels}</div>
+          <Button onClick={handleClick}>
+            Load More
+          </Button>
         </div>
       </div>
     </div>
