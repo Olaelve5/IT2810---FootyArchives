@@ -9,6 +9,8 @@ import { GET_TOURNAMENTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { TournamentType } from '../types/Tournament';
 import { Button, Loader, useMantineTheme } from '@mantine/core';
+import { tournamentData } from '../utils/tournamentUtils';
+import { IconTrophyFilled } from '@tabler/icons-react';
 
 export default function Tournament() {
   const { tournamentName } = useParams<{ tournamentName: string }>();
@@ -17,6 +19,11 @@ export default function Tournament() {
   const [page, setPage] = useState(1);
   const [tournaments, setTournaments] = useState<TournamentType[]>([]);
   const theme = useMantineTheme();
+
+  const iconColor = () => {
+    const color = tournamentData.find((item) => item.name === tournamentName)?.color;
+    return color ? theme.colors[color][8] : theme.colors.primary[5];
+  };
 
   // Fetch tournaments based on tournamentName
   const { data, loading, error, fetchMore } = useQuery(GET_TOURNAMENTS, {
@@ -48,6 +55,10 @@ export default function Tournament() {
     setPage(1);
   }, [tournamentName]);
 
+  useEffect(() => {
+    console.log(tournaments);
+  }, [tournaments]);
+
   const carousels = tournaments.map((tournament: TournamentType) => {
     return (
       <div key={tournament._id}>
@@ -73,10 +84,15 @@ export default function Tournament() {
       <div id="rightContainer" className={isCollapsed ? 'rightContainerCollapsed' : 'rightContainerExpanded'}>
         <div className="rightInnerContainer">
           <Navbar />
-          <h1>{tournamentName}</h1>
+          <div className={classes.titleContainer}>
+            <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy}/>
+            <h1>{tournamentName}</h1>
+          </div>
           {loading && <Loader size={25} color={theme.colors.primary[5]} />}
           <div className={classes.carouselSection}>{carousels}</div>
-          <Button onClick={handleClick}>Load More</Button>
+          <Button onClick={handleClick} className={classes.loadButton} radius="xl">
+            Load More
+          </Button>
         </div>
       </div>
     </div>

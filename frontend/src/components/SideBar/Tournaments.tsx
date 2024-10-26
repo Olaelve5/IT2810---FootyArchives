@@ -4,34 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 import { IconTrophyFilled } from '@tabler/icons-react';
-
-const data = [
-  {
-    name: 'FIFA World Cup',
-    link: 'FIFA World Cup',
-    color: 'yellow',
-  },
-  {
-    name: 'UEFA Euro',
-    link: 'UEFA Euro',
-    color: 'blue',
-  },
-  {
-    name: 'Copa América',
-    link: 'Copa América',
-    color: 'orange',
-  },
-  {
-    name: 'AFC Asian Cup',
-    link: 'AFC Asian Cup',
-    color: 'red',
-  },
-  {
-    name: 'African Cup of Nations',
-    link: 'African Cup of Nations',
-    color: 'green',
-  },
-];
+import { tournamentData } from '../../utils/tournamentUtils';
 
 interface CompetitionsProps {
   selected: string;
@@ -54,7 +27,7 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
     green: theme.colors.green[8],
   };
 
-  const links = data.map((item) => {
+  const links = tournamentData.map((item) => {
     const themeColor = colorMap[item.color];
 
     return (

@@ -36,7 +36,7 @@ function MatchcardCarousel({ data, cardType, loading, error, title }: MatchcardC
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className={classes.title}>{title}</h2>
       {loading && <Loader size={25} color={theme.colors.primary[5]}/>}
       <Carousel
         slideSize="1%"
