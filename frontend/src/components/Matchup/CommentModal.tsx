@@ -1,5 +1,5 @@
 import { Button, Modal, Textarea, TextInput, useMantineTheme } from '@mantine/core';
-import { CommentType } from '../../types/comment';
+import { CommentType } from '../../types/CommentType';
 import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import classes from '../../styles/Matchup/CommentModal.module.css';

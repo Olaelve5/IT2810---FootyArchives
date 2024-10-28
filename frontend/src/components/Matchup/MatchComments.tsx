@@ -3,7 +3,7 @@ import { useDisclosure } from '@mantine/hooks';
 import classes from '../../styles/Matchup/MatchComments.module.css';
 import { IconPlus } from '@tabler/icons-react';
 import { useState } from 'react';
-import { CommentType } from '../../types/comment';
+import { CommentType } from '../../types/CommentType';
 import Comment from './Comment';
 import { mockupComments } from '../../utils/tempUtils';
 import CommentModal from './CommentModal';

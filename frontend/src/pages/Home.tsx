@@ -11,8 +11,8 @@ import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { GET_RESULTS, GET_NATION_STATS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import { NationType } from '../types/Nation';
-import { ResultType } from '../types/Result';
+import { NationType } from '../types/NationType';
+import { ResultType } from '../types/ResultType';
 
 const recentMatchupsSort: QuerySortType = {
   field: 'date',

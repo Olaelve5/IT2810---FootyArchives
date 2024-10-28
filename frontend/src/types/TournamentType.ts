@@ -1,4 +1,4 @@
-import { ResultType } from './Result';
+import { ResultType } from './ResultType';
 
 export type TournamentType = {
   _id: string;

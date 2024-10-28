@@ -1,5 +1,5 @@
 import { Card, Text, Group } from '@mantine/core';
-import { ResultType } from '../../types/Result';
+import { ResultType } from '../../types/ResultType';
 import classes from '../../styles/Cards/Cards.module.css';
 import { useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
@@ -24,7 +24,7 @@ export function MatchCard(props: ResultType) {
       <Card
         padding="xs"
         radius="md"
-        shadow='xl'
+        shadow="xl"
         className={classes.card}
         id={isDark ? classes.darkCard : classes.lightCard}
         style={{

@@ -1,7 +1,7 @@
 import { IconTrophy, IconCalendarEvent, IconMapPin } from '@tabler/icons-react';
 import classes from '../../styles/Matchup/MatchDetails.module.css';
 import { useMantineColorScheme, useMantineTheme, Text } from '@mantine/core';
-import { ResultType } from '../../types/Result';
+import { ResultType } from '../../types/ResultType';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dateUtils';
 
@@ -22,7 +22,6 @@ export default function MatchDetails(data: ResultType) {
   if (!result) {
     return null;
   }
-  
 
   return (
     <div className={classes.container}>

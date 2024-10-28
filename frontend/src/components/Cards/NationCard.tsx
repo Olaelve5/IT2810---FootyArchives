@@ -1,6 +1,6 @@
 import { Card, Text, useMantineTheme, useMantineColorScheme, Group } from '@mantine/core';
 import classes from '../../styles/Cards/Cards.module.css';
-import { NationType } from '../../types/Nation';
+import { NationType } from '../../types/NationType';
 import { Link } from 'react-router-dom';
 import { getCountryCode } from '../../utils/imageUtils';
 
