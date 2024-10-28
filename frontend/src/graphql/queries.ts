@@ -20,7 +20,6 @@ export const GET_RESULTS = gql`
       totalPages
     }
   }
-
 `;
 
 export const GET_RESULT = gql`
@@ -36,10 +35,16 @@ export const GET_RESULT = gql`
       city
       country
       neutral
+      comments {
+        _id
+        user_name
+        date
+        comment
+        result_id
+      }
     }
   }
 `;
-
 
 export const GET_GOALSCORERS = gql`
   query GetGoalscorers($home_team: String!, $away_team: String!, $date: String!) {
@@ -63,7 +68,6 @@ export const SEARCH_TEAMS = gql`
   }
 `;
 
-
 export const GET_NATION_STATS = gql`
   query GetNationStats($limit: Int, $sort: SortInput) {
     nationStats(limit: $limit, sort: $sort) {
@@ -85,7 +89,7 @@ export const GET_NATION_STATS = gql`
       }
     }
   }
-`
+`;
 
 export const GET_TOURNAMENTS = gql`
   query GetTournaments($tournamentName: String!, $page: Int!) {

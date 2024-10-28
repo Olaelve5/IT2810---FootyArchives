@@ -3,10 +3,6 @@ import { model, Schema } from "mongoose";
 
 // Scheme for the results collection in the MongoDB database
 const ResultSchema = new Schema({
-  _id: {
-    type: ObjectId,
-    required: true,
-  },
   date: {
     type: Date,
     required: true,
@@ -43,6 +39,12 @@ const ResultSchema = new Schema({
     type: Boolean,
     required: false,
   },
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Comment',  // Reference to the Comment model
+    },
+  ],
 });
 
 ResultSchema.virtual('goal_difference').get(function() {

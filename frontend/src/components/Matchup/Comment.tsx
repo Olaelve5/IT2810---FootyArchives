@@ -1,4 +1,4 @@
-import { CommentType } from '../../types/comment';
+import { CommentType } from '../../types/CommentType';
 import classes from '../../styles/Matchup/Comment.module.css';
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { useMantineColorScheme } from '@mantine/core';
@@ -9,16 +9,21 @@ export default function Comment({ comment }: { comment: CommentType }) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
 
+  if (!comment) {
+    console.error('Comment is undefined');
+    return null;
+  }
+
   return (
     <div className={classes.container}>
       <Group className={classes.nameTimeContainer}>
-        <Text size="md">@{comment.username}</Text>
+        <Text size="md">@{comment.user_name}</Text>
         <Text size="xs" c={isDark ? theme.colors.darkmode[8] : 'black'}>
           {' '}
           {calculateTimeDifference(comment.date)}
         </Text>
       </Group>
-      <Text size="md">{comment.text}</Text>
+      <Text size="md">{comment.comment}</Text>
     </div>
   );
 }

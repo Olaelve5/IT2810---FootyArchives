@@ -2,21 +2,24 @@ import { Button } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from '../../styles/Matchup/MatchComments.module.css';
 import { IconPlus } from '@tabler/icons-react';
-import { useState } from 'react';
-import { CommentType } from '../../types/comment';
+import { CommentType } from '../../types/CommentType';
 import Comment from './Comment';
-import { mockupComments } from '../../utils/tempUtils';
 import CommentModal from './CommentModal';
 import { useLanguageStore } from '../../stores/language-store';
+import { ResultType } from '../../types/ResultType';
 
-export default function MatchComments() {
-  const [comments, setComments] = useState<CommentType[]>(mockupComments);
+interface MatchCommentsProps {
+  result: ResultType;
+}
+
+export default function MatchComments({ result }: MatchCommentsProps) {
+  const comments: CommentType[] = result.comments ? result.comments : [];
   const [opened, { open, close }] = useDisclosure(false);
   const language = useLanguageStore((state) => state.language);
 
   return (
     <div className={classes.container}>
-      <CommentModal opened={opened} onClose={close} comments={comments} setComments={setComments} />
+      <CommentModal opened={opened} onClose={close} resultId={result._id} />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
           {comments.length} {language === 'en' ? 'comments' : 'kommentarer'}

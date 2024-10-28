@@ -5,7 +5,7 @@ import NorwayFlag from '../../assets/images/no.png';
 import { Menu } from '@mantine/core';
 import { useState } from 'react';
 import { useLanguageStore } from '../../stores/language-store';
-import { Language } from '../../types/language';
+import { Language } from '../../types/LanguageType';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
@@ -30,7 +30,7 @@ export default function LanguageButton() {
   const languageImage = language === 'en' ? UKFlag : NorwayFlag;
 
   return (
-    <Menu opened={opened} onChange={setOpened} radius={10} shadow='lg'>
+    <Menu opened={opened} onChange={setOpened} radius={10} shadow="lg">
       <Menu.Target>
         <Button
           rightSection={

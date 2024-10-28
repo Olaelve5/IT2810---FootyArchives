@@ -106,13 +106,17 @@ const resultResolvers = {
       }
 
       const objectId = new ObjectId(_id);
-      const result = await Result.findOne({ _id: objectId });
+      const result = await Result.findOne({ _id: objectId })
+        .populate({
+          path: "comments",
+          options: { sort: { date: -1 } },
+        }) // Ensure comments are populated
+        .exec();
 
       if (!result) {
         console.log("Result not found");
         throw new Error("Result not found");
       }
-      console.log(result);
       return result;
     },
 
@@ -140,13 +144,11 @@ const resultResolvers = {
       return allTeams.slice(0, 5);
     },
     goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
-      console.log("Received variables:", { home_team, away_team, date });
       const goalscorers = await Goalscorer.find({
         home_team,
         away_team,
         date,
       });
-      console.log("Fetched goalscorers:", goalscorers);
       return goalscorers;
 
       [];

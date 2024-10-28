@@ -1,18 +1,19 @@
 import { Button, Modal, Textarea, TextInput, useMantineTheme } from '@mantine/core';
-import { CommentType } from '../../types/comment';
 import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import classes from '../../styles/Matchup/CommentModal.module.css';
 import { useLanguageStore } from '../../stores/language-store';
+import { POST_COMMENT } from '../../graphql/commentOperations';
+import { GET_RESULT } from '../../graphql/queries';
+import { useMutation } from '@apollo/client';
 
 interface CommentModalProps {
   opened: boolean;
   onClose: () => void;
-  comments: CommentType[];
-  setComments: (comments: CommentType[]) => void;
+  resultId: string;
 }
 
-export default function CommentModal({ opened, onClose, comments, setComments }: CommentModalProps) {
+export default function CommentModal({ opened, onClose, resultId }: CommentModalProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
@@ -20,28 +21,35 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
 
   const [commentText, setCommentText] = useState('');
   const [username, setUsername] = useState('');
-
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
+    refetchQueries: [{ query: GET_RESULT, variables: { id: resultId } }], // Refetch after posting
+    awaitRefetchQueries: true,
+  });
 
   const getColor = () => {
     return isDark ? theme.colors.darkmode[2] : 'white';
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setButtonPressed(true);
     if (username && commentText) {
-      const newComment: CommentType = {
-        username,
-        text: commentText,
-        date: new Date().toISOString(),
-      };
+      try {
+        await postComment({
+          variables: {
+            resultId: resultId,
+            comment: commentText,
+            userName: username,
+          },
+        });
 
-      setCommentText('');
-      setUsername('');
-
-      // Add the new comment to the list of comments
-      setComments([newComment, ...comments]);
-      handleClose();
+        // Reset the input fields and close the modal
+        setCommentText('');
+        setUsername('');
+        handleClose();
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
@@ -57,6 +65,7 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
       title={language === 'en' ? 'Add comment' : 'Legg til kommentar'}
       className={classes.container}
     >
+      {error && <p>{error.message}</p>}
       <TextInput
         label={language === 'en' ? 'Username' : 'Brukernavn'}
         required
@@ -94,7 +103,7 @@ export default function CommentModal({ opened, onClose, comments, setComments }:
           },
         }}
       />
-      <Button radius={100} color="primary" onClick={handleClick} className={classes.button}>
+      <Button radius={100} color="primary" onClick={handleClick} className={classes.button} loading={loading}>
         {language === 'en' ? 'Post comment' : 'Post kommentar'}
       </Button>
     </Modal>
