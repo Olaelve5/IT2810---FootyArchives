@@ -1,6 +1,7 @@
 export type CommentType = {
-    userName: string;
+    id?: string;
+    user_name: string;
     comment: string;
     date: string;
-    resultId: string;
+    result_id: string;
 }

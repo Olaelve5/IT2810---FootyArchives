@@ -2,8 +2,8 @@ import { format } from 'date-fns';
 
 // Function that takes a date string and returns a string that represents the time difference between the current date and the date given as a parameter.
 export const calculateTimeDifference = (date: string): string => {
+  const commentDate = new Date(parseInt(date));
   const currentDate = new Date();
-  const commentDate = new Date(date);
   const timeDifference = currentDate.getTime() - commentDate.getTime();
   const seconds = timeDifference / 1000;
   const minutes = seconds / 60;

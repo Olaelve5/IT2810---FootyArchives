@@ -107,7 +107,10 @@ const resultResolvers = {
 
       const objectId = new ObjectId(_id);
       const result = await Result.findOne({ _id: objectId })
-        .populate("comments") // Ensure comments are populated
+        .populate({
+          path: "comments",
+          options: { sort: { date: -1 } },
+        }) // Ensure comments are populated
         .exec();
 
       if (!result) {

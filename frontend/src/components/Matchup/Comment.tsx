@@ -9,10 +9,15 @@ export default function Comment({ comment }: { comment: CommentType }) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
 
+  if (!comment) {
+    console.error('Comment is undefined');
+    return null;
+  }
+
   return (
     <div className={classes.container}>
       <Group className={classes.nameTimeContainer}>
-        <Text size="md">@{comment.userName}</Text>
+        <Text size="md">@{comment.user_name}</Text>
         <Text size="xs" c={isDark ? theme.colors.darkmode[8] : 'black'}>
           {' '}
           {calculateTimeDifference(comment.date)}
