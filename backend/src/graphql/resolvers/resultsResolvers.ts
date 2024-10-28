@@ -140,13 +140,11 @@ const resultResolvers = {
       return allTeams.slice(0, 5);
     },
     goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
-      console.log("Received variables:", { home_team, away_team, date });
       const goalscorers = await Goalscorer.find({
         home_team,
         away_team,
         date,
       });
-      console.log("Fetched goalscorers:", goalscorers);
       return goalscorers;
 
       [];
