@@ -1,4 +1,3 @@
-import { YearRange } from './../../types/FiltersType';
 import { gql } from "apollo-server";
 
 // Define the GraphQL schema - the types and queries that can be made

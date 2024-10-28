@@ -3,10 +3,6 @@ import { model, Schema } from "mongoose";
 
 // Scheme for the results collection in the MongoDB database
 const ResultSchema = new Schema({
-  _id: {
-    type: ObjectId,
-    required: true,
-  },
   date: {
     type: Date,
     required: true,
@@ -45,7 +41,7 @@ const ResultSchema = new Schema({
   },
   comments: [
     {
-      type: Schema.Types.ObjectId, // Correctly reference ObjectId
+      type: Schema.Types.ObjectId,
       ref: 'Comment',  // Reference to the Comment model
     },
   ],

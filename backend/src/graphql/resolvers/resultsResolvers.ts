@@ -107,7 +107,7 @@ const resultResolvers = {
 
       const objectId = new ObjectId(_id);
       const result = await Result.findOne({ _id: objectId })
-        .populate("comments")
+        .populate("comments") // Ensure comments are populated
         .exec();
 
       if (!result) {

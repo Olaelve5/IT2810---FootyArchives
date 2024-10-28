@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { model, Schema } from "mongoose";
 
-// Scheme for the comments collection in the MongoDB database
+// Schema for the comments collection in the MongoDB database
 const CommentSchema = new Schema({
   date: {
     type: Date,
@@ -18,6 +18,7 @@ const CommentSchema = new Schema({
   result_id: {
     type: ObjectId,
     required: true,
+    ref: "Result", // Reference to the Result model
   },
 });
 

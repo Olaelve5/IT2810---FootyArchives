@@ -9,6 +9,10 @@ const commentTypeDefs = gql`
     result_id: ID!
   }
 
+  type Query {
+    getComments(result_id: ID!, limit: Int, page: Int): [Comment]
+  }
+
   type Mutation {
     addComment(result_id: ID!, comment: String!, user_name: String!): Comment!
   }
