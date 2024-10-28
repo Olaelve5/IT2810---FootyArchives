@@ -106,13 +106,14 @@ const resultResolvers = {
       }
 
       const objectId = new ObjectId(_id);
-      const result = await Result.findOne({ _id: objectId });
+      const result = await Result.findOne({ _id: objectId })
+        .populate("comments")
+        .exec();
 
       if (!result) {
         console.log("Result not found");
         throw new Error("Result not found");
       }
-      console.log(result);
       return result;
     },
 
