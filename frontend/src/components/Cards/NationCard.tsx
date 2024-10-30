@@ -10,7 +10,7 @@ function NationCard(props: NationType) {
   const isDark = colorScheme === 'dark';
 
   return (
-    <Link to={`/project2/Country/${props._id}`}>
+    <Link to={`/project2/nation/${props._id}`}>
       <div className={classes.container}>
         <Card
           padding="xs"
