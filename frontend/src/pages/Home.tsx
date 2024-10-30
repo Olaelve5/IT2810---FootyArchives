@@ -6,7 +6,6 @@ import MatchCardCarousel from '../components/Carousel';
 import Logo from '../components/BigLogo';
 import classes from '../styles/Home/Home.module.css';
 import DiscoverButton from '../components/DiscoverButton';
-import { QuerySortType } from '../types/QuerySortType';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { GET_RESULTS } from '../graphql/queries';
 import { GET_NATION_STATS } from '../graphql/nationStatsOperations';
@@ -14,21 +13,7 @@ import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { NationType } from '../types/NationType';
 import { ResultType } from '../types/ResultType';
-
-const recentMatchupsSort: QuerySortType = {
-  field: 'date',
-  order: -1,
-};
-
-const biggestWinsSort: QuerySortType = {
-  field: 'goal_difference',
-  order: -1,
-};
-
-const nationStatsSort: QuerySortType = {
-  field: 'total_team_wins',
-  order: -1,
-};
+import { nationStatsSort, recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
 
 function Home() {
   const { isCollapsed } = useSidebarCollapseStore();
@@ -43,7 +28,7 @@ function Home() {
   });
 
   const { error: recentMatchupsError, loading: recentMatchupsLoading } = useQuery(GET_RESULTS, {
-    variables: { limit, sort: recentMatchupsSort },
+    variables: { limit, sort: recentResultsSort },
     onCompleted: (data) => setRecentMatchupsProps(data.results.results),
   });
 

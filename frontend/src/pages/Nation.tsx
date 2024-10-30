@@ -9,9 +9,11 @@ import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GET_NATION_STAT } from '../graphql/nationStatsOperations';
+import { GET_RESULTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { getCountryCode } from '../utils/imageUtils';
+import { recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
 
 function Country() {
   const { colorScheme } = useMantineColorScheme();
@@ -20,18 +22,46 @@ function Country() {
   const { isCollapsed } = useSidebarCollapseStore();
   const { nationName } = useParams<{ nationName: string }>();
 
+  // Fetch the nation data
   const { loading, error, data } = useQuery(GET_NATION_STAT, {
     variables: { _id: nationName },
   });
 
   const nation = data?.nationStat;
 
+  //Fetch the recent results data
+  const {
+    loading: recentLoading,
+    error: recentError,
+    data: recentData,
+  } = useQuery(GET_RESULTS, {
+    variables: { limit: 12, sort: recentResultsSort, filters: { teams: [nationName] } },
+  });
+
+  // Fetch the biggest wins data
+  const {
+    loading: biggestWinsLoading,
+    error: biggestWinsError,
+    data: biggestWinsData,
+  } = useQuery(GET_RESULTS, {
+    variables: { limit: 12, sort: biggestWinsSort, filters: { winningTeam: nationName } },
+  });
+
+  // Fetch the worst defeats data
+  const {
+    loading: worstDefeatsLoading,
+    error: worstDefeatsError,
+    data: worstDefeatsData,
+  } = useQuery(GET_RESULTS, {
+    variables: { limit: 12, sort: biggestWinsSort, filters: { losingTeam: nationName } },
+  });
+
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo(0, 0);
   }, []);
 
-  if (error) navigate('/project2/not-found');
+  if (error || recentError || biggestWinsError || worstDefeatsError) navigate('/project2/not-found');
 
   return (
     <div className="layoutContainer">
@@ -40,7 +70,7 @@ function Country() {
         <div className="rightInnerContainer">
           <Navbar />
 
-          {loading ? (
+          {loading || recentLoading || biggestWinsLoading || worstDefeatsLoading ? (
             <Loader size={25} color={theme.colors.primary[5]} />
           ) : (
             <div>
@@ -53,13 +83,13 @@ function Country() {
                 </div>
               </div>
               <div className={classes.carouselSection}>
-                <MatchCardCarousel title="Recent matchups" />
+                <MatchCardCarousel title="Recent matchups" cardType="match" data={recentData.results.results} />
               </div>
               <div className={classes.carouselSection}>
-                <MatchCardCarousel title="Biggest wins" />
+                <MatchCardCarousel title="Biggest wins" cardType="match" data={biggestWinsData.results.results} />
               </div>
-              <div className={classes.carouselSection}>
-                <MatchCardCarousel title="Worst defeats" />
+              <div className={classes.carouselSection} style={{border: 'none'}}>
+                <MatchCardCarousel title="Worst defeats" cardType="match" data={worstDefeatsData.results.results} />
               </div>
             </div>
           )}
