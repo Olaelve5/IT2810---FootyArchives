@@ -45,6 +45,8 @@ const resultTypeDefs = gql`
     teams: [String]
     tournaments: [String]
     yearRange: YearRange
+    winningTeam: String
+    losingTeam: String
   }
 
   input SortInput {

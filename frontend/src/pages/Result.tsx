@@ -28,7 +28,7 @@ export default function Result() {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return navigate('/project2/not-found');
+  if (error) navigate('/project2/not-found');
 
   return (
     <div className="layoutContainer">

@@ -2,32 +2,17 @@ import '../styles/App.css';
 import '@mantine/core/styles.css';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
-import MatchCardCarousel from '../components/Carousel';
-import Logo from '../components/BigLogo';
-import classes from '../styles/Home/Home.module.css';
-import DiscoverButton from '../components/DiscoverButton';
-import { QuerySortType } from '../types/QuerySortType';
+import MatchCardCarousel from '../components/Carousel/Carousel';
+import Logo from '../components/Home/BigLogo';
+import DiscoverButton from '../components/Home/DiscoverButton';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
-import { GET_RESULTS, GET_NATION_STATS } from '../graphql/queries';
+import { GET_RESULTS } from '../graphql/queries';
+import { GET_NATION_STATS } from '../graphql/nationStatsOperations';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
 import { NationType } from '../types/NationType';
 import { ResultType } from '../types/ResultType';
-
-const recentMatchupsSort: QuerySortType = {
-  field: 'date',
-  order: -1,
-};
-
-const biggestWinsSort: QuerySortType = {
-  field: 'goal_difference',
-  order: -1,
-};
-
-const nationStatsSort: QuerySortType = {
-  field: 'total_team_wins',
-  order: -1,
-};
+import { nationStatsSort, recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
 
 function Home() {
   const { isCollapsed } = useSidebarCollapseStore();
@@ -42,7 +27,7 @@ function Home() {
   });
 
   const { error: recentMatchupsError, loading: recentMatchupsLoading } = useQuery(GET_RESULTS, {
-    variables: { limit, sort: recentMatchupsSort },
+    variables: { limit, sort: recentResultsSort },
     onCompleted: (data) => setRecentMatchupsProps(data.results.results),
   });
 
@@ -64,7 +49,7 @@ function Home() {
           <Navbar />
           <Logo />
           <DiscoverButton />
-          <div className={classes.carouselSection}>
+          <div>
             <MatchCardCarousel
               title={'Top teams'}
               cardType={'team'}
@@ -73,7 +58,7 @@ function Home() {
               error={nationStatsError}
             />
           </div>
-          <div className={classes.carouselSection}>
+          <div>
             <MatchCardCarousel
               title={'Recent matchups'}
               cardType={'match'}
@@ -82,7 +67,7 @@ function Home() {
               error={recentMatchupsError}
             />
           </div>
-          <div className={classes.carouselSection} style={{ border: 'none' }}>
+          <div style={{ border: 'none' }}>
             <MatchCardCarousel
               title={'Biggest wins'}
               cardType={'match'}

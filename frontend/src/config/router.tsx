@@ -2,9 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import Home from '../pages/Home.tsx';
 import NotFound from '../pages/NotFound.tsx';
 import Tournament from '../pages/Tournament.tsx';
-import Matchup from '../pages/Result.tsx';
+import Result from '../pages/Result.tsx';
 import Matchups from '../pages/Matchups.tsx'
-import Country from '../pages/Country.tsx';
+import Nation from '../pages/Nation.tsx';
 import { isCompetitionValid } from '../utils/tournamentUtils.tsx';
 
 const router = createBrowserRouter([
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/project2/matchup/:resultId',
-    element: <Matchup />,
+    element: <Result/>,
     errorElement: <NotFound />,
   },
   {
@@ -34,8 +34,8 @@ const router = createBrowserRouter([
     element: <NotFound />,
   },
   {
-    path: '/project2/Country/:countryName',
-    element: <Country />,
+    path: '/project2/nation/:nationName',
+    element: <Nation />,
     errorElement: <NotFound />,
   },
 ]);

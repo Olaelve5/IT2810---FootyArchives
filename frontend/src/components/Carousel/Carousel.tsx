@@ -1,10 +1,10 @@
 import { Carousel } from '@mantine/carousel';
-import { MatchCard } from './Cards/MatchCard';
-import NationCard from './Cards/NationCard';
-import classes from '../styles/Carousel.module.css';
+import { MatchCard } from '../Cards/MatchCard';
+import NationCard from '../Cards/NationCard';
+import classes from '../../styles/Carousel.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { ResultType } from '../types/ResultType';
-import { NationType } from '../types/NationType';
+import { ResultType } from '../../types/ResultType';
+import { NationType } from '../../types/NationType';
 import { ApolloError } from '@apollo/client';
 import { Loader } from '@mantine/core';
 
@@ -35,7 +35,7 @@ function MatchcardCarousel({ data, cardType, loading, error, title }: MatchcardC
   }
 
   return (
-    <div>
+    <div className={classes.topContainer}>
       <h2 className={classes.title}>{title}</h2>
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
       <Carousel

@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.flagNameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+        margin-top: 1rem;
+    }
+}
+
+.title {
+    font-weight: 600;
+}

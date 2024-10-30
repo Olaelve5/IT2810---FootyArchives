@@ -54,7 +54,7 @@ export default function Searchbar() {
   ));
 
   const handleOptionSubmit = (value: string) => {
-    navigate(`/project2/Country/${value}`);
+    navigate(`/project2/nation/${value}`);
     setTeamName('');
     setTeamNameToSearch('');
     combobox.closeDropdown();
