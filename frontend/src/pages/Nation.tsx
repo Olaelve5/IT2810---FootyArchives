@@ -62,7 +62,7 @@ function Nation() {
   }, []);
 
   const calculateWinLossRatio = (wins: number, losses: number) => {
-    return (wins / (wins + losses)).toFixed(2);
+    return ((wins / (wins + losses)) * 100).toFixed(2);
   };
 
   if (error || recentError || biggestWinsError || worstDefeatsError) navigate('/project2/not-found');
