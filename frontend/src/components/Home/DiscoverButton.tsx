@@ -1,7 +1,7 @@
-import classes from '../styles/Home/DiscoverButton.module.css';
+import classes from '../../styles/Home/DiscoverButton.module.css';
 import { Link } from 'react-router-dom';
 import { useMantineColorScheme } from '@mantine/core';
-import { useLanguageStore } from '../stores/language-store';
+import { useLanguageStore } from '../../stores/language-store';
 
 export default function DiscoverButton() {
   const { colorScheme } = useMantineColorScheme();

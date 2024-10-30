@@ -2,10 +2,9 @@ import '../styles/App.css';
 import '@mantine/core/styles.css';
 import Navbar from '../components/Navbar/Navbar';
 import SideBar from '../components/SideBar/SideBar';
-import MatchCardCarousel from '../components/Carousel';
-import Logo from '../components/BigLogo';
-import classes from '../styles/Home/Home.module.css';
-import DiscoverButton from '../components/DiscoverButton';
+import MatchCardCarousel from '../components/Carousel/Carousel';
+import Logo from '../components/Home/BigLogo';
+import DiscoverButton from '../components/Home/DiscoverButton';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { GET_RESULTS } from '../graphql/queries';
 import { GET_NATION_STATS } from '../graphql/nationStatsOperations';
@@ -50,7 +49,7 @@ function Home() {
           <Navbar />
           <Logo />
           <DiscoverButton />
-          <div className={classes.carouselSection}>
+          <div>
             <MatchCardCarousel
               title={'Top teams'}
               cardType={'team'}
@@ -59,7 +58,7 @@ function Home() {
               error={nationStatsError}
             />
           </div>
-          <div className={classes.carouselSection}>
+          <div>
             <MatchCardCarousel
               title={'Recent matchups'}
               cardType={'match'}
@@ -68,7 +67,7 @@ function Home() {
               error={recentMatchupsError}
             />
           </div>
-          <div className={classes.carouselSection} style={{ border: 'none' }}>
+          <div style={{ border: 'none' }}>
             <MatchCardCarousel
               title={'Biggest wins'}
               cardType={'match'}

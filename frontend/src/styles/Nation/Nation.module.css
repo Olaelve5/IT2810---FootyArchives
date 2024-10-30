@@ -1,0 +1,42 @@
+.topContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid;
+  align-items: center;
+}
+
+.flagTitleContainer {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nationName {
+  font-size: 3rem;
+}
+
+#flagImageContainer {
+  width: calc(8rem * 0.8);
+  height: calc(6rem * 0.8);
+}
+
+.nationStatsContainer {
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.nationStatsContainer p {
+  margin: 0;
+}
+
+.innerNationStatsConatiner {
+  display: flex;
+  gap: 1rem;
+}

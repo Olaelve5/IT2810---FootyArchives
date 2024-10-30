@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import SideBar from '../components/SideBar/SideBar';
 import Navbar from '../components/Navbar/Navbar';
-import MatchcardCarousel from '../components/Carousel';
+import MatchcardCarousel from '../components/Carousel/Carousel';
 import classes from '../styles/Tournament/Tournament.module.css';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';

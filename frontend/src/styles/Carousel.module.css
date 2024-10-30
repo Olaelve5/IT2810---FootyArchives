@@ -1,3 +1,12 @@
+.topContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 3rem;
+  padding-bottom: 4rem;
+}
+
+
 .control {
   &[data-inactive] {
     opacity: 0;
