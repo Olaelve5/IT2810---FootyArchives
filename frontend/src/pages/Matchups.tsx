@@ -4,10 +4,16 @@ import Filters from '../components/Filters/Filters';
 import { useLanguageStore } from '../stores/language-store';
 import MatchupsGrid from '../components/MatchupGrid/MatchupsGrid';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
+import { useEffect } from 'react';
 
 export default function Matchups() {
   const language = useLanguageStore((state) => state.language);
   const { isCollapsed } = useSidebarCollapseStore();
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="layoutContainer">

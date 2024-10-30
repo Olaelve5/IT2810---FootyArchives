@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom';
 import { GET_RESULT } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
+import { useEffect } from 'react';
 
 export default function Result() {
   const navigate = useNavigate();
@@ -18,8 +19,13 @@ export default function Result() {
   const { loading, error, data } = useQuery(GET_RESULT, {
     variables: { id: resultId },
   });
-  
+
   const result = data?.result;
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (error) return navigate('/project2/not-found');
@@ -27,14 +33,14 @@ export default function Result() {
   return (
     <div className="layoutContainer">
       <SideBar />
-      <div id='rightContainer' className={isCollapsed ? "rightContainerCollapsed" : "rightContainerExpanded"}>
+      <div id="rightContainer" className={isCollapsed ? 'rightContainerCollapsed' : 'rightContainerExpanded'}>
         <div className="rightInnerContainer">
           <Navbar />
           <Group gap={10}>
             <MatchDetails {...result} />
             <MatchScore {...result} />
             <MatchScorers result={result} />
-            <MatchComments result={result}/>
+            <MatchComments result={result} />
           </Group>
         </div>
       </div>

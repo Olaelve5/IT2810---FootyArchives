@@ -7,6 +7,7 @@ import MatchCardCarousel from '../components/Carousel';
 import classes from '../styles/Home/Home.module.css';
 import Norge from '../assets/Norge.png';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
+import { useEffect } from 'react';
 
 const Norway = {
   country: 'Norway',
@@ -21,6 +22,11 @@ function Country() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const { isCollapsed } = useSidebarCollapseStore();
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   const totalGamesColor = colorScheme === 'dark' ? '#a9a9a9' : theme.colors.dark[6];
   return (

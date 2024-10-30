@@ -10,7 +10,7 @@ import { QuerySortType } from '../types/QuerySortType';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { GET_RESULTS, GET_NATION_STATS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NationType } from '../types/NationType';
 import { ResultType } from '../types/ResultType';
 
@@ -50,6 +50,11 @@ function Home() {
     variables: { limit, sort: biggestWinsSort },
     onCompleted: (data) => setBiggestWinsProps(data.results.results),
   });
+
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="layoutContainer">
