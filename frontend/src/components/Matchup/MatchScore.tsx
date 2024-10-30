@@ -1,16 +1,25 @@
-import { Group, Image } from '@mantine/core';
-import NorwayFlag from '../../assets/images/no.png';
-import BrazilFlag from '../../assets/images/br.png';
+import { Group } from '@mantine/core';
 import classes from '../../styles/Matchup/MatchScore.module.css';
 import { Link } from 'react-router-dom';
 import { ResultType } from '../../types/ResultType';
+import { getCountryCode } from '../../utils/imageUtils';
+import { useEffect, useState } from 'react';
 
 export default function MatchScore(result: ResultType) {
+  const [countryCodes, setCountryCodes] = useState<string[]>([]);
+
+  useEffect(() => {
+    const codes = getCountryCode([result.home_team, result.away_team]);
+    setCountryCodes(codes as string[]);
+  }, [result.home_team, result.away_team]);
+
   return (
     <Group className={classes.container} gap={100}>
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/Country/ex`}>
-          <Image src={BrazilFlag} h={80} radius={5} />
+          <div className="flagImageContainer" id={classes.flagImageContainer}>
+            <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
+          </div>
         </Link>
         <h2 className={classes.name}>{result.home_team}</h2>
       </Group>
@@ -21,7 +30,9 @@ export default function MatchScore(result: ResultType) {
       </Group>
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/Country/ex`}>
-          <Image src={NorwayFlag} h={80} radius={5} />
+          <div className="flagImageContainer" id={classes.flagImageContainer}>
+            <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
+          </div>
         </Link>
         <h2 className={classes.name}>{result.away_team}</h2>
       </Group>
