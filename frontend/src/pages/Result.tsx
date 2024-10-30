@@ -33,7 +33,7 @@ export default function Result() {
           <Group gap={10}>
             <MatchDetails {...result} />
             <MatchScore {...result} />
-            <MatchScorers home_team={result.home_team} away_team={result.away_team} date={result.date} />
+            <MatchScorers result={result} />
             <MatchComments result={result}/>
           </Group>
         </div>

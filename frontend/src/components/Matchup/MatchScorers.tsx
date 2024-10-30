@@ -3,19 +3,21 @@ import { GET_GOALSCORERS } from '../../graphql/queries';
 import { IconBallFootball } from '@tabler/icons-react';
 import classes from '../../styles/Matchup/MatchScorers.module.css';
 import { Goalscorer } from '../../types/GoalscorerType';
+import { Loader, useMantineTheme } from '@mantine/core';
+import { ResultType } from '../../types/ResultType';
 
 interface MatchScorersProps {
-  home_team: string;
-  away_team: string;
-  date: string;
+  result: ResultType;
 }
 
-export default function MatchScorers({ home_team, away_team, date }: MatchScorersProps) {
+export default function MatchScorers({ result }: MatchScorersProps) {
+  const { home_score, away_score, home_team, away_team, date } = result;
   const { loading, error, data } = useQuery(GET_GOALSCORERS, {
     variables: { home_team, away_team, date },
   });
+  const theme = useMantineTheme();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader size={25} color={theme.colors.primary[5]} />;
   if (error) return <p>Error: {error.message}</p>;
 
   const goals: Goalscorer[] = data.goalscorers;
@@ -31,6 +33,7 @@ export default function MatchScorers({ home_team, away_team, date }: MatchScorer
 
   return (
     <div className={classes.container}>
+      {home_score + away_score > 0 && data.goalscorers.length === 0 && <p className={classes.noDataText}>No goalscorer data available</p>}
       {orderedGoals.map((goal, index) => (
         <div key={index} className={classes.goalContainer}>
           <div className={classes.line}></div>

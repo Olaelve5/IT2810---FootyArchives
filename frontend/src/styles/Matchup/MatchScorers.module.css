@@ -40,3 +40,8 @@
     margin: 0;
     position: relative;
 }
+
+.noDataText {
+    color: var(--mantine-color-darkmode-9);
+    font-style: italic;
+}
