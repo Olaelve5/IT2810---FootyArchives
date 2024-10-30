@@ -1,4 +1,4 @@
-import { IconTrophy, IconCalendarEvent, IconMapPin } from '@tabler/icons-react';
+import { IconTrophy, IconCalendarEvent, IconBuildingStadium } from '@tabler/icons-react';
 import classes from '../../styles/Matchup/MatchDetails.module.css';
 import { useMantineColorScheme, useMantineTheme, Text } from '@mantine/core';
 import { ResultType } from '../../types/ResultType';
@@ -38,7 +38,7 @@ export default function MatchDetails(data: ResultType) {
           <Text c={getColor()}>{formatDate(data.date)}</Text>
         </div>
         <div className={classes.detailContainer}>
-          <IconMapPin size={22} stroke={1.5} color={getColor()} />
+          <IconBuildingStadium size={22} stroke={1.5} color={getColor()} />
           <Text c={getColor()}>
             {data.city}, {data.country}
           </Text>

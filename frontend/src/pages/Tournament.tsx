@@ -56,6 +56,11 @@ export default function Tournament() {
     setPage(1);
   }, [tournamentName]);
 
+  useEffect(() => {
+    // Scroll to the top of the page when the component mounts
+    window.scrollTo(0, 0);
+  }, []);
+
   const carousels = tournaments.map((tournament: TournamentType) => {
     return (
       <div key={tournament._id}>

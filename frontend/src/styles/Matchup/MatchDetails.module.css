@@ -8,8 +8,8 @@
 }
 
 .title {
-    /* background-color: var(--mantine-color-darkmode-2); */
     margin: 0;
+    font-size: 3rem;
 }
 
 .detailContainer {
