@@ -1,7 +1,7 @@
 import { Button, Menu } from '@mantine/core';
 import { IconChevronDown, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { useState, useEffect } from 'react';
-import classes from '../../styles/Navbar/Navbar.module.css';
+import classes from '../../styles/MatchupsGrid/MatchupsGrid.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { QuerySortType } from '../../types/QuerySortType';
 
@@ -15,7 +15,7 @@ interface SortButtonProps {
 export default function SortButton({ sort, setSort }: SortButtonProps) {
   const { order, field } = sort;
   const [opened, setOpened] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [selectedOption, setSelectedOption] = useState<string>(sortOptions[0]);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
@@ -63,12 +63,15 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
       <Menu opened={opened} onChange={setOpened} radius={10} shadow="lg">
         <Menu.Target>
           <Button
-            className={isDark ? classes.languageButtonDark : classes.languageButtonLight}
+            className={classes.sortButton}
             id={isDark ? classes.darkButton : classes.lightButton}
-            color={isDark ? theme.colors.darkmode[2] : 'white'}
+            color="transparent"
             c={isDark ? 'white' : theme.colors.darkmode[2]}
             value={selectedOption}
-            rightSection={
+            size="sm"
+          >
+            <div className={classes.sortButtonText}>
+              {selectedOption}
               <IconChevronDown
                 className={classes.chevron}
                 size={20}
@@ -76,10 +79,7 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
                   transform: opened ? 'rotate(-180deg)' : 'rotate(0deg)',
                 }}
               />
-            }
-            size="sm"
-          >
-            {selectedOption}
+            </div>
           </Button>
         </Menu.Target>
         <Menu.Dropdown className={classes.dropdown} id={isDark ? classes.dropdownDark : classes.dropdownLight}>
@@ -87,7 +87,7 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
             <Button
               key={option}
               size="sm"
-              className={isDark ? classes.languageButtonDropdown : classes.languageButtonDropdownLight}
+              className={isDark ? classes.dropDownOptionDark : classes.dropDownOptionLight}
               color="transparent"
               onClick={() => handleFieldChange(option)}
             >
@@ -96,8 +96,12 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
           ))}
         </Menu.Dropdown>
       </Menu>
-      <Button radius={'xl'} onClick={handleSortClick}>
-        {order === 1 ? <IconSortAscending size={20} /> : <IconSortDescending size={20} />}
+      <Button
+        radius={'xl'}
+        onClick={handleSortClick}
+        className={isDark ? classes.sortOrderButtonDark : classes.sortOrderButtonLight}
+      >
+        {order === 1 ? <IconSortAscending size={20} className={classes.orderIcon}/> : <IconSortDescending size={20} className={classes.orderIcon}/>}
       </Button>
     </div>
   );
