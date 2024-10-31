@@ -9,8 +9,8 @@ import { QuerySortType } from '../../types/QuerySortType';
 interface MatchupsGridProps {
   totalResults: number;
   results?: ResultType[];
-  sort?: QuerySortType;
-  setSort?: (sort: QuerySortType) => void;
+  sort: QuerySortType;
+  setSort: (sort: QuerySortType) => void;
 }
 
 export default function MatchupsGrid({ totalResults, results, sort, setSort }: MatchupsGridProps) {

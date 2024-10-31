@@ -1,11 +1,11 @@
 import { Button, Menu } from '@mantine/core';
 import { IconChevronDown, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classes from '../../styles/Navbar/Navbar.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { QuerySortType } from '../../types/QuerySortType';
 
-const sortOptions = ['Most recent', 'Most goals', 'Least recent', 'Least goals'];
+const sortOptions = ['Date', 'Goal Difference'];
 
 interface SortButtonProps {
   sort: QuerySortType;
@@ -13,18 +13,49 @@ interface SortButtonProps {
 }
 
 export default function SortButton({ sort, setSort }: SortButtonProps) {
-  const {order, field} = sort;
+  const { order, field } = sort;
   const [opened, setOpened] = useState(false);
   const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
 
+  // Set selected option based on sort-field
+  useEffect(() => {
+    if (field === 'date') {
+      setSelectedOption('Date');
+    } else if (field === 'goal_difference') {
+      setSelectedOption('Goal Difference');
+    }
+  }, [field]);
+
+  // Handle sort button click
   const handleSortClick = () => {
     setSort({
       field: field,
       order: order === 1 ? -1 : 1,
     });
+  };
+
+  // Handle field change based on selected option
+  const handleFieldChange = (option: string) => {
+    let newField: QuerySortType['field'];
+
+    if (option === 'Date') {
+      newField = 'date';
+    } else if (option === 'Goal Difference') {
+      newField = 'goal_difference';
+    } else {
+      console.error('Invalid field');
+      return;
+    }
+
+    setSort({
+      field: newField,
+      order: order,
+    });
+
+    setOpened(false);
   };
 
   return (
@@ -58,10 +89,7 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
               size="sm"
               className={isDark ? classes.languageButtonDropdown : classes.languageButtonDropdownLight}
               color="transparent"
-              onClick={() => {
-                setSelectedOption(option);
-                setOpened(false);
-              }}
+              onClick={() => handleFieldChange(option)}
             >
               {option}
             </Button>
