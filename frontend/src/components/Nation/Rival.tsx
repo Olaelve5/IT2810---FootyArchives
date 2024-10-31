@@ -9,7 +9,7 @@ interface RivalProps {
 function Rival({ rivalNation }: RivalProps) {
   return (
     <div className={classes.container}>
-      <p className={classes.title}>Rival</p>
+      <p className={classes.title}>Rival nation</p>
       <Link to={`/project2/nation/${rivalNation}`}>
         <div className={classes.flagNameContainer}>
           <div className="flagImageContainer">

@@ -1,7 +1,7 @@
 import { Text } from '@mantine/core';
 import { useMantineTheme, Loader } from '@mantine/core';
 import SortButton from './SortButton';
-import classes from '../../styles/MatchupsGrid/MatchupsGrid.module.css';
+import classes from '../../styles/MatchupsSearch/MatchupsGrid.module.css';
 import { ResultType } from '../../types/ResultType';
 import { MatchCard } from '../Cards/MatchCard';
 import { QuerySortType } from '../../types/QuerySortType';

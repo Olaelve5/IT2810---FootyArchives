@@ -1,5 +1,5 @@
 import { Pagination } from '@mantine/core';
-import classes from '../../styles/MatchupsGrid/Pagination.module.css';
+import classes from '../../styles/MatchupsSearch/Pagination.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 
 interface PaginationProps {

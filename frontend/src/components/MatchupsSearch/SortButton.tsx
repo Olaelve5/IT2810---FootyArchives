@@ -1,7 +1,7 @@
 import { Button, Menu } from '@mantine/core';
 import { IconChevronDown, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { useState, useEffect } from 'react';
-import classes from '../../styles/MatchupsGrid/MatchupsGrid.module.css';
+import classes from '../../styles/MatchupsSearch/MatchupsGrid.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { QuerySortType } from '../../types/QuerySortType';
 
