@@ -21,6 +21,9 @@ export default function Matchups() {
   // Fetch the matchups data
   const { loading, error, data } = useQuery(GET_RESULTS, {
     variables: { limit: 20, page: page, sort: sort },
+    onCompleted: (data) => {
+      console.log(data);
+    },
   });
 
   useEffect(() => {
@@ -43,8 +46,13 @@ export default function Matchups() {
             <p>Loading...</p>
           ) : (
             <div>
-              <MatchupsGrid totalResults={data.results.total} results={data.results.results} sort={sort} setSort={setSort}/>
-              <PaginationComponent totalPages={data.totalPages} page={page} setPage={setPage} />
+              <MatchupsGrid
+                totalResults={data.results.total}
+                results={data.results.results}
+                sort={sort}
+                setSort={setSort}
+              />
+              <PaginationComponent totalPages={data.results.totalPages} page={page} setPage={setPage} />
             </div>
           )}
         </div>
