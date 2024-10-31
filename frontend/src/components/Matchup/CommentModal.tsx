@@ -104,7 +104,7 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
         }}
       />
       <Button radius={100} color="primary" onClick={handleClick} className={classes.button} loading={loading}>
-        {language === 'en' ? 'Post comment' : 'Post kommentar'}
+        <p>{language === 'en' ? 'Post comment' : 'Post kommentar'}</p>
       </Button>
     </Modal>
   );
