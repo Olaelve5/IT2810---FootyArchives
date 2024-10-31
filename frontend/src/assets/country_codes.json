@@ -57,6 +57,7 @@
   { "Name": "Curaçao", "Code": "CW" },
   { "Name": "Cyprus", "Code": "CY" },
   { "Name": "Czech Republic", "Code": "CZ" },
+  { "Name": "Czechoslovakia", "Code": "CZ" },
   { "Name": "Ivory Coast", "Code": "CI" },
   { "Name": "Denmark", "Code": "DK" },
   { "Name": "Djibouti", "Code": "DJ" },
@@ -70,6 +71,7 @@
   { "Name": "Estonia", "Code": "EE" },
   { "Name": "Ethiopia", "Code": "ET" },
   { "Name": "England", "Code": "GB-ENG" },
+  { "Name": "Eswatini", "Code": "SZ" },
   { "Name": "Falkland Islands", "Code": "FK" },
   { "Name": "Faroe Islands", "Code": "FO" },
   { "Name": "Fiji", "Code": "FJ" },
@@ -255,7 +257,7 @@
   { "Name": "Zambia", "Code": "ZM" },
   { "Name": "Zimbabwe", "Code": "ZW" },
   { "Name": "Åland Islands", "Code": "AX" },
-  {"Name": "Isle of Wight", "Code": "GB-ENG"},
-  {"Name": "Darfur", "Code": "SD"},
-  {"Name": "Padania", "Code": "IT"}
+  { "Name": "Isle of Wight", "Code": "GB-ENG" },
+  { "Name": "Darfur", "Code": "SD" },
+  { "Name": "Padania", "Code": "IT" }
 ]

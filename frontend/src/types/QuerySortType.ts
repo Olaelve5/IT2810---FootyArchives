@@ -1,4 +1,7 @@
+type Field = 'date' | 'goals' | 'goal_difference' | 'total_team_wins';
+
+
 export type QuerySortType = {
-    field: string;
-    order: number;
+    field: Field;
+    order: 1 | -1;
 }

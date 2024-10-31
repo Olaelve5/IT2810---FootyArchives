@@ -9,12 +9,13 @@ import { GET_RESULTS } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import PaginationComponent from '../components/MatchupGrid/Pagination';
 import { useNavigate } from 'react-router-dom';
+import { QuerySortType } from '../types/QuerySortType';
 
 export default function Matchups() {
   const language = useLanguageStore((state) => state.language);
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
-  const [sort, setSort] = useState({ field: 'date', order: -1 });
+  const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
   const navigate = useNavigate();
 
   // Fetch the matchups data
@@ -42,7 +43,7 @@ export default function Matchups() {
             <p>Loading...</p>
           ) : (
             <div>
-              <MatchupsGrid totalResults={data.results.total} results={data.results.results}/>
+              <MatchupsGrid totalResults={data.results.total} results={data.results.results} sort={sort} setSort={setSort}/>
               <PaginationComponent totalPages={data.totalPages} page={page} setPage={setPage} />
             </div>
           )}

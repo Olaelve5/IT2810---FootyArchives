@@ -1,17 +1,31 @@
 import { Button, Menu } from '@mantine/core';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconChevronDown, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { useState } from 'react';
 import classes from '../../styles/Navbar/Navbar.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { QuerySortType } from '../../types/QuerySortType';
 
 const sortOptions = ['Most recent', 'Most goals', 'Least recent', 'Least goals'];
 
-export default function SortButton() {
+interface SortButtonProps {
+  sort: QuerySortType;
+  setSort: (sort: QuerySortType) => void;
+}
+
+export default function SortButton({ sort, setSort }: SortButtonProps) {
+  const {order, field} = sort;
   const [opened, setOpened] = useState(false);
   const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
+
+  const handleSortClick = () => {
+    setSort({
+      field: field,
+      order: order === 1 ? -1 : 1,
+    });
+  };
 
   return (
     <div>
@@ -54,6 +68,9 @@ export default function SortButton() {
           ))}
         </Menu.Dropdown>
       </Menu>
+      <Button radius={'xl'} onClick={handleSortClick}>
+        {order === 1 ? <IconSortAscending size={20} /> : <IconSortDescending size={20} />}
+      </Button>
     </div>
   );
 }
