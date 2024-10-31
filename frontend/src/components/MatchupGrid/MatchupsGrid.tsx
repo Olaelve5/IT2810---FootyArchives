@@ -1,5 +1,5 @@
 import { Text } from '@mantine/core';
-import { useMantineTheme } from '@mantine/core';
+import { useMantineTheme, Loader } from '@mantine/core';
 import SortButton from './SortButton';
 import classes from '../../styles/MatchupsGrid/MatchupsGrid.module.css';
 import { ResultType } from '../../types/ResultType';
@@ -11,15 +11,17 @@ interface MatchupsGridProps {
   results?: ResultType[];
   sort: QuerySortType;
   setSort: (sort: QuerySortType) => void;
+  loading?: boolean;
 }
 
-export default function MatchupsGrid({ totalResults, results, sort, setSort }: MatchupsGridProps) {
+export default function MatchupsGrid({ totalResults, results, sort, setSort, loading  }: MatchupsGridProps) {
   const theme = useMantineTheme();
 
   return (
     <div className={classes.container}>
       <div className={classes.topContainer}>
         <Text c={theme.colors.darkmode[8]}>{totalResults} matchups found</Text>
+        {loading && <Loader size={25} color={theme.colors.primary[5]} />}
         <SortButton sort={sort} setSort={setSort}/>
       </div>
       {totalResults === 0 && <Text>No matchups found</Text>}

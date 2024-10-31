@@ -46,23 +46,6 @@
   background-color: white;
 }
 
-.languageButtonDark {
-  overflow: hidden;
-  border-radius: 500px;
-  cursor: pointer;
-  border: 1px solid;
-  display: flex;
-}
-
-.languageButtonLight {
-  overflow: hidden;
-  border-radius: 500px;
-  cursor: pointer;
-  border: 1px solid;
-  display: flex;
-  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
-}
-
 .dropDownOptionDark {
   border: none;
 }
@@ -74,12 +57,12 @@
 
 .dropDownOptionLight {
   border: none;
-  color: black;
+  color: var(--mantine-color-darkmode-2);
 }
 
 .dropDownOptionLight:hover {
   background: var(--mantine-color-gray-2);
-  color: black;
+  color: var(--mantine-color-darkmode-2);
 }
 
 
@@ -104,11 +87,14 @@
 .sortOrderButtonLight {
     width: 2.2rem;
     border: 1px solid;
-    box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
+    background-color: white;
+    color: var(--mantine-color-darkmode-2);
+    border: none;
 }
 
 .sortOrderButtonLight:hover {
     background-color: white;
+    color: var(--mantine-color-darkmode-2);
 }
 
 .sortOrderButtonLight:focus {

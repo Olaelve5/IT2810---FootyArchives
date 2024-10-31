@@ -18,11 +18,18 @@ export default function Matchups() {
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
   const navigate = useNavigate();
 
+  // State for the results data -> necesarry to prevent unwanted scrolling behavior
+  const [results, setResults] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalResults, setTotalResults] = useState(0);
+
   // Fetch the matchups data
-  const { loading, error, data } = useQuery(GET_RESULTS, {
+  const { loading, error } = useQuery(GET_RESULTS, {
     variables: { limit: 20, page: page, sort: sort },
     onCompleted: (data) => {
-      console.log(data);
+      setResults(data.results.results);
+      setTotalPages(data.results.totalPages);
+      setTotalResults(data.results.total);
     },
   });
 
@@ -31,7 +38,7 @@ export default function Matchups() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (error) navigate('/proket2/not-found');
+  if (error) navigate('/project2/not-found');
 
   return (
     <div className="layoutContainer">
@@ -42,19 +49,10 @@ export default function Matchups() {
           <h2>Matchups</h2>
           <p>{language === 'en' ? 'Search and filter through all matchups' : 'Søk og filtrer gjennom alle kamper'}</p>
           <Filters />
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <div>
-              <MatchupsGrid
-                totalResults={data.results.total}
-                results={data.results.results}
-                sort={sort}
-                setSort={setSort}
-              />
-              <PaginationComponent totalPages={data.results.totalPages} page={page} setPage={setPage} />
-            </div>
-          )}
+          <div>
+            <MatchupsGrid totalResults={totalResults} results={results} sort={sort} setSort={setSort} loading={loading}/>
+            <PaginationComponent totalPages={totalPages} page={page} setPage={setPage} />
+          </div>
         </div>
       </div>
     </div>

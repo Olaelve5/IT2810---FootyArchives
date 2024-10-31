@@ -9,7 +9,8 @@
     background-color: var(--mantine-color-darkmode-2);
 
     &[data-active] {
-        background-color: var(--mantine-color-primary-9);
+        background-color: var(--mantine-color-darkmode-9);
+        color: var(--mantine-color-darkmode-0);
     }
 }
 
@@ -19,6 +20,6 @@
 
 .controlLight {
     &[data-active] {
-        background-color: var(--mantine-color-primary-9);
+        background-color: var(--mantine-color-darkmode-2);
     }
 }
