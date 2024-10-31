@@ -29,6 +29,7 @@ function TournamentFilter() {
     <MultiSelect
       classNames={classes}
       onChange={setValue}
+      
       radius="xl"
       label={language === 'en' ? 'Tournaments' : 'Turneringer'}
       placeholder={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}

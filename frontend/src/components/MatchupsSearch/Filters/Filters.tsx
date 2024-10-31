@@ -20,6 +20,7 @@ export default function Filters({ setFilters }: FiltersProps) {
   const [selectedTournaments, setSelectedTournaments] = useState<string[]>([]);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+  const [opened, setOpened] = useState(false);
 
   const handleApplyFilters = () => {
     setFilters({
@@ -28,6 +29,7 @@ export default function Filters({ setFilters }: FiltersProps) {
       // yearRange: { start: rangeValue[0], end: rangeValue[1] },
     });
     
+    setOpened(false);
   };
 
   const handleClearFilters = () => {
@@ -37,7 +39,7 @@ export default function Filters({ setFilters }: FiltersProps) {
   };
 
   return (
-    <Menu withArrow closeOnItemClick={false}>
+    <Menu withArrow closeOnItemClick={false} opened={opened} onChange={setOpened}>
       <Menu.Target>
         <Button
           leftSection={<IconFilter size={20} />}
