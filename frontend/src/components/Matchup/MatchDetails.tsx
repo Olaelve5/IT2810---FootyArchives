@@ -12,7 +12,7 @@ export default function MatchDetails(data: ResultType) {
   const [result, setResult] = useState<ResultType | null>(null);
 
   const getColor = () => {
-    return isDark ? theme.colors.darkmode[8] : 'black';
+    return isDark ? theme.colors.darkmode[9] : 'black';
   };
 
   useEffect(() => {
@@ -31,15 +31,19 @@ export default function MatchDetails(data: ResultType) {
       <div className={classes.bottomContainer}>
         <div className={classes.detailContainer}>
           <IconTrophy size={22} stroke={1.5} color={getColor()} />
-          <Text c={getColor()}>{data.tournament}</Text>
+          <Text c={getColor()} className={classes.detailText}>
+            {data.tournament}
+          </Text>
         </div>
         <div className={classes.detailContainer}>
           <IconCalendarEvent size={22} stroke={1.5} color={getColor()} />
-          <Text c={getColor()}>{formatDate(data.date)}</Text>
+          <Text c={getColor()} className={classes.detailText}>
+            {formatDate(data.date)}
+          </Text>
         </div>
         <div className={classes.detailContainer}>
           <IconBuildingStadium size={22} stroke={1.5} color={getColor()} />
-          <Text c={getColor()}>
+          <Text c={getColor()} className={classes.detailText}>
             {data.city}, {data.country}
           </Text>
         </div>
