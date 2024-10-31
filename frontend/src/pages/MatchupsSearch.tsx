@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import PaginationComponent from '../components/MatchupsSearch/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { QuerySortType } from '../types/QuerySortType';
+import { QueryFilterType } from '../types/QueryFilterType';
 import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
 import Filters from '../components/MatchupsSearch/Filters/Filters';
 
@@ -15,6 +16,7 @@ export default function Matchups() {
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
+  const [filters, setFilters] = useState<QueryFilterType>({teams: [], tournaments: []});
   const navigate = useNavigate();
 
   // Limit of results per page - ideally divisible by 3 and 4
@@ -27,7 +29,7 @@ export default function Matchups() {
 
   // Fetch the matchups data
   const { loading, error } = useQuery(GET_RESULTS, {
-    variables: { limit: limit, page: page, sort: sort },
+    variables: { limit: limit, page: page, sort: sort, filters: filters },
     onCompleted: (data) => {
       setResults(data.results.results);
       setTotalPages(data.results.totalPages);
@@ -52,7 +54,7 @@ export default function Matchups() {
             <div className={classes.titleDescriptionContainer}>
               <h2>Matchups</h2>
             </div>
-            <Filters />
+            <Filters filters={filters} setFilters={setFilters}/>
           </div>
           <div>
             <MatchupsGrid

@@ -8,7 +8,7 @@ import {
   Pill,
   PillsInput,
 } from '@mantine/core';
-import classes from '../../../styles/Navbar/SearchBar.module.css';
+import classes from '../../../styles/Filters/NationsFilter.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
 import { SEARCH_TEAMS } from '../../../graphql/queries';
 import { useQuery } from '@apollo/client';
@@ -16,7 +16,13 @@ import { useMemo, useState, useEffect } from 'react';
 import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
 
-export default function NationsFilter() {
+export default function NationsFilter({
+  setSelectedTeams,
+  selectedTeams,
+}: {
+  setSelectedTeams: (teams: string[]) => void;
+  selectedTeams: string[];
+}) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -25,7 +31,6 @@ export default function NationsFilter() {
   const [teamNameToSearch, setTeamNameToSearch] = useState('');
   const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
-  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
 
   const { loading, error, data } = useQuery(SEARCH_TEAMS, {
     variables: { teamName: teamNameToSearch },
@@ -72,7 +77,7 @@ export default function NationsFilter() {
   };
 
   const pillValues = selectedTeams.map((team) => (
-    <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)}>
+    <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
       {team}
     </Pill>
   ));
@@ -81,8 +86,10 @@ export default function NationsFilter() {
     <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
       <Combobox.DropdownTarget>
         <PillsInput
-          leftSection={<IconSearch size={18} className={classes.icon} />}
+          leftSection={<IconSearch size={18} className={classes.searchIcon} />}
           radius="xl"
+          classNames={classes}
+          description={language === 'en' ? 'Nations' : 'Nasjoner'}
           rightSection={
             <CloseButton
               onClick={() => setTeamName('')}
@@ -96,10 +103,10 @@ export default function NationsFilter() {
 
             <Combobox.EventsTarget>
               <PillsInput.Field
+                className={classes.field}
                 placeholder={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
                 variant="filled"
                 value={teamName}
-                classNames={classes}
                 onChange={(event) => {
                   setTeamName(event.currentTarget.value);
                   combobox.openDropdown();

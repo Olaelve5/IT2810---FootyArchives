@@ -19,7 +19,7 @@
 }
 
 .darkDropdown {
-  background-color: var(--mantine-color-darkmode-2);
+  background-color: var(--mantine-color-darkmode-1);
   color: #fff;
   box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
 }
