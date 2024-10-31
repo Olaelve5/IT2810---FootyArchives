@@ -15,3 +15,16 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.filterButtonDark:hover {
+  background-color: var(--mantine-color-darkmode-2);
+}
+
+.filterButtonLight {
+  color: var(--mantine-color-darkmode-1);
+}
+
+.filterButtonLight:hover {
+  background-color: transparent;
+  color: var(--mantine-color-darkmode-1);
+}

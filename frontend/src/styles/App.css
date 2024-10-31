@@ -28,6 +28,7 @@
 
   * {
     border-color: var(--mantine-color-dark-1) !important;
+    color: var(--mantine-color-darkmode-1);
   }
 }
 

@@ -7,16 +7,26 @@ import { useState } from 'react';
 import GoalFilter from './GoalFilter';
 import { Button, Menu } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
+import { useMantineColorScheme } from '@mantine/core';
 
 // No real logic implemented in these components so far, only some state management
 export default function Filters() {
   const [rangeValue, setRangeValue] = useState<[number, number]>([1872, 2024]);
   const [endValue, setEndValue] = useState<[number, number]>([1872, 2024]);
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
 
   return (
     <Menu>
       <Menu.Target>
-        <Button leftSection={<IconFilter />}>Filters</Button>
+        <Button
+          leftSection={<IconFilter size={20} />}
+          radius="xl"
+          color="transparent"
+          className={isDark ? classes.filterButtonDark : classes.filterButtonLight}
+        >
+          Filters
+        </Button>
       </Menu.Target>
 
       <Menu.Dropdown>

@@ -87,13 +87,13 @@
 .sortOrderButtonLight {
     width: 2.2rem;
     border: 1px solid;
-    background-color: white;
+    background-color: transparent;
     color: var(--mantine-color-darkmode-2);
     border: none;
 }
 
 .sortOrderButtonLight:hover {
-    background-color: white;
+    background-color: transparent;
     color: var(--mantine-color-darkmode-2);
 }
 
