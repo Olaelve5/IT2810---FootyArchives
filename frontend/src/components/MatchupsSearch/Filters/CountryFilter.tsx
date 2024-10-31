@@ -1,6 +1,6 @@
 import { MultiSelect, ComboboxItem, OptionsFilter } from '@mantine/core';
-import { useLanguageStore } from '../../stores/language-store';
-import classes from '../../styles/Filters/MultiSelect.module.css';
+import { useLanguageStore } from '../../../stores/language-store';
+import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
 import { IconSearch } from '@tabler/icons-react';

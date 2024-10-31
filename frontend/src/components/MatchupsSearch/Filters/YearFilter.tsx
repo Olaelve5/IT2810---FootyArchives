@@ -1,7 +1,7 @@
 import { RangeSlider, Text } from '@mantine/core';
-import classes from '../../styles/Filters/YearFilter.module.css';
+import classes from '../../../styles/Filters/YearFilter.module.css';
 import { useMantineColorScheme } from '@mantine/core';
-import { useLanguageStore } from '../../stores/language-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
 const marks = [
   { value: 1900, label: '1900' },

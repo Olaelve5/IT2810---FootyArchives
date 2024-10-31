@@ -9,6 +9,7 @@ import PaginationComponent from '../components/MatchupsSearch/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { QuerySortType } from '../types/QuerySortType';
 import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
+import Filters from '../components/MatchupsSearch/Filters/Filters';
 
 export default function Matchups() {
   const { isCollapsed } = useSidebarCollapseStore();
@@ -48,6 +49,7 @@ export default function Matchups() {
             <div className={classes.titleDescriptionContainer}>
               <h2>Matchups</h2>
             </div>
+            <Filters />
           </div>
           <div>
             <MatchupsGrid

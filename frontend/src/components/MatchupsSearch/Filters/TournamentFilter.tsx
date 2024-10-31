@@ -1,7 +1,7 @@
 import { MultiSelect } from '@mantine/core';
-import { useLanguageStore } from '../../stores/language-store';
+import { useLanguageStore } from '../../../stores/language-store';
 import { useState } from 'react';
-import classes from '../../styles/Filters/MultiSelect.module.css';
+import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 import { useMantineTheme } from '@mantine/core';
 

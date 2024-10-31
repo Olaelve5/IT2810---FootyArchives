@@ -1,5 +1,5 @@
 import { NumberInput } from '@mantine/core';
-import classes from '../../styles/Filters/YearFilter.module.css';
+import classes from '../../../styles/Filters/YearFilter.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 
 interface YearFilterProps {

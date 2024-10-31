@@ -1,10 +1,12 @@
 import CountryFilter from './CountryFilter';
 import TournamentFilter from './TournamentFilter';
 import YearFilter from './YearFilter';
-import classes from '../../styles/Filters/Filters.module.css';
+import classes from '../../../styles/Filters/Filters.module.css';
 // import YearsInput from './YearsInput';
 import { useState } from 'react';
 import GoalFilter from './GoalFilter';
+import { Button, Menu } from '@mantine/core';
+import { IconFilter } from '@tabler/icons-react';
 
 // No real logic implemented in these components so far, only some state management
 export default function Filters() {
@@ -12,20 +14,28 @@ export default function Filters() {
   const [endValue, setEndValue] = useState<[number, number]>([1872, 2024]);
 
   return (
-    <div className={classes.container}>
-      <div className={classes.innerContainer}>
-        <CountryFilter />
-        <YearFilter
-          endValue={endValue}
-          rangeValue={rangeValue}
-          setRangeValue={setRangeValue}
-          setEndValue={setEndValue}
-        />
-      </div>
-      <div className={classes.innerContainer}>
-        <TournamentFilter />
-        <GoalFilter />
-      </div>
-    </div>
+    <Menu>
+      <Menu.Target>
+        <Button leftSection={<IconFilter />}>Filters</Button>
+      </Menu.Target>
+
+      <Menu.Dropdown>
+        <div className={classes.container}>
+          <div className={classes.innerContainer}>
+            <CountryFilter />
+            <YearFilter
+              endValue={endValue}
+              rangeValue={rangeValue}
+              setRangeValue={setRangeValue}
+              setEndValue={setEndValue}
+            />
+          </div>
+          <div className={classes.innerContainer}>
+            <TournamentFilter />
+            <GoalFilter />
+          </div>
+        </div>
+      </Menu.Dropdown>
+    </Menu>
   );
 }
