@@ -81,6 +81,10 @@ export default function Searchbar() {
           onChange={(event) => {
             setTeamName(event.currentTarget.value);
             combobox.openDropdown();
+
+            if (event.currentTarget.value === '') {
+              combobox.closeDropdown();
+            }
           }}
           styles={{
             input: {

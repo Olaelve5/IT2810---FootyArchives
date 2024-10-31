@@ -17,6 +17,9 @@ export default function Matchups() {
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
   const navigate = useNavigate();
 
+  // Limit of results per page - ideally divisible by 3 and 4
+  const limit = 24;
+
   // State for the results data -> necesarry to prevent unwanted scrolling behavior
   const [results, setResults] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -24,7 +27,7 @@ export default function Matchups() {
 
   // Fetch the matchups data
   const { loading, error } = useQuery(GET_RESULTS, {
-    variables: { limit: 20, page: page, sort: sort },
+    variables: { limit: limit, page: page, sort: sort },
     onCompleted: (data) => {
       setResults(data.results.results);
       setTotalPages(data.results.totalPages);

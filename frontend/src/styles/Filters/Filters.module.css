@@ -3,17 +3,6 @@
   flex-direction: column;
   width: 100%;
   gap: 1.5rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid;
-  margin-top: 3rem;
-}
-
-.innerContainer {
-  display: grid;
-  width: 100%;
-  grid-template-columns: 55% 42%;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .filterButtonDark:hover {
@@ -27,4 +16,18 @@
 .filterButtonLight:hover {
   background-color: transparent;
   color: var(--mantine-color-darkmode-1);
+}
+
+.dropdown {
+  background-color: var(--mantine-color-darkmode-2);
+  padding: 1rem;
+  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.896);
+  width: 50% !important;
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 1rem;
 }
