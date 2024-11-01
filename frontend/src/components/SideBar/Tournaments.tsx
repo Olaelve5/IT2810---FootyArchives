@@ -1,4 +1,4 @@
-import classes from '../../styles/SideBar/SideBar.module.css';
+import classes from '../../styles/SideBar/Sidebar.module.css';
 import { Group, NavLink, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';

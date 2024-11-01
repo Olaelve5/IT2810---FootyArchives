@@ -1,7 +1,7 @@
 import Logo from './Logo';
 import { Group, useMantineTheme, useMantineColorScheme, NavLink } from '@mantine/core';
 import Competitions from './Tournaments';
-import classes from '../../styles/SideBar/SideBar.module.css';
+import classes from '../../styles/SideBar/Sidebar.module.css';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
