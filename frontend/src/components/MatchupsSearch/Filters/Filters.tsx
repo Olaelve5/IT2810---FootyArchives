@@ -14,8 +14,7 @@ interface FiltersProps {
 }
 
 export default function Filters({ setFilters, setPage }: FiltersProps) {
-  // const [rangeValue, setRangeValue] = useState<[number, number]>([1872, 2024]);
-  // const [endValue, setEndValue] = useState<[number, number]>([1872, 2024]);
+  // const [yearRange, setYearRange] = useState<[number, number]>([1872, 2024]);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [selectedTournaments, setSelectedTournaments] = useState<string[]>([]);
   const { colorScheme } = useMantineColorScheme();
@@ -26,17 +25,16 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setFilters({
       teams: selectedTeams,
       tournaments: selectedTournaments,
-      // yearRange: { start: rangeValue[0], end: rangeValue[1] },
+      // yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
     });
     setPage(1);
-    
     setOpened(false);
   };
 
   const handleClearFilters = () => {
     setSelectedTeams([]);
     setSelectedTournaments([]);
-    // setRangeValue([1872, 2024]);
+    // setYearRange([1872, 2024]);
   };
 
   return (
@@ -55,7 +53,10 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
       <Menu.Dropdown className={classes.dropdown}>
         <div className={classes.container}>
           <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
-          <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments}/>
+          <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments} />
+          {/* <div>
+            <YearsInput setYearRange={setYearRange} yearRange={yearRange}/>
+          </div> */}
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
               Clear

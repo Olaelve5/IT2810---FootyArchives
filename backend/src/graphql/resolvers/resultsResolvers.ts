@@ -69,20 +69,18 @@ const resultResolvers = {
           ];
         }
 
-        
-
-        // Filter by year range
-        if (filters.yearRange) {
-          query.year = {
-            $gte: filters.yearRange.startYear,
-            $lte: filters.yearRange.endYear,
-          };
-        }
-
         // Filter by tournament
         if (filters.tournaments && filters.tournaments.length > 0) {
           query.tournament = { $in: filters.tournaments };
         }
+      }
+
+      // Filter by year range -> doesnt work yet!!
+      if (filters?.yearRange) {
+        query.date = {
+          $gte: new Date(`${filters.yearRange.startYear}-01-01`),
+          $lte: new Date(`${filters.yearRange.endYear}-12-31`),
+        } as any;
       }
 
       const skip = (page - 1) * limit;
@@ -95,6 +93,7 @@ const resultResolvers = {
             goal_difference: {
               $abs: { $subtract: ["$home_score", "$away_score"] },
             },
+            year: { $year: "$date" },
           },
         },
       ];

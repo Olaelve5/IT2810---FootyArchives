@@ -1,48 +1,69 @@
+/* YearFilter.module.css */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  label {
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
 }
 
 .numbersContainer {
   display: flex;
-  justify-content: space-between;
-  margin: 0 20px;
   align-items: center;
   padding: 0;
-  p {
-    font-size: 2rem;
-  }
+  gap: 1rem;
 }
 
 .numberInputDark {
-  text-align: center;
+  text-align: left;
   background-color: var(--mantine-color-darkmode-2);
   margin: 0;
+  width: 5rem;
+  border-color: var(--mantine-color-darkmode-6) !important;
+}
+
+.numberRoot {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+}
+
+.rangeSlider {
+  height: 2rem;
 }
 
 .label {
-    color: #a2abb5;
+  color: white;
 }
 
 .numberInputLight {
   text-align: center;
 }
 
-.track {
-  background-color: var(--mantine-color-darkmode-2) !important;
+.numberInputLight,
+.numberInputDark {
+  user-select: none;
 }
 
-.mark {
-  background: transparent;
-  border: none;
+.numberInputLight:active,
+.numberInputDark:active {
+  user-select: none;
 }
 
-.markLabelDark {
-  color: #a2abb5;
+.dragHandle {
+  cursor: ns-resize;
+  user-select: none;
+  display: flex;
+  justify-content: center;
 }
 
-.thumb {
-  background-color: var(--mantine-color-cyan-8);
-  border-color: white !important;
+.upDownIcon {
+  color: white;
 }
