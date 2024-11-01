@@ -1,33 +1,68 @@
-.inputField {
+.input {
+  background: transparent;
+  border: 1px solid var(--mantine-color-darkmode-6) !important;
+}
+
+.field {
   &::placeholder {
     color: #a2abb5;
   }
+}
 
-  &:not(:only-child)::placeholder {
-    color: transparent;
-  }
+.description {
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+.searchIcon {
+  color: #a2abb5;
+}
+
+.visibleClose {
+  color: #a2abb5;
+}
+
+.visibleClose:hover {
+  color: #a2abb5;
+  background-color: transparent;
+}
+
+.hiddenClose {
+  color: transparent;
+  cursor: default;
+}
+
+.hiddenClose:hover {
+  color: transparent;
+  background-color: transparent;
+}
+
+.darkDropdown {
+    background: var(--mantine-color-darkmode-3);
+    border: 1px solid var(--mantine-color-darkmode-6) !important;
+}
+
+.option {
+    display: flex;
+    gap: 10px;
+    border-radius: 5px;
+
+    &[data-combobox-selected] {
+        background-color: var(--mantine-color-darkmode-5);
+      }
+}
+
+.option:hover {
+    background: var(--mantine-color-darkmode-5);
+}
+
+.imageContainer {
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .pill {
-  background-color: var(--mantine-color-primary-9);
-  color: white;
-}
-
-.input {
-  box-shadow: 0 2px 10px -5px rgba(43, 43, 43, 0.265);
-}
-
-.root {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
-  gap: 0.1rem;
-}
-
-.label {
-  color: #a2abb5;
-}
-
-.icon {
-  color: #a2abb5;
+    background: var(--mantine-color-darkmode-4);
+    color: white;
+    border: 1px solid rgba(182, 191, 197, 0.336) !important;
 }

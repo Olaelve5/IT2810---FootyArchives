@@ -55,7 +55,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
       <Menu.Dropdown className={classes.dropdown}>
         <div className={classes.container}>
           <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
-          <TournamentFilter />
+          <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments}/>
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
               Clear

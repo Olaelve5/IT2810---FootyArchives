@@ -8,7 +8,7 @@ import {
   Pill,
   PillsInput,
 } from '@mantine/core';
-import classes from '../../../styles/Filters/NationsFilter.module.css';
+import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
 import { SEARCH_TEAMS } from '../../../graphql/queries';
 import { useQuery } from '@apollo/client';
@@ -76,7 +76,7 @@ export default function NationsFilter({
     setSelectedTeams(selectedTeams.filter((selectedTeam) => selectedTeam !== team));
   };
 
-  const pillValues = selectedTeams.map((team) => (
+  const pills = selectedTeams.map((team) => (
     <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
       {team}
     </Pill>
@@ -92,14 +92,17 @@ export default function NationsFilter({
           description={language === 'en' ? 'Nations' : 'Nasjoner'}
           rightSection={
             <CloseButton
-              onClick={() => setTeamName('')}
+              onClick={() => {
+                setTeamName('');
+                setSelectedTeams([]);
+              }}
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
             />
           }
         >
           <Pill.Group>
-            {pillValues}
+            {pills}
 
             <Combobox.EventsTarget>
               <PillsInput.Field
