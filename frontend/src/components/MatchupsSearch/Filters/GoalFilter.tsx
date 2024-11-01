@@ -12,8 +12,7 @@ const marks = [
 
 export default function GoalFilter() {
     const [value, setValue] = useState<[number, number]>([0, 40]);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [endValue, setEndValue] = useState<[number, number]>([0, 40]);
+    // const [endValue, setEndValue] = useState<[number, number]>([0, 40]);
     const { colorScheme } = useMantineColorScheme();
     const isDark = colorScheme === 'dark';
     const language = useLanguageStore((state) => state.language);
@@ -26,7 +25,6 @@ export default function GoalFilter() {
       <RangeSlider
         value={value}
         onChange={setValue}
-        onChangeEnd={setEndValue}
         min={0}
         max={40}
         minRange={0}

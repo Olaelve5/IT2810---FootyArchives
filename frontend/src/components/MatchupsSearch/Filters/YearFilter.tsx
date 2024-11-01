@@ -17,8 +17,7 @@ interface YearFilterProps {
   setEndValue: (value: [number, number]) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function YearFilter({ rangeValue, setRangeValue, endValue, setEndValue }: YearFilterProps) {
+export default function YearFilter({ rangeValue, setRangeValue, setEndValue }: YearFilterProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
