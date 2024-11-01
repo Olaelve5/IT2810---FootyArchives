@@ -81,7 +81,7 @@ const resultResolvers = {
 
         // Filter by tournament
         if (filters.tournaments && filters.tournaments.length > 0) {
-          query.tournaments = { $in: filters.tournaments };
+          query.tournament = { $in: filters.tournaments };
         }
       }
 
