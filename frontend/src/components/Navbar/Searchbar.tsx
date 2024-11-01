@@ -1,5 +1,5 @@
 import { IconSearch } from '@tabler/icons-react';
-import classes from '../../styles/NavBar/Searchbar.module.css';
+import classes from '../../styles/NavBar/SearchBar.module.css';
 import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, CloseButton, TextInput } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { SEARCH_TEAMS } from '../../graphql/queries';
