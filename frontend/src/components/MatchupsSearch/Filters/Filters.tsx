@@ -9,11 +9,11 @@ import { QueryFilterType } from '../../../types/QueryFilterType';
 import { useState } from 'react';
 
 interface FiltersProps {
-  filters: QueryFilterType;
   setFilters: (filters: QueryFilterType) => void;
+  setPage: (page: number) => void;
 }
 
-export default function Filters({ setFilters }: FiltersProps) {
+export default function Filters({ setFilters, setPage }: FiltersProps) {
   // const [rangeValue, setRangeValue] = useState<[number, number]>([1872, 2024]);
   // const [endValue, setEndValue] = useState<[number, number]>([1872, 2024]);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
@@ -28,6 +28,7 @@ export default function Filters({ setFilters }: FiltersProps) {
       tournaments: selectedTournaments,
       // yearRange: { start: rangeValue[0], end: rangeValue[1] },
     });
+    setPage(1);
     
     setOpened(false);
   };

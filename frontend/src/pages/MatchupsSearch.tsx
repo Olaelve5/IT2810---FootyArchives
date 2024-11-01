@@ -54,7 +54,7 @@ export default function Matchups() {
             <div className={classes.titleDescriptionContainer}>
               <h2>Matchups</h2>
             </div>
-            <Filters filters={filters} setFilters={setFilters}/>
+            <Filters setFilters={setFilters} setPage={setPage}/>
           </div>
           <div>
             <MatchupsGrid

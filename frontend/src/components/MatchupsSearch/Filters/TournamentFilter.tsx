@@ -26,25 +26,26 @@ function TournamentFilter() {
   const theme = useMantineTheme();
 
   return (
-    <MultiSelect
-      classNames={classes}
-      onChange={setValue}
-      
-      radius="xl"
-      label={language === 'en' ? 'Tournaments' : 'Turneringer'}
-      placeholder={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
-      data={options}
-      clearable
-      value={value}
-      styles={{
-        input: {
-          backgroundColor: isDark ? theme.colors.darkmode[2] : 'white',
-        },
-        dropdown: {
-          backgroundColor: isDark ? theme.colors.darkmode[2] : 'white',
-        },
-      }}
-    />
+    <div onClick={(event) => event.stopPropagation()}>
+      <MultiSelect
+        classNames={classes}
+        onChange={setValue}
+        radius="xl"
+        label={language === 'en' ? 'Tournaments' : 'Turneringer'}
+        placeholder={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
+        data={options}
+        clearable
+        value={value}
+        styles={{
+          input: {
+            backgroundColor: isDark ? theme.colors.darkmode[2] : 'white',
+          },
+          dropdown: {
+            backgroundColor: isDark ? theme.colors.darkmode[2] : 'white',
+          },
+        }}
+      />
+    </div>
   );
 }
 
