@@ -63,7 +63,7 @@ export default function MatchScorers({ result }: MatchScorersProps) {
   return (
     <div className={classes.container}>
       {!dataAvailable && <p className={classes.noDataText}>No goalscorer data available</p>}
-      {dataAvailable && (
+      {dataAvailable && goals.length > 0 && (
         <Button
           onClick={handleHideGoalscorers}
           className={classes.showHideButton}

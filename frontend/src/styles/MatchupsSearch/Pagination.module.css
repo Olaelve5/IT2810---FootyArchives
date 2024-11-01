@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    margin: 2rem 0;
+}
+
+.controlDark {
+    background-color: var(--mantine-color-darkmode-2);
+
+    &[data-active] {
+        background-color: var(--mantine-color-darkmode-9);
+        color: var(--mantine-color-darkmode-0);
+    }
+}
+
+.controlDark:hover {
+    background-color: var(--mantine-color-darkmode-3);
+}
+
+.controlLight {
+    &[data-active] {
+        background-color: var(--mantine-color-darkmode-2);
+    }
+}

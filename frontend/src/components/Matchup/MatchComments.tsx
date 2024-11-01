@@ -24,8 +24,13 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         <h1 className={classes.title}>
           {comments.length} {language === 'en' ? 'comments' : 'kommentarer'}
         </h1>
-        <Button color="primary" className={classes.button} leftSection={<IconPlus size={20} />} onClick={open}>
-          {language === 'en' ? 'Add comment' : 'Legg til kommentar'}
+        <Button
+          color="primary"
+          className={classes.button}
+          leftSection={<IconPlus size={20} color="white" />}
+          onClick={open}
+        >
+          <p>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</p>
         </Button>
       </div>
       <div className={classes.commentsContainer}>

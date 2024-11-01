@@ -1,16 +1,19 @@
 .contentContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .button {
-    margin-top: 2rem;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    border: none;
+  margin-top: 2rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  p {
+    color: white !important;
+  }
 }
 
 .button:active {
-    transform: translateX(-50%) translateY(1px);
+  transform: translateX(-50%) translateY(1px);
 }

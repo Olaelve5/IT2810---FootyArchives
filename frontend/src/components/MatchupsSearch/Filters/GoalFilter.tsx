@@ -1,8 +1,8 @@
 import { RangeSlider, Text } from "@mantine/core";
-import classes from "../../styles/Filters/YearFilter.module.css";
+import classes from "../../../styles/Filters/YearFilter.module.css";
 import { useState } from "react";
 import { useMantineColorScheme } from "@mantine/core";
-import { useLanguageStore } from "../../stores/language-store";
+import { useLanguageStore } from "../../../stores/language-store";
 
 const marks = [
   { value: 10, label: "10" },

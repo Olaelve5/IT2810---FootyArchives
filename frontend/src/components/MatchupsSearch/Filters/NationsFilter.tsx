@@ -1,15 +1,28 @@
 import { IconSearch } from '@tabler/icons-react';
-import classes from '../../styles/NavBar/Searchbar.module.css';
-import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, CloseButton, TextInput } from '@mantine/core';
-import { useLanguageStore } from '../../stores/language-store';
-import { SEARCH_TEAMS } from '../../graphql/queries';
+import {
+  useMantineTheme,
+  useMantineColorScheme,
+  Combobox,
+  useCombobox,
+  CloseButton,
+  Pill,
+  PillsInput,
+} from '@mantine/core';
+import classes from '../../../styles/Filters/MultiSelect.module.css';
+import { useLanguageStore } from '../../../stores/language-store';
+import { SEARCH_TEAMS } from '../../../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { useMemo, useState, useEffect } from 'react';
-import { getCountryCode } from '../../utils/imageUtils';
-import { useNavigate } from 'react-router-dom';
+import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
 
-export default function Searchbar() {
+export default function NationsFilter({
+  setSelectedTeams,
+  selectedTeams,
+}: {
+  setSelectedTeams: (teams: string[]) => void;
+  selectedTeams: string[];
+}) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -18,7 +31,7 @@ export default function Searchbar() {
   const [teamNameToSearch, setTeamNameToSearch] = useState('');
   const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
-  const navigate = useNavigate();
+
   const { loading, error, data } = useQuery(SEARCH_TEAMS, {
     variables: { teamName: teamNameToSearch },
   });
@@ -54,45 +67,62 @@ export default function Searchbar() {
   ));
 
   const handleOptionSubmit = (value: string) => {
-    navigate(`/project2/nation/${value}`);
-    setTeamName('');
-    setTeamNameToSearch('');
-    combobox.closeDropdown();
+    if (!selectedTeams.includes(value)) {
+      setSelectedTeams([...selectedTeams, value]);
+    }
   };
+
+  const handleTeamRemove = (team: string) => {
+    setSelectedTeams(selectedTeams.filter((selectedTeam) => selectedTeam !== team));
+  };
+
+  const pills = selectedTeams.map((team) => (
+    <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
+      {team}
+    </Pill>
+  ));
 
   return (
     <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
-      <Combobox.Target>
-        <TextInput
-          leftSection={<IconSearch size={18} className={classes.icon} />}
-          placeholder={language === 'en' ? 'Search for a nation' : 'Søk etter en nasjon'}
-          variant="filled"
-          size="sm"
+      <Combobox.DropdownTarget>
+        <PillsInput
+          leftSection={<IconSearch size={18} className={classes.searchIcon} />}
           radius="xl"
-          value={teamName}
           classNames={classes}
+          description={language === 'en' ? 'Nations' : 'Nasjoner'}
           rightSection={
             <CloseButton
-              onClick={() => setTeamName('')}
+              onClick={() => {
+                setTeamName('');
+                setSelectedTeams([]);
+              }}
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
             />
           }
-          onChange={(event) => {
-            setTeamName(event.currentTarget.value);
-            combobox.openDropdown();
+        >
+          <Pill.Group>
+            {pills}
 
-            if (event.currentTarget.value === '') {
-              combobox.closeDropdown();
-            }
-          }}
-          styles={{
-            input: {
-              backgroundColor: colorScheme === 'dark' ? theme.colors.darkmode[2] : 'white',
-            },
-          }}
-        />
-      </Combobox.Target>
+            <Combobox.EventsTarget>
+              <PillsInput.Field
+                className={classes.field}
+                placeholder={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
+                variant="filled"
+                value={teamName}
+                onChange={(event) => {
+                  setTeamName(event.currentTarget.value);
+                  combobox.openDropdown();
+
+                  if (event.currentTarget.value === '') {
+                    combobox.closeDropdown();
+                  }
+                }}
+              />
+            </Combobox.EventsTarget>
+          </Pill.Group>
+        </PillsInput>
+      </Combobox.DropdownTarget>
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
         <Combobox.Options>

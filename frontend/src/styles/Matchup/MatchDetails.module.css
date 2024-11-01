@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 100%;
     justify-content: center;
+    align-items: center;
     margin-bottom: 2rem;
     gap: 1rem;
 }
@@ -15,12 +16,20 @@
 .detailContainer {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 }
 
 .bottomContainer {
     width: 100%;
     justify-content: center;
+    align-items: center;
     display: flex;
     gap: 2rem;
+    height: fit-content;
+}
+
+.detailText {
+    position: relative;
+    top: 2px;
 }

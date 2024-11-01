@@ -3,7 +3,7 @@ import Home from '../pages/Home.tsx';
 import NotFound from '../pages/NotFound.tsx';
 import Tournament from '../pages/Tournament.tsx';
 import Result from '../pages/Result.tsx';
-import Matchups from '../pages/Matchups.tsx'
+import Matchups from '../pages/MatchupsSearch.tsx'
 import Nation from '../pages/Nation.tsx';
 import { isCompetitionValid } from '../utils/tournamentUtils.tsx';
 

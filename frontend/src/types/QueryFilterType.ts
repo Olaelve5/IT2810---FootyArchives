@@ -1,6 +1,6 @@
 type YearRangeType = {
-    start: number;
-    end: number;
+    startYear: number;
+    endYear: number;
 }
 
 

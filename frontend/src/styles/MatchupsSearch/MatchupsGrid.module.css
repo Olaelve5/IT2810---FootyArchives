@@ -1,0 +1,109 @@
+.container {
+  width: 100%;
+  justify-content: center;
+}
+
+.topContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 0.5rem;
+}
+
+.sortButton {
+  border: none;
+  cursor: pointer;
+}
+
+.sortButton:hover {
+  background: transparent;
+}
+.sortButtonText {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background-color: var(--mantine-color-darkmode-2);
+}
+
+#dropdownLight {
+  background-color: white;
+}
+
+.dropDownOptionDark {
+  border: none;
+}
+
+.dropDownOptionDark:hover {
+  background: var(--mantine-color-darkmode-1);
+  color: white;
+}
+
+.dropDownOptionLight {
+  border: none;
+  color: var(--mantine-color-darkmode-2);
+}
+
+.dropDownOptionLight:hover {
+  background: var(--mantine-color-gray-2);
+  color: var(--mantine-color-darkmode-2);
+}
+
+
+
+.sortOrderButtonDark {
+    width: 2.2rem;
+    border: 1px solid;
+    box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.5);
+    background-color: var(--mantine-color-darkmode-2);
+    background: transparent;
+    border: none;
+}
+
+.sortOrderButtonDark:hover {
+    background-color: var(--mantine-color-darkmode-3);
+}
+
+.sortOrderButtonDark:focus {
+    outline: none;
+}
+
+.sortOrderButtonLight {
+    width: 2.2rem;
+    border: 1px solid;
+    background-color: transparent;
+    color: var(--mantine-color-darkmode-2);
+    border: none;
+}
+
+.sortOrderButtonLight:hover {
+    background-color: transparent;
+    color: var(--mantine-color-darkmode-2);
+}
+
+.sortOrderButtonLight:focus {
+    outline: none;
+}
+
+.orderIcon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -4,5 +4,6 @@ export type QueryType = {
     $gte: number;
     $lte: number;
   };
-  tournaments?: { $in: string[] };
+  tournament?: { $in: string[] };
+  date?: Date;
 };

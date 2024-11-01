@@ -2,8 +2,7 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    margin: 4rem 0;
+    margin: 4rem 0 2rem 0;
 }
 
 .loadButton {
