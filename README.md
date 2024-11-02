@@ -8,11 +8,17 @@ This is a work in progress, and a wide range of aspects to this project still ne
 ## Project - Build and run tests :gear: :wrench:
 ### Build and run the project
 
-Open the project:
+Open and run the frontend:
 1. Open a new terminal
-2. Navigate to prosjekt2 folder: `cd prosjekt2`
+2. Navigate to frontend folder: `cd frontend`
 3. Install the necessary packages: `npm install`
 4. Run the project: `npm run dev`
+
+Open and run the backend:
+1. Open a new terminal
+2. Navigate to the backend folder: `cd backend`
+3. Install the necesarry packages: `npm install`
+4. Start the server: `npm start`
 
 ## Concept
 ### Home
