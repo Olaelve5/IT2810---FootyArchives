@@ -1,6 +1,6 @@
 # T36-Project-2: Footy Archives ⚽
 This project is powered by React and Vite and will use a dataset to show every international football match played from 1872 to 2024!
-The project can be viewed here: (sett inn link)
+The project can be viewed here: http://it2810-36.idi.ntnu.no/project2 
 
 This is a work in progress, and a wide range of aspects to this project still needs work (database, searching and filtering, styling of light mode etc..)
 
