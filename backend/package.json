@@ -12,12 +12,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@apollo/server": "^4.11.2",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.8",
-    "apollo-server": "^3.13.0",
     "backend": "file:",
     "date-fns": "^4.1.0",
     "graphql": "^16.9.0",
+    "graphql-tag": "^2.12.6",
     "mongoose": "^8.7.1",
     "nodemon": "^3.1.7"
   },
