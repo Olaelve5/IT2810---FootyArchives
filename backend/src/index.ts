@@ -1,5 +1,9 @@
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { expressMiddleware } from '@apollo/server/express4';
+import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
+import express from 'express';
+import http from 'http';
+import cors from 'cors';
 import { mergeResolvers } from '@graphql-tools/merge';
 import mongoose from 'mongoose';
 import resultsTypeDefs from './graphql/typeDefs/resultsTypeDefs';
@@ -30,24 +34,38 @@ interface MyContext {
   token?: string;
 }
 
+// Create Express app
+const app = express();
+const httpServer = http.createServer(app);
+
 // Create Apollo Server
 const server = new ApolloServer<MyContext>({
   typeDefs,
   resolvers,
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
-// Connect to MongoDB and start the server
 async function startServer() {
   try {
     await mongoose.connect(MONGODB);
     console.log('MongoDB connected');
 
-    const { url } = await startStandaloneServer(server, {
-      context: async ({ req }) => ({ token: req.headers.authorization || '' }),
-      listen: { port: 3001 },
-    });
+    await server.start();
 
-    console.log(`Server running at ${url}`);
+    app.use(
+      '/graphql',
+      cors<cors.CorsRequest>({
+        origin: 'http://it2810-36.idi.ntnu.no', // Update with your frontend origin
+        credentials: true,
+      }),
+      express.json(),
+      expressMiddleware(server, {
+        context: async ({ req }) => ({ token: req.headers.authorization || '' }),
+      }),
+    );
+
+    await new Promise<void>((resolve) => httpServer.listen({ port: 3001 }, resolve));
+    console.log(`🚀 Server ready at http://it2810-36.idi.ntnu.no:3001/graphql`);
   } catch (err) {
     console.error('MongoDB connection error:', err);
   }
