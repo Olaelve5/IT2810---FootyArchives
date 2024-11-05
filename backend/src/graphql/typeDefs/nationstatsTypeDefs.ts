@@ -1,4 +1,4 @@
-import { gql } from "apollo-server";
+import { gql } from 'graphql-tag';
 
 
 // Define the GraphQL schema - the types and queries that can be made
