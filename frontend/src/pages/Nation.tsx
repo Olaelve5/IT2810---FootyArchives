@@ -15,8 +15,11 @@ import { useNavigate } from 'react-router-dom';
 import { getCountryCode } from '../utils/imageUtils';
 import { recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
 import Rival from '../components/Nation/Rival';
+import { useLanguageStore } from '../stores/language-store';
+import { getNorwegianName } from '../utils/translationUtils';
 
 function Nation() {
+  const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const navigate = useNavigate();
   const { isCollapsed } = useSidebarCollapseStore();
@@ -84,16 +87,29 @@ function Nation() {
                     <div className="flagImageContainer" id={classes.flagImageContainer}>
                       <span className={`fi fi-${getCountryCode([nation._id])}`} id="flagImage"></span>
                     </div>
-                    <h1 className={classes.nationName}>{nation._id}</h1>
+                    <h1 className={classes.nationName}>
+                      {language === 'no' ? getNorwegianName(nation._id) : nation._id}
+                    </h1>
                   </div>
                   <div className={classes.nationStatsContainer}>
-                    <p>{nation.total_team_games} games played</p>
+                    <p>
+                      {nation.total_team_games} {language == 'no' ? 'kamper spilt' : 'games played'}
+                    </p>
                     <div className={classes.innerNationStatsConatiner}>
-                      <p>{nation.total_team_wins} wins</p>
-                      <p>{nation.total_team_draws} draws</p>
-                      <p>{nation.total_team_losses} losses</p>
+                      <p>
+                        {nation.total_team_wins} {language == 'no' ? 'seire' : 'wins'}
+                      </p>
+                      <p>
+                        {nation.total_team_draws} {language == 'no' ? 'uavgjort' : 'draws'}
+                      </p>
+                      <p>
+                        {nation.total_team_losses} {language == 'no' ? 'tap' : 'losses'}
+                      </p>
                     </div>
-                    <p>W/L ratio: {calculateWinLossRatio(nation.total_team_wins, nation.total_team_losses)}%</p>
+                    <p>
+                      {language == 'no' ? 'S/T forhold' : 'W/L ratio'}:{' '}
+                      {calculateWinLossRatio(nation.total_team_wins, nation.total_team_losses)}%
+                    </p>
                   </div>
                 </div>
                 <Rival rivalNation={nation.top_rival.opponent} />
