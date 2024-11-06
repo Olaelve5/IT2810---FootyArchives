@@ -169,15 +169,6 @@ const resultResolvers = {
       // Sort the results alphabetically
       allTeams.sort((a, b) => a.localeCompare(b));
 
-      // Save the team names to a JSON file
-      fs.writeFile('teams.json', JSON.stringify(allTeams, null, 2), (err) => {
-        if (err) {
-          console.error('Error writing to file', err);
-        } else {
-          console.log('Team names saved to teams.json');
-        }
-      });
-
       // Limit the results to the first 5 unique teams
       return allTeams.slice(0, 5);
     },

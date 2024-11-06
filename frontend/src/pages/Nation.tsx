@@ -78,7 +78,7 @@ function Nation() {
           <Navbar />
 
           {loading || recentLoading || biggestWinsLoading || worstDefeatsLoading ? (
-            <Loader size={25} color={theme.colors.primary[5]} />
+            <Loader size={25} color={theme.colors.primary[9]} />
           ) : (
             <div>
               <div className={classes.topContainer}>
