@@ -29,7 +29,7 @@ export default function Searchbar() {
       }
 
       const key = language === 'en' ? 'En' : 'No';
-      const results = translations.filter((item) => item[key].toLowerCase().includes(query.toLowerCase())).slice(0, 10);
+      const results = translations.filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase())).slice(0, 8);
 
       if (results.length === 0) {
         setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
