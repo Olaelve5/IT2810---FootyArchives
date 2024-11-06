@@ -7,12 +7,14 @@ import { Button, Loader, useMantineTheme, useMantineColorScheme } from '@mantine
 import { ResultType } from '../../types/ResultType';
 import { useState, useEffect, useRef } from 'react';
 import { IconChevronDown } from '@tabler/icons-react';
+import { useLanguageStore } from '../../stores/language-store';
 
 interface MatchScorersProps {
   result: ResultType;
 }
 
 export default function MatchScorers({ result }: MatchScorersProps) {
+  const { language } = useLanguageStore();
   const { home_score, away_score, home_team, away_team, date } = result;
   const [showGoalscorers, setShowGoalscorers] = useState(true);
   const innerContainerRef = useRef<HTMLDivElement>(null);
@@ -62,7 +64,11 @@ export default function MatchScorers({ result }: MatchScorersProps) {
 
   return (
     <div className={classes.container}>
-      {!dataAvailable && <p className={classes.noDataText}>No goalscorer data available</p>}
+      {!dataAvailable && (
+        <p className={classes.noDataText}>
+          {language == 'no' ? 'Ingen målscorer data tilgjengelig' : 'No goalscorer data available'}
+        </p>
+      )}
       {dataAvailable && goals.length > 0 && (
         <Button
           onClick={handleHideGoalscorers}
@@ -77,7 +83,13 @@ export default function MatchScorers({ result }: MatchScorersProps) {
             />
           }
         >
-          {showGoalscorers ? 'Hide goalscorers' : 'Show goalscorers'}
+          {showGoalscorers
+            ? language == 'no'
+              ? 'Skjul målscorere'
+              : 'Hide goalscorers'
+            : language == 'no'
+              ? 'Vis målscorere'
+              : 'Show goalscorers'}
         </Button>
       )}
       <div ref={innerContainerRef} className={classes.innerContainer}>

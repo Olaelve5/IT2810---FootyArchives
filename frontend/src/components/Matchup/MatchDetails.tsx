@@ -4,8 +4,11 @@ import { useMantineColorScheme, useMantineTheme, Text } from '@mantine/core';
 import { ResultType } from '../../types/ResultType';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dateUtils';
+import { useLanguageStore } from '../../stores/language-store';
+import { getNorwegianName } from '../../utils/translationUtils';
 
 export default function MatchDetails(data: ResultType) {
+  const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -23,11 +26,17 @@ export default function MatchDetails(data: ResultType) {
     return null;
   }
 
+  const getTitle = () => {
+    if (language === 'no') {
+      return `${getNorwegianName(result.home_team)} vs ${getNorwegianName(result.away_team)}`;
+    } else {
+      return `${result.home_team} vs ${result.away_team}`;
+    }
+  };
+
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>
-        {result.home_team} vs {result.away_team}
-      </h1>
+      <h1 className={classes.title}>{getTitle()}</h1>
       <div className={classes.bottomContainer}>
         <div className={classes.detailContainer}>
           <IconTrophy size={22} stroke={1.5} color={getColor()} />
@@ -44,7 +53,7 @@ export default function MatchDetails(data: ResultType) {
         <div className={classes.detailContainer}>
           <IconBuildingStadium size={22} stroke={1.5} color={getColor()} />
           <Text c={getColor()} className={classes.detailText}>
-            {data.city}, {data.country}
+            {data.city}, {language == 'no' ? getNorwegianName(data.country) : data.country}
           </Text>
         </div>
       </div>
