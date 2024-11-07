@@ -6,13 +6,23 @@ import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/dateUtils';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useEffect, useState } from 'react';
+import { useLanguageStore } from '../../stores/language-store';
+import { getNorwegianName } from '../../utils/translationUtils';
 
 export function MatchCard(props: ResultType) {
+  const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const date = formatDate(props.date);
   const [countryCodes, setCountryCodes] = useState<string[]>([]);
+
+  const cardTitle = () => {
+    if (language === 'no') {
+      return `${getNorwegianName(props.home_team)} vs ${getNorwegianName(props.away_team)}`;
+    }
+    return `${props.home_team} vs ${props.away_team}`;
+  };
 
   useEffect(() => {
     const codes = getCountryCode([props.home_team, props.away_team]);
@@ -33,7 +43,7 @@ export function MatchCard(props: ResultType) {
       >
         <Group align="center" justify="center" display="flex" className={classes.detailsContainer}>
           <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
-            {props.home_team} vs {props.away_team}
+            {cardTitle()}
           </Text>
           <div className={classes.dateTournamentContainer}>
             <Text className={isDark ? classes.darkText : classes.lightText} size="sm">

@@ -3,6 +3,7 @@ import Result from "../../models/Result";
 import Goalscorer from "../../models/Goalscorer";
 import { Filters, SortInput } from "../../types/FiltersType";
 import { QueryType } from "../../types/QueryType";
+import fs from 'fs';
 
 interface Args {
   filters?: Filters;

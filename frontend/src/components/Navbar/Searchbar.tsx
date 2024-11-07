@@ -2,66 +2,72 @@ import { IconSearch } from '@tabler/icons-react';
 import classes from '../../styles/Navbar/SearchBar.module.css';
 import { useMantineTheme, useMantineColorScheme, Combobox, useCombobox, CloseButton, TextInput } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
-import { SEARCH_TEAMS } from '../../graphql/queries';
-import { useQuery } from '@apollo/client';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash/debounce';
+import translations from '../../assets/translations.json'; // Assuming JSON file is located here
 
 export default function Searchbar() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
-  const language = useLanguageStore((state) => state.language);
+  const { language } = useLanguageStore();
   const [teamName, setTeamName] = useState('');
-  const [teamNameToSearch, setTeamNameToSearch] = useState('');
+  const [filteredTeams, setFilteredTeams] = useState<{ No: string; En: string }[]>([]);
   const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
   const navigate = useNavigate();
-  const { loading, error, data } = useQuery(SEARCH_TEAMS, {
-    variables: { teamName: teamNameToSearch },
-  });
 
-  // Debounce the setTeamNameToSearch function to avoid unnecessary calls to the DB
-  const debouncedSetTeamNameToSearch = useMemo(() => debounce(setTeamNameToSearch, 200), []);
+  // Filter the teams based on the query
+  const filterTeams = useCallback(
+    (query: string) => {
+      if (!query) {
+        setFilteredTeams([]);
+        setDropDownMessage('');
+        return;
+      }
+
+      const key = language === 'en' ? 'En' : 'No';
+      const results = translations.filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase())).slice(0, 8);
+
+      if (results.length === 0) {
+        setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
+      } else {
+        setDropDownMessage('');
+      }
+
+      setFilteredTeams(results);
+    },
+    [language],
+  );
+
+  // Debounce the filtering function to avoid rapid updates
+  const debouncedFilterTeams = useMemo(() => debounce((query) => filterTeams(query), 200), [filterTeams]);
 
   useEffect(() => {
-    debouncedSetTeamNameToSearch(teamName);
-  }, [teamName, debouncedSetTeamNameToSearch]);
+    debouncedFilterTeams(teamName);
+  }, [teamName, language, debouncedFilterTeams]);
 
-  useEffect(() => {
-    if (loading) {
-      setDropDownMessage(language === 'en' ? 'Loading...' : 'Laster...');
-    }
-
-    if (error) {
-      setDropDownMessage(language === 'en' ? 'Something went wrong' : 'Noe gikk galt');
-    }
-
-    if (data?.searchTeams?.length === 0) {
-      setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
-    }
-  }, [data, error, loading, language]);
-
-  const options = data?.searchTeams?.map((team: string) => (
-    <Combobox.Option key={team} value={team} className={classes.option} id={isDark ? classes.optionDark : ''}>
+  // Create options for the combobox dropdown based on the filtered teams
+  const options = filteredTeams.map((team) => (
+    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : ''}>
       <div className={classes.imageContainer}>
-        <span className={`fi fi-${getCountryCode([team])}`} id={classes.image}></span>
+        <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
       </div>
-      {team}
+      {language === 'en' ? team.En : team.No}
     </Combobox.Option>
   ));
 
+  // Handle the submission of an option in the combobox
   const handleOptionSubmit = (value: string) => {
     navigate(`/project2/nation/${value}`);
     setTeamName('');
-    setTeamNameToSearch('');
     combobox.closeDropdown();
   };
 
   return (
-    <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
+    <Combobox store={combobox} onOptionSubmit={handleOptionSubmit} withinPortal={false}>
       <Combobox.Target>
         <TextInput
           leftSection={<IconSearch size={18} className={classes.icon} />}
@@ -96,7 +102,7 @@ export default function Searchbar() {
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
         <Combobox.Options>
-          {data?.searchTeams?.length > 0 ? (
+          {filteredTeams.length > 0 ? (
             options
           ) : (
             <Combobox.Empty style={{ color: theme.colors.dark[1] }}>{dropDownMessage}</Combobox.Empty>

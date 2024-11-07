@@ -10,11 +10,11 @@ import {
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
-import { SEARCH_TEAMS } from '../../../graphql/queries';
-import { useQuery } from '@apollo/client';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
+import translations from '../../../assets/translations.json';
+import { getNorwegianName } from '../../../utils/translationUtils';
 
 export default function NationsFilter({
   setSelectedTeams,
@@ -28,41 +28,47 @@ export default function NationsFilter({
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
   const [teamName, setTeamName] = useState('');
-  const [teamNameToSearch, setTeamNameToSearch] = useState('');
+  const [filteredTeams, setFilteredTeams] = useState<{ No: string; En: string }[]>([]);
   const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
 
-  const { loading, error, data } = useQuery(SEARCH_TEAMS, {
-    variables: { teamName: teamNameToSearch },
-  });
+  // Filter the teams based on the query
+  const filterTeams = useCallback(
+    (query: string) => {
+      if (!query) {
+        setFilteredTeams([]);
+        setDropDownMessage('');
+        return;
+      }
 
-  // Debounce the setTeamNameToSearch function to avoid unnecessary calls to the DB
-  const debouncedSetTeamNameToSearch = useMemo(() => debounce(setTeamNameToSearch, 200), []);
+      const key = language === 'en' ? 'En' : 'No';
+      const results = translations.filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase())).slice(0, 5);
+
+      if (results.length === 0) {
+        setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
+      } else {
+        setDropDownMessage('');
+      }
+
+      setFilteredTeams(results);
+    },
+    [language],
+  );
+
+  // Debounce the filtering function to avoid rapid updates
+  const debouncedFilterTeams = useMemo(() => debounce((query) => filterTeams(query), 200), [filterTeams]);
 
   useEffect(() => {
-    debouncedSetTeamNameToSearch(teamName);
-  }, [teamName, debouncedSetTeamNameToSearch]);
+    debouncedFilterTeams(teamName);
+  }, [teamName, language, debouncedFilterTeams]);
 
-  useEffect(() => {
-    if (loading) {
-      setDropDownMessage(language === 'en' ? 'Loading...' : 'Laster...');
-    }
-
-    if (error) {
-      setDropDownMessage(language === 'en' ? 'Something went wrong' : 'Noe gikk galt');
-    }
-
-    if (data?.searchTeams?.length === 0) {
-      setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
-    }
-  }, [data, error, loading, language]);
-
-  const options = data?.searchTeams?.map((team: string) => (
-    <Combobox.Option key={team} value={team} className={classes.option} id={isDark ? classes.optionDark : ''}>
+  // Create options for the combobox dropdown based on the filtered teams
+  const options = filteredTeams.map((team) => (
+    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : ''}>
       <div className={classes.imageContainer}>
-        <span className={`fi fi-${getCountryCode([team])}`} id={classes.image}></span>
+        <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
       </div>
-      {team}
+      {language === 'en' ? team.En : team.No}
     </Combobox.Option>
   ));
 
@@ -78,7 +84,7 @@ export default function NationsFilter({
 
   const pills = selectedTeams.map((team) => (
     <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
-      {team}
+      {language === 'en' ? team : getNorwegianName(team)}
     </Pill>
   ));
 
@@ -94,7 +100,6 @@ export default function NationsFilter({
             <CloseButton
               onClick={() => {
                 setTeamName('');
-                setSelectedTeams([]);
               }}
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
@@ -126,7 +131,7 @@ export default function NationsFilter({
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
         <Combobox.Options>
-          {data?.searchTeams?.length > 0 ? (
+          {filteredTeams.length > 0 ? (
             options
           ) : (
             <Combobox.Empty style={{ color: theme.colors.dark[1] }}>{dropDownMessage}</Combobox.Empty>

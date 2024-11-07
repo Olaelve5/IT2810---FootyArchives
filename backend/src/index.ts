@@ -55,7 +55,7 @@ async function startServer() {
     app.use(
       '/graphql',
       cors<cors.CorsRequest>({
-        origin: 'http://it2810-36.idi.ntnu.no', // Update with your frontend origin
+        origin: ['http://it2810-36.idi.ntnu.no', 'http://localhost:5173'], // Allow multiple origins
         credentials: true,
       }),
       express.json(),

@@ -3,11 +3,21 @@ import classes from '../../styles/Cards/Cards.module.css';
 import { NationType } from '../../types/NationType';
 import { Link } from 'react-router-dom';
 import { getCountryCode } from '../../utils/imageUtils';
+import { useLanguageStore } from '../../stores/language-store';
+import { getNorwegianName } from '../../utils/translationUtils';
 
 function NationCard(props: NationType) {
+  const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+
+  const getNationName = () => {
+    if (language === 'no') {
+      return getNorwegianName(props._id);
+    }
+    return props._id;
+  };
 
   return (
     <Link to={`/project2/nation/${props._id}`}>
@@ -27,7 +37,7 @@ function NationCard(props: NationType) {
               <span className={`fi fi-${getCountryCode([props._id])}`} id="flagImage"></span>
             </div>
             <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
-              {props._id}
+              {getNationName()}
             </Text>
           </Group>
           <Group>
