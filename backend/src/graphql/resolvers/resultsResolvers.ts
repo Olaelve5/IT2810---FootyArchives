@@ -120,12 +120,13 @@ const resultResolvers = {
         }
       }
 
+      const total = (await Result.aggregate(aggregationPipeline).count("total").exec())[0].total;
+
       // Apply pagination
       aggregationPipeline.push({ $skip: skip });
       aggregationPipeline.push({ $limit: limit });
 
       const results = await Result.aggregate(aggregationPipeline).exec();
-      const total = await Result.countDocuments(query).exec();
 
       return {
         results,

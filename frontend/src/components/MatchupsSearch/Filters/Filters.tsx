@@ -1,7 +1,7 @@
 import CountryFilter from './NationsFilter';
 import TournamentFilter from './TournamentFilter';
 import classes from '../../../styles/Filters/Filters.module.css';
-// import YearsInput from './YearsInput';
+import YearsInput from './YearsInput';
 import { Button, Menu } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useMantineColorScheme } from '@mantine/core';
@@ -14,7 +14,7 @@ interface FiltersProps {
 }
 
 export default function Filters({ setFilters, setPage }: FiltersProps) {
-  // const [yearRange, setYearRange] = useState<[number, number]>([1872, 2024]);
+  const [yearRange, setYearRange] = useState<[number, number]>([1872, 2024]);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [selectedTournaments, setSelectedTournaments] = useState<string[]>([]);
   const { colorScheme } = useMantineColorScheme();
@@ -25,7 +25,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setFilters({
       teams: selectedTeams,
       tournaments: selectedTournaments,
-      // yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
+      yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
     });
     setPage(1);
     setOpened(false);
@@ -34,7 +34,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
   const handleClearFilters = () => {
     setSelectedTeams([]);
     setSelectedTournaments([]);
-    // setYearRange([1872, 2024]);
+    setYearRange([1872, 2024]);
   };
 
   return (
@@ -54,9 +54,9 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         <div className={classes.container}>
           <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
           <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments} />
-          {/* <div>
+          <div>
             <YearsInput setYearRange={setYearRange} yearRange={yearRange}/>
-          </div> */}
+          </div>
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
               Clear
