@@ -17,13 +17,16 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
   const [draggingInput, setDraggingInput] = useState<'start' | 'end' | null>(null);
   const dragScale = 0.8;
 
+  // Handle the mouse down event to start dragging the year range
   const handleMouseDown = (event: React.MouseEvent, input: 'start' | 'end') => {
     setIsDragging(true);
     setStartY(event.clientY);
     setDraggingInput(input);
     document.body.style.userSelect = 'none'; // Prevent text selection
+    document.body.classList.add('cursor-ns-resize');
   };
 
+  // Handle the mouse move event to update the year range
   const handleMouseMove = useCallback(
     (event: MouseEvent) => {
       if (isDragging && draggingInput) {
@@ -54,6 +57,7 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
     setIsDragging(false);
     setDraggingInput(null);
     document.body.style.userSelect = ''; // Re-enable text selection
+    document.body.classList.remove('cursor-ns-resize');
   };
 
   useEffect(() => {
