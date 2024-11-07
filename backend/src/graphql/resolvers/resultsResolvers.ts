@@ -120,7 +120,10 @@ const resultResolvers = {
         }
       }
 
-      const total = (await Result.aggregate(aggregationPipeline).count("total").exec())[0].total;
+      // Count the total number of documents that match the query
+      const countPipeline = [...aggregationPipeline, { $count: "total" }];
+      const totalResult = await Result.aggregate(countPipeline).exec();
+      const total = totalResult.length > 0 ? totalResult[0].total : 0;
 
       // Apply pagination
       aggregationPipeline.push({ $skip: skip });
