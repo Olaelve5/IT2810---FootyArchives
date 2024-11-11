@@ -1,7 +1,9 @@
-import { Tooltip, Switch, useMantineTheme } from '@mantine/core';
+import { Switch, useMantineTheme } from '@mantine/core';
 import { useLanguageStore } from '../../../stores/language-store';
 import classes from '../../../styles/Filters/ExclusiveSwitch.module.css';
 import { useFilterStore } from '../../../stores/filter-store';
+import { IconCheck, IconX } from '@tabler/icons-react';
+
 
 export default function ExclusiveSwitch() {
   const { selectedTeams, exclusive, setExclusive } = useFilterStore();
@@ -16,25 +18,19 @@ export default function ExclusiveSwitch() {
         disabled={selectedTeams.length < 2}
         color={theme.colors.primary[6]}
         size="md"
+        onLabel={<IconCheck size={16} />}
+        offLabel={<IconX size={16} />}
+        label={language === 'en' ? 'Exclusive' : 'Eksklusiv'}
+        description={language === 'en' ? 'Display only head-to-head games among selected teams' : 'Vis kun innbyrdes kamper mellom valgte lag'}
         checked={exclusive}
         classNames={{
           track: !isDisabled ? (exclusive ? classes.trackSelected : classes.track) : classes.trackDisabled,
           root: !isDisabled ? classes.root : classes.rootDisabled,
           thumb: !isDisabled ? classes.thumb : classes.thumbDisabled,
           body: classes.body,
+          description: classes.description,
         }}
       />
-      <Tooltip
-        label={
-          language === 'en'
-            ? 'Display only head-to-head games among selected teams'
-            : 'Vis kun innbyrdes kamper mellom valgte lag'
-        }
-      >
-        <span className={!isDisabled ? classes.label : classes.labelDisabled}>
-          {language === 'en' ? 'Exclusive' : 'Eksklusiv'}
-        </span>
-      </Tooltip>
     </div>
   );
 }

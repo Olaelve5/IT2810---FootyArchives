@@ -8,6 +8,8 @@ import { IconFilter } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme } from '@mantine/core';
 import { QueryFilterType } from '../../../types/QueryFilterType';
+import { useLanguageStore } from '../../../stores/language-store';
+
 import { useState } from 'react';
 
 interface FiltersProps {
@@ -29,6 +31,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [opened, setOpened] = useState(false);
+  const { language } = useLanguageStore();
 
   const handleApplyFilters = () => {
     setFilters({
@@ -76,10 +79,10 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
           <ExclusiveSwitch />
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
-              Clear
+              {language === 'en' ? 'Clear' : 'Tøm'}
             </Button>
             <Button className={classes.resetApplyButton} radius={'xl'} onClick={handleApplyFilters}>
-              Apply
+              {language === 'en' ? 'Apply' : 'Bruk'}
             </Button>
           </div>
         </div>

@@ -38,22 +38,24 @@
 }
 
 .darkDropdown {
-    background: var(--mantine-color-darkmode-3);
-    border: 1px solid var(--mantine-color-darkmode-6) !important;
+    background: var(--mantine-color-darkmode-1);
+    border: 1px solid var(--mantine-color-darkmode-4) !important;
+    width: 100%;
+    padding: 0;
 }
 
 .option {
     display: flex;
     gap: 10px;
-    border-radius: 5px;
+    border-radius: 0;
 
     &[data-combobox-selected] {
-        background-color: var(--mantine-color-darkmode-5);
+        background-color: var(--mantine-color-darkmode-5) !important;
       }
 }
 
 .option:hover {
-    background: var(--mantine-color-darkmode-5);
+    background: var(--mantine-color-darkmode-3);
 }
 
 .imageContainer {
@@ -62,7 +64,7 @@
 }
 
 .pill {
-    background: var(--mantine-color-darkmode-4);
+    background: var(--mantine-color-darkmode-2);
     color: white;
     border: 1px solid rgba(182, 191, 197, 0.336) !important;
 }

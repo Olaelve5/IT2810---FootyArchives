@@ -1,6 +1,6 @@
 .switchContainer {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .label {
@@ -12,13 +12,18 @@
     cursor: help;
 }
 
+.description {
+    color: var(--mantine-color-darkmode-5);
+    font-size: 0.9rem;
+}
+
 .track {
     background: var(--mantine-color-darkmode-2);
     cursor: pointer;
 }
 
 .trackSelected {
-    background: var(--mantine-color-primary-6);
+    background: var(--mantine-color-darkmode-5);
     cursor: pointer;
 }
 
