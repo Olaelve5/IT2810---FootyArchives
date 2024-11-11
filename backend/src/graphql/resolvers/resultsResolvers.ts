@@ -3,7 +3,6 @@ import Result from "../../models/Result";
 import Goalscorer from "../../models/Goalscorer";
 import { Filters, SortInput } from "../../types/FiltersType";
 import { QueryType } from "../../types/QueryType";
-import fs from "fs";
 
 interface Args {
   filters?: Filters;
@@ -35,8 +34,9 @@ const resultResolvers = {
 
       // Apply filters to the query
       if (filters) {
-        // Filter by teams
+        // Filter by teams 
         if (filters.teams && filters.teams.length > 0) {
+          // Check if the exclusive flag is set, and filter accordingly
           if (!filters.exclusive) {
             query.$or = [
               { home_team: { $in: filters.teams } },

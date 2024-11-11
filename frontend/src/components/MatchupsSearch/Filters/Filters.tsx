@@ -2,6 +2,7 @@ import CountryFilter from './NationsFilter';
 import TournamentFilter from './TournamentFilter';
 import classes from '../../../styles/Filters/Filters.module.css';
 import YearsInput from './YearsInput';
+import ExclusiveSwitch from './ExclusiveSwitch';
 import { Button, Menu } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useMantineColorScheme } from '@mantine/core';
@@ -17,6 +18,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
   const [yearRange, setYearRange] = useState<[number, number]>([1872, 2024]);
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [selectedTournaments, setSelectedTournaments] = useState<string[]>([]);
+  const [exclusive, setExclusive] = useState(false);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [opened, setOpened] = useState(false);
@@ -26,6 +28,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
       teams: selectedTeams,
       tournaments: selectedTournaments,
       yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
+      exclusive: exclusive,
     });
     setPage(1);
     setOpened(false);
@@ -56,6 +59,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
           <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments} />
           <div>
             <YearsInput setYearRange={setYearRange} yearRange={yearRange}/>
+            <ExclusiveSwitch selectedTeams={selectedTeams} exclusive={exclusive} setExclusive={setExclusive} />
           </div>
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
