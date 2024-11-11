@@ -59,6 +59,7 @@ function TournamentFilter({ selectedTournaments, setSelectedTournaments }: Tourn
       active={selectedTournaments.includes(option.value)}
       className={classes.option}
       id={isDark ? classes.optionDark : ''}
+      key={option.value}
     >
       <Group gap="sm">
         {selectedTournaments.includes(option.value) && <CheckIcon size={12} />}

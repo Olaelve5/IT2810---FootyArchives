@@ -9,46 +9,55 @@ interface YearFilterProps {
   yearRange: [number, number];
 }
 
-export default function YearsInput({ setYearRange, yearRange}: YearFilterProps) {
+export default function YearsInput({ setYearRange, yearRange }: YearFilterProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [draggingInput, setDraggingInput] = useState<'start' | 'end' | null>(null);
+  const dragScale = 0.8;
 
+  // Handle the mouse down event to start dragging the year range
   const handleMouseDown = (event: React.MouseEvent, input: 'start' | 'end') => {
     setIsDragging(true);
     setStartY(event.clientY);
     setDraggingInput(input);
     document.body.style.userSelect = 'none'; // Prevent text selection
+    document.body.classList.add('cursor-ns-resize');
   };
 
-  const handleMouseMove = useCallback((event: MouseEvent) => {
-    if (isDragging && draggingInput) {
-      const deltaY = startY - event.clientY;
-      let newStartValue = yearRange[0];
-      let newEndValue = yearRange[1];
+  // Handle the mouse move event to update the year range
+  const handleMouseMove = useCallback(
+    (event: MouseEvent) => {
+      if (isDragging && draggingInput) {
+        const deltaY = startY - event.clientY;
+        let newStartValue = yearRange[0];
+        let newEndValue = yearRange[1];
 
-      if (draggingInput === 'start') {
-        newStartValue = Math.max(1872, Math.min(2024, yearRange[0] + deltaY));
-        if (newStartValue > newEndValue) {
-          newEndValue = newStartValue;
+        if (draggingInput === 'start') {
+          newStartValue = Math.max(1872, Math.min(2024, yearRange[0] + deltaY * dragScale));
+          if (newStartValue > newEndValue) {
+            newEndValue = newStartValue;
+          }
+        } else if (draggingInput === 'end') {
+          newEndValue = Math.max(1872, Math.min(2024, yearRange[1] + deltaY * dragScale));
+          if (newEndValue < newStartValue) {
+            newStartValue = newEndValue;
+          }
         }
-      } else if (draggingInput === 'end') {
-        newEndValue = Math.max(1872, Math.min(2024, yearRange[1] + deltaY));
-        if (newEndValue < newStartValue) {
-          newStartValue = newEndValue;
-        }
+
+        setYearRange([Math.round(newStartValue), Math.round(newEndValue)]);
+        setStartY(event.clientY);
       }
-
-      setYearRange([newStartValue, newEndValue]);
-    }
-  }, [draggingInput, isDragging, setYearRange, startY, yearRange]);
+    },
+    [draggingInput, isDragging, setYearRange, startY, yearRange],
+  );
 
   const handleMouseUp = () => {
     setIsDragging(false);
     setDraggingInput(null);
     document.body.style.userSelect = ''; // Re-enable text selection
+    document.body.classList.remove('cursor-ns-resize');
   };
 
   useEffect(() => {
@@ -72,14 +81,14 @@ export default function YearsInput({ setYearRange, yearRange}: YearFilterProps) 
       <div className={classes.numbersContainer}>
         <NumberInput
           value={yearRange[0]}
-          radius='xl'
+          radius="xl"
           min={1872}
           max={2024}
           allowDecimal={false}
           hideControls
           rightSection={
             <div className={classes.dragHandle} onMouseDown={(event) => handleMouseDown(event, 'start')}>
-              <IconSelector size={20} className={classes.upDownIcon}/>
+              <IconSelector size={20} className={classes.upDownIcon} />
             </div>
           }
           classNames={{
@@ -90,14 +99,14 @@ export default function YearsInput({ setYearRange, yearRange}: YearFilterProps) 
         <Text fw={600}>-</Text>
         <NumberInput
           hideControls
-          radius='xl'
+          radius="xl"
           value={yearRange[1]}
           min={1872}
           max={2024}
           allowDecimal={false}
           rightSection={
             <div className={classes.dragHandle} onMouseDown={(event) => handleMouseDown(event, 'end')}>
-              <IconSelector size={20} className={classes.upDownIcon}/>
+              <IconSelector size={20} className={classes.upDownIcon} />
             </div>
           }
           classNames={{
