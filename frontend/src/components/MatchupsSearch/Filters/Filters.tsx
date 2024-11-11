@@ -28,8 +28,9 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
       teams: selectedTeams,
       tournaments: selectedTournaments,
       yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
-      exclusive: exclusive,
+      exclusive: selectedTeams.length > 1 ? exclusive : false
     });
+
     setPage(1);
     setOpened(false);
   };
@@ -38,6 +39,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setSelectedTeams([]);
     setSelectedTournaments([]);
     setYearRange([1872, 2024]);
+    setExclusive(false);
   };
 
   return (
@@ -57,7 +59,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         <div className={classes.container}>
           <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
           <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments} />
-          <div>
+          <div className={classes.yearExclusiveContainer}>
             <YearsInput setYearRange={setYearRange} yearRange={yearRange}/>
             <ExclusiveSwitch selectedTeams={selectedTeams} exclusive={exclusive} setExclusive={setExclusive} />
           </div>

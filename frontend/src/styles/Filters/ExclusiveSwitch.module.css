@@ -1,0 +1,42 @@
+.switchContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.label {
+    cursor:help;
+}
+
+.labelDisabled {
+    opacity: 0.5;
+    cursor: help;
+}
+
+.track {
+    background: var(--mantine-color-darkmode-4);
+    cursor: pointer;
+}
+
+.trackSelected {
+    background: var(--mantine-color-primary-6);
+    cursor: pointer;
+}
+
+.trackDisabled {
+    background: var(--mantine-color-darkmode-4);
+    cursor: not-allowed;
+}
+
+.thumb {
+    background: white;
+    border: 1px solid var(--mantine-color-darkmode-4);
+}
+
+.thumbDisabled {
+    background: white;
+}
+
+.rootDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

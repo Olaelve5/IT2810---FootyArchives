@@ -1,23 +1,44 @@
-import { Switch } from '@mantine/core';
+import { Tooltip, Switch, useMantineTheme } from '@mantine/core';
+import { useLanguageStore } from '../../../stores/language-store';
+import classes from '../../../styles/Filters/ExclusiveSwitch.module.css';
 
 interface ExclusiveSwitchProps {
   exclusive: boolean;
-  setExclusive: (exclusive: boolean) => void;
+  setExclusive: (value: boolean) => void;
   selectedTeams: string[];
 }
 
-function ExclusiveSwitch({ exclusive, setExclusive, selectedTeams }: ExclusiveSwitchProps) {
+export default function ExclusiveSwitch({ exclusive, setExclusive, selectedTeams }: ExclusiveSwitchProps) {
+  const { language } = useLanguageStore();
+  const theme = useMantineTheme();
+  const isDisabled = selectedTeams.length < 2;
+
   return (
-    <Switch
-      onChange={(event) => setExclusive(event.currentTarget.checked)}
-      label="Exclusive"
-      disabled={selectedTeams.length < 2}
-      description="Show only exclusive matchups"
-      color="blue"
-      size="lg"
-      checked={exclusive}
-    />
+    <div className={classes.switchContainer}>
+      <Switch
+        onChange={(event) => setExclusive(event.currentTarget.checked)}
+        disabled={selectedTeams.length < 2}
+        color={theme.colors.primary[6]}
+        size="md"
+        checked={exclusive}
+        classNames={{
+          track: !isDisabled ? (exclusive ? classes.trackSelected : classes.track) : classes.trackDisabled,
+          root: !isDisabled ? classes.root : classes.rootDisabled,
+          thumb: !isDisabled ? classes.thumb : classes.thumbDisabled,
+          body: classes.body,
+        }}
+      />
+      <Tooltip
+        label={
+          language === 'en'
+            ? 'Display only head-to-head games among selected teams'
+            : 'Vis kun innbyrdes kamper mellom valgte lag'
+        }
+      >
+        <span className={!isDisabled ? classes.label : classes.labelDisabled}>
+          {language === 'en' ? 'Exclusive' : 'Eksklusiv'}
+        </span>
+      </Tooltip>
+    </div>
   );
 }
-
-export default ExclusiveSwitch;
