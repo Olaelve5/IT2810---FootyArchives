@@ -10,11 +10,7 @@ import {
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { IconSelector } from '@tabler/icons-react';
-
-interface TournamentFilterProps {
-  selectedTournaments: string[];
-  setSelectedTournaments: (tournaments: string[]) => void;
-}
+import { useFilterStore } from '../../../stores/filter-store';
 
 const options = [
   { value: 'FIFA World Cup', label: 'FIFA World Cup' },
@@ -26,9 +22,10 @@ const options = [
   { value: 'Friendly', label: 'Friendlies' },
 ];
 
-function TournamentFilter({ selectedTournaments, setSelectedTournaments }: TournamentFilterProps) {
+function TournamentFilter() {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+  const { selectedTournaments, setSelectedTournaments } = useFilterStore();
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),

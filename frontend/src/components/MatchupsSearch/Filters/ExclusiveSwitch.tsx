@@ -1,14 +1,10 @@
 import { Tooltip, Switch, useMantineTheme } from '@mantine/core';
 import { useLanguageStore } from '../../../stores/language-store';
 import classes from '../../../styles/Filters/ExclusiveSwitch.module.css';
+import { useFilterStore } from '../../../stores/filter-store';
 
-interface ExclusiveSwitchProps {
-  exclusive: boolean;
-  setExclusive: (value: boolean) => void;
-  selectedTeams: string[];
-}
-
-export default function ExclusiveSwitch({ exclusive, setExclusive, selectedTeams }: ExclusiveSwitchProps) {
+export default function ExclusiveSwitch() {
+  const { selectedTeams, exclusive, setExclusive } = useFilterStore();
   const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const isDisabled = selectedTeams.length < 2;

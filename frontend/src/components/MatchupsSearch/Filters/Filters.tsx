@@ -5,6 +5,7 @@ import YearsInput from './YearsInput';
 import ExclusiveSwitch from './ExclusiveSwitch';
 import { Button, Menu } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
+import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme } from '@mantine/core';
 import { QueryFilterType } from '../../../types/QueryFilterType';
 import { useState } from 'react';
@@ -15,10 +16,16 @@ interface FiltersProps {
 }
 
 export default function Filters({ setFilters, setPage }: FiltersProps) {
-  const [yearRange, setYearRange] = useState<[number, number]>([1872, 2024]);
-  const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
-  const [selectedTournaments, setSelectedTournaments] = useState<string[]>([]);
-  const [exclusive, setExclusive] = useState(false);
+  const {
+    selectedTeams,
+    setSelectedTeams,
+    yearRange,
+    setYearRange,
+    exclusive,
+    setExclusive,
+    selectedTournaments,
+    setSelectedTournaments,
+  } = useFilterStore();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [opened, setOpened] = useState(false);
@@ -27,8 +34,8 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setFilters({
       teams: selectedTeams,
       tournaments: selectedTournaments,
-      yearRange: { startYear: yearRange[0], endYear: yearRange[1] },
-      exclusive: selectedTeams.length > 1 ? exclusive : false
+      yearRange: { startYear: yearRange.startYear, endYear: yearRange.endYear },
+      exclusive: exclusive,
     });
 
     setPage(1);
@@ -38,7 +45,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
   const handleClearFilters = () => {
     setSelectedTeams([]);
     setSelectedTournaments([]);
-    setYearRange([1872, 2024]);
+    setYearRange({ startYear: 1872, endYear: 2024 });
     setExclusive(false);
   };
 
@@ -58,10 +65,10 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
       <Menu.Dropdown className={classes.dropdown}>
         <div className={classes.container}>
           <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
-          <TournamentFilter setSelectedTournaments={setSelectedTournaments} selectedTournaments={selectedTournaments} />
+          <TournamentFilter />
           <div className={classes.yearExclusiveContainer}>
-            <YearsInput setYearRange={setYearRange} yearRange={yearRange}/>
-            <ExclusiveSwitch selectedTeams={selectedTeams} exclusive={exclusive} setExclusive={setExclusive} />
+            <YearsInput />
+            <ExclusiveSwitch />
           </div>
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
