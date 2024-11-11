@@ -11,6 +11,7 @@ import {
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { IconSelector } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
 const options = [
   { value: 'FIFA World Cup', label: 'FIFA World Cup' },
@@ -26,6 +27,7 @@ function TournamentFilter() {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const { selectedTournaments, setSelectedTournaments } = useFilterStore();
+  const { language } = useLanguageStore();
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -73,7 +75,7 @@ function TournamentFilter() {
           radius="xl"
           onClick={() => combobox.openDropdown()}
           classNames={classes}
-          description="Tournaments"
+          description={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
           leftSection={<IconSelector size={18} className={classes.searchIcon} />}
           rightSection={
             selectedTournaments.length > 0 && (
@@ -86,7 +88,7 @@ function TournamentFilter() {
               pills
             ) : (
               <PillsInput.Field
-                placeholder="Select one or more tournaments"
+                placeholder={language === 'en' ? 'E.g. FIFA World Cup' : 'F.eks. FIFA World Cup'}
                 variant="filled"
                 className={classes.field}
               />

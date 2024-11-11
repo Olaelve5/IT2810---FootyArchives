@@ -40,3 +40,19 @@
   gap: 2rem;
   margin-top: 1rem;
 }
+
+.resetApplyButton {
+  background: var(--mantine-color-primary-9);
+
+  &:hover {
+    background: var(--mantine-color-primary-8);
+  }
+}
+
+#resetButton {
+  background: transparent;
+
+  &:hover {
+    background: var(--mantine-color-darkmode-2);
+  }
+}

@@ -91,7 +91,7 @@ export default function NationsFilter() {
           leftSection={<IconSearch size={18} className={classes.searchIcon} />}
           radius="xl"
           classNames={classes}
-          description={language === 'en' ? 'Nations' : 'Nasjoner'}
+          description={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
           rightSection={
             <CloseButton
               onClick={() => {
@@ -108,7 +108,7 @@ export default function NationsFilter() {
             <Combobox.EventsTarget>
               <PillsInput.Field
                 className={classes.field}
-                placeholder={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
+                placeholder={language === 'en' ? 'E.g. Norway' : 'F.eks. Norge'}
                 variant="filled"
                 value={teamName}
                 onChange={(event) => {

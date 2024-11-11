@@ -29,6 +29,7 @@ export default function ExclusiveSwitch() {
           thumb: !isDisabled ? classes.thumb : classes.thumbDisabled,
           body: classes.body,
           description: classes.description,
+          label: !isDisabled ? classes.label : classes.labelDisabled,
         }}
       />
     </div>

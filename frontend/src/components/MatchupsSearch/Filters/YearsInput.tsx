@@ -4,10 +4,12 @@ import { useMantineColorScheme, Text } from '@mantine/core';
 import { useState, useEffect, useCallback } from 'react';
 import { IconSelector } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
 export default function YearsInput() {
   const { yearRange, setYearRange } = useFilterStore();
   const { colorScheme } = useMantineColorScheme();
+  const { language } = useLanguageStore();
   const isDark = colorScheme === 'dark';
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
@@ -57,6 +59,10 @@ export default function YearsInput() {
     document.body.classList.remove('cursor-ns-resize');
   };
 
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.target.select();
+  };
+
   useEffect(() => {
     if (isDragging) {
       window.addEventListener('mousemove', handleMouseMove);
@@ -74,10 +80,11 @@ export default function YearsInput() {
 
   return (
     <div className={classes.container}>
-      <label>Year</label>
+      <label>{language == 'en' ? 'Select years' : 'Velg årstall'}</label>
       <div className={classes.numbersContainer}>
         <NumberInput
           value={yearRange.startYear}
+          onFocus={handleFocus}
           radius="xl"
           min={1872}
           max={2024}
@@ -96,6 +103,7 @@ export default function YearsInput() {
         <Text fw={600}>-</Text>
         <NumberInput
           hideControls
+          onFocus={handleFocus}
           radius="xl"
           value={yearRange.endYear}
           min={1872}
