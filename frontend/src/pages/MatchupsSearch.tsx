@@ -16,10 +16,14 @@ export default function Matchups() {
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
-  const [filters, setFilters] = useState<QueryFilterType>({teams: [], tournaments: []});
+  const [filters, setFilters] = useState<QueryFilterType>({
+    teams: [],
+    tournaments: [],
+    yearRange: { startYear: 1872, endYear: 2024 },
+  });
   const navigate = useNavigate();
 
-  // Limit of results per page - ideally divisible by 3 and 4
+  // Limit of results per page - ideally divisible by 2, 3 and 4
   const limit = 24;
 
   // State for the results data -> necesarry to prevent unwanted scrolling behavior
@@ -31,6 +35,7 @@ export default function Matchups() {
   const { loading, error } = useQuery(GET_RESULTS, {
     variables: { limit: limit, page: page, sort: sort, filters: filters },
     onCompleted: (data) => {
+      console.log(data);
       setResults(data.results.results);
       setTotalPages(data.results.totalPages);
       setTotalResults(data.results.total);
@@ -42,7 +47,9 @@ export default function Matchups() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (error) navigate('/project2/not-found');
+  useEffect(() => {
+    console.log(error);
+  }, [error, navigate]);
 
   return (
     <div className="layoutContainer">
@@ -54,7 +61,7 @@ export default function Matchups() {
             <div className={classes.titleDescriptionContainer}>
               <h2>Matchups</h2>
             </div>
-            <Filters setFilters={setFilters} setPage={setPage}/>
+            <Filters setFilters={setFilters} setPage={setPage} />
           </div>
           <div>
             <MatchupsGrid

@@ -3,7 +3,7 @@ import Result from "../../models/Result";
 import Goalscorer from "../../models/Goalscorer";
 import { Filters, SortInput } from "../../types/FiltersType";
 import { QueryType } from "../../types/QueryType";
-import fs from 'fs';
+import fs from "fs";
 
 interface Args {
   filters?: Filters;
@@ -76,14 +76,6 @@ const resultResolvers = {
         }
       }
 
-      // Filter by year range -> doesnt work yet!!
-      if (filters?.yearRange) {
-        query.date = {
-          $gte: new Date(`${filters.yearRange.startYear}-01-01`),
-          $lte: new Date(`${filters.yearRange.endYear}-12-31`),
-        } as any;
-      }
-
       const skip = (page - 1) * limit;
 
       // Build the aggregation pipeline
@@ -98,6 +90,20 @@ const resultResolvers = {
           },
         },
       ];
+
+      // Apply year range filter
+      if (filters?.yearRange) {
+        aggregationPipeline.push({
+          $match: {
+            $expr: {
+              $and: [
+                { $gte: [{ $year: "$date" }, filters.yearRange.startYear] },
+                { $lte: [{ $year: "$date" }, filters.yearRange.endYear] },
+              ],
+            },
+          },
+        });
+      }
 
       // Apply sorting logic based on the sort field
       if (sort) {
@@ -114,12 +120,16 @@ const resultResolvers = {
         }
       }
 
+      // Count the total number of documents that match the query
+      const countPipeline = [...aggregationPipeline, { $count: "total" }];
+      const totalResult = await Result.aggregate(countPipeline).exec();
+      const total = totalResult.length > 0 ? totalResult[0].total : 0;
+
       // Apply pagination
       aggregationPipeline.push({ $skip: skip });
       aggregationPipeline.push({ $limit: limit });
 
       const results = await Result.aggregate(aggregationPipeline).exec();
-      const total = await Result.countDocuments(query).exec();
 
       return {
         results,
