@@ -70,7 +70,11 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         title={language === 'en' ? 'Filters' : 'Filtre'}
         className={classes.modal}
         size="lg"
-        classNames={{ title: classes.title, header: classes.header, close: classes.close }}
+        classNames={{
+          title: classes.title,
+          header: classes.header,
+          close: classes.close,
+        }}
       >
         <div className={classes.container}>
           <CountryFilter />
@@ -78,7 +82,13 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
           <YearsInput />
           <ExclusiveSwitch />
           <div className={classes.buttonContainer}>
-            <Button className={classes.resetApplyButton} id={classes.resetButton}  radius={'xl'} color="transparent" onClick={handleClearFilters}>
+            <Button
+              className={classes.resetApplyButton}
+              id={classes.resetButton}
+              radius={'xl'}
+              color="transparent"
+              onClick={handleClearFilters}
+            >
               {language === 'en' ? 'Clear' : 'Tøm'}
             </Button>
             <Button className={classes.resetApplyButton} radius={'xl'} onClick={handleApplyFilters}>

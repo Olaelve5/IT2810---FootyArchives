@@ -11,8 +11,7 @@
 }
 
 .header {
-  background: var(--mantine-color-darkmode-1);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .close:hover {

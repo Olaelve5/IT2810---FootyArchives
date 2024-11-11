@@ -28,7 +28,7 @@
 }
 
 .hiddenClose {
-  color: transparent;
+  color: transparent !important;
   cursor: default;
 }
 
