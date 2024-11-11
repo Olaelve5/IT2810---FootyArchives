@@ -1,13 +1,39 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    text-align: left;
-    gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  gap: 0.2rem;
 }
 
 .nameTimeContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.showMore {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.showMoreLight {
+  color: #6982ad;
+  font-weight: 600;
+}
+
+.showMoreDark {
+  color: #6982ad;
+    font-weight: 600;
+}
+
+.showMoreLight:hover {
+  color: #007bff;
+  text-decoration: underline;
+  
+}
+
+.showMoreDark:hover {
+  color: #b3b3b3;
+  text-decoration: underline;
 }
