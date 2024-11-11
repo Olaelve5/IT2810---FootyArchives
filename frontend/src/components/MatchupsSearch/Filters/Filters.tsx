@@ -3,7 +3,7 @@ import TournamentFilter from './TournamentFilter';
 import classes from '../../../styles/Filters/Filters.module.css';
 import YearsInput from './YearsInput';
 import ExclusiveSwitch from './ExclusiveSwitch';
-import { Button, Menu } from '@mantine/core';
+import { Button, Modal } from '@mantine/core';
 import { IconFilter } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme } from '@mantine/core';
@@ -50,26 +50,30 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
   };
 
   return (
-    <Menu withArrow closeOnItemClick={false} opened={opened} onChange={setOpened}>
-      <Menu.Target>
-        <Button
-          leftSection={<IconFilter size={20} />}
-          radius="xl"
-          color="transparent"
-          className={isDark ? classes.filterButtonDark : classes.filterButtonLight}
-        >
-          Filters
-        </Button>
-      </Menu.Target>
+    <>
+      <Button
+        leftSection={<IconFilter size={20} />}
+        radius="xl"
+        color="transparent"
+        className={isDark ? classes.filterButtonDark : classes.filterButtonLight}
+        onClick={() => setOpened(true)}
+      >
+        Filters
+      </Button>
 
-      <Menu.Dropdown className={classes.dropdown}>
+      <Modal
+        opened={opened}
+        onClose={() => setOpened(false)}
+        title="Filters"
+        className={classes.modal}
+        size="lg"
+        classNames={{ title: classes.title, header: classes.header, close: classes.close }}
+      >
         <div className={classes.container}>
-          <CountryFilter setSelectedTeams={setSelectedTeams} selectedTeams={selectedTeams} />
+          <CountryFilter />
           <TournamentFilter />
-          <div className={classes.yearExclusiveContainer}>
-            <YearsInput />
-            <ExclusiveSwitch />
-          </div>
+          <YearsInput />
+          <ExclusiveSwitch />
           <div className={classes.buttonContainer}>
             <Button className={classes.resetApplyButton} radius={'xl'} color="transparent" onClick={handleClearFilters}>
               Clear
@@ -79,7 +83,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
             </Button>
           </div>
         </div>
-      </Menu.Dropdown>
-    </Menu>
+      </Modal>
+    </>
   );
 }

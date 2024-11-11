@@ -13,7 +13,7 @@
 }
 
 .track {
-    background: var(--mantine-color-darkmode-4);
+    background: var(--mantine-color-darkmode-2);
     cursor: pointer;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .trackDisabled {
-    background: var(--mantine-color-darkmode-4);
+    background: var(--mantine-color-darkmode-2);
     cursor: not-allowed;
 }
 

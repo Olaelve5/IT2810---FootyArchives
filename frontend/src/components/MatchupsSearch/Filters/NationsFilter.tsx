@@ -15,14 +15,10 @@ import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
 import translations from '../../../assets/translations.json';
 import { getNorwegianName } from '../../../utils/translationUtils';
+import { useFilterStore } from '../../../stores/filter-store';
 
-export default function NationsFilter({
-  setSelectedTeams,
-  selectedTeams,
-}: {
-  setSelectedTeams: (teams: string[]) => void;
-  selectedTeams: string[];
-}) {
+export default function NationsFilter() {
+  const { selectedTeams, setSelectedTeams } = useFilterStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
