@@ -3,7 +3,6 @@ import Result from "../../models/Result";
 import Goalscorer from "../../models/Goalscorer";
 import { Filters, SortInput } from "../../types/FiltersType";
 import { QueryType } from "../../types/QueryType";
-import fs from 'fs';
 
 interface Args {
   filters?: Filters;
@@ -37,10 +36,17 @@ const resultResolvers = {
       if (filters) {
         // Filter by teams
         if (filters.teams && filters.teams.length > 0) {
-          query.$or = [
-            { home_team: { $in: filters.teams } },
-            { away_team: { $in: filters.teams } },
-          ];
+          if (!filters.exclusive) {
+            query.$or = [
+              { home_team: { $in: filters.teams } },
+              { away_team: { $in: filters.teams } },
+            ];
+          } else {
+            query.$and = [
+              { home_team: { $in: filters.teams } },
+              { away_team: { $in: filters.teams } },
+            ];
+          }
         }
 
         // Filter by winning or losing team (if specified)

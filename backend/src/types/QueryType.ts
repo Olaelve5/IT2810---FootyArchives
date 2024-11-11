@@ -1,5 +1,6 @@
 export type QueryType = {
   $or?: ({ home_team: { $in: string[] } } | { away_team: { $in: string[] } })[];
+  $and?: ({ home_team: { $in: string[] } } | { away_team: { $in: string[] } })[];
   year?: {
     $gte: number;
     $lte: number;
