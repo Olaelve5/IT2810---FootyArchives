@@ -20,6 +20,7 @@ export default function Matchups() {
     teams: [],
     tournaments: [],
     yearRange: { startYear: 1872, endYear: 2024 },
+    exclusive: false,
   });
   const navigate = useNavigate();
 
@@ -35,7 +36,6 @@ export default function Matchups() {
   const { loading, error } = useQuery(GET_RESULTS, {
     variables: { limit: limit, page: page, sort: sort, filters: filters },
     onCompleted: (data) => {
-      console.log(data);
       setResults(data.results.results);
       setTotalPages(data.results.totalPages);
       setTotalResults(data.results.total);

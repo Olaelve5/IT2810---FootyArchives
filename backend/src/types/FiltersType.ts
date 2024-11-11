@@ -10,6 +10,7 @@ export type Filters = {
     yearRange?: YearRange;
     winningTeam?: string;
     losingTeam?: string;
+    exclusive?: boolean;
 }
 
 export type SortInput = {

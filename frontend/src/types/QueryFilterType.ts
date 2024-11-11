@@ -8,4 +8,5 @@ export type QueryFilterType = {
     teams?: string[];
     tournaments?: string[];
     yearRange?: YearRangeType;
+    exclusive?: boolean;
 }
