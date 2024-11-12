@@ -28,7 +28,9 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setSelectedTournaments,
     filterCount,
     setFilterCount,
-    } = useFilterStore();
+    setLastQueriedFilters,
+  } = useFilterStore();
+
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [opened, setOpened] = useState(false);
@@ -36,6 +38,13 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
 
   const handleApplyFilters = () => {
     setFilters({
+      teams: selectedTeams,
+      tournaments: selectedTournaments,
+      yearRange: { startYear: yearRange.startYear, endYear: yearRange.endYear },
+      exclusive: exclusive,
+    });
+
+    setLastQueriedFilters({
       teams: selectedTeams,
       tournaments: selectedTournaments,
       yearRange: { startYear: yearRange.startYear, endYear: yearRange.endYear },

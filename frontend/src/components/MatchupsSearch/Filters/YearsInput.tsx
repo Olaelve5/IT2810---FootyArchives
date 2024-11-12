@@ -7,7 +7,7 @@ import { useFilterStore } from '../../../stores/filter-store';
 import { useLanguageStore } from '../../../stores/language-store';
 
 export default function YearsInput() {
-  const { yearRange, setYearRange } = useFilterStore();
+  const { yearRange, setYearRange, lastQueriedFilters } = useFilterStore();
   const { colorScheme } = useMantineColorScheme();
   const { language } = useLanguageStore();
   const isDark = colorScheme === 'dark';
@@ -77,6 +77,13 @@ export default function YearsInput() {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [handleMouseMove, isDragging]);
+
+  // Set filter to match the applied query
+  useEffect(() => {
+    if (lastQueriedFilters && lastQueriedFilters.yearRange) {
+      setYearRange(lastQueriedFilters.yearRange);
+    }
+  }, [lastQueriedFilters, setYearRange]);
 
   return (
     <div className={classes.container}>

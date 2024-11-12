@@ -1,3 +1,4 @@
+import { QueryFilterType } from '../types/QueryFilterType';
 import { YearRange } from './../../../backend/src/types/FiltersType';
 import { create } from 'zustand';
 
@@ -16,6 +17,9 @@ export interface FilterState {
 
   filterCount: number;
   setFilterCount: (filterCount: number) => void;
+
+  lastQueriedFilters: QueryFilterType | null;
+  setLastQueriedFilters: (filters: QueryFilterType) => void;
 }
 
 // Create a store for the filters
@@ -34,4 +38,7 @@ export const useFilterStore = create<FilterState>((set) => ({
 
   filterCount: 0,
   setFilterCount: (filterCount: number) => set({ filterCount }),
+
+  lastQueriedFilters: null,
+  setLastQueriedFilters: (filters: QueryFilterType) => set({ lastQueriedFilters: filters }),
 }));

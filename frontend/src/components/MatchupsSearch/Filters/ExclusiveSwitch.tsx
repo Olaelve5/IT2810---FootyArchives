@@ -6,7 +6,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { useEffect } from 'react';
 
 export default function ExclusiveSwitch() {
-  const { selectedTeams, exclusive, setExclusive } = useFilterStore();
+  const { selectedTeams, exclusive, setExclusive, lastQueriedFilters } = useFilterStore();
   const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const isDisabled = selectedTeams.length < 2;
@@ -19,6 +19,13 @@ export default function ExclusiveSwitch() {
     }
   }, [isDisabled, selectedTeams, setExclusive]);
 
+  // Set the selected teams to match the applied query
+  useEffect(() => {
+    if (lastQueriedFilters && lastQueriedFilters.exclusive) {
+      setExclusive(lastQueriedFilters.exclusive);
+    }
+  }, [lastQueriedFilters, setExclusive]);
+
   return (
     <div className={classes.switchContainer}>
       <Switch
@@ -26,8 +33,8 @@ export default function ExclusiveSwitch() {
         disabled={selectedTeams.length < 2}
         color={theme.colors.primary[6]}
         size="md"
-        onLabel={<IconCheck size={16} color='white' />}
-        offLabel={<IconX size={16} color={theme.colors.gray[5]}/>}
+        onLabel={<IconCheck size={16} color="white" />}
+        offLabel={<IconX size={16} color={theme.colors.gray[5]} />}
         label={language === 'en' ? 'Exclusive' : 'Eksklusiv'}
         description={
           language === 'en'

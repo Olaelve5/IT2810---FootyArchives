@@ -30,7 +30,7 @@ const options = [
 function TournamentFilter() {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
-  const { selectedTournaments, setSelectedTournaments } = useFilterStore();
+  const { selectedTournaments, setSelectedTournaments, lastQueriedFilters } = useFilterStore();
   const { language } = useLanguageStore();
   const [query, setQuery] = useState('');
   const [dropDownOptions, setDropDownOptions] = useState<string[]>(options.map((option) => option.value));
@@ -61,6 +61,13 @@ function TournamentFilter() {
   const handleOptionRemove = (option: string) => {
     setSelectedTournaments(selectedTournaments.filter((tournament: string) => tournament !== option));
   };
+
+  // Set the selected tournaments to match the applied query
+  useEffect(() => {
+    if (lastQueriedFilters && lastQueriedFilters.tournaments) {
+      setSelectedTournaments(lastQueriedFilters.tournaments);
+    }
+  }, [lastQueriedFilters, setSelectedTournaments]);
 
   // Update dropdown options when the query changes
   useEffect(() => {
