@@ -105,7 +105,7 @@ const tournamentResolvers = {
           },
         },
         {
-          $limit: 8,
+          $limit: 6,
         },
       ]).exec();
     

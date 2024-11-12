@@ -108,7 +108,7 @@ export default function NationsFilter() {
   ));
 
   return (
-    <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
+    <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false} classNames={{group: classes.group}}>
       <Combobox.DropdownTarget>
         <PillsInput
           leftSection={<IconSearch size={18} className={classes.searchIcon} />}
@@ -128,7 +128,6 @@ export default function NationsFilter() {
         >
           <Pill.Group>
             {pills}
-
             <Combobox.EventsTarget>
               <PillsInput.Field
                 className={classes.field}
