@@ -42,6 +42,7 @@
 
 .applyButton {
   background: var(--mantine-color-primary-9);
+  border: none;
 
   p {
     color: white !important;
