@@ -7,6 +7,7 @@ import {
   CloseButton,
   Pill,
   PillsInput,
+  CheckIcon,
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
@@ -15,14 +16,11 @@ import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
 import translations from '../../../assets/translations.json';
 import { getNorwegianName } from '../../../utils/translationUtils';
+import { useFilterStore } from '../../../stores/filter-store';
+import { IconX } from '@tabler/icons-react';
 
-export default function NationsFilter({
-  setSelectedTeams,
-  selectedTeams,
-}: {
-  setSelectedTeams: (teams: string[]) => void;
-  selectedTeams: string[];
-}) {
+export default function NationsFilter() {
+  const { selectedTeams, setSelectedTeams } = useFilterStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -42,7 +40,9 @@ export default function NationsFilter({
       }
 
       const key = language === 'en' ? 'En' : 'No';
-      const results = translations.filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase())).slice(0, 5);
+      const results = translations
+        .filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase()))
+        .slice(0, 8);
 
       if (results.length === 0) {
         setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
@@ -64,7 +64,20 @@ export default function NationsFilter({
 
   // Create options for the combobox dropdown based on the filtered teams
   const options = filteredTeams.map((team) => (
-    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : ''}>
+    <Combobox.Option
+      key={team.En}
+      value={team.En}
+      className={
+        selectedTeams.includes(team.En)
+          ? isDark
+            ? classes.optionSelectedDark
+            : classes.optionSelectedLight
+          : isDark
+            ? classes.option
+            : classes.optionLight
+      }
+    >
+      {selectedTeams.includes(team.En) && <CheckIcon size={12} />}
       <div className={classes.imageContainer}>
         <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
       </div>
@@ -83,8 +96,14 @@ export default function NationsFilter({
   };
 
   const pills = selectedTeams.map((team) => (
-    <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
-      {language === 'en' ? team : getNorwegianName(team)}
+    <Pill
+      key={team}
+      withRemoveButton
+      onRemove={() => handleTeamRemove(team)}
+      onClick={() => handleTeamRemove(team)}
+      className={isDark ? classes.pillDark : classes.pillLight}
+    >
+      <p className={classes.pillText}>{language === 'en' ? team : getNorwegianName(team)}</p>
     </Pill>
   ));
 
@@ -95,12 +114,13 @@ export default function NationsFilter({
           leftSection={<IconSearch size={18} className={classes.searchIcon} />}
           radius="xl"
           classNames={classes}
-          description={language === 'en' ? 'Nations' : 'Nasjoner'}
+          description={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
           rightSection={
             <CloseButton
               onClick={() => {
                 setTeamName('');
               }}
+              icon={<IconX size={18} color={teamName ? isDark ? 'white' : theme.colors.darkmode[0] : 'transparent'}/>}
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
             />
@@ -112,7 +132,7 @@ export default function NationsFilter({
             <Combobox.EventsTarget>
               <PillsInput.Field
                 className={classes.field}
-                placeholder={language === 'en' ? 'Select one or more nations' : 'Velg en eller flere nasjoner'}
+                placeholder={language === 'en' ? 'E.g. Norway' : 'F.eks. Norge'}
                 variant="filled"
                 value={teamName}
                 onChange={(event) => {

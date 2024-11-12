@@ -1,29 +1,34 @@
 .switchContainer {
     display: flex;
-    gap: 0.5rem;
-}
-
-.label {
-    cursor:help;
+    gap: 1rem;
 }
 
 .labelDisabled {
-    opacity: 0.5;
-    cursor: help;
+    color: var(--mantine-color-darkmode-6);
+}
+
+.description {
+    color: var(--mantine-color-darkmode-6);
+    font-size: 0.9rem;
 }
 
 .track {
-    background: var(--mantine-color-darkmode-4);
+    background: var(--mantine-color-darkmode-2);
     cursor: pointer;
 }
 
-.trackSelected {
-    background: var(--mantine-color-primary-6);
+.trackSelectedDark {
+    background: var(--mantine-color-darkmode-5);
+    cursor: pointer;
+}
+
+.trackSelectedLight {
+    background: var(--mantine-color-primary-9);
     cursor: pointer;
 }
 
 .trackDisabled {
-    background: var(--mantine-color-darkmode-4);
+    background: var(--mantine-color-darkmode-2);
     cursor: not-allowed;
 }
 
@@ -38,5 +43,5 @@
 
 .rootDisabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    opacity: 0.7;
 }

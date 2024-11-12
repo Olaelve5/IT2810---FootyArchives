@@ -2,8 +2,22 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 1.5rem;
+  gap: 2rem;
 }
+
+.title {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.close:hover {
+  background: transparent;
+}
+
 
 .filterButtonDark:hover {
   background-color: var(--mantine-color-darkmode-2);
@@ -18,25 +32,35 @@
   color: var(--mantine-color-darkmode-1);
 }
 
-.dropdown {
-  background-color: var(--mantine-color-darkmode-2);
-  padding: 1rem;
-  box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.896);
-  width: 50% !important;
-  max-width: 50rem;
-  min-width: 20rem;
-  border: 1px solid;
-}
-
 .buttonContainer {
   display: flex;
   width: 100%;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
+  margin-top: 1rem;
 }
 
-.yearExclusiveContainer {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+.applyButton {
+  background: var(--mantine-color-primary-9);
+  border: none;
+
+  p {
+    color: white !important;
+  }
+
+  &:hover {
+    background: var(--mantine-color-primary-8);
+  }
+}
+
+.applyIcon {
+  color: white !important;
+}
+
+.resetButton {
+  background: transparent;
+
+  &:hover {
+    background: transparent;
+  }
 }

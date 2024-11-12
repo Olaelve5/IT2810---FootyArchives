@@ -3,19 +3,18 @@ import classes from '../../../styles/Filters/YearFilter.module.css';
 import { useMantineColorScheme, Text } from '@mantine/core';
 import { useState, useEffect, useCallback } from 'react';
 import { IconSelector } from '@tabler/icons-react';
+import { useFilterStore } from '../../../stores/filter-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
-interface YearFilterProps {
-  setYearRange: (value: [number, number]) => void;
-  yearRange: [number, number];
-}
-
-export default function YearsInput({ setYearRange, yearRange }: YearFilterProps) {
+export default function YearsInput() {
+  const { yearRange, setYearRange } = useFilterStore();
   const { colorScheme } = useMantineColorScheme();
+  const { language } = useLanguageStore();
   const isDark = colorScheme === 'dark';
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
   const [draggingInput, setDraggingInput] = useState<'start' | 'end' | null>(null);
-  const dragScale = 0.8;
+  const dragScale = 0.6;
 
   // Handle the mouse down event to start dragging the year range
   const handleMouseDown = (event: React.MouseEvent, input: 'start' | 'end') => {
@@ -31,22 +30,22 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
     (event: MouseEvent) => {
       if (isDragging && draggingInput) {
         const deltaY = startY - event.clientY;
-        let newStartValue = yearRange[0];
-        let newEndValue = yearRange[1];
+        let newStartValue = yearRange.startYear;
+        let newEndValue = yearRange.endYear;
 
         if (draggingInput === 'start') {
-          newStartValue = Math.max(1872, Math.min(2024, yearRange[0] + deltaY * dragScale));
+          newStartValue = Math.max(1872, Math.min(2024, yearRange.startYear + deltaY * dragScale));
           if (newStartValue > newEndValue) {
             newEndValue = newStartValue;
           }
         } else if (draggingInput === 'end') {
-          newEndValue = Math.max(1872, Math.min(2024, yearRange[1] + deltaY * dragScale));
+          newEndValue = Math.max(1872, Math.min(2024, yearRange.endYear + deltaY * dragScale));
           if (newEndValue < newStartValue) {
             newStartValue = newEndValue;
           }
         }
 
-        setYearRange([Math.round(newStartValue), Math.round(newEndValue)]);
+        setYearRange({ startYear: Math.round(newStartValue), endYear: Math.round(newEndValue) });
         setStartY(event.clientY);
       }
     },
@@ -58,6 +57,10 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
     setDraggingInput(null);
     document.body.style.userSelect = ''; // Re-enable text selection
     document.body.classList.remove('cursor-ns-resize');
+  };
+
+  const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.target.select();
   };
 
   useEffect(() => {
@@ -77,10 +80,11 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
 
   return (
     <div className={classes.container}>
-      <label>Year</label>
+      <label>{language == 'en' ? 'Select years' : 'Velg årstall'}</label>
       <div className={classes.numbersContainer}>
         <NumberInput
-          value={yearRange[0]}
+          value={yearRange.startYear}
+          onFocus={handleFocus}
           radius="xl"
           min={1872}
           max={2024}
@@ -99,8 +103,9 @@ export default function YearsInput({ setYearRange, yearRange }: YearFilterProps)
         <Text fw={600}>-</Text>
         <NumberInput
           hideControls
+          onFocus={handleFocus}
           radius="xl"
-          value={yearRange[1]}
+          value={yearRange.endYear}
           min={1872}
           max={2024}
           allowDecimal={false}

@@ -10,11 +10,8 @@ import {
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { IconSelector } from '@tabler/icons-react';
-
-interface TournamentFilterProps {
-  selectedTournaments: string[];
-  setSelectedTournaments: (tournaments: string[]) => void;
-}
+import { useFilterStore } from '../../../stores/filter-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
 const options = [
   { value: 'FIFA World Cup', label: 'FIFA World Cup' },
@@ -26,9 +23,11 @@ const options = [
   { value: 'Friendly', label: 'Friendlies' },
 ];
 
-function TournamentFilter({ selectedTournaments, setSelectedTournaments }: TournamentFilterProps) {
+function TournamentFilter() {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
+  const { selectedTournaments, setSelectedTournaments } = useFilterStore();
+  const { language } = useLanguageStore();
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -48,8 +47,14 @@ function TournamentFilter({ selectedTournaments, setSelectedTournaments }: Tourn
   };
 
   const pills = selectedTournaments.map((tournament) => (
-    <Pill key={tournament} withRemoveButton onRemove={() => handleOptionRemove(tournament)} className={classes.pill}>
-      {tournament}
+    <Pill
+      key={tournament}
+      withRemoveButton
+      onRemove={() => handleOptionRemove(tournament)}
+      onClick={() => handleOptionRemove(tournament)}
+      className={isDark ? classes.pillDark : classes.pillLight}
+    >
+      <p className={classes.pillText}>{tournament}</p>
     </Pill>
   ));
 
@@ -57,8 +62,15 @@ function TournamentFilter({ selectedTournaments, setSelectedTournaments }: Tourn
     <Combobox.Option
       value={option.value}
       active={selectedTournaments.includes(option.value)}
-      className={classes.option}
-      id={isDark ? classes.optionDark : ''}
+      className={
+        selectedTournaments.includes(option.value)
+          ? isDark
+            ? classes.optionSelectedDark
+            : classes.optionSelectedLight
+          : isDark
+            ? classes.option
+            : classes.optionLight
+      }
       key={option.value}
     >
       <Group gap="sm">
@@ -76,7 +88,7 @@ function TournamentFilter({ selectedTournaments, setSelectedTournaments }: Tourn
           radius="xl"
           onClick={() => combobox.openDropdown()}
           classNames={classes}
-          description="Tournaments"
+          description={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
           leftSection={<IconSelector size={18} className={classes.searchIcon} />}
           rightSection={
             selectedTournaments.length > 0 && (
@@ -89,9 +101,10 @@ function TournamentFilter({ selectedTournaments, setSelectedTournaments }: Tourn
               pills
             ) : (
               <PillsInput.Field
-                placeholder="Select one or more tournaments"
+                placeholder={language === 'en' ? 'E.g. FIFA World Cup' : 'F.eks. FIFA World Cup'}
                 variant="filled"
-                className={classes.field}
+                className={classes.tournamentField}
+                readOnly
               />
             )}
 

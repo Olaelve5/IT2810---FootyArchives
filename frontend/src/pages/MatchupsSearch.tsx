@@ -11,16 +11,18 @@ import { QuerySortType } from '../types/QuerySortType';
 import { QueryFilterType } from '../types/QueryFilterType';
 import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
 import Filters from '../components/MatchupsSearch/Filters/Filters';
+import { useFilterStore } from '../stores/filter-store';
 
 export default function Matchups() {
   const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
+  const { selectedTeams, yearRange, selectedTournaments, exclusive } = useFilterStore();
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
   const [filters, setFilters] = useState<QueryFilterType>({
-    teams: [],
-    tournaments: [],
-    yearRange: { startYear: 1872, endYear: 2024 },
-    exclusive: false,
+    teams: selectedTeams,
+    tournaments: selectedTournaments,
+    yearRange: yearRange,
+    exclusive: exclusive,
   });
   const navigate = useNavigate();
 
