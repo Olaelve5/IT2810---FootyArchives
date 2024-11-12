@@ -73,7 +73,7 @@ export default function NationsFilter() {
             ? classes.optionSelectedDark
             : classes.optionSelectedLight
           : isDark
-            ? classes.option
+            ? classes.optionDark
             : classes.optionLight
       }
     >
