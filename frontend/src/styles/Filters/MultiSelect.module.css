@@ -3,7 +3,18 @@
   border: 1px solid var(--mantine-color-darkmode-6) !important;
 }
 
+.tournamentFilter {
+  cursor: pointer !important;
+}
+
 .field {
+  &::placeholder {
+    color: #a2abb5;
+  }
+}
+
+.tournamentField {
+  cursor: pointer !important;
   &::placeholder {
     color: #a2abb5;
   }
@@ -38,33 +49,50 @@
 }
 
 .darkDropdown {
-    background: var(--mantine-color-darkmode-1);
-    border: 1px solid var(--mantine-color-darkmode-4) !important;
-    width: 100%;
-    padding: 0;
+  background: var(--mantine-color-darkmode-1);
+  border: 1px solid var(--mantine-color-darkmode-4) !important;
+  width: 100%;
+  padding: 0;
 }
 
 .option {
-    display: flex;
-    gap: 10px;
-    border-radius: 0;
+  display: flex;
+  gap: 10px;
+  border-radius: 0;
+  align-items: center;
 
-    &[data-combobox-selected] {
-        background-color: var(--mantine-color-darkmode-5) !important;
-      }
+  &[data-combobox-selected] {
+    background-color: var(--mantine-color-darkmode-3) !important;
+  }
+}
+
+.optionSelected {
+  display: flex;
+  gap: 10px;
+  border-radius: 0;
+  background: var(--mantine-color-darkmode-3);
+  align-items: center;
+
+  &[data-combobox-selected] {
+    background-color: var(--mantine-color-darkmode-3) !important;
+  }
+}
+
+.optionSelected:hover {
+  background: var(--mantine-color-darkmode-3);
 }
 
 .option:hover {
-    background: var(--mantine-color-darkmode-3);
+  background: var(--mantine-color-darkmode-3);
 }
 
 .imageContainer {
-    border-radius: 5px;
-    overflow: hidden;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .pill {
-    background: var(--mantine-color-darkmode-2);
-    color: white;
-    border: 1px solid rgba(182, 191, 197, 0.336) !important;
+  background: var(--mantine-color-darkmode-2);
+  color: white;
+  border: 1px solid rgba(182, 191, 197, 0.336) !important;
 }

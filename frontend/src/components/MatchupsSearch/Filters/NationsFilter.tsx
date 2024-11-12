@@ -7,6 +7,7 @@ import {
   CloseButton,
   Pill,
   PillsInput,
+  CheckIcon,
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
@@ -38,7 +39,9 @@ export default function NationsFilter() {
       }
 
       const key = language === 'en' ? 'En' : 'No';
-      const results = translations.filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase())).slice(0, 5);
+      const results = translations
+        .filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase()))
+        .slice(0, 5);
 
       if (results.length === 0) {
         setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
@@ -60,7 +63,13 @@ export default function NationsFilter() {
 
   // Create options for the combobox dropdown based on the filtered teams
   const options = filteredTeams.map((team) => (
-    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : ''}>
+    <Combobox.Option
+      key={team.En}
+      value={team.En}
+      className={selectedTeams.includes(team.En) ? classes.optionSelected : classes.option}
+      id={isDark ? classes.optionDark : ''}
+    >
+      {selectedTeams.includes(team.En) && <CheckIcon size={12} />}
       <div className={classes.imageContainer}>
         <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
       </div>

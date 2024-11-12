@@ -61,7 +61,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         className={isDark ? classes.filterButtonDark : classes.filterButtonLight}
         onClick={() => setOpened(true)}
       >
-        Filters
+        {language === 'en' ? 'Filters' : 'Filtre'}
       </Button>
 
       <Modal

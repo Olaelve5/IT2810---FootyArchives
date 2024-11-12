@@ -56,7 +56,7 @@ function TournamentFilter() {
     <Combobox.Option
       value={option.value}
       active={selectedTournaments.includes(option.value)}
-      className={classes.option}
+      className={ selectedTournaments.includes(option.value) ? classes.optionSelected : classes.option }
       id={isDark ? classes.optionDark : ''}
       key={option.value}
     >
@@ -90,7 +90,8 @@ function TournamentFilter() {
               <PillsInput.Field
                 placeholder={language === 'en' ? 'E.g. FIFA World Cup' : 'F.eks. FIFA World Cup'}
                 variant="filled"
-                className={classes.field}
+                className={classes.tournamentField}
+                readOnly
               />
             )}
 
