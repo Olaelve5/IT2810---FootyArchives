@@ -68,7 +68,7 @@ function TournamentFilter() {
             ? classes.optionSelectedDark
             : classes.optionSelectedLight
           : isDark
-            ? classes.option
+            ? classes.optionDark
             : classes.optionLight
       }
       key={option.value}

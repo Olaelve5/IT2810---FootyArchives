@@ -116,7 +116,7 @@
   background: var(--mantine-color-darkmode-3);
 }
 
-.option:hover {
+.optionDark:hover {
   background: var(--mantine-color-darkmode-3);
 }
 

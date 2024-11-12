@@ -13,6 +13,9 @@ export interface FilterState {
 
   exclusive: boolean;
   setExclusive: (exclusive: boolean) => void;
+
+  filterCount: number;
+  setFilterCount: (filterCount: number) => void;
 }
 
 // Create a store for the filters
@@ -28,4 +31,7 @@ export const useFilterStore = create<FilterState>((set) => ({
 
   exclusive: false,
   setExclusive: (exclusive: boolean) => set({ exclusive }),
+
+  filterCount: 0,
+  setFilterCount: (filterCount: number) => set({ filterCount }),
 }));
