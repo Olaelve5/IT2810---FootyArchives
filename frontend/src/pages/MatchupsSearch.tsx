@@ -3,7 +3,7 @@ import SideBar from '../components/SideBar/SideBar';
 import MatchupsGrid from '../components/MatchupsSearch/MatchupsGrid';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
-import { GET_RESULTS } from '../graphql/queries';
+import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
 import PaginationComponent from '../components/MatchupsSearch/Pagination';
 import { useNavigate } from 'react-router-dom';

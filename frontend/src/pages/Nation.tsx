@@ -9,7 +9,7 @@ import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { GET_NATION_STAT } from '../graphql/nationStatsOperations';
-import { GET_RESULTS } from '../graphql/queries';
+import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { getCountryCode } from '../utils/imageUtils';

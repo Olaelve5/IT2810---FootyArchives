@@ -4,7 +4,7 @@ import { useState } from 'react';
 import classes from '../../styles/Matchup/CommentModal.module.css';
 import { useLanguageStore } from '../../stores/language-store';
 import { POST_COMMENT } from '../../graphql/commentOperations';
-import { GET_RESULT } from '../../graphql/queries';
+import { GET_RESULT } from '../../graphql/resultOperations';
 import { useMutation } from '@apollo/client';
 
 interface CommentModalProps {

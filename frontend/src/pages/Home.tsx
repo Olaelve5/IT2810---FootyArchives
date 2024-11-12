@@ -6,7 +6,7 @@ import MatchCardCarousel from '../components/Carousel/Carousel';
 import Logo from '../components/Home/BigLogo';
 import DiscoverButton from '../components/Home/DiscoverButton';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
-import { GET_RESULTS } from '../graphql/queries';
+import { GET_RESULTS } from '../graphql/resultOperations';
 import { GET_NATION_STATS } from '../graphql/nationStatsOperations';
 import { useQuery } from '@apollo/client';
 import { useEffect, useState } from 'react';
