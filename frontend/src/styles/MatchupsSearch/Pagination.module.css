@@ -6,11 +6,12 @@
 }
 
 .controlDark {
-    background-color: var(--mantine-color-darkmode-2);
+    background-color: transparent;
+    border: none;
 
     &[data-active] {
-        background-color: var(--mantine-color-darkmode-9);
-        color: var(--mantine-color-darkmode-0);
+        background-color: var(--mantine-color-darkmode-5);
+        color: white;
     }
 }
 
@@ -19,7 +20,13 @@
 }
 
 .controlLight {
+    border: none;
     &[data-active] {
-        background-color: var(--mantine-color-darkmode-2);
+        background-color: var(--mantine-color-darkmode-5);
+        color: white;
+    }
+
+    &:hover {
+        background-color: var(--mantine-color-darkmode-9);
     }
 }
