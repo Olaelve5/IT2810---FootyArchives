@@ -3,8 +3,8 @@ import {
   CloseButton,
   Combobox,
   Group,
+  InputBase,
   Pill,
-  PillsInput,
   useCombobox,
   useMantineColorScheme,
 } from '@mantine/core';
@@ -83,11 +83,12 @@ function TournamentFilter() {
   return (
     <Combobox store={combobox} onOptionSubmit={handleOptionSelect} withinPortal={false}>
       <Combobox.DropdownTarget>
-        <PillsInput
+        <InputBase
           pointer
           radius="xl"
           onClick={() => combobox.openDropdown()}
           classNames={classes}
+          id={classes.tournamentFilter}
           description={language === 'en' ? 'Select one or more tournaments' : 'Velg en eller flere turneringer'}
           leftSection={<IconSelector size={18} className={classes.searchIcon} />}
           rightSection={
@@ -96,23 +97,21 @@ function TournamentFilter() {
             )
           }
         >
-          <Pill.Group>
-            {pills.length > 0 ? (
-              pills
-            ) : (
-              <PillsInput.Field
-                placeholder={language === 'en' ? 'E.g. FIFA World Cup' : 'F.eks. FIFA World Cup'}
-                variant="filled"
-                className={classes.tournamentField}
+          {pills.length > 0 ? (
+            pills
+          ) : (
+            <InputBase
+              placeholder={language === 'en' ? 'E.g. FIFA World Cup' : 'F.eks. FIFA World Cup'}
+              variant="filled"
+              className={classes.tournamentField}
                 readOnly
-              />
-            )}
+            />
+          )}
 
-            <Combobox.EventsTarget>
-              <PillsInput.Field type="hidden" onBlur={() => combobox.closeDropdown()} />
-            </Combobox.EventsTarget>
-          </Pill.Group>
-        </PillsInput>
+          <Combobox.EventsTarget>
+            <InputBase type="hidden" onBlur={() => combobox.closeDropdown()} />
+          </Combobox.EventsTarget>
+        </InputBase>
       </Combobox.DropdownTarget>
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
