@@ -112,7 +112,7 @@
   }
 }
 
-.optionSelected:hover {
+.optionSelectedDark:hover {
   background: var(--mantine-color-darkmode-3);
 }
 

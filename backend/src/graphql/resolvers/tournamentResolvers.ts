@@ -88,6 +88,29 @@ const tournamentResolvers = {
         totalCount,
       };
     },
+    searchTournaments: async (_: any, { tournamentName }: { tournamentName: string }) => {
+      if (!tournamentName) {
+        throw new Error("query is a required parameter.");
+      }
+    
+      const tournaments = await Result.aggregate([
+        {
+          $match: {
+            tournament: { $regex: tournamentName, $options: "i" },
+          },
+        },
+        {
+          $group: {
+            _id: "$tournament",
+          },
+        },
+        {
+          $limit: 8,
+        },
+      ]).exec();
+    
+      return tournaments.map((tournament) => tournament._id);
+    },
   },
 };
 
