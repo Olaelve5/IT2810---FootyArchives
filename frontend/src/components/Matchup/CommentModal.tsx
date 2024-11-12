@@ -19,8 +19,16 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
 
+  const getUsernameFromLocalStorage = () => {
+    return localStorage.getItem('username') || '';
+  };
+
+  const storeUsernameInLocalStorage = (username: string) => {
+    localStorage.setItem('username', username);
+  };
+
   const [commentText, setCommentText] = useState('');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(getUsernameFromLocalStorage());
   const [buttonPressed, setButtonPressed] = useState(false);
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_RESULT, variables: { id: resultId } }], // Refetch after posting
@@ -42,6 +50,9 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
             userName: username,
           },
         });
+
+        // Store the username in localStorage
+        storeUsernameInLocalStorage(username);
 
         // Reset the input fields and close the modal
         setCommentText('');
