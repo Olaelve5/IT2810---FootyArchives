@@ -41,6 +41,10 @@
 .hiddenClose {
   color: transparent !important;
   cursor: default;
+
+  * {
+    color: transparent;
+  }
 }
 
 .hiddenClose:hover {
@@ -55,7 +59,14 @@
   padding: 0;
 }
 
-.option {
+.lightDropdown {
+  background: white;
+  border: 1px solid var(--mantine-color-darkmode-4) !important;
+  width: 100%;
+  padding: 0;
+}
+
+.optionDark {
   display: flex;
   gap: 10px;
   border-radius: 0;
@@ -66,7 +77,18 @@
   }
 }
 
-.optionSelected {
+.optionLight {
+  display: flex;
+  gap: 10px;
+  border-radius: 0;
+  align-items: center;
+
+  &[data-combobox-selected] {
+    background-color: var(--mantine-color-gray-3) !important;
+  }
+}
+
+.optionSelectedDark {
   display: flex;
   gap: 10px;
   border-radius: 0;
@@ -75,6 +97,18 @@
 
   &[data-combobox-selected] {
     background-color: var(--mantine-color-darkmode-3) !important;
+  }
+}
+
+.optionSelectedLight {
+  display: flex;
+  gap: 10px;
+  border-radius: 0;
+  background: var(--mantine-color-gray-2);
+  align-items: center;
+
+  &[data-combobox-selected] {
+    background-color: var(--mantine-color-gray-3) !important;
   }
 }
 
@@ -91,8 +125,22 @@
   overflow: hidden;
 }
 
-.pill {
+.pillDark {
   background: var(--mantine-color-darkmode-2);
   color: white;
   border: 1px solid rgba(182, 191, 197, 0.336) !important;
+  cursor: pointer;
+}
+
+.pillLight {
+  background: white;
+  border: 1px solid rgba(182, 191, 197, 0.336) !important;
+  cursor: pointer;
+}
+
+.pillText {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  top: -1px;
 }

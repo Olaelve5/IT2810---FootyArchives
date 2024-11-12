@@ -4,7 +4,7 @@ import classes from '../../../styles/Filters/Filters.module.css';
 import YearsInput from './YearsInput';
 import ExclusiveSwitch from './ExclusiveSwitch';
 import { Button, Modal } from '@mantine/core';
-import { IconFilter } from '@tabler/icons-react';
+import { IconFilter, IconTrashFilled, IconFilterFilled } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme } from '@mantine/core';
 import { QueryFilterType } from '../../../types/QueryFilterType';
@@ -83,16 +83,21 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
           <ExclusiveSwitch />
           <div className={classes.buttonContainer}>
             <Button
-              className={classes.resetApplyButton}
-              id={classes.resetButton}
+              className={classes.resetButton}
               radius={'xl'}
               color="transparent"
               onClick={handleClearFilters}
+              leftSection={<IconTrashFilled size={18} />}
             >
-              {language === 'en' ? 'Clear' : 'Tøm'}
+              <p>{language === 'en' ? 'Clear' : 'Tøm'}</p>
             </Button>
-            <Button className={classes.resetApplyButton} radius={'xl'} onClick={handleApplyFilters}>
-              {language === 'en' ? 'Apply' : 'Bruk'}
+            <Button
+              className={classes.applyButton}
+              radius={'xl'}
+              onClick={handleApplyFilters}
+              leftSection={<IconFilterFilled size={18} color='white' />}
+            >
+              <p>{language === 'en' ? 'Apply' : 'Bruk'}</p>
             </Button>
           </div>
         </div>

@@ -40,18 +40,26 @@
   margin-top: 1rem;
 }
 
-.resetApplyButton {
+.applyButton {
   background: var(--mantine-color-primary-9);
+
+  p {
+    color: white !important;
+  }
 
   &:hover {
     background: var(--mantine-color-primary-8);
   }
 }
 
-#resetButton {
+.applyIcon {
+  color: white !important;
+}
+
+.resetButton {
   background: transparent;
 
   &:hover {
-    background: var(--mantine-color-darkmode-2);
+    background: transparent;
   }
 }

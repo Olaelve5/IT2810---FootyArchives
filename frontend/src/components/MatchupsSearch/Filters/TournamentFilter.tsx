@@ -47,8 +47,14 @@ function TournamentFilter() {
   };
 
   const pills = selectedTournaments.map((tournament) => (
-    <Pill key={tournament} withRemoveButton onRemove={() => handleOptionRemove(tournament)} className={classes.pill}>
-      {tournament}
+    <Pill
+      key={tournament}
+      withRemoveButton
+      onRemove={() => handleOptionRemove(tournament)}
+      onClick={() => handleOptionRemove(tournament)}
+      className={isDark ? classes.pillDark : classes.pillLight}
+    >
+      <p className={classes.pillText}>{tournament}</p>
     </Pill>
   ));
 
@@ -56,8 +62,15 @@ function TournamentFilter() {
     <Combobox.Option
       value={option.value}
       active={selectedTournaments.includes(option.value)}
-      className={ selectedTournaments.includes(option.value) ? classes.optionSelected : classes.option }
-      id={isDark ? classes.optionDark : ''}
+      className={
+        selectedTournaments.includes(option.value)
+          ? isDark
+            ? classes.optionSelectedDark
+            : classes.optionSelectedLight
+          : isDark
+            ? classes.option
+            : classes.optionLight
+      }
       key={option.value}
     >
       <Group gap="sm">

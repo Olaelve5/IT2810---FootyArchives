@@ -17,6 +17,7 @@ import debounce from 'lodash/debounce';
 import translations from '../../../assets/translations.json';
 import { getNorwegianName } from '../../../utils/translationUtils';
 import { useFilterStore } from '../../../stores/filter-store';
+import { IconX } from '@tabler/icons-react';
 
 export default function NationsFilter() {
   const { selectedTeams, setSelectedTeams } = useFilterStore();
@@ -41,7 +42,7 @@ export default function NationsFilter() {
       const key = language === 'en' ? 'En' : 'No';
       const results = translations
         .filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase()))
-        .slice(0, 5);
+        .slice(0, 8);
 
       if (results.length === 0) {
         setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
@@ -66,8 +67,15 @@ export default function NationsFilter() {
     <Combobox.Option
       key={team.En}
       value={team.En}
-      className={selectedTeams.includes(team.En) ? classes.optionSelected : classes.option}
-      id={isDark ? classes.optionDark : ''}
+      className={
+        selectedTeams.includes(team.En)
+          ? isDark
+            ? classes.optionSelectedDark
+            : classes.optionSelectedLight
+          : isDark
+            ? classes.option
+            : classes.optionLight
+      }
     >
       {selectedTeams.includes(team.En) && <CheckIcon size={12} />}
       <div className={classes.imageContainer}>
@@ -88,8 +96,14 @@ export default function NationsFilter() {
   };
 
   const pills = selectedTeams.map((team) => (
-    <Pill key={team} withRemoveButton onRemove={() => handleTeamRemove(team)} className={classes.pill}>
-      {language === 'en' ? team : getNorwegianName(team)}
+    <Pill
+      key={team}
+      withRemoveButton
+      onRemove={() => handleTeamRemove(team)}
+      onClick={() => handleTeamRemove(team)}
+      className={isDark ? classes.pillDark : classes.pillLight}
+    >
+      <p className={classes.pillText}>{language === 'en' ? team : getNorwegianName(team)}</p>
     </Pill>
   ));
 
@@ -106,6 +120,7 @@ export default function NationsFilter() {
               onClick={() => {
                 setTeamName('');
               }}
+              icon={<IconX size={18} color={teamName ? isDark ? 'white' : theme.colors.darkmode[0] : 'transparent'}/>}
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
             />

@@ -17,8 +17,13 @@
     cursor: pointer;
 }
 
-.trackSelected {
+.trackSelectedDark {
     background: var(--mantine-color-darkmode-5);
+    cursor: pointer;
+}
+
+.trackSelectedLight {
+    background: var(--mantine-color-primary-9);
     cursor: pointer;
 }
 
