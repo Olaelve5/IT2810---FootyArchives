@@ -20,7 +20,7 @@ import { useFilterStore } from '../../../stores/filter-store';
 import { IconX } from '@tabler/icons-react';
 
 export default function NationsFilter() {
-  const { selectedTeams, setSelectedTeams } = useFilterStore();
+  const { selectedTeams, setSelectedTeams, lastQueriedFilters } = useFilterStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -62,6 +62,13 @@ export default function NationsFilter() {
     debouncedFilterTeams(teamName);
   }, [teamName, language, debouncedFilterTeams]);
 
+  // Set the selected teams to match the applied query
+  useEffect(() => {
+    if (lastQueriedFilters && lastQueriedFilters.teams) {
+      setSelectedTeams(lastQueriedFilters.teams);
+    }
+  }, [lastQueriedFilters, setSelectedTeams]);
+
   // Create options for the combobox dropdown based on the filtered teams
   const options = filteredTeams.map((team) => (
     <Combobox.Option
@@ -73,7 +80,7 @@ export default function NationsFilter() {
             ? classes.optionSelectedDark
             : classes.optionSelectedLight
           : isDark
-            ? classes.option
+            ? classes.optionDark
             : classes.optionLight
       }
     >
@@ -85,16 +92,19 @@ export default function NationsFilter() {
     </Combobox.Option>
   ));
 
+  // Handle selection of an option from the dropdown
   const handleOptionSubmit = (value: string) => {
     if (!selectedTeams.includes(value)) {
       setSelectedTeams([...selectedTeams, value]);
     }
   };
 
+  // Handle removal of a selected option
   const handleTeamRemove = (team: string) => {
     setSelectedTeams(selectedTeams.filter((selectedTeam) => selectedTeam !== team));
   };
 
+  // Render selected teams as pills
   const pills = selectedTeams.map((team) => (
     <Pill
       key={team}
@@ -108,7 +118,12 @@ export default function NationsFilter() {
   ));
 
   return (
-    <Combobox store={combobox} onOptionSubmit={(value) => handleOptionSubmit(value)} withinPortal={false}>
+    <Combobox
+      store={combobox}
+      onOptionSubmit={(value) => handleOptionSubmit(value)}
+      withinPortal={false}
+      classNames={{ group: classes.group }}
+    >
       <Combobox.DropdownTarget>
         <PillsInput
           leftSection={<IconSearch size={18} className={classes.searchIcon} />}
@@ -120,7 +135,9 @@ export default function NationsFilter() {
               onClick={() => {
                 setTeamName('');
               }}
-              icon={<IconX size={18} color={teamName ? isDark ? 'white' : theme.colors.darkmode[0] : 'transparent'}/>}
+              icon={
+                <IconX size={18} color={teamName ? (isDark ? 'white' : theme.colors.darkmode[0]) : 'transparent'} />
+              }
               className={teamName ? classes.visibleClose : classes.hiddenClose}
               onMouseDown={(event) => event.preventDefault()}
             />
@@ -128,7 +145,6 @@ export default function NationsFilter() {
         >
           <Pill.Group>
             {pills}
-
             <Combobox.EventsTarget>
               <PillsInput.Field
                 className={classes.field}

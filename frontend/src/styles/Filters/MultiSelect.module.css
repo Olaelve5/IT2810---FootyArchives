@@ -112,11 +112,11 @@
   }
 }
 
-.optionSelected:hover {
+.optionSelectedDark:hover {
   background: var(--mantine-color-darkmode-3);
 }
 
-.option:hover {
+.optionDark:hover {
   background: var(--mantine-color-darkmode-3);
 }
 
@@ -143,4 +143,14 @@
   margin: 0;
   position: relative;
   top: -1px;
+}
+
+.errorMessage {
+  color: #ff4d4f;
+  font-size: 0.8rem;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  position: absolute;
 }

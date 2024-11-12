@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import classes from '../../styles/MatchupsSearch/MatchupsGrid.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { QuerySortType } from '../../types/QuerySortType';
+import { useLanguageStore } from '../../stores/language-store';
 
-const sortOptions = ['Date', 'Goal Difference'];
+const sortOptions = [{en: 'Date', no: 'Dato'}, {en: 'Goal Difference', no: 'Målforskjell'}];
 
 interface SortButtonProps {
   sort: QuerySortType;
@@ -14,8 +15,9 @@ interface SortButtonProps {
 
 export default function SortButton({ sort, setSort }: SortButtonProps) {
   const { order, field } = sort;
+  const { language } = useLanguageStore();
   const [opened, setOpened] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>(sortOptions[0]);
+  const [selectedOption, setSelectedOption] = useState<string>(language === 'en' ? sortOptions[0].en : sortOptions[0].no);
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
@@ -71,7 +73,7 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
             size="sm"
           >
             <div className={classes.sortButtonText}>
-              {selectedOption}
+              {language === 'en' ? selectedOption : sortOptions.find((option) => option.en === selectedOption)?.no}
               <IconChevronDown
                 className={classes.chevron}
                 size={20}
@@ -85,13 +87,13 @@ export default function SortButton({ sort, setSort }: SortButtonProps) {
         <Menu.Dropdown className={classes.dropdown} id={isDark ? classes.dropdownDark : classes.dropdownLight}>
           {sortOptions.map((option) => (
             <Button
-              key={option}
+              key={option.en}
               size="sm"
               className={isDark ? classes.dropDownOptionDark : classes.dropDownOptionLight}
               color="transparent"
-              onClick={() => handleFieldChange(option)}
+              onClick={() => handleFieldChange(option.en)}
             >
-              {option}
+              {language === 'en' ? option.en : option.no}
             </Button>
           ))}
         </Menu.Dropdown>

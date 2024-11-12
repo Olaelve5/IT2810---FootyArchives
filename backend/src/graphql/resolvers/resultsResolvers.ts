@@ -187,7 +187,7 @@ const resultResolvers = {
       allTeams.sort((a, b) => a.localeCompare(b));
 
       // Limit the results to the first 5 unique teams
-      return allTeams.slice(0, 5);
+      return allTeams.slice(0, 8);
     },
     goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
       const goalscorers = await Goalscorer.find({

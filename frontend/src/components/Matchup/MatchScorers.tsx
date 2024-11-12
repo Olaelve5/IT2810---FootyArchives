@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { GET_GOALSCORERS } from '../../graphql/queries';
+import { GET_GOALSCORERS } from '../../graphql/resultOperations';
 import { IconBallFootball } from '@tabler/icons-react';
 import classes from '../../styles/Matchup/MatchScorers.module.css';
 import { Goalscorer } from '../../types/GoalscorerType';

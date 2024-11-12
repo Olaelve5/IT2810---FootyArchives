@@ -3,7 +3,7 @@ import SideBar from '../components/SideBar/SideBar';
 import MatchupsGrid from '../components/MatchupsSearch/MatchupsGrid';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
-import { GET_RESULTS } from '../graphql/queries';
+import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
 import PaginationComponent from '../components/MatchupsSearch/Pagination';
 import { useNavigate } from 'react-router-dom';
@@ -12,9 +12,11 @@ import { QueryFilterType } from '../types/QueryFilterType';
 import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
 import Filters from '../components/MatchupsSearch/Filters/Filters';
 import { useFilterStore } from '../stores/filter-store';
+import { useLanguageStore } from '../stores/language-store';
 
 export default function Matchups() {
   const { isCollapsed } = useSidebarCollapseStore();
+  const { language } = useLanguageStore();
   const [page, setPage] = useState(1);
   const { selectedTeams, yearRange, selectedTournaments, exclusive } = useFilterStore();
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
@@ -61,7 +63,7 @@ export default function Matchups() {
           <Navbar />
           <div className={classes.topContainer}>
             <div className={classes.titleDescriptionContainer}>
-              <h2>Matchups</h2>
+              <h2>{language === 'en' ? 'Matchups' : 'Kamper'}</h2>
             </div>
             <Filters setFilters={setFilters} setPage={setPage} />
           </div>

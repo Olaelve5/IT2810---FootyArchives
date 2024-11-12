@@ -5,7 +5,7 @@ import MatchcardCarousel from '../components/Carousel/Carousel';
 import classes from '../styles/Tournament/Tournament.module.css';
 import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
-import { GET_TOURNAMENTS } from '../graphql/queries';
+import { GET_TOURNAMENTS } from '../graphql/tournamentOperations';
 import { useQuery } from '@apollo/client';
 import { TournamentType } from '../types/TournamentType';
 import { Button, Loader, useMantineTheme } from '@mantine/core';

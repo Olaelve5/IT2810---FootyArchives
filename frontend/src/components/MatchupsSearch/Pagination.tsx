@@ -1,6 +1,7 @@
 import { Pagination } from '@mantine/core';
 import classes from '../../styles/MatchupsSearch/Pagination.module.css';
 import { useMantineColorScheme } from '@mantine/core';
+import {IconArrowRight, IconArrowLeft} from '@tabler/icons-react';
 
 interface PaginationProps {
   totalPages: number;
@@ -18,6 +19,8 @@ function PaginationComponent({ totalPages, page, setPage }: PaginationProps) {
         total={totalPages}
         value={page}
         onChange={setPage}
+        nextIcon={() => <IconArrowRight size={20} />}
+        previousIcon={() => <IconArrowLeft size={20} />}
         siblings={1}
         classNames={{
           root: classes.root,

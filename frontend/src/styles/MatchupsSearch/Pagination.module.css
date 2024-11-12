@@ -6,20 +6,27 @@
 }
 
 .controlDark {
-    background-color: var(--mantine-color-darkmode-2);
+    background-color: transparent;
+    border: none;
 
     &[data-active] {
-        background-color: var(--mantine-color-darkmode-9);
-        color: var(--mantine-color-darkmode-0);
+        background-color: var(--mantine-color-darkmode-4);
+        color: white;
     }
 }
 
 .controlDark:hover {
-    background-color: var(--mantine-color-darkmode-3);
+    background-color: var(--mantine-color-darkmode-4);
 }
 
 .controlLight {
+    border: none;
     &[data-active] {
-        background-color: var(--mantine-color-darkmode-2);
+        background-color: var(--mantine-color-darkmode-4);
+        color: white;
+    }
+
+    &:hover {
+        background-color: var(--mantine-color-darkmode-9);
     }
 }
