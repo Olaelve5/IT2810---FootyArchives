@@ -3,6 +3,7 @@ import { useLanguageStore } from '../../../stores/language-store';
 import classes from '../../../styles/Filters/ExclusiveSwitch.module.css';
 import { useFilterStore } from '../../../stores/filter-store';
 import { IconCheck, IconX } from '@tabler/icons-react';
+import { useEffect } from 'react';
 
 
 export default function ExclusiveSwitch() {
@@ -10,6 +11,12 @@ export default function ExclusiveSwitch() {
   const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const isDisabled = selectedTeams.length < 2;
+
+  useEffect(() => {
+    if (isDisabled) {
+      setExclusive(false);
+    }
+  }, [isDisabled, selectedTeams, setExclusive]);
 
   return (
     <div className={classes.switchContainer}>
