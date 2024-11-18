@@ -51,7 +51,7 @@ export default function Searchbar() {
 
   // Create options for the combobox dropdown based on the filtered teams
   const options = filteredTeams.map((team) => (
-    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : ''}>
+    <Combobox.Option key={team.En} value={team.En} className={classes.option} id={isDark ? classes.optionDark : classes.optionLight}>
       <div className={classes.imageContainer}>
         <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
       </div>
