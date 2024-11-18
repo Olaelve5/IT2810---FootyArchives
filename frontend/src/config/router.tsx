@@ -5,7 +5,6 @@ import Tournament from '../pages/Tournament.tsx';
 import Result from '../pages/Result.tsx';
 import Matchups from '../pages/MatchupsSearch.tsx'
 import Nation from '../pages/Nation.tsx';
-import { isCompetitionValid } from '../utils/tournamentUtils.tsx';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +20,6 @@ const router = createBrowserRouter([
   {
     path: '/project2/tournament/:tournamentName',
     element: <Tournament />,
-    loader: isCompetitionValid,
     errorElement: <NotFound />,
   },
   {

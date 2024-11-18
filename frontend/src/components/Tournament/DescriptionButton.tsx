@@ -11,7 +11,7 @@ interface DescriptionButtonProps {
 }
 
 function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionButtonProps) {
-  const { resetFilters, setSelectedTournaments, setFilterCount } = useFilterStore();
+  const { resetFilters, setSelectedTournaments, setFilterCount, setLastQueriedFilters } = useFilterStore();
   const navigate = useNavigate();
   const { language } = useLanguageStore();
 
@@ -19,6 +19,7 @@ function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionBu
     resetFilters();
     setSelectedTournaments([tournamentName]);
     setFilterCount(1);
+    setLastQueriedFilters({ tournaments: [tournamentName] });
     navigate('/project2/matchups');
   };
 
