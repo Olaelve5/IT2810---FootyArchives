@@ -10,4 +10,21 @@ export const POST_COMMENT = gql`
         result_id
         }
     }
+
+`;
+
+
+export const GET_COMMENTS = gql`
+  query getComments($resultId: ID!, $limit: Int, $page: Int) {
+    getComments(result_id: $resultId, limit: $limit, page: $page) {
+      comments {
+        user_name
+        date
+        comment
+        result_id
+      }
+      totalCount
+      totalPages
+    }
+  }
 `;

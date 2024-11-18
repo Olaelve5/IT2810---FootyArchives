@@ -4,7 +4,7 @@ import { useState } from 'react';
 import classes from '../../styles/Matchup/CommentModal.module.css';
 import { useLanguageStore } from '../../stores/language-store';
 import { POST_COMMENT } from '../../graphql/commentOperations';
-import { GET_RESULT } from '../../graphql/resultOperations';
+import { GET_COMMENTS } from '../../graphql/commentOperations';
 import { useMutation } from '@apollo/client';
 
 interface CommentModalProps {
@@ -31,7 +31,7 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
   const [username, setUsername] = useState(getUsernameFromLocalStorage());
   const [buttonPressed, setButtonPressed] = useState(false);
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
-    refetchQueries: [{ query: GET_RESULT, variables: { id: resultId } }], // Refetch after posting
+    refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
     awaitRefetchQueries: true,
   });
 
