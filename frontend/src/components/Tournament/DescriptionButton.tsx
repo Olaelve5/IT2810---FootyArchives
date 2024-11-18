@@ -1,6 +1,8 @@
 import { Button } from '@mantine/core';
 import { useFilterStore } from '../../stores/filter-store';
 import { useNavigate } from 'react-router-dom';
+import { useLanguageStore } from '../../stores/language-store';
+import classes from '../../styles/Tournament/DescriptionButton.module.css';
 
 interface DescriptionButtonProps {
   startYear: number;
@@ -9,21 +11,27 @@ interface DescriptionButtonProps {
 }
 
 function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionButtonProps) {
-  const { resetFilters, setSelectedTournaments } = useFilterStore();
+  const { resetFilters, setSelectedTournaments, setFilterCount } = useFilterStore();
   const navigate = useNavigate();
+  const { language } = useLanguageStore();
 
   const handleClick = async () => {
     resetFilters();
     setSelectedTournaments([tournamentName]);
+    setFilterCount(1);
     navigate('/project2/matchups');
   };
 
   return (
     <div>
       <p>
-        Discover {tournamentName} tournaments ranging from {startYear} to {endYear}
+        {language === 'no'
+          ? `Oppdag ${tournamentName} turneringer fra ${startYear} til ${endYear}`
+          : `Discover ${tournamentName} tournaments from ${startYear} to ${endYear}`}
       </p>
-      <Button onClick={handleClick}>Explore all {tournamentName} matchups</Button>
+      <Button onClick={handleClick} className={classes.button} radius="xl" variant="outline" color="primary" size='sm'>
+        {language === 'no' ? `Utforsk alle ${tournamentName} kamper` : `Explore all ${tournamentName} matchups`}
+      </Button>
     </div>
   );
 }

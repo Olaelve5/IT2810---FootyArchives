@@ -51,7 +51,5 @@ export const useFilterStore = create<FilterState>((set) => ({
       yearRange: { startYear: 1872, endYear: 2024 },
       selectedTournaments: [],
       exclusive: false,
-      filterCount: 0,
-      lastQueriedFilters: null,
     }),
 }));

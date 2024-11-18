@@ -92,12 +92,12 @@ export default function Tournament() {
           <div className={classes.titleContainer}>
             <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
             <h1>{tournamentName}</h1>
-            <DescriptionButton
-              startYear={yearRange[0]}
-              endYear={yearRange[1]}
-              tournamentName={tournamentName || 'Unknown tournament'}
-            />
           </div>
+          <DescriptionButton
+            startYear={yearRange[0]}
+            endYear={yearRange[1]}
+            tournamentName={tournamentName || 'Unknown tournament'}
+          />
           {loading && <Loader size={25} color={theme.colors.primary[5]} />}
           <div className={classes.carouselSection}>{carousels}</div>
           <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
