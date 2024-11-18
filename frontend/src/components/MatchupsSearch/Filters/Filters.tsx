@@ -9,7 +9,7 @@ import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme, Indicator } from '@mantine/core';
 import { QueryFilterType } from '../../../types/QueryFilterType';
 import { useLanguageStore } from '../../../stores/language-store';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface FiltersProps {
   setFilters: (filters: QueryFilterType) => void;
@@ -19,16 +19,13 @@ interface FiltersProps {
 export default function Filters({ setFilters, setPage }: FiltersProps) {
   const {
     selectedTeams,
-    setSelectedTeams,
     yearRange,
-    setYearRange,
     exclusive,
-    setExclusive,
     selectedTournaments,
-    setSelectedTournaments,
     filterCount,
     setFilterCount,
     setLastQueriedFilters,
+    resetFilters,
   } = useFilterStore();
 
   const { colorScheme } = useMantineColorScheme();
@@ -56,21 +53,25 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     calculateFilterCount();
   };
 
-  const handleClearFilters = () => {
-    setSelectedTeams([]);
-    setSelectedTournaments([]);
-    setYearRange({ startYear: 1872, endYear: 2024 });
-    setExclusive(false);
-  };
-
-  const calculateFilterCount = () => {
+  const calculateFilterCount = useCallback(() => {
     let count = 0;
     if (selectedTeams.length > 0) count++;
     if (selectedTournaments.length > 0) count++;
     if (yearRange.startYear !== 1872 || yearRange.endYear !== 2024) count++;
     if (exclusive) count++;
     setFilterCount(count);
-  };
+  }, [
+    selectedTeams.length,
+    selectedTournaments.length,
+    yearRange.startYear,
+    yearRange.endYear,
+    exclusive,
+    setFilterCount,
+  ]);
+
+  useEffect(() => {
+    calculateFilterCount();
+  }, [selectedTeams, selectedTournaments, yearRange, exclusive, calculateFilterCount]);
 
   return (
     <>
@@ -119,7 +120,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
               className={classes.resetButton}
               radius={'xl'}
               color="transparent"
-              onClick={handleClearFilters}
+              onClick={resetFilters}
               leftSection={<IconTrashFilled size={18} />}
             >
               <p>{language === 'en' ? 'Clear' : 'Tøm'}</p>

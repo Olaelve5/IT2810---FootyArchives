@@ -20,6 +20,9 @@ export interface FilterState {
 
   lastQueriedFilters: QueryFilterType | null;
   setLastQueriedFilters: (filters: QueryFilterType) => void;
+
+  // Function to reset all filters
+  resetFilters: () => void;
 }
 
 // Create a store for the filters
@@ -41,4 +44,14 @@ export const useFilterStore = create<FilterState>((set) => ({
 
   lastQueriedFilters: null,
   setLastQueriedFilters: (filters: QueryFilterType) => set({ lastQueriedFilters: filters }),
+
+  resetFilters: () =>
+    set({
+      selectedTeams: [],
+      yearRange: { startYear: 1872, endYear: 2024 },
+      selectedTournaments: [],
+      exclusive: false,
+      filterCount: 0,
+      lastQueriedFilters: null,
+    }),
 }));
