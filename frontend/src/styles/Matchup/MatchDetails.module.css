@@ -33,3 +33,12 @@
     position: relative;
     top: 2px;
 }
+
+.detailButton {
+    border: none;
+    display: flex;    
+}
+
+.icon {
+    margin-right: 0.4rem;
+}

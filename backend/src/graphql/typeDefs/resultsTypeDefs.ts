@@ -72,6 +72,8 @@ const resultTypeDefs = gql`
   type TournamentsResponse {
     paginatedResults: [Tournament!]!
     totalCount: Int!
+    startYear: Int!
+    endYear: Int!
   }
 
   type Query {

@@ -73,6 +73,15 @@ const tournamentResolvers = {
             totalCount: [
               { $count: "count" }, // Count the total number of tournament groups
             ],
+            yearRange: [
+              {
+                $group: {
+                  _id: null,
+                  startYear: { $min: "$year" },
+                  endYear: { $max: "$year" },
+                },
+              },
+            ],
           },
         },
       ];
@@ -83,9 +92,15 @@ const tournamentResolvers = {
       const paginatedResults = tournaments[0]?.paginatedResults || [];
       const totalCount = tournaments[0]?.totalCount?.[0]?.count || 0;
 
+      // Get the start and end year of the tournaments
+      const startYear = tournaments[0]?.yearRange?.[0]?.startYear || null;
+      const endYear = tournaments[0]?.yearRange?.[0]?.endYear || null;
+
       return {
         paginatedResults,
         totalCount,
+        startYear,
+        endYear,
       };
     },
     searchTournaments: async (_: any, { tournamentName }: { tournamentName: string }) => {

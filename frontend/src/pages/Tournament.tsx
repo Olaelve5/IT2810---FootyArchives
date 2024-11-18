@@ -11,6 +11,7 @@ import { TournamentType } from '../types/TournamentType';
 import { Button, Loader, useMantineTheme } from '@mantine/core';
 import { tournamentData } from '../utils/tournamentUtils';
 import { IconTrophyFilled } from '@tabler/icons-react';
+import DescriptionButton from '../components/Tournament/DescriptionButton';
 
 export default function Tournament() {
   const { tournamentName } = useParams<{ tournamentName: string }>();
@@ -19,6 +20,7 @@ export default function Tournament() {
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [tournaments, setTournaments] = useState<TournamentType[]>([]);
+  const [yearRange, setYearRange] = useState<number[]>([]);
   const theme = useMantineTheme();
 
   const iconColor = () => {
@@ -36,6 +38,7 @@ export default function Tournament() {
   if (data && tournaments.length === 0) {
     setTournaments(data.tournaments.paginatedResults);
     setTotalCount(data.tournaments.totalCount);
+    setYearRange([data.tournaments.startYear, data.tournaments.endYear]);
   }
 
   // Fetch more tournaments when button is clicked
@@ -90,6 +93,11 @@ export default function Tournament() {
             <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
             <h1>{tournamentName}</h1>
           </div>
+          <DescriptionButton
+            startYear={yearRange[0]}
+            endYear={yearRange[1]}
+            tournamentName={tournamentName || 'Unknown tournament'}
+          />
           {loading && <Loader size={25} color={theme.colors.primary[5]} />}
           <div className={classes.carouselSection}>{carousels}</div>
           <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>

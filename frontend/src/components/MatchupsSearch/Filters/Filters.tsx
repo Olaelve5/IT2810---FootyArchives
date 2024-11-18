@@ -19,16 +19,13 @@ interface FiltersProps {
 export default function Filters({ setFilters, setPage }: FiltersProps) {
   const {
     selectedTeams,
-    setSelectedTeams,
     yearRange,
-    setYearRange,
     exclusive,
-    setExclusive,
     selectedTournaments,
-    setSelectedTournaments,
     filterCount,
     setFilterCount,
     setLastQueriedFilters,
+    resetFilters,
   } = useFilterStore();
 
   const { colorScheme } = useMantineColorScheme();
@@ -54,13 +51,6 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setPage(1);
     setOpened(false);
     calculateFilterCount();
-  };
-
-  const handleClearFilters = () => {
-    setSelectedTeams([]);
-    setSelectedTournaments([]);
-    setYearRange({ startYear: 1872, endYear: 2024 });
-    setExclusive(false);
   };
 
   const calculateFilterCount = () => {
@@ -119,7 +109,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
               className={classes.resetButton}
               radius={'xl'}
               color="transparent"
-              onClick={handleClearFilters}
+              onClick={resetFilters}
               leftSection={<IconTrashFilled size={18} />}
             >
               <p>{language === 'en' ? 'Clear' : 'Tøm'}</p>
