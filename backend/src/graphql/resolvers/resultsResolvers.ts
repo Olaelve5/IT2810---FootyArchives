@@ -188,30 +188,6 @@ const resultResolvers = {
 
       return resultWithTranslation[0]; // Return the single result
     },
-
-    searchTeams: async (_: any, { teamName }: { teamName: string }) => {
-      if (!teamName) {
-        return [];
-      }
-
-      // Get distinct teams from home_team and away_team
-      const homeTeams = await Result.distinct("home_team", {
-        home_team: { $regex: `^${teamName}`, $options: "i" },
-      }).exec();
-
-      const awayTeams = await Result.distinct("away_team", {
-        away_team: { $regex: `^${teamName}`, $options: "i" },
-      }).exec();
-
-      // Combine both homeTeams and awayTeams, and filter out duplicates
-      const allTeams = Array.from(new Set([...homeTeams, ...awayTeams]));
-
-      // Sort the results alphabetically
-      allTeams.sort((a, b) => a.localeCompare(b));
-
-      // Limit the results to the first 5 unique teams
-      return allTeams.slice(0, 8);
-    },
     goalscorers: async (_: any, { home_team, away_team, date }: Args) => {
       const goalscorers = await Goalscorer.find({
         home_team,

@@ -78,6 +78,11 @@ const resultTypeDefs = gql`
     endYear: Int!
   }
 
+  type SearchResult {
+    type: String!
+    value: String!
+  }
+
   type Query {
     results(
       filters: FiltersInput
@@ -86,7 +91,6 @@ const resultTypeDefs = gql`
       page: Int
     ): PaginatedResults
     result(_id: ID!): Result!
-    searchTeams(teamName: String): [String]
     goalscorers(
       home_team: String!
       away_team: String!
@@ -94,6 +98,7 @@ const resultTypeDefs = gql`
     ): [Goalscorer]
     tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
     searchTournaments(tournamentName: String!): [String]
+    search(searchTerm: String!, language: String!): [SearchResult]
   }
 `;
 

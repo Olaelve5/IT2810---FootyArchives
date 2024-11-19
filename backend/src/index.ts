@@ -13,6 +13,7 @@ import nationStatsResolvers from './graphql/resolvers/nationStatsResolvers';
 import tournamentResolvers from './graphql/resolvers/tournamentResolvers';
 import commentResolvers from './graphql/resolvers/commentResolvers';
 import commentTypeDefs from './graphql/typeDefs/commentTypeDefs';
+import searchResolvers from './graphql/resolvers/searchResolvers';
 
 // MongoDB connection string
 const MONGODB =
@@ -24,6 +25,7 @@ const resolvers = mergeResolvers([
   nationStatsResolvers,
   tournamentResolvers,
   commentResolvers,
+  searchResolvers,
 ]);
 
 // Combine typeDefs
