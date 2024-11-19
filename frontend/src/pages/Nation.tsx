@@ -12,11 +12,10 @@ import { GET_NATION_STAT } from '../graphql/nationStatsOperations';
 import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { getCountryCode } from '../utils/imageUtils';
 import { recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
 import Rival from '../components/Nation/Rival';
 import { useLanguageStore } from '../stores/language-store';
-import { getNorwegianName } from '../utils/translationUtils';
+import { getCountryCode } from '../utils/imageUtils';
 
 function Nation() {
   const { language } = useLanguageStore();
@@ -87,9 +86,7 @@ function Nation() {
                     <div className="flagImageContainer" id={classes.flagImageContainer}>
                       <span className={`fi fi-${getCountryCode([nation._id])}`} id="flagImage"></span>
                     </div>
-                    <h1 className={classes.nationName}>
-                      {language === 'no' ? getNorwegianName(nation._id) : nation._id}
-                    </h1>
+                    <h1 className={classes.nationName}>{language === 'no' ? nation.name_no : nation._id}</h1>
                   </div>
                   <div className={classes.nationStatsContainer}>
                     <p>
@@ -112,7 +109,7 @@ function Nation() {
                     </p>
                   </div>
                 </div>
-                <Rival rivalNation={nation.top_rival.opponent} />
+                <Rival rivalEn={nation.top_rival.opponent} rivalNO={nation.top_rival.name_no} />
               </div>
               <div className={classes.carouselSection}>
                 <MatchCardCarousel title="Recent matchups" cardType="match" data={recentData.results.results} />

@@ -14,6 +14,8 @@ export const GET_RESULTS = gql`
         city
         country
         neutral
+        home_team_no
+        away_team_no
       }
       total
       currentPage
@@ -35,13 +37,6 @@ export const GET_RESULT = gql`
       city
       country
       neutral
-      comments {
-        _id
-        user_name
-        date
-        comment
-        result_id
-      }
     }
   }
 `;

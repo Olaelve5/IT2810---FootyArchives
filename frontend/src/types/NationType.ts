@@ -1,5 +1,6 @@
 export type NationType = {
     _id: string;
+    name_no: string;
     total_team_games: number;
     total_team_wins: number;
     total_team_draws: number;
@@ -11,6 +12,7 @@ export type NationType = {
 
 export type TopRivalType = {
     opponent: string;
+    name_no: string;
     total_games: number;
     total_wins: number;
     total_draws: number;

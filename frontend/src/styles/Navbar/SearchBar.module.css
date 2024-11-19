@@ -86,3 +86,39 @@
   padding: 0;
   border-radius: 2px;
 }
+
+.iconTrophy {
+  position: relative;
+  top: -0.1rem;
+}
+
+.groupLabel {
+  color: var(--mantine-color-darkmode-7);
+}
+
+.groupLabel::after {
+  background-color: var(--mantine-color-darkmode-4);
+}
+
+.groupLabelLight {
+  color: var(--mantine-color-gray-7);
+}
+
+.groupLabelLight::after {
+  background-color: var(--mantine-color-gray-4);
+}
+
+.noOptionText {
+  margin: 0;
+  padding: 0;
+  color: var(--mantine-color-darkmode-7);
+  font-size: 0.9rem;
+}
+
+.noOptionTextBottom {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 0.5rem;
+  color: var(--mantine-color-darkmode-7);
+  font-size: 0.9rem;
+}

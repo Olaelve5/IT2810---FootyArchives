@@ -14,7 +14,9 @@ export const GET_TOURNAMENTS = gql`
           _id
           tournament
           home_team
+          home_team_no
           away_team
+          away_team_no
           home_score
           away_score
           city
@@ -23,11 +25,5 @@ export const GET_TOURNAMENTS = gql`
         }
       }
     }
-  }
-`;
-
-export const SEARCH_TOURNAMENTS = gql`
-  query SearchTournaments($tournamentName: String!) {
-    searchTournaments(tournamentName: $tournamentName)
   }
 `;

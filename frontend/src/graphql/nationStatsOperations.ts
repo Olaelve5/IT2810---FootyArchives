@@ -4,6 +4,8 @@ export const GET_NATION_STATS = gql`
   query GetNationStats($limit: Int, $sort: SortInput) {
     nationStats(limit: $limit, sort: $sort) {
       _id
+      name_no
+      code
       total_team_games
       total_team_wins
       total_team_draws
@@ -12,6 +14,8 @@ export const GET_NATION_STATS = gql`
       total_team_goals_conceded
       top_rival {
         opponent
+        name_no
+        code
         total_games
         total_wins
         total_draws
@@ -28,6 +32,8 @@ export const GET_NATION_STAT = gql`
   query GetNationStat($_id: ID!) {
     nationStat(_id: $_id) {
       _id
+      name_no
+      code
       total_team_games
       total_team_wins
       total_team_draws
@@ -36,6 +42,8 @@ export const GET_NATION_STAT = gql`
       total_team_goals_conceded
       top_rival {
         opponent
+        name_no
+        code
         total_games
         total_wins
         total_draws

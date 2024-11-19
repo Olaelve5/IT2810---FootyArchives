@@ -4,20 +4,12 @@ import { NationType } from '../../types/NationType';
 import { Link } from 'react-router-dom';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useLanguageStore } from '../../stores/language-store';
-import { getNorwegianName } from '../../utils/translationUtils';
 
 function NationCard(props: NationType) {
   const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
-
-  const getNationName = () => {
-    if (language === 'no') {
-      return getNorwegianName(props._id);
-    }
-    return props._id;
-  };
 
   return (
     <Link to={`/project2/nation/${props._id}`}>
@@ -37,18 +29,18 @@ function NationCard(props: NationType) {
               <span className={`fi fi-${getCountryCode([props._id])}`} id="flagImage"></span>
             </div>
             <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
-              {getNationName()}
+              {language === 'no' ? props.name_no : props._id}
             </Text>
           </Group>
           <Group>
             <Text fw={600} className={isDark ? classes.darkText : classes.lightText}>
-              {props.total_team_games} games
+              {props.total_team_games} {language === 'no' ? 'kamper' : 'games'}
             </Text>
           </Group>
           <Group>
-            <Text fw={600}>{props.total_team_wins} W</Text>
-            <Text fw={600}>{props.total_team_draws} D</Text>
-            <Text fw={600}>{props.total_team_losses} L</Text>
+            <Text fw={600}>{props.total_team_wins} {language === 'no' ? 'S' : 'W'}</Text>
+            <Text fw={600}>{props.total_team_draws} {language === 'no' ? 'U' : 'D'}</Text>
+            <Text fw={600}>{props.total_team_losses} {language === 'no' ? 'T' : 'L'}</Text>
           </Group>
         </Card>
       </div>

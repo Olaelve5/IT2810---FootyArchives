@@ -9,7 +9,7 @@ import { useLanguageStore } from '../../stores/language-store';
 import { ResultType } from '../../types/ResultType';
 import { GET_COMMENTS } from '../../graphql/commentOperations';
 import { useQuery } from '@apollo/client';
-import { Key, useEffect } from 'react';
+import { Key } from 'react';
 import LoadCommentsButton from './LoadCommentsButton';
 import { useState } from 'react';
 
@@ -21,27 +21,26 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   const [page, setPage] = useState(1);
   const { data, loading, error, fetchMore } = useQuery(GET_COMMENTS, {
     variables: { resultId: result._id, page: page, limit: 10 },
-    onCompleted: (data) => {
-      setComments(data.getComments.comments);
-    },
   });
   const [opened, { open, close }] = useDisclosure(false);
   const language = useLanguageStore((state) => state.language);
   const count = data?.getComments.totalCount || 0;
   const totalPages = data?.getComments.totalPages || 0;
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [comments, setComments] = useState<CommentType[]>(data?.getComments.comments || []);
 
-  useEffect(() => {
-    if (page > 1) {
-      fetchMore({
-        variables: { page: page },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          setComments([...comments, ...fetchMoreResult.getComments.comments]);
-        },
-      });
+  // Fetch more tournaments when button is clicked
+  const handleClick = async (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    const { data } = await fetchMore({
+      variables: { resultId: result._id, page: page + 1 },
+    });
+
+    if (data) {
+      setPage((prevPage) => prevPage + 1);
+      setComments((prevComments) => [...prevComments, ...data.getComments.comments]);
     }
-  }, [page]);
+  };
 
   return (
     <div className={classes.container}>
@@ -74,10 +73,10 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         {comments.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
             <LoadCommentsButton
+              page={page}
               language={language}
               totalPages={totalPages || 0}
-              setPage={setPage}
-              page={page}
+              handleClick={handleClick}
               loading={loading}
             />
           </div>

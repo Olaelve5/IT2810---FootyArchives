@@ -8,16 +8,23 @@ import {
   Pill,
   PillsInput,
   CheckIcon,
+  Loader,
 } from '@mantine/core';
 import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
-import translations from '../../../assets/translations.json';
 import { getNorwegianName } from '../../../utils/translationUtils';
 import { useFilterStore } from '../../../stores/filter-store';
 import { IconX } from '@tabler/icons-react';
+import { SEARCH_NATIONS } from '../../../graphql/searchOperations';
+import { useQuery } from '@apollo/client';
+
+interface searchOption {
+  en: string;
+  no: string;
+}
 
 export default function NationsFilter() {
   const { selectedTeams, setSelectedTeams, lastQueriedFilters } = useFilterStore();
@@ -26,41 +33,29 @@ export default function NationsFilter() {
   const isDark = colorScheme === 'dark';
   const language = useLanguageStore((state) => state.language);
   const [teamName, setTeamName] = useState('');
-  const [filteredTeams, setFilteredTeams] = useState<{ No: string; En: string }[]>([]);
-  const [dropDownMessage, setDropDownMessage] = useState('');
   const combobox = useCombobox();
 
-  // Filter the teams based on the query
-  const filterTeams = useCallback(
-    (query: string) => {
-      if (!query) {
-        setFilteredTeams([]);
-        setDropDownMessage('');
-        return;
-      }
+  // Fetch teams based on the search term
+  const { data, loading, refetch } = useQuery(SEARCH_NATIONS, {
+    variables: { searchTerm: teamName, language, limit: 8 },
+  });
 
-      const key = language === 'en' ? 'En' : 'No';
-      const results = translations
-        .filter((item) => item[key].toLowerCase().startsWith(query.toLowerCase()))
-        .slice(0, 8);
+  const filteredTeams = data?.search.nations || [];
 
-      if (results.length === 0) {
-        setDropDownMessage(language === 'en' ? 'No results found' : 'Ingen resultater funnet');
-      } else {
-        setDropDownMessage('');
-      }
-
-      setFilteredTeams(results);
-    },
-    [language],
+  const debouncedRefetch = useMemo(
+    () =>
+      debounce((value: string) => {
+        refetch({ searchTerm: value, language, limit: 8 });
+      }, 300),
+    [refetch, language],
   );
 
-  // Debounce the filtering function to avoid rapid updates
-  const debouncedFilterTeams = useMemo(() => debounce((query) => filterTeams(query), 200), [filterTeams]);
-
+  // Update the search query based on the input value
   useEffect(() => {
-    debouncedFilterTeams(teamName);
-  }, [teamName, language, debouncedFilterTeams]);
+    if (teamName.trim() !== '') {
+      debouncedRefetch(teamName);
+    }
+  }, [teamName, debouncedRefetch]);
 
   // Set the selected teams to match the applied query
   useEffect(() => {
@@ -70,12 +65,12 @@ export default function NationsFilter() {
   }, [lastQueriedFilters, setSelectedTeams]);
 
   // Create options for the combobox dropdown based on the filtered teams
-  const options = filteredTeams.map((team) => (
+  const options = filteredTeams.map((team: searchOption) => (
     <Combobox.Option
-      key={team.En}
-      value={team.En}
+      key={team.en}
+      value={team.en}
       className={
-        selectedTeams.includes(team.En)
+        selectedTeams.includes(team.en)
           ? isDark
             ? classes.optionSelectedDark
             : classes.optionSelectedLight
@@ -84,11 +79,11 @@ export default function NationsFilter() {
             : classes.optionLight
       }
     >
-      {selectedTeams.includes(team.En) && <CheckIcon size={12} />}
+      {selectedTeams.includes(team.en) && <CheckIcon size={12} />}
       <div className={classes.imageContainer}>
-        <span className={`fi fi-${getCountryCode([team.En])}`} id={classes.image}></span>
+        <span className={`fi fi-${getCountryCode([team.en])}`} id={classes.image}></span>
       </div>
-      {language === 'en' ? team.En : team.No}
+      {language === 'en' ? team.en : team.no}
     </Combobox.Option>
   ));
 
@@ -167,10 +162,14 @@ export default function NationsFilter() {
 
       <Combobox.Dropdown className={isDark ? classes.darkDropdown : classes.lightDropdown}>
         <Combobox.Options>
-          {filteredTeams.length > 0 ? (
-            options
-          ) : (
-            <Combobox.Empty style={{ color: theme.colors.dark[1] }}>{dropDownMessage}</Combobox.Empty>
+          {loading && <Loader size={20} color="primary" />}
+
+          {options}
+
+          {options.length === 0 && teamName.trim() !== '' && !loading && (
+            <Combobox.Empty style={{ color: theme.colors.dark[1] }}>
+              {language === 'en' ? 'Found no matching nations' : 'Fant ingen matchende nasjoner'}
+            </Combobox.Empty>
           )}
         </Combobox.Options>
       </Combobox.Dropdown>
