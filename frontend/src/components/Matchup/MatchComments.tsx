@@ -41,7 +41,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         },
       });
     }
-  }, [page]);
+  }, [comments, fetchMore, page]);
 
   return (
     <div className={classes.container}>

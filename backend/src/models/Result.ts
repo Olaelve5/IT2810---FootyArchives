@@ -39,12 +39,6 @@ const ResultSchema = new Schema({
     type: Boolean,
     required: false,
   },
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Comment',  // Reference to the Comment model
-    },
-  ],
 });
 
 ResultSchema.virtual('goal_difference').get(function() {

@@ -37,13 +37,6 @@ export const GET_RESULT = gql`
       city
       country
       neutral
-      comments {
-        _id
-        user_name
-        date
-        comment
-        result_id
-      }
     }
   }
 `;

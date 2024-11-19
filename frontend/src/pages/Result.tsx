@@ -22,13 +22,18 @@ export default function Result() {
   });
 
   const result = data?.result;
+  console.log(result);
 
   useEffect(() => {
     // Scroll to the top of the page when the component mounts
     window.scrollTo(0, 0);
   }, []);
 
-  if (error) navigate('/project2/not-found');
+  useEffect(() => {
+    if (error) {
+      navigate('/project2/not-found');
+    }
+  }, [error, navigate]);
 
   return (
     <div className="layoutContainer">

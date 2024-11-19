@@ -2,14 +2,6 @@ import { gql } from 'graphql-tag';
 
 // Define the GraphQL schema - the types and queries that can be made
 const resultTypeDefs = gql`
-  type Comment {
-    _id: ID!
-    user_name: String!
-    date: String!
-    comment: String!
-    result_id: ID!
-  }
-
   type Result {
     _id: ID!
     date: String!
@@ -23,7 +15,6 @@ const resultTypeDefs = gql`
     city: String
     country: String
     neutral: Boolean
-    comments: [Comment]
   }
 
   type Goalscorer {
