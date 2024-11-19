@@ -1,4 +1,5 @@
 import Result from "../../models/Result";
+import Translation from "../../models/Translation";
 
 interface SearchArgs {
   searchTerm: string;
@@ -12,149 +13,76 @@ const searchResolvers = {
         throw new Error("Search term is required");
       }
 
-      const aggregationPipeline = [
-        {
-          $lookup: {
-            from: "translations",
-            localField: "home_team",
-            foreignField: "_id",
-            as: "home_translation",
-          },
-        },
-        {
-          $lookup: {
-            from: "translations",
-            localField: "away_team",
-            foreignField: "_id",
-            as: "away_translation",
-          },
-        },
-        {
-          $addFields: {
-            home_team_en: { $arrayElemAt: ["$home_translation._id", 0] },
-            home_team_no: { $arrayElemAt: ["$home_translation.No", 0] },
-            away_team_en: { $arrayElemAt: ["$away_translation._id", 0] },
-            away_team_no: { $arrayElemAt: ["$away_translation.No", 0] },
-          },
-        },
+      // Determine the fields to search based on language
+      const translationField = language === "no" ? "No" : "_id";
+
+      // Search for nations
+      const nations = await Translation.aggregate([
         {
           $match: {
-            $or: [
-              {
-                [`home_team_${language}`]: {
-                  $regex: searchTerm,
-                  $options: "i",
-                },
-              },
-              {
-                [`away_team_${language}`]: {
-                  $regex: searchTerm,
-                  $options: "i",
-                },
-              },
-              { tournament: { $regex: searchTerm, $options: "i" } },
-            ],
+            [translationField]: { $regex: searchTerm, $options: "i" },
           },
         },
         {
           $project: {
-            match: {
-              $cond: [
-                {
-                  $or: [
-                    {
-                      $regexMatch: {
-                        input: `$home_team_${language}`,
-                        regex: searchTerm,
-                        options: "i",
-                      },
-                    },
-                    {
-                      $regexMatch: {
-                        input: `$away_team_${language}`,
-                        regex: searchTerm,
-                        options: "i",
-                      },
-                    },
-                  ],
-                },
-                {
-                  type: "nation",
-                  value: {
-                    en: {
-                      $cond: [
-                        {
-                          $regexMatch: {
-                            input: `$home_team_${language}`,
-                            regex: searchTerm,
-                            options: "i",
-                          },
-                        },
-                        "$home_team_en",
-                        "$away_team_en",
-                      ],
-                    },
-                    no: {
-                      $cond: [
-                        {
-                          $regexMatch: {
-                            input: `$home_team_${language}`,
-                            regex: searchTerm,
-                            options: "i",
-                          },
-                        },
-                        "$home_team_no",
-                        "$away_team_no",
-                      ],
-                    },
-                  },
-                },
-                {
-                  type: "tournament",
-                  value: {
-                    en: "$tournament",
-                    no: "$tournament", // Assuming tournament names are the same for now
-                  },
-                },
-              ],
+            _id: 0,
+            type: { $literal: "nation" },
+            value: {
+              en: { $ifNull: ["$_id", ""] },
+              no: { $ifNull: ["$No", ""] },
             },
+          },
+        },
+        { $limit: 5 },
+      ]).exec();
+
+      // Search for tournaments
+      const tournaments = await Result.aggregate([
+        {
+          $match: {
+            tournament: { $regex: searchTerm, $options: "i" },
           },
         },
         {
           $group: {
-            _id: "$match",
+            _id: "$tournament",
           },
         },
         {
-          $sort: {
-            "_id.value.en": 1 as 1 | -1,
+          $project: {
+            _id: 0,
+            type: { $literal: "tournament" },
+            value: {
+              en: "$_id",
+              no: "$_id", // Assuming tournament names are the same in both languages
+            },
           },
         },
-        {
-          $limit: 8,
-        },
-      ];
+        { $limit: 5 },
+      ]).exec();
 
-      const results = await Result.aggregate(aggregationPipeline).exec();
-      return results.map((result: any) => result._id); // Simplify the return format
+      // Combine the results
+      const combinedResults = [...nations, ...tournaments];
+
+      return combinedResults;
     },
 
     searchMatchups: async (_: any, { searchTerm, language }: SearchArgs) => {
       if (!searchTerm || searchTerm.trim() === "") {
         throw new Error("Search term is required");
       }
-    
+
       // Determine the fields to search based on language
       const homeField = language === "no" ? "home_team_no" : "home_team_en";
       const awayField = language === "no" ? "away_team_no" : "away_team_en";
-    
+
       // Split searchTerm into individual words
       const searchTerms = searchTerm.split(/\s+/).filter(Boolean);
-    
+
       // Separate year-like tokens and other tokens
       const yearTokens = searchTerms.filter((term) => /^\d{1,4}$/.test(term)); // Match 1–4 digit tokens
       const otherTokens = searchTerms.filter((term) => !/^\d{1,4}$/.test(term));
-    
+
       const aggregationPipeline = [
         {
           $lookup: {
@@ -209,7 +137,9 @@ const searchResolvers = {
                         { [homeField]: { $regex: term, $options: "i" } },
                         {
                           [awayField]: {
-                            $regex: otherTokens.filter((t) => t !== term).join("|"),
+                            $regex: otherTokens
+                              .filter((t) => t !== term)
+                              .join("|"),
                             $options: "i",
                           },
                         },
@@ -220,7 +150,9 @@ const searchResolvers = {
                         { [awayField]: { $regex: term, $options: "i" } },
                         {
                           [homeField]: {
-                            $regex: otherTokens.filter((t) => t !== term).join("|"),
+                            $regex: otherTokens
+                              .filter((t) => t !== term)
+                              .join("|"),
                             $options: "i",
                           },
                         },
@@ -248,9 +180,9 @@ const searchResolvers = {
           $sort: { date: -1 as 1 | -1 },
         },
       ];
-    
+
       const results = await Result.aggregate(aggregationPipeline).exec();
-    
+
       return results.map((match) => ({
         type: "matchup",
         value: {
@@ -259,9 +191,6 @@ const searchResolvers = {
         },
       }));
     },
-    
-    
-    
   },
 };
 
