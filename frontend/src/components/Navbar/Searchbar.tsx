@@ -86,7 +86,7 @@ export default function Searchbar() {
         id={isDark ? classes.optionDark : classes.optionLight}
         data-type="tournament" // Add custom data attribute
       >
-        <IconTrophy size={20} />
+        <IconTrophy size={20} className={classes.iconTrophy}/>
         {language === 'en' ? tournament.en : tournament.no}
       </Combobox.Option>
     )),
@@ -157,12 +157,12 @@ export default function Searchbar() {
         <Combobox.Options>
           {loading && <Loader size={20} color="primary" />}
 
-          <Combobox.Group label={language === 'en' ? 'Nations' : 'Nasjoner'}>
-            {nationOptions.length > 0 ? nationOptions : <p>{loading ? 'Loading...' : 'No options found'}</p>}
+          <Combobox.Group label={language === 'en' ? 'Nations' : 'Nasjoner'} classNames={{groupLabel: isDark ? classes.groupLabel : classes.groupLabelLight}}>
+            {nationOptions.length > 0 ? nationOptions : <p className={classes.noOptionText}>{loading ? 'Loading...' : 'No options found'}</p>}
           </Combobox.Group>
 
-          <Combobox.Group label={language === 'en' ? 'Tournaments' : 'Turneringer'}>
-            {tournamentOptions.length > 0 ? tournamentOptions : <p>{loading ? 'Loading...' : 'No options found'}</p>}
+          <Combobox.Group label={language === 'en' ? 'Tournaments' : 'Turneringer'} classNames={{groupLabel: isDark ? classes.groupLabel : classes.groupLabelLight}}>
+            {tournamentOptions.length > 0 ? tournamentOptions : <p className={classes.noOptionTextBottom}>{loading ? 'Loading...' : 'No options found'}</p>}
           </Combobox.Group>
         </Combobox.Options>
       </Combobox.Dropdown>
