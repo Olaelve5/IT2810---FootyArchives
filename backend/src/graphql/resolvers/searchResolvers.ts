@@ -36,7 +36,6 @@ const searchResolvers = {
         { $limit: 5 },
       ]).exec();
 
-      // Search for tournaments
       const tournaments = await Result.aggregate([
         {
           $match: {
@@ -49,6 +48,29 @@ const searchResolvers = {
           },
         },
         {
+          $addFields: {
+            matchScore: {
+              $cond: [
+                { $eq: [{ $indexOfCP: [{ $toLower: "$_id" }, searchTerm.toLowerCase()] }, 0] }, // Starts with searchTerm
+                2,
+                {
+                  $cond: [
+                    { $gte: [{ $indexOfCP: [{ $toLower: "$_id" }, searchTerm.toLowerCase()] }, 0] }, // Contains searchTerm
+                    1,
+                    0,
+                  ],
+                },
+              ],
+            },
+          },
+        },
+        {
+          $sort: {
+            matchScore: -1, // Sort by relevance score (best matches first)
+            _id: 1,         // Secondary alphabetical sorting
+          },
+        },
+        {
           $project: {
             _id: 0,
             type: { $literal: "tournament" },
@@ -58,8 +80,9 @@ const searchResolvers = {
             },
           },
         },
-        { $limit: 5 },
+        { $limit: 5 }, // Limit after sorting
       ]).exec();
+      
 
       // Combine the results
       const combinedResults = [...nations, ...tournaments];
