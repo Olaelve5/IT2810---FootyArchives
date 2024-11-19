@@ -108,6 +108,7 @@ const resultResolvers = {
         });
       }
 
+      // Apply sorting logic based on the sort field
       if (sort) {
         basePipeline.push({
           $sort: { [sort.field]: sort.order },
@@ -126,7 +127,7 @@ const resultResolvers = {
       const paginatedResults = await Result.aggregate(basePipeline).exec();
 
       // Add translations to the results
-      const enrichedResults = await Result.aggregate([
+      const enrichedResultsPipeline: any[] = [
         {
           $match: {
             _id: { $in: paginatedResults.map((result: any) => result._id) },
@@ -156,9 +157,21 @@ const resultResolvers = {
             away_team_no: {
               $arrayElemAt: ["$away_translation.No", 0],
             },
+            goal_difference: {
+              $abs: { $subtract: ["$home_score", "$away_score"] },
+            },
           },
         },
-      ]);
+
+        {
+          // sort again after adding translations
+          $sort: sort ? { [sort.field]: sort.order } : { _id: 1 }, // Default fallback sort
+        },
+      ];
+
+      const enrichedResults = await Result.aggregate(
+        enrichedResultsPipeline
+      ).exec();
 
       return {
         results: enrichedResults,
