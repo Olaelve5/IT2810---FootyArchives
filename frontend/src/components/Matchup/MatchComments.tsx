@@ -9,7 +9,7 @@ import { useLanguageStore } from '../../stores/language-store';
 import { ResultType } from '../../types/ResultType';
 import { GET_COMMENTS } from '../../graphql/commentOperations';
 import { useQuery } from '@apollo/client';
-import { Key } from 'react';
+import { Key, useEffect } from 'react';
 import LoadCommentsButton from './LoadCommentsButton';
 import { useState } from 'react';
 
@@ -26,7 +26,14 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   const language = useLanguageStore((state) => state.language);
   const count = data?.getComments.totalCount || 0;
   const totalPages = data?.getComments.totalPages || 0;
-  const [comments, setComments] = useState<CommentType[]>(data?.getComments.comments || []);
+  const [comments, setComments] = useState<CommentType[]>([]);
+
+  // Initialize comments only on the first page load
+  useEffect(() => {
+    if (page === 1 && data?.getComments?.comments) {
+      setComments(data.getComments.comments);
+    }
+  }, [data, page]);
 
   // Fetch more tournaments when button is clicked
   const handleClick = async (event: React.MouseEvent) => {
