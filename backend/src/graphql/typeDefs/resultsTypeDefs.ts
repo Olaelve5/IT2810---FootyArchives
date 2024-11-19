@@ -104,6 +104,7 @@ const resultTypeDefs = gql`
     tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
     searchTournaments(tournamentName: String!): [String]
     search(searchTerm: String!, language: String!): [SearchResult]
+    searchMatchups(searchTerm: String!, language: String!): [SearchResult]
   }
 `;
 
