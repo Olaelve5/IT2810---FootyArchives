@@ -50,7 +50,11 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         <h1 className={classes.title}>
           {count} {language === 'en' ? 'comments' : 'kommentarer'}
         </h1>
-        {error && <Text size='sm' c='red'>{language === 'en' ? 'Something when wrong' : 'Noe gikk galt'}</Text>}
+        {error && (
+          <Text size="sm" c="red">
+            {language === 'en' ? 'Something when wrong' : 'Noe gikk galt'}
+          </Text>
+        )}
         <Button
           color="primary"
           className={classes.button}
@@ -68,14 +72,15 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           <Comment key={index} comment={comment} />
         ))}
         {comments.length > 0 && (
-          <LoadCommentsButton
-            language={language}
-            classes={classes}
-            totalPages={totalPages || 0}
-            setPage={setPage}
-            page={page}
-            loading={loading}
-          />
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+            <LoadCommentsButton
+              language={language}
+              totalPages={totalPages || 0}
+              setPage={setPage}
+              page={page}
+              loading={loading}
+            />
+          </div>
         )}
       </div>
     </div>
