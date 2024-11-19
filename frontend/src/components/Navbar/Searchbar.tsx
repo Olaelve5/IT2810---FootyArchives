@@ -20,7 +20,10 @@ import { IconTrophy } from '@tabler/icons-react';
 
 interface searchOption {
   type: string;
-  value: string;
+  value: {
+    en: string;
+    no: string;
+  };
 }
 
 export default function Searchbar() {
@@ -58,26 +61,26 @@ export default function Searchbar() {
   // Create options for the combobox dropdown based on the filtered teams
   const options = teams.map((option: searchOption) => (
     <Combobox.Option
-      key={option.value}
-      value={option.value}
+      key={option.value.en}
+      value={option.value.en}
       className={classes.option}
       id={isDark ? classes.optionDark : classes.optionLight}
     >
       {option.type === 'nation' && (
         <div className={classes.imageContainer}>
-          <span className={`fi fi-${getCountryCode([option.value])}`} id={classes.image}></span>
+          <span className={`fi fi-${getCountryCode([option.value.en])}`} id={classes.image}></span>
         </div>
       )}
       {option.type === 'tournament' && (
         <IconTrophy size={22} />
       )}
-      {option.value}
+      {language === 'en' ? option.value.en : option.value.no}
     </Combobox.Option>
   ));
 
   // Handle the submission of an option in the combobox
   const handleOptionSubmit = (value: string) => {
-    const selectedOption: searchOption | undefined = data?.search.find((team: searchOption) => team.value === value);
+    const selectedOption: searchOption | undefined = data?.search.find((team: searchOption) => team.value.en === value);
     const datatype = selectedOption?.type;
 
     if (datatype === 'nation') {

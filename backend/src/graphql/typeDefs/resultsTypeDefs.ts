@@ -78,9 +78,14 @@ const resultTypeDefs = gql`
     endYear: Int!
   }
 
+  type Translation {
+    en: String!
+    no: String!
+  }
+
   type SearchResult {
     type: String!
-    value: String!
+    value: Translation!
   }
 
   type Query {
