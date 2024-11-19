@@ -51,6 +51,33 @@ const resultResolvers = {
         if (filters.tournaments && filters.tournaments.length > 0) {
           query.tournament = { $in: filters.tournaments };
         }
+
+        // Filter by winning or losing team (if specified)
+        if (filters.winningTeam) {
+          query.$or = [
+            {
+              home_team: { $in: [filters.winningTeam] },
+              $expr: { $gt: ["$home_score", "$away_score"] },
+            } as any,
+            {
+              away_team: { $in: [filters.winningTeam] },
+              $expr: { $gt: ["$away_score", "$home_score"] },
+            } as any,
+          ];
+        }
+
+        if (filters.losingTeam) {
+          query.$or = [
+            {
+              home_team: { $in: [filters.losingTeam] },
+              $expr: { $lt: ["$home_score", "$away_score"] },
+            } as any,
+            {
+              away_team: { $in: [filters.losingTeam] },
+              $expr: { $lt: ["$away_score", "$home_score"] },
+            } as any,
+          ];
+        }
       }
 
       const skip = (page - 1) * limit;
