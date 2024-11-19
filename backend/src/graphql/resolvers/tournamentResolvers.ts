@@ -29,11 +29,13 @@ const tournamentResolvers = {
           $sort: { date: -1 },
         },
         {
+          // Group by year and tournament
           $group: {
             _id: {
               year: { $year: "$date" },
               tournament: "$tournament",
             },
+            // Push the results into an array
             results: {
               $push: {
                 _id: "$_id",
@@ -50,13 +52,52 @@ const tournamentResolvers = {
           },
         },
         {
+          // Project the fields to be returned in the results
           $project: {
             _id: {
               $concat: [{ $toString: "$_id.year" }, "_", "$_id.tournament"],
             },
             year: "$_id.year",
             tournament: "$_id.tournament",
-            results: { $slice: ["$results", RESULT_LIMIT] }, // Fetch the last 5 matches after sorting
+            results: { $slice: ["$results", RESULT_LIMIT] }, // Fetch the last RESULT_LIMIT matches
+          },
+        },
+        {
+          $unwind: "$results", // Unwind results to join translations
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "results.home_team",
+            foreignField: "_id",
+            as: "home_translation",
+          },
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "results.away_team",
+            foreignField: "_id",
+            as: "away_translation",
+          },
+        },
+        {
+          // Add the home and away team numbers and codes to the results
+          $addFields: {
+            "results.home_team_no": {
+              $arrayElemAt: ["$home_translation.No", 0],
+            },
+            "results.away_team_no": {
+              $arrayElemAt: ["$away_translation.No", 0],
+            }
+          },
+        },
+        {
+          $group: {
+            _id: "$_id",
+            year: { $first: "$year" },
+            tournament: { $first: "$tournament" },
+            results: { $push: "$results" },
           },
         },
         {
@@ -103,11 +144,12 @@ const tournamentResolvers = {
         endYear,
       };
     },
+
     searchTournaments: async (_: any, { tournamentName }: { tournamentName: string }) => {
       if (!tournamentName) {
         throw new Error("query is a required parameter.");
       }
-    
+
       const tournaments = await Result.aggregate([
         {
           $match: {
@@ -123,10 +165,11 @@ const tournamentResolvers = {
           $limit: 6,
         },
       ]).exec();
-    
+
       return tournaments.map((tournament) => tournament._id);
     },
   },
 };
 
 export default tournamentResolvers;
+

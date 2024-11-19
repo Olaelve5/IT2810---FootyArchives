@@ -14,7 +14,9 @@ export const GET_TOURNAMENTS = gql`
           _id
           tournament
           home_team
+          home_team_no
           away_team
+          away_team_no
           home_score
           away_score
           city
