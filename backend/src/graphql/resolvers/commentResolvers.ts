@@ -14,7 +14,6 @@ interface MutationArgs {
   user_name: string;
 }
 
-
 // Resolvers for the GraphQL queries and mutations related to comments
 const commentResolvers = {
   Query: {
@@ -23,11 +22,18 @@ const commentResolvers = {
       _: any,
       { result_id, limit = 10, page = 1 }: QueryArgs
     ) => {
+      const count = await Comment.countDocuments({ result_id });
+      const totalPages = Math.ceil(count / limit);
       const skip = (page - 1) * limit;
-      return Comment.find({ result_id })
+      const comments = await Comment.find({ result_id })
         .sort({ date: -1 })
         .skip(skip)
         .limit(limit);
+      return {
+        comments,
+        totalCount: count,
+        totalPages,
+      };
     },
   },
 
@@ -43,16 +49,16 @@ const commentResolvers = {
         comment,
         result_id,
       });
-  
+
       // Save the new comment to get its _id
       const savedComment = await newComment.save();
-  
+
       // Update the Result document to include the new comment's _id
       await Result.updateOne(
         { _id: result_id },
         { $push: { comments: savedComment._id } }
       );
-  
+
       return savedComment;
     },
   },
