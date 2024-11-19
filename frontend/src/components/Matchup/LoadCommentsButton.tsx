@@ -3,25 +3,21 @@ import classes from '../../styles/Matchup/MatchComments.module.css';
 
 interface LoadCommentsButtonProps {
   language: string;
+  handleClick: (event: React.MouseEvent) => void;
   page: number;
-  setPage: (page: number) => void;
   totalPages: number;
   loading: boolean;
 }
 
-const LoadCommentsButton: React.FC<LoadCommentsButtonProps> = ({ language, setPage, page, totalPages, loading }) => {
-  const loadMoreComments = (event: React.MouseEvent) => {
-    setPage(page + 1);
-    event.preventDefault();
-  };
-
+const LoadCommentsButton: React.FC<LoadCommentsButtonProps> = ({ language, handleClick, page, totalPages, loading }) => {
+  
   return (
     <>
       <Button
         color="primary"
         className={classes.button}
         loading={loading}
-        onClick={loadMoreComments}
+        onClick={(event) => handleClick(event)}
         disabled={totalPages === page}
         style={{ width: '25%' }} // Adjust the width and add margin
       >
