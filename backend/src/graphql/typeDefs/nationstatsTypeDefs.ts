@@ -5,6 +5,8 @@ import { gql } from 'graphql-tag';
 const nationStatTypeDefs = gql`
     type NationStat {
         _id: ID!
+        name_no: String!
+        code: String!
         total_team_games: Int!
         total_team_wins: Int!
         total_team_draws: Int!
@@ -16,6 +18,8 @@ const nationStatTypeDefs = gql`
 
     type TopRival {
         opponent: String!
+        name_no: String!
+        code: String!
         total_games: Int!
         total_wins: Int!
         total_draws: Int!
