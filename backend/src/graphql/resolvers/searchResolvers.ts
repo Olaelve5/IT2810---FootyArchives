@@ -16,11 +16,54 @@ const searchResolvers = {
       // Determine the fields to search based on language
       const translationField = language === "no" ? "No" : "_id";
 
-      // Search for nations
+      // Search for nations with sorting
       const nations = await Translation.aggregate([
         {
           $match: {
             [translationField]: { $regex: searchTerm, $options: "i" },
+          },
+        },
+        {
+          $addFields: {
+            matchScore: {
+              $cond: [
+                {
+                  $eq: [
+                    {
+                      $indexOfCP: [
+                        { $toLower: `$${translationField}` },
+                        searchTerm.toLowerCase(),
+                      ],
+                    },
+                    0,
+                  ],
+                }, // Starts with searchTerm
+                2,
+                {
+                  $cond: [
+                    {
+                      $gte: [
+                        {
+                          $indexOfCP: [
+                            { $toLower: `$${translationField}` },
+                            searchTerm.toLowerCase(),
+                          ],
+                        },
+                        0,
+                      ],
+                    }, // Contains searchTerm
+                    1,
+                    0,
+                  ],
+                },
+              ],
+            },
+          },
+        },
+        {
+          $sort: {
+            matchScore: -1, // Sort by relevance score
+            [translationField]: 1, // Secondary alphabetical sorting
           },
         },
         {
@@ -33,7 +76,7 @@ const searchResolvers = {
         { $limit: 5 },
       ]).exec();
 
-      // Search for tournaments
+      // Search for tournaments with sorting
       const tournaments = await Result.aggregate([
         {
           $match: {
@@ -49,11 +92,31 @@ const searchResolvers = {
           $addFields: {
             matchScore: {
               $cond: [
-                { $eq: [{ $indexOfCP: [{ $toLower: "$_id" }, searchTerm.toLowerCase()] }, 0] }, // Starts with searchTerm
+                {
+                  $eq: [
+                    {
+                      $indexOfCP: [
+                        { $toLower: "$_id" },
+                        searchTerm.toLowerCase(),
+                      ],
+                    },
+                    0,
+                  ],
+                }, // Starts with searchTerm
                 2,
                 {
                   $cond: [
-                    { $gte: [{ $indexOfCP: [{ $toLower: "$_id" }, searchTerm.toLowerCase()] }, 0] }, // Contains searchTerm
+                    {
+                      $gte: [
+                        {
+                          $indexOfCP: [
+                            { $toLower: "$_id" },
+                            searchTerm.toLowerCase(),
+                          ],
+                        },
+                        0,
+                      ],
+                    }, // Contains searchTerm
                     1,
                     0,
                   ],
@@ -64,15 +127,15 @@ const searchResolvers = {
         },
         {
           $sort: {
-            matchScore: -1, // Sort by relevance score (best matches first)
-            _id: 1,         // Secondary alphabetical sorting
+            matchScore: -1, // Sort by relevance score
+            _id: 1, // Secondary alphabetical sorting
           },
         },
         {
           $project: {
             _id: 0,
             en: "$_id",
-            no: "$_id", // Assuming tournament names are the same in both languages
+            no: "$_id",
           },
         },
         { $limit: 5 }, // Limit after sorting
@@ -81,7 +144,10 @@ const searchResolvers = {
       // Return results in the desired format
       return {
         nations: nations.map((nation) => ({ en: nation.en, no: nation.no })),
-        tournaments: tournaments.map((tournament) => ({ en: tournament.en, no: tournament.no })),
+        tournaments: tournaments.map((tournament) => ({
+          en: tournament.en,
+          no: tournament.no,
+        })),
       };
     },
   },
