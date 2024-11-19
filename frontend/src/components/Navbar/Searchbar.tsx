@@ -34,10 +34,7 @@ export default function Searchbar() {
 
   // Fetch the search results from the backend
   const { data, loading, refetch } = useQuery(SEARCH, {
-    variables: { searchTerm: teamName, language: language },
-    onCompleted: (data) => {
-      console.log(data);
-    },
+    variables: { searchTerm: teamName, language: language, limit: 5 },
   });
 
   const nations = data?.search.nations || [];
@@ -47,7 +44,7 @@ export default function Searchbar() {
   const debouncedRefetch = useMemo(
     () =>
       debounce((value: string) => {
-        refetch({ searchTerm: value, language });
+        refetch({ searchTerm: value, language, limit: 5 });
       }, 300),
     [refetch, language],
   );

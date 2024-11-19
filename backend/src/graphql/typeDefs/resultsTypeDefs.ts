@@ -102,8 +102,7 @@ const resultTypeDefs = gql`
       date: String!
     ): [Goalscorer]
     tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
-    searchTournaments(tournamentName: String!): [String]
-    search(searchTerm: String!, language: String!): SearchResult!
+    search(searchTerm: String!, language: String!, limit: Int!): SearchResult!
   }
 `;
 

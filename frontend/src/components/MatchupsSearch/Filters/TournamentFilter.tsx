@@ -13,7 +13,7 @@ import classes from '../../../styles/Filters/MultiSelect.module.css';
 import { IconSelector } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useLanguageStore } from '../../../stores/language-store';
-import { SEARCH_TOURNAMENTS } from '../../../graphql/tournamentOperations';
+import { SEARCH_TOURNAMENTS } from '../../../graphql/searchOperations';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@apollo/client';
 
@@ -37,9 +37,9 @@ function TournamentFilter() {
 
   // Use Apollo's useQuery hook to fetch tournament options based on the search query
   const { loading, error, data } = useQuery(SEARCH_TOURNAMENTS, {
-    variables: { tournamentName: query },
+    variables: { searchTerm: query, language, limit: 6 },
     onCompleted: (data) => {
-      setDropDownOptions(data.searchTournaments);
+      setDropDownOptions(data.search.tournaments.map((tournament: { en: string }) => tournament.en));
     },
   });
 

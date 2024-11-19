@@ -4,11 +4,12 @@ import Translation from "../../models/Translation";
 interface SearchArgs {
   searchTerm: string;
   language: string;
+  limit?: number;
 }
 
 const searchResolvers = {
   Query: {
-    search: async (_: any, { searchTerm, language }: SearchArgs) => {
+    search: async (_: any, { searchTerm, language, limit = 5 }: SearchArgs) => {
       if (!searchTerm || searchTerm.trim() === "") {
         throw new Error("Search term is required");
       }
@@ -73,7 +74,7 @@ const searchResolvers = {
             no: { $ifNull: ["$No", ""] },
           },
         },
-        { $limit: 5 },
+        { $limit: limit },
       ]).exec();
 
       // Search for tournaments with sorting
@@ -138,7 +139,7 @@ const searchResolvers = {
             no: "$_id",
           },
         },
-        { $limit: 5 }, // Limit after sorting
+        { $limit: limit }, // Limit after sorting
       ]).exec();
 
       // Return results in the desired format

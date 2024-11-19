@@ -89,7 +89,7 @@ const tournamentResolvers = {
             },
             "results.away_team_no": {
               $arrayElemAt: ["$away_translation.No", 0],
-            }
+            },
           },
         },
         {
@@ -144,32 +144,7 @@ const tournamentResolvers = {
         endYear,
       };
     },
-
-    searchTournaments: async (_: any, { tournamentName }: { tournamentName: string }) => {
-      if (!tournamentName) {
-        throw new Error("query is a required parameter.");
-      }
-
-      const tournaments = await Result.aggregate([
-        {
-          $match: {
-            tournament: { $regex: tournamentName, $options: "i" },
-          },
-        },
-        {
-          $group: {
-            _id: "$tournament",
-          },
-        },
-        {
-          $limit: 6,
-        },
-      ]).exec();
-
-      return tournaments.map((tournament) => tournament._id);
-    },
   },
 };
 
 export default tournamentResolvers;
-

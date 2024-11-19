@@ -27,9 +27,3 @@ export const GET_TOURNAMENTS = gql`
     }
   }
 `;
-
-export const SEARCH_TOURNAMENTS = gql`
-  query SearchTournaments($tournamentName: String!) {
-    searchTournaments(tournamentName: $tournamentName)
-  }
-`;
