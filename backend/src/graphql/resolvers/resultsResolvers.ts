@@ -34,9 +34,7 @@ const resultResolvers = {
 
       // Apply filters to the query
       if (filters) {
-        // Filter by teams 
         if (filters.teams && filters.teams.length > 0) {
-          // Check if the exclusive flag is set, and filter accordingly
           if (!filters.exclusive) {
             query.$or = [
               { home_team: { $in: filters.teams } },
@@ -50,34 +48,6 @@ const resultResolvers = {
           }
         }
 
-        // Filter by winning or losing team (if specified)
-        if (filters.winningTeam) {
-          query.$or = [
-            {
-              home_team: { $in: [filters.winningTeam] },
-              $expr: { $gt: ["$home_score", "$away_score"] },
-            } as any,
-            {
-              away_team: { $in: [filters.winningTeam] },
-              $expr: { $gt: ["$away_score", "$home_score"] },
-            } as any,
-          ];
-        }
-
-        if (filters.losingTeam) {
-          query.$or = [
-            {
-              home_team: { $in: [filters.losingTeam] },
-              $expr: { $lt: ["$home_score", "$away_score"] },
-            } as any,
-            {
-              away_team: { $in: [filters.losingTeam] },
-              $expr: { $lt: ["$away_score", "$home_score"] },
-            } as any,
-          ];
-        }
-
-        // Filter by tournament
         if (filters.tournaments && filters.tournaments.length > 0) {
           query.tournament = { $in: filters.tournaments };
         }
@@ -85,8 +55,8 @@ const resultResolvers = {
 
       const skip = (page - 1) * limit;
 
-      // Build the aggregation pipeline
-      const aggregationPipeline: any[] = [
+      // Get paginated results without translations
+      const basePipeline: any[] = [
         { $match: query },
         {
           $addFields: {
@@ -98,9 +68,8 @@ const resultResolvers = {
         },
       ];
 
-      // Apply year range filter
       if (filters?.yearRange) {
-        aggregationPipeline.push({
+        basePipeline.push({
           $match: {
             $expr: {
               $and: [
@@ -112,34 +81,60 @@ const resultResolvers = {
         });
       }
 
-      // Apply sorting logic based on the sort field
       if (sort) {
-        if (sort.field === "goal_difference") {
-          // Sort by goal difference if specified
-          aggregationPipeline.push({
-            $sort: { goal_difference: sort.order },
-          });
-        } else {
-          // Sort by any other field
-          aggregationPipeline.push({
-            $sort: { [sort.field]: sort.order },
-          });
-        }
+        basePipeline.push({
+          $sort: { [sort.field]: sort.order },
+        });
       }
 
-      // Count the total number of documents that match the query
-      const countPipeline = [...aggregationPipeline, { $count: "total" }];
+      // Count total results for pagination
+      const countPipeline = [...basePipeline, { $count: "total" }];
       const totalResult = await Result.aggregate(countPipeline).exec();
       const total = totalResult.length > 0 ? totalResult[0].total : 0;
 
       // Apply pagination
-      aggregationPipeline.push({ $skip: skip });
-      aggregationPipeline.push({ $limit: limit });
+      basePipeline.push({ $skip: skip });
+      basePipeline.push({ $limit: limit });
 
-      const results = await Result.aggregate(aggregationPipeline).exec();
+      const paginatedResults = await Result.aggregate(basePipeline).exec();
+
+      // Add translations to the results
+      const enrichedResults = await Result.aggregate([
+        {
+          $match: {
+            _id: { $in: paginatedResults.map((result: any) => result._id) },
+          },
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "home_team",
+            foreignField: "_id",
+            as: "home_translation",
+          },
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "away_team",
+            foreignField: "_id",
+            as: "away_translation",
+          },
+        },
+        {
+          $addFields: {
+            home_team_no: {
+              $arrayElemAt: ["$home_translation.No", 0],
+            },
+            away_team_no: {
+              $arrayElemAt: ["$away_translation.No", 0],
+            },
+          },
+        },
+      ]);
 
       return {
-        results,
+        results: enrichedResults,
         total,
         currentPage: page,
         totalPages: Math.ceil(total / limit),
@@ -152,18 +147,46 @@ const resultResolvers = {
       }
 
       const objectId = new ObjectId(_id);
-      const result = await Result.findOne({ _id: objectId })
-        .populate({
-          path: "comments",
-          options: { sort: { date: -1 } },
-        }) // Ensure comments are populated
-        .exec();
 
-      if (!result) {
+      // Aggregate with translations
+      const resultWithTranslation = await Result.aggregate([
+        {
+          $match: { _id: objectId },
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "home_team",
+            foreignField: "_id",
+            as: "home_translation",
+          },
+        },
+        {
+          $lookup: {
+            from: "translations",
+            localField: "away_team",
+            foreignField: "_id",
+            as: "away_translation",
+          },
+        },
+        {
+          $addFields: {
+            home_team_no: {
+              $arrayElemAt: ["$home_translation.No", 0],
+            },
+            away_team_no: {
+              $arrayElemAt: ["$away_translation.No", 0],
+            },
+          },
+        },
+      ]);
+
+      if (!resultWithTranslation || resultWithTranslation.length === 0) {
         console.log("Result not found");
         throw new Error("Result not found");
       }
-      return result;
+
+      return resultWithTranslation[0]; // Return the single result
     },
 
     searchTeams: async (_: any, { teamName }: { teamName: string }) => {

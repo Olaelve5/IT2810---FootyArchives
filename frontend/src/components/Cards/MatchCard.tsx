@@ -7,7 +7,6 @@ import { formatDate } from '../../utils/dateUtils';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useEffect, useState } from 'react';
 import { useLanguageStore } from '../../stores/language-store';
-import { getNorwegianName } from '../../utils/translationUtils';
 
 export function MatchCard(props: ResultType) {
   const { language } = useLanguageStore();
@@ -19,7 +18,7 @@ export function MatchCard(props: ResultType) {
 
   const cardTitle = () => {
     if (language === 'no') {
-      return `${getNorwegianName(props.home_team)} vs ${getNorwegianName(props.away_team)}`;
+      return `${props.home_team_no} vs ${props.away_team_no}`;
     }
     return `${props.home_team} vs ${props.away_team}`;
   };

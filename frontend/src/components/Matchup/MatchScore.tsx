@@ -5,7 +5,6 @@ import { ResultType } from '../../types/ResultType';
 import { getCountryCode } from '../../utils/imageUtils';
 import { useEffect, useState } from 'react';
 import { useLanguageStore } from '../../stores/language-store';
-import { getNorwegianName } from '../../utils/translationUtils';
 
 export default function MatchScore(result: ResultType) {
   const [countryCodes, setCountryCodes] = useState<string[]>([]);
@@ -24,7 +23,7 @@ export default function MatchScore(result: ResultType) {
             <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
           </div>
         </Link>
-        <h2 className={classes.name}>{language == 'no' ? getNorwegianName(result.home_team) : result.home_team}</h2>
+        <h2 className={classes.name}>{language == 'no' ? result.home_team_no : result.home_team}</h2>
       </Group>
       <Group className={classes.scoreContainer}>
         <h1>
@@ -37,7 +36,7 @@ export default function MatchScore(result: ResultType) {
             <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
           </div>
         </Link>
-        <h2 className={classes.name}>{language == 'no' ? getNorwegianName(result.away_team) : result.away_team}</h2>
+        <h2 className={classes.name}>{language == 'no' ? result.away_team_no : result.away_team}</h2>
       </Group>
     </Group>
   );

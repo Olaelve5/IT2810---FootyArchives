@@ -12,6 +12,8 @@ export type ResultType = {
   country: string;
   neutral?: boolean;
   comments?: CommentType[];
+  home_team_no: string;
+  away_team_no: string;
 };
 
 export type CommentType = {

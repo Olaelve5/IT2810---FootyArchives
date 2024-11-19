@@ -14,7 +14,9 @@ const resultTypeDefs = gql`
     _id: ID!
     date: String!
     home_team: String!
+    home_team_no: String!
     away_team: String!
+    away_team_no: String!
     home_score: Int!
     away_score: Int!
     tournament: String!

@@ -14,6 +14,8 @@ export const GET_RESULTS = gql`
         city
         country
         neutral
+        home_team_no
+        away_team_no
       }
       total
       currentPage
