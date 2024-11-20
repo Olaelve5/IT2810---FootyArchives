@@ -14,7 +14,7 @@ function SideBarCollapse() {
 
   return (
     <button className={classes.button} onClick={handleClick}>
-      <IconMenu3 size={35} stroke={1.5} className={isDark ? classes.darkIcon : classes.lightIcon} />
+      <IconMenu3 size={38} stroke={1.5} className={isDark ? classes.darkIcon : classes.lightIcon} />
     </button>
   );
 }

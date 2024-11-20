@@ -7,6 +7,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 import { IconHome, IconListSearch } from '@tabler/icons-react';
+import SideBarCollapse from '../Navbar/SideBarCollapse';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
@@ -44,7 +45,12 @@ export default function SideBar() {
       }}
     >
       <div>
-        <Logo />
+        <div className={classes.logoContainer}>
+          <SideBarCollapse />
+          <div className={ isCollapsed ? classes.outerLogoContainer : ''}>
+            <Logo />
+          </div>
+        </div>
         <Group className={classes.links}>
           <div className={classes.linkContainer}>
             <NavLink

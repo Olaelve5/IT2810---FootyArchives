@@ -1,14 +1,11 @@
 import { Text } from '@mantine/core';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
-import SideBarCollapse from '../Navbar/SideBarCollapse';
 import classes from '../../styles/SideBar/Sidebar.module.css';
 
 function Logo() {
   const { isCollapsed } = useSidebarCollapseStore();
 
   return (
-    <div className={classes.logoContainer}>
-      <SideBarCollapse />
       <div className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}>
         <Text
           size="xl"
@@ -27,7 +24,6 @@ function Logo() {
           Archives
         </Text>
       </div>
-    </div>
   );
 }
 

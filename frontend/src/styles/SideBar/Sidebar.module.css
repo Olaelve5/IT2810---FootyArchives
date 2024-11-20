@@ -19,6 +19,10 @@
   gap: 1rem;
 }
 
+.outerLogoContainer {
+  display: none;
+}
+
 #containerExpanded {
   width: 16rem;
 }
@@ -49,7 +53,9 @@
   padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
   white-space: nowrap;
-  transition: background-color 0.15s ease, width 0.3s ease;
+  transition:
+    background-color 0.15s ease,
+    width 0.3s ease;
 }
 
 .linkDark {
@@ -58,7 +64,9 @@
   padding: 0.8rem 0rem 0.8rem 1.7rem;
   font-weight: 500;
   white-space: nowrap;
-  transition: background-color 0.15s ease, width 0.3s ease;
+  transition:
+    background-color 0.15s ease,
+    width 0.3s ease;
 }
 
 .linkDark:hover {
@@ -68,7 +76,6 @@
 .link:hover {
   background-color: #d4dbde;
 }
-
 
 #linkSelected {
   text-decoration: none;
@@ -97,8 +104,6 @@
 .linkSelected:hover {
   background-color: #d4dbde;
 }
-
-
 
 #linkSelected::before {
   content: '';
@@ -135,7 +140,7 @@
 }
 
 .hiddenLogoTextContainer {
-  display: none;
+  display: flex;
 }
 
 #logoText {
@@ -150,4 +155,8 @@
   }
 }
 
-
+@media screen and (max-width: 468px) {
+  #containerCollapsed {
+    width: 0rem;
+  }
+}

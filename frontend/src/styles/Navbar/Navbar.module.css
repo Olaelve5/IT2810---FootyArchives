@@ -72,6 +72,12 @@
   transition: all 0.15s ease;
 }
 
+.logoSearchBarContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 
 .searchbarContainer {
   display: flex;
@@ -79,4 +85,26 @@
   width: 100%;
   min-height: fit-content;
   align-items: center;
+}
+
+
+.logoContainer {
+  display: none;
+}
+
+
+@media screen and (max-width: 468px) {
+  .logoContainer {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .searchbarContainer {
+    display: none;
+  }
+
+  .buttonContainer {
+    display: none;
+  }
+  
 }
