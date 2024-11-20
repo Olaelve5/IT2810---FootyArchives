@@ -22,12 +22,20 @@ export default function MatchupsGrid({ totalResults, results, sort, setSort, loa
   return (
     <div className={classes.container}>
       <div className={classes.topContainer}>
-        <Text c={theme.colors.darkmode[8]}>{totalResults} {language === 'en' ? 'matchups found' : 'kamper funnet'}</Text>
+        <Text c={theme.colors.darkmode[8]}>
+          {totalResults} {language === 'en' ? 'matchups found' : 'kamper funnet'}
+        </Text>
         {loading && <Loader size={25} color={theme.colors.primary[5]} />}
-        <SortButton sort={sort} setSort={setSort}/>
+        <SortButton sort={sort} setSort={setSort} />
       </div>
       {totalResults === 0 && <Text>{language === 'en' ? 'No matchups found' : 'Ingen kamper funnet'}</Text>}
-      <div className={classes.grid}>{results?.map((result) => <MatchCard key={result._id} {...result} />)}</div>
+      <div className={classes.grid}>
+        {results?.map((result) => (
+          <div className={classes.gridsCell}>
+            <MatchCard key={result._id} {...result} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

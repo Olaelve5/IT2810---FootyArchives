@@ -12,9 +12,15 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 2rem;
   padding: 0.5rem;
+}
+.gridsCell{
+  display:flex;
+  justify-content: center;
+  width:100%;
+
 }
 
 .sortButton {
@@ -107,3 +113,23 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+}
+
+@media screen and(max-width: 556px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
+@media screen and (max-width: 391px){
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(61px, 1fr));
+  }
+
+}
+  
+
