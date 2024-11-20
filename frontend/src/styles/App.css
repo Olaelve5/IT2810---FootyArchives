@@ -183,13 +183,6 @@ h2 {
 }
 
 @media screen and (max-width: 391px) {
-  .rightContainerCollapsed {
-    padding-left: 0;
-  }
-
-  .rightContainerExpanded {
-    padding-left: 0;
-  }
   #root{
     --card-width: 1rem;
   }
