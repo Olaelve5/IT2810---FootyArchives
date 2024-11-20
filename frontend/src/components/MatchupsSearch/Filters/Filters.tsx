@@ -3,7 +3,7 @@ import TournamentFilter from './TournamentFilter';
 import classes from '../../../styles/Filters/Filters.module.css';
 import YearsInput from './YearsInput';
 import ExclusiveSwitch from './ExclusiveSwitch';
-import { Button, CloseButton, Modal, Text } from '@mantine/core';
+import { Button, Modal, Text } from '@mantine/core';
 import { IconFilter, IconTrashFilled, IconFilterFilled } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useMantineColorScheme, Indicator } from '@mantine/core';
@@ -92,7 +92,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         onClose={() => setOpened(false)}
         title={language === 'en' ? 'Filters' : 'Filtre'}
         className={classes.modal}
-        closeButtonProps={<CloseButton aria-label='Close filters button'/>}
+        closeButtonProps={{ 'aria-label': 'Close filters button' }} // Pass props directly
         size="lg"
         classNames={{
           title: classes.title,
