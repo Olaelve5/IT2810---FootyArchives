@@ -2,9 +2,14 @@ import { QueryFilterType } from '../types/QueryFilterType';
 import { YearRange } from './../../../backend/src/types/FiltersType';
 import { create } from 'zustand';
 
+interface Team {
+  en: string;
+  no: string;
+}
+
 export interface FilterState {
-  selectedTeams: string[];
-  setSelectedTeams: (selectedTeams: string[]) => void;
+  selectedTeams: Team[];
+  setSelectedTeams: (selectedTeams: Team[]) => void;
 
   yearRange: YearRange;
   setYearRange: (yearRange: YearRange) => void;
@@ -28,7 +33,7 @@ export interface FilterState {
 // Create a store for the filters
 export const useFilterStore = create<FilterState>((set) => ({
   selectedTeams: [],
-  setSelectedTeams: (selectedTeams: string[]) => set({ selectedTeams }),
+  setSelectedTeams: (selectedTeams: Team[]) => set({ selectedTeams }),
 
   yearRange: { startYear: 1872, endYear: 2024 },
   setYearRange: (yearRange: YearRange) => set({ yearRange }),

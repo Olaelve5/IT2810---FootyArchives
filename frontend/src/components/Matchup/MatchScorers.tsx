@@ -62,6 +62,10 @@ export default function MatchScorers({ result }: MatchScorersProps) {
     setShowGoalscorers(!showGoalscorers);
   };
 
+  if (!result) {
+    return <div>{language === 'en' ? 'No data available' : 'Ingen data tilgjengelig'}</div>;
+  }
+
   return (
     <div className={classes.container}>
       {!dataAvailable && (

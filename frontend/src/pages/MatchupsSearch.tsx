@@ -38,7 +38,15 @@ export default function Matchups() {
 
   // Fetch the matchups data
   const { loading, error } = useQuery(GET_RESULTS, {
-    variables: { limit: limit, page: page, sort: sort, filters: filters },
+    variables: {
+      limit: limit,
+      page: page,
+      sort: sort,
+      filters: {
+        ...filters,
+        teams: filters?.teams?.map((team) => team.en), // Transform teams to string[]
+      },
+    },
     onCompleted: (data) => {
       setResults(data.results.results);
       setTotalPages(data.results.totalPages);

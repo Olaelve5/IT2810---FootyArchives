@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
     <ApolloProvider client={client}>
       <MantineProvider theme={theme} defaultColorScheme="dark">
         <RouterProvider router={router} />
-      </MantineProvider>
+      </MantineProvider>   
     </ApolloProvider>
   </StrictMode>,
 );
