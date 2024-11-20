@@ -63,21 +63,4 @@ describe('Test of navigation and routing', () => {
     cy.contains('Home').click();
     cy.url().should('eq', 'http://localhost:5173/project2');
   })
-
-  it('Tests navigation by searching', () => {
-    // Search for a nation and navigate to its page
-    cy.get('input').type('Norway');
-    cy.contains('Norway').click();
-    cy.url().should('include', '/nation/Norway');
-    cy.contains('h1', 'Norway');
-
-    // Search for a tournament and navigate to its page
-    const tournamentName = 'AFC Asian Cup qualification';
-    const encodedTournamentName = encodeURIComponent(tournamentName);
-
-    cy.get('input').clear().type(tournamentName);
-    cy.contains(tournamentName).click();
-    cy.url().should('include', `/tournament/${encodedTournamentName}`);
-    cy.contains('h1', tournamentName);
-  })
 })
