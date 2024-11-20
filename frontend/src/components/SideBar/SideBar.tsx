@@ -6,14 +6,16 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
-import { IconHome, IconListSearch } from '@tabler/icons-react';
+import { IconHome, IconListSearch, IconSettings } from '@tabler/icons-react';
+import ColorSchemeBtn from '../Navbar/ColorSchemeBtn';
+import LanguageBtn from '../Navbar/LanguageButton';
 import SideBarCollapse from '../Navbar/SideBarCollapse';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
-  const { isCollapsed } = useSidebarCollapseStore();
+  const { isCollapsed, setCollapsed } = useSidebarCollapseStore();
 
   const location = useLocation();
   const { tournamentName } = useParams<{ tournamentName: string }>(); // Get the tournament name from the URL
@@ -47,7 +49,7 @@ export default function SideBar() {
       <div>
         <div className={classes.logoContainer}>
           <SideBarCollapse />
-          <div className={ isCollapsed ? classes.outerLogoContainer : ''}>
+          <div className={isCollapsed ? classes.outerLogoContainer : ''}>
             <Logo />
           </div>
         </div>
@@ -108,6 +110,19 @@ export default function SideBar() {
           </div>
         </Group>
         <Competitions selected={selected} setSelected={setSelected} />
+        <div className={classes.bottomContainer}>
+          <IconSettings
+            stroke={1.5}
+            size={30}
+            className={isCollapsed ? classes.iconSettingsVisible : classes.iconSettingsHidden}
+            onClick={() => setCollapsed(!isCollapsed)}
+          />
+
+          <div className={isCollapsed ? classes.innerBottomContainerHidden : classes.innerBottomContainerVisible}>
+            <ColorSchemeBtn />
+            <LanguageBtn />
+          </div>
+        </div>
       </div>
     </div>
   );
