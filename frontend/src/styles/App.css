@@ -140,3 +140,21 @@ h2 {
   cursor: ns-resize !important;
 }
 
+
+@media screen and (max-width: 1000px) {
+  .rightContainerExpanded {
+    padding-left: 5rem;
+  }
+}
+
+
+@media screen and (max-width: 468px) {
+  .rightContainerExpanded {
+    padding-left: 0;
+  }
+
+  .rightContainerCollapsed {
+    padding-left: 0;
+  }
+}
+

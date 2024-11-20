@@ -6,6 +6,17 @@
   border-right: 1px solid;
   position: fixed;
   transition: width 0.3s ease;
+  z-index: 1000;
+  box-shadow: 10px 0px 10px -10px rgba(0, 0, 0, 0.116); /* Apply shadow to the right */
+  overflow: hidden;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 1.7rem;
+  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 #containerExpanded {
@@ -119,26 +130,24 @@
   text-align: left;
 }
 
+.logoTextContainer {
+  display: flex;
+}
+
+.hiddenLogoTextContainer {
+  display: none;
+}
+
 #logoText {
   transition: width 0.3s ease;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.hiddenLogoTextF {
-  min-width: 12px;
-}
-
-.visibleLogoTextF {
-  min-width: 12px;
-}
-
-.hiddenLogoTextA {
-  min-width: 14px;
-}
-
-.visibleLogoTextA {
-  min-width: 14px;
+@media screen and (max-width: 1000px) {
+  .container {
+    box-shadow: 10px 0px 10px -5px rgba(0, 0, 0, 0.116); /* Apply shadow to the right */
+  }
 }
 
 

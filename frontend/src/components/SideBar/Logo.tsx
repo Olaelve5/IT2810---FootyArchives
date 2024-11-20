@@ -1,37 +1,32 @@
 import { Text } from '@mantine/core';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
+import SideBarCollapse from '../Navbar/SideBarCollapse';
 import classes from '../../styles/SideBar/Sidebar.module.css';
 
 function Logo() {
   const { isCollapsed } = useSidebarCollapseStore();
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 1.7rem',
-        marginBottom: '1rem',
-      }}
-    >
-      <Text
-        size="xl"
-        fw={700}
-        c="primary"
-        id={classes.logoText}
-        className={!isCollapsed ? classes.visibleLogoTextF : classes.hiddenLogoTextF}
-      >
-        Footy
-      </Text>
+    <div className={classes.logoContainer}>
+      <SideBarCollapse />
+      <div className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}>
+        <Text
+          size="xl"
+          fw={700}
+          c="primary"
+          id={classes.logoText}
+        >
+          Footy
+        </Text>
 
-      <Text
-        size="xl"
-        fw={700}
-        id={classes.logoText}
-        className={!isCollapsed ? classes.visibleLogoTextA : classes.hiddenLogoTextA}
-      >
-        Archives
-      </Text>
+        <Text
+          size="xl"
+          fw={700}
+          id={classes.logoText}
+        >
+          Archives
+        </Text>
+      </div>
     </div>
   );
 }
