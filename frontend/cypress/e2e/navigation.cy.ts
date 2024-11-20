@@ -1,16 +1,21 @@
+/// <reference types="cypress" />
+
 // This file contains tests for navigation and routing in the application, both by clicking on links and by searching
 
 describe('Test of navigation and routing', () => {
-  it('Tests initial page load', () => {
+
+  beforeEach(() => {
     cy.visit('/')
-    cy.contains('h1', 'Footy')
+  });
+
+  it('Tests initial page load', () => {
+        cy.contains('h1', 'Footy')
   })
 
   it('Tests navigation and routing to tournaments', () => {
     const tournamentName = 'FIFA World Cup';
     const encodedTournamentName = encodeURIComponent(tournamentName);
-
-    cy.visit('/');
+    
     cy.contains(tournamentName).click();
     
     // Assert the encoded URL to ensure compatibility across browsers
@@ -31,7 +36,6 @@ describe('Test of navigation and routing', () => {
   });
 
   it('Tests navigation and routing to matchups-search', () => {
-    cy.visit('/');
     cy.contains('Browse Matchups').click();
     cy.url().should('include', '/matchups');
     cy.contains('h2', 'Matchups');
@@ -43,15 +47,13 @@ describe('Test of navigation and routing', () => {
   it('Tests navigation to nation page with API call', () => {
     const nationName = 'Brazil';
     const encodedNationName = encodeURIComponent(nationName);
-
-    cy.visit('/');
+    
     cy.contains(nationName).click();
     cy.url().should('include', `/nation/${encodedNationName}`);
     cy.contains('h1', nationName);
   })
 
   it('Tests navigation to matchups page with API call', () => {
-    cy.visit('/');
     cy.contains('Australia vs American Samoa').click();
 
     cy.url().should('include', '/matchup');
@@ -64,7 +66,6 @@ describe('Test of navigation and routing', () => {
 
   it('Tests navigation by searching', () => {
     // Search for a nation and navigate to its page
-    cy.visit('/');
     cy.get('input').type('Norway');
     cy.contains('Norway').click();
     cy.url().should('include', '/nation/Norway');
