@@ -12,7 +12,6 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
-    "@apollo/client": "^3.11.8",
     "@mantine/carousel": "^7.13.2",
     "@mantine/colors-generator": "^7.13.2",
     "@mantine/core": "^7.13.2",
@@ -31,8 +30,10 @@
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
+    "@apollo/client": "^3.11.10",
     "@eslint/js": "^9.9.0",
-    "@testing-library/jest-dom": "^6.5.0",
+    "@graphql-tools/mock": "^9.0.6",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
     "@types/cypress": "^0.1.6",

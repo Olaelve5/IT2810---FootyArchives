@@ -15,7 +15,6 @@ import { useLanguageStore } from '../../../stores/language-store';
 import { useState, useEffect, useMemo } from 'react';
 import { getCountryCode } from '../../../utils/imageUtils';
 import debounce from 'lodash/debounce';
-import { getNorwegianName } from '../../../utils/translationUtils';
 import { useFilterStore } from '../../../stores/filter-store';
 import { IconX } from '@tabler/icons-react';
 import { SEARCH_NATIONS } from '../../../graphql/searchOperations';
@@ -70,7 +69,7 @@ export default function NationsFilter() {
       key={team.en}
       value={team.en}
       className={
-        selectedTeams.includes(team.en)
+        selectedTeams.includes(team)
           ? isDark
             ? classes.optionSelectedDark
             : classes.optionSelectedLight
@@ -79,7 +78,7 @@ export default function NationsFilter() {
             : classes.optionLight
       }
     >
-      {selectedTeams.includes(team.en) && <CheckIcon size={12} />}
+      {selectedTeams.includes(team) && <CheckIcon size={12} />}
       <div className={classes.imageContainer}>
         <span className={`fi fi-${getCountryCode([team.en])}`} id={classes.image}></span>
       </div>
@@ -89,27 +88,28 @@ export default function NationsFilter() {
 
   // Handle selection of an option from the dropdown
   const handleOptionSubmit = (value: string) => {
-    if (!selectedTeams.includes(value)) {
-      setSelectedTeams([...selectedTeams, value]);
-    }
-  };
+      const team = filteredTeams.find((team: searchOption) => team.en === value);
+      if (team && !selectedTeams.includes(team)) {
+        setSelectedTeams([...selectedTeams, team]);
+      }
+    };
 
   // Handle removal of a selected option
-  const handleTeamRemove = (team: string) => {
+  const handleTeamRemove = (team: searchOption) => {
     setSelectedTeams(selectedTeams.filter((selectedTeam) => selectedTeam !== team));
   };
 
   // Render selected teams as pills
   const pills = selectedTeams.map((team) => (
     <Pill
-      key={team}
+      key={team.en}
       aria-label={`Selected ${team} pill`}
       withRemoveButton
       onRemove={() => handleTeamRemove(team)}
       onClick={() => handleTeamRemove(team)}
       className={isDark ? classes.pillDark : classes.pillLight}
     >
-      <p className={classes.pillText}>{language === 'en' ? team : getNorwegianName(team)}</p>
+      <p className={classes.pillText}>{language === 'en' ? team.en : team.no}</p>
     </Pill>
   ));
 

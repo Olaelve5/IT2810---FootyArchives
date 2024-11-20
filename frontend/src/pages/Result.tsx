@@ -34,6 +34,10 @@ export default function Result() {
     }
   }, [error, navigate]);
 
+  if (!result) {
+    return <div>Error: Result not found</div>;
+  }
+
   return (
     <div className="layoutContainer">
       <SideBar />
