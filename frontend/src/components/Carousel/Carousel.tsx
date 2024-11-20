@@ -8,20 +8,23 @@ import { NationType } from '../../types/NationType';
 import { ApolloError } from '@apollo/client';
 import { Loader } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { useLanguageStore } from '../../stores/language-store';
 
 interface MatchcardCarouselProps {
-  title: string;
+  titleEn: string;
+  titleNo: string;
   data: ResultType[] | NationType[];
   cardType: 'match' | 'team';
   loading?: boolean;
   error?: ApolloError;
 }
 
-function MatchcardCarousel({ data, cardType, loading, error, title }: MatchcardCarouselProps) {
+function MatchcardCarousel({ data, cardType, loading, error, titleEn, titleNo }: MatchcardCarouselProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const [slides, setSlides] = useState<JSX.Element[]>([]);
+  const { language } = useLanguageStore();
 
   useEffect(() => {
     const newSlides = data?.map((item) => (
@@ -39,10 +42,10 @@ function MatchcardCarousel({ data, cardType, loading, error, title }: MatchcardC
 
   return (
     <div className={classes.topContainer}>
-      <h2 className={classes.title}>{title}</h2>
+      <h2 className={classes.title}>{language === 'en' ? titleEn : titleNo}</h2>
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
       <Carousel
-        key={title} 
+        key={titleEn} 
         slideSize="1%"
         slideGap="1.8rem"
         loop={false}
