@@ -112,13 +112,13 @@ function Nation() {
                 <Rival rivalEn={nation.top_rival.opponent} rivalNO={nation.top_rival.name_no} />
               </div>
               <div className={classes.carouselSection}>
-                <MatchCardCarousel title="Recent matchups" cardType="match" data={recentData.results.results} />
+                <MatchCardCarousel titleEn="Recent matchups" titleNo='Siste kamper' cardType="match" data={recentData.results.results} />
               </div>
               <div className={classes.carouselSection}>
-                <MatchCardCarousel title="Biggest wins" cardType="match" data={biggestWinsData.results.results} />
+                <MatchCardCarousel titleEn="Biggest wins" titleNo='Største seire' cardType="match" data={biggestWinsData.results.results} />
               </div>
               <div className={classes.carouselSection} style={{ border: 'none' }}>
-                <MatchCardCarousel title="Worst defeats" cardType="match" data={worstDefeatsData.results.results} />
+                <MatchCardCarousel titleEn="Worst defeats" titleNo='Verste tap' cardType="match" data={worstDefeatsData.results.results} />
               </div>
             </div>
           )}

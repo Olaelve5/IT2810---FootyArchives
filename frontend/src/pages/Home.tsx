@@ -51,7 +51,8 @@ function Home() {
           <DiscoverButton />
           <div>
             <MatchCardCarousel
-              title={'Top teams'}
+              titleEn={'Top teams'}
+              titleNo={'Beste lag'}
               cardType={'team'}
               data={nationStatsProps}
               loading={nationStatsLoading}
@@ -60,7 +61,8 @@ function Home() {
           </div>
           <div>
             <MatchCardCarousel
-              title={'Recent matchups'}
+              titleEn={'Recent matchups'}
+              titleNo={'Siste kamper'}
               cardType={'match'}
               data={recentMatchupsProps}
               loading={recentMatchupsLoading}
@@ -69,7 +71,8 @@ function Home() {
           </div>
           <div style={{ border: 'none' }}>
             <MatchCardCarousel
-              title={'Biggest wins'}
+              titleEn={'Biggest wins'}
+              titleNo={'Største seire'}
               cardType={'match'}
               data={biggestWinsProps}
               loading={biggestWinsLoading}
