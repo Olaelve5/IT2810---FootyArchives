@@ -68,7 +68,7 @@ body {
   /* Stop the scrollbar from pushing elements */
   overflow-y: scroll; /* Always show the scrollbar */
   scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: transparent transparent; /
+  scrollbar-color: transparent transparent;
 }
 
 * {
