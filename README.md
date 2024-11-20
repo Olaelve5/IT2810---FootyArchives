@@ -34,7 +34,7 @@ International football has a variety of tournaments and every tournament has its
 ### Country page
 Every country has its own page, displaying the nations record, recent matches, biggest wins and worst defeats. You can even see their rival nation!
 
-## Accessibility
+### Accessibility
 There is a language button so you can view the page in both english and norwegian. You can also switch between lightmode and darkmode to fit your needs.
 
 ## Responsivness
