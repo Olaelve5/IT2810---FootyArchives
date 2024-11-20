@@ -5,7 +5,6 @@ import { ResultType } from '../../types/ResultType';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dateUtils';
 import { useLanguageStore } from '../../stores/language-store';
-import { getNorwegianName } from '../../utils/translationUtils';
 import { useNavigate } from 'react-router-dom';
 
 export default function MatchDetails(data: ResultType) {
@@ -61,7 +60,7 @@ export default function MatchDetails(data: ResultType) {
         <div className={classes.detailContainer}>
           <IconBuildingStadium size={22} stroke={1.5} color={getColor()} />
           <Text c={getColor()} className={classes.detailText}>
-            {data.city}, {language == 'no' ? getNorwegianName(data.country) : data.country}
+            {data.city}, {data.country}
           </Text>
         </div>
       </div>
