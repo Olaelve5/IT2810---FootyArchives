@@ -19,10 +19,11 @@
 }
 
 .darkDropdown {
-  background-color: var(--mantine-color-darkmode-1);
+  background-color: var(--mantine-color-darkmode-2);
   color: #fff;
   box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
   padding: 0;
+  z-index: 10000 !important;
 }
 
 .lightDropdown {
@@ -30,6 +31,7 @@
   color: #000;
   box-shadow: 0 0 10px -5px rgba(0, 0, 0, 0.684);
   padding: 0;
+  z-index: 10000 !important;
 }
 
 .option {

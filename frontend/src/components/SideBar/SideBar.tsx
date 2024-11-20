@@ -10,6 +10,7 @@ import { IconHome, IconListSearch, IconSettings } from '@tabler/icons-react';
 import ColorSchemeBtn from '../Navbar/ColorSchemeBtn';
 import LanguageBtn from '../Navbar/LanguageButton';
 import SideBarCollapse from '../Navbar/SideBarCollapse';
+import Searchbar from '../Navbar/Searchbar';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
@@ -54,6 +55,9 @@ export default function SideBar() {
           </div>
         </div>
         <Group className={classes.links}>
+          <div className={classes.searchbarContainer}>
+            <Searchbar />
+          </div>
           <div className={classes.linkContainer}>
             <NavLink
               component={Link}
