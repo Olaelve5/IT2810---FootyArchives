@@ -1,5 +1,5 @@
 describe('My First Test', () => {
-  it('Visits the Kitchen Sink', () => {
+  it('Visits Brasil page', () => {
     cy.visit('http://localhost:5173/project2')
 
     cy.contains('Brazil').click()
