@@ -95,6 +95,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
         closeButtonProps={{ 'aria-label': 'Close filters button' }} // Pass props directly
         size="lg"
         classNames={{
+          root: classes.root,
           title: classes.title,
           header: classes.header,
           close: classes.close,
