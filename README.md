@@ -4,7 +4,9 @@ The project can be viewed here: http://it2810-36.idi.ntnu.no/project2
 
 
 ## Project - Build and run tests :gear: :wrench:
-### Build and run the project
+### Build and run the project locally
+
+
 
 Open and run the frontend:
 1. Open a new terminal
@@ -20,6 +22,15 @@ Open and run the backend:
 
 
 ### Run tests :wrench:
+#### Vitest
+1. First, navigate to the frontend folder: `cd frontend`
+2. To run Vitest tests, use the command: `npm run test`
+
+#### Cypress
+1. First, navigate to the frontend folder: `cd frontend`
+2. To run Cypress tests in headless mode, use the command: `npx cypress run --browser chrome`
+
+3. You can also run Cypress tests in headed mode using the command: `npm run cy:open` 
 
 
 ## Concept
