@@ -30,7 +30,7 @@ export default function MatchDetails(data: ResultType) {
 
   const getTitle = () => {
     if (language === 'no') {
-      return `${getNorwegianName(result.home_team)} vs ${getNorwegianName(result.away_team)}`;
+      return `${result.home_team_no} vs ${result.away_team_no}`;
     } else {
       return `${result.home_team} vs ${result.away_team}`;
     }

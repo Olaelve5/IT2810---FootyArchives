@@ -6,14 +6,17 @@ import { useLanguageStore } from '../../stores/language-store';
 import { POST_COMMENT } from '../../graphql/commentOperations';
 import { GET_COMMENTS } from '../../graphql/commentOperations';
 import { useMutation } from '@apollo/client';
+import { CommentType } from '../../types/ResultType';
 
 interface CommentModalProps {
   opened: boolean;
   onClose: () => void;
   resultId: string;
+  setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
+  setTotalCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function CommentModal({ opened, onClose, resultId }: CommentModalProps) {
+export default function CommentModal({ opened, onClose, resultId, setComments, setTotalCount }: CommentModalProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
@@ -33,6 +36,9 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
     awaitRefetchQueries: true,
+    onCompleted: (data) => {
+      console.log(data);
+    }
   });
 
   const getColor = () => {
@@ -43,13 +49,20 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
     setButtonPressed(true);
     if (username && commentText) {
       try {
-        await postComment({
+        const {data} = await postComment({
           variables: {
             resultId: resultId,
             comment: commentText,
             userName: username,
           },
         });
+
+        // Add the new comment to the local state
+        if (data) {
+          const newComment = data.addComment; // Adjust field name as needed
+          setComments((prevComments) => [newComment, ...prevComments]);
+          setTotalCount((prevTotalCount) => prevTotalCount + 1);
+        }
 
         // Store the username in localStorage
         storeUsernameInLocalStorage(username);
@@ -80,6 +93,7 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
       <TextInput
         label={language === 'en' ? 'Username' : 'Brukernavn'}
         required
+        aria-label='Enter your username'
         error={
           buttonPressed && !username ? (language === 'en' ? 'Username is required' : 'Brukernavn er påkrevd') : null
         }
@@ -101,6 +115,7 @@ export default function CommentModal({ opened, onClose, resultId }: CommentModal
         label={language === 'en' ? 'Comment' : 'Kommentar'}
         required
         value={commentText}
+        aria-label='Write a comment'
         error={
           buttonPressed && !commentText ? (language === 'en' ? 'Comment is required' : 'Kommentar er påkrevd') : null
         }

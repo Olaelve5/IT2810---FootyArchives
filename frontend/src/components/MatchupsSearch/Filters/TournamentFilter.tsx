@@ -81,6 +81,7 @@ function TournamentFilter() {
     <Pill
       key={tournament}
       withRemoveButton
+      aria-label={`Selected ${tournament} pill`}
       onRemove={() => handleOptionRemove(tournament)}
       onClick={() => handleOptionRemove(tournament)}
       className={isDark ? classes.pillDark : classes.pillLight}

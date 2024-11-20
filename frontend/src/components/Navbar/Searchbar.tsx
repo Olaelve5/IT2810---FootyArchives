@@ -121,7 +121,7 @@ export default function Searchbar() {
       <Combobox.Target>
         <TextInput
           leftSection={<IconSearch size={20} className={classes.icon} />}
-          placeholder={language === 'en' ? 'Search for a nation' : 'Søk etter en nasjon'}
+          placeholder={language === 'en' ? 'Search for nations and tournaments' : 'Søk etter nasjoner og turneringer'}
           variant="filled"
           size="sm"
           radius="xl"

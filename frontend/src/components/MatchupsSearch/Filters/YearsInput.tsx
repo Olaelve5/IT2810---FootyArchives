@@ -85,12 +85,26 @@ export default function YearsInput() {
     }
   }, [lastQueriedFilters, setYearRange]);
 
+  // Handle change in the year range
+  const handleChange = (value: number | string, index: string) => {
+    if (index === 'start') {
+      if (typeof value === 'number' && value >= 1872 && value <= 2024) {
+        setYearRange({ ...yearRange, startYear: value });
+      }
+    } else {
+      if (typeof value === 'number' && value >= 1872 && value <= 2024) {
+        setYearRange({ ...yearRange, endYear: value });
+      }
+    }
+  };
+
   return (
     <div className={classes.container}>
       <label>{language == 'en' ? 'Select years' : 'Velg årstall'}</label>
       <div className={classes.numbersContainer}>
         <NumberInput
           value={yearRange.startYear}
+          onChange={(value) => handleChange(value, 'start')}
           onFocus={handleFocus}
           radius="xl"
           min={1872}
@@ -111,6 +125,7 @@ export default function YearsInput() {
         <NumberInput
           hideControls
           onFocus={handleFocus}
+          onChange={(value) => handleChange(value, 'end')}
           radius="xl"
           value={yearRange.endYear}
           min={1872}

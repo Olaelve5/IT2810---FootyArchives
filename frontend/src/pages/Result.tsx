@@ -22,7 +22,6 @@ export default function Result() {
   });
 
   const result = data?.result;
-  console.log(result);
 
   useEffect(() => {
     // Scroll to the top of the page when the component mounts

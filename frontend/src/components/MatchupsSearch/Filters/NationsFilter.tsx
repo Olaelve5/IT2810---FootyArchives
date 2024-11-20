@@ -103,6 +103,7 @@ export default function NationsFilter() {
   const pills = selectedTeams.map((team) => (
     <Pill
       key={team}
+      aria-label={`Selected ${team} pill`}
       withRemoveButton
       onRemove={() => handleTeamRemove(team)}
       onClick={() => handleTeamRemove(team)}

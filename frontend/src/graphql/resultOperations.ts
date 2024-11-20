@@ -31,6 +31,8 @@ export const GET_RESULT = gql`
       date
       home_team
       away_team
+      home_team_no
+      away_team_no
       home_score
       away_score
       tournament

@@ -24,7 +24,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   });
   const [opened, { open, close }] = useDisclosure(false);
   const language = useLanguageStore((state) => state.language);
-  const count = data?.getComments.totalCount || 0;
+  const [totalCount, setTotalCount] = useState(0);
   const totalPages = data?.getComments.totalPages || 0;
   const [comments, setComments] = useState<CommentType[]>([]);
 
@@ -32,6 +32,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   useEffect(() => {
     if (page === 1 && data?.getComments?.comments) {
       setComments(data.getComments.comments);
+      setTotalCount(data.getComments.totalCount);
     }
   }, [data, page]);
 
@@ -51,10 +52,10 @@ export default function MatchComments({ result }: MatchCommentsProps) {
 
   return (
     <div className={classes.container}>
-      <CommentModal opened={opened} onClose={close} resultId={result._id} />
+      <CommentModal opened={opened} onClose={close} resultId={result._id} setComments={setComments} setTotalCount={setTotalCount}/>
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
-          {count} {language === 'en' ? 'comments' : 'kommentarer'}
+          {totalCount} {language === 'en' ? 'comments' : 'kommentarer'}
         </h1>
         {error && (
           <Text size="sm" c="red">
