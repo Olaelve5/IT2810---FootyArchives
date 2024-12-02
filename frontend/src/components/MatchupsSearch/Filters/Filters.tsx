@@ -15,6 +15,7 @@ interface FiltersProps {
   setFilters: (filters: QueryFilterType) => void;
 }
 
+// Filters component that contains all the filter components
 export default function Filters({ setFilters }: FiltersProps) {
   const {
     selectedTeams,
@@ -33,6 +34,7 @@ export default function Filters({ setFilters }: FiltersProps) {
   const [opened, setOpened] = useState(false);
   const { language } = useLanguageStore();
 
+  // Function to apply the filters and close the modal
   const handleApplyFilters = () => {
     setFilters({
       teams: selectedTeams,
@@ -53,6 +55,7 @@ export default function Filters({ setFilters }: FiltersProps) {
     calculateFilterCount();
   };
 
+  // Function to calculate the filter count
   const calculateFilterCount = () => {
     let count = 0;
     if (selectedTeams.length > 0) count++;
