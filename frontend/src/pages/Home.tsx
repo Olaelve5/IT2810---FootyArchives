@@ -71,6 +71,7 @@ function Home() {
           data={biggestWinsProps}
           loading={biggestWinsLoading}
           error={biggestWinsError}
+          sort={biggestWinsSort}
         />
       </div>
     </Layout>
