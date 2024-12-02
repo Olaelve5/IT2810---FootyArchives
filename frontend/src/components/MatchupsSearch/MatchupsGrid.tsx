@@ -31,7 +31,7 @@ export default function MatchupsGrid({ totalResults, results, sort, setSort, loa
       {totalResults === 0 && <Text>{language === 'en' ? 'No matchups found' : 'Ingen kamper funnet'}</Text>}
       <div className={classes.grid}>
         {results?.map((result) => (
-          <div className={classes.gridsCell}>
+          <div className={classes.gridsCell} key={result._id}>
             <MatchCard key={result._id} {...result} />
           </div>
         ))}

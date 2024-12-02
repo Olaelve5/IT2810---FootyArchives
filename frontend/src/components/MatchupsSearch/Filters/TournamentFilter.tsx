@@ -14,8 +14,9 @@ import { IconSelector } from '@tabler/icons-react';
 import { useFilterStore } from '../../../stores/filter-store';
 import { useLanguageStore } from '../../../stores/language-store';
 import { SEARCH_TOURNAMENTS } from '../../../graphql/searchOperations';
-import { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useEffect, useMemo, useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
+import { debounce } from 'lodash';
 
 // Default options to display when the search query is empty
 const options = [
@@ -36,12 +37,23 @@ function TournamentFilter() {
   const [dropDownOptions, setDropDownOptions] = useState<string[]>(options.map((option) => option.value));
 
   // Use Apollo's useQuery hook to fetch tournament options based on the search query
-  const { loading, error, data } = useQuery(SEARCH_TOURNAMENTS, {
-    variables: { searchTerm: query, language, limit: 6 },
-    onCompleted: (data) => {
-      setDropDownOptions(data.search.tournaments.map((tournament: { en: string }) => tournament.en));
-    },
-  });
+  const [fetchTournaments, { loading, error }] = useLazyQuery(SEARCH_TOURNAMENTS);
+
+  const debouncedRefetch = useMemo(
+    () =>
+      debounce((value: string) => {
+        if (value.trim() !== '') {
+          fetchTournaments({ variables: { searchTerm: value, language, limit: 6 } }).then(({ data }) => {
+            const tournaments = data?.search.tournaments || [];
+            const options = tournaments.map((tournament: { en: string; no: string }) =>
+              language === 'en' ? tournament.en : tournament.no
+            );
+            setDropDownOptions(options);
+          });
+        }
+      }, 250),
+    [fetchTournaments, language],
+  );
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -71,10 +83,12 @@ function TournamentFilter() {
 
   // Update dropdown options when the query changes
   useEffect(() => {
-    if (query === '') {
+    if (query.trim() !== '') {
+      debouncedRefetch(query);
+    } else {
       setDropDownOptions(options.map((option) => option.value));
     }
-  }, [data, query]);
+  }, [query, debouncedRefetch]);
 
   // Render selected tournaments as pills
   const pills = selectedTournaments.map((tournament) => (
