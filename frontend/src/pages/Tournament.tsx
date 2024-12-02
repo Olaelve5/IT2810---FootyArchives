@@ -1,9 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import SideBar from '../components/SideBar/SideBar';
-import Navbar from '../components/Navbar/Navbar';
 import MatchcardCarousel from '../components/Carousel/Carousel';
 import classes from '../styles/Tournament/Tournament.module.css';
-import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
 import { GET_TOURNAMENTS } from '../graphql/tournamentOperations';
 import { useQuery } from '@apollo/client';
@@ -12,11 +9,11 @@ import { Button, Loader, useMantineTheme } from '@mantine/core';
 import { tournamentData } from '../utils/tournamentUtils';
 import { IconTrophyFilled } from '@tabler/icons-react';
 import DescriptionButton from '../components/Tournament/DescriptionButton';
+import Layout from '../components/Layout';
 
 export default function Tournament() {
   const { tournamentName } = useParams<{ tournamentName: string }>();
   const navigate = useNavigate();
-  const { isCollapsed } = useSidebarCollapseStore();
   const [page, setPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [tournaments, setTournaments] = useState<TournamentType[]>([]);
@@ -85,27 +82,21 @@ export default function Tournament() {
   }
 
   return (
-    <div className="layoutContainer">
-      <SideBar />
-      <div id="rightContainer" className={isCollapsed ? 'rightContainerCollapsed' : 'rightContainerExpanded'}>
-        <div className="rightInnerContainer">
-          <Navbar />
-          <div className={classes.titleContainer}>
-            <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
-            <h1>{tournamentName}</h1>
-          </div>
-          <DescriptionButton
-            startYear={yearRange[0]}
-            endYear={yearRange[1]}
-            tournamentName={tournamentName || 'Unknown tournament'}
-          />
-          {loading && <Loader size={25} color={theme.colors.primary[5]} />}
-          <div className={classes.carouselSection}>{carousels}</div>
-          <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
-            Load More
-          </Button>
-        </div>
+    <Layout>
+      <div className={classes.titleContainer}>
+        <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
+        <h1>{tournamentName}</h1>
       </div>
-    </div>
+      <DescriptionButton
+        startYear={yearRange[0]}
+        endYear={yearRange[1]}
+        tournamentName={tournamentName || 'Unknown tournament'}
+      />
+      {loading && <Loader size={25} color={theme.colors.primary[5]} />}
+      <div className={classes.carouselSection}>{carousels}</div>
+      <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
+        Load More
+      </Button>
+    </Layout>
   );
 }
