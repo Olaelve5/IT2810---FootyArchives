@@ -6,6 +6,11 @@
   padding-bottom: 4rem;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 .control {
   &[data-inactive] {
@@ -60,4 +65,9 @@
   margin: 0;
   padding: 0;
   margin-bottom: 1rem;
+}
+
+.seeMoreButton:hover {
+  background-color: var(--mantine-color-darkmode-3);
+  border-color: var(--mantine-color-darkmode-8);
 }

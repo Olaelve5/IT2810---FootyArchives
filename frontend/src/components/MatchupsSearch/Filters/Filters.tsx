@@ -10,6 +10,7 @@ import { useMantineColorScheme, Indicator } from '@mantine/core';
 import { QueryFilterType } from '../../../types/QueryFilterType';
 import { useLanguageStore } from '../../../stores/language-store';
 import { useState } from 'react';
+import { calculateFilterCount } from '../../../utils/filterUtils';
 
 interface FiltersProps {
   setFilters: (filters: QueryFilterType) => void;
@@ -52,16 +53,12 @@ export default function Filters({ setFilters }: FiltersProps) {
 
     setPage(1);
     setOpened(false);
-    calculateFilterCount();
-  };
-
-  // Function to calculate the filter count
-  const calculateFilterCount = () => {
-    let count = 0;
-    if (selectedTeams.length > 0) count++;
-    if (selectedTournaments.length > 0) count++;
-    if (yearRange.startYear !== 1872 || yearRange.endYear !== 2024) count++;
-    if (exclusive) count++;
+    const count = calculateFilterCount({
+      teams: selectedTeams,
+      tournaments: selectedTournaments,
+      yearRange: { startYear: yearRange.startYear, endYear: yearRange.endYear },
+      exclusive: exclusive,
+    } as QueryFilterType);
     setFilterCount(count);
   };
 

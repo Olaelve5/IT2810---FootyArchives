@@ -60,6 +60,7 @@ function Home() {
           data={recentMatchupsProps}
           loading={recentMatchupsLoading}
           error={recentMatchupsError}
+          sort={recentResultsSort}
         />
       </div>
       <div style={{ border: 'none' }}>
