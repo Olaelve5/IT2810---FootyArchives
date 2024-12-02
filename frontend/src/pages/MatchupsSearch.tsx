@@ -59,9 +59,9 @@ export default function Matchups() {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    console.log(error);
-  }, [error, navigate]);
+  if (error) {
+    navigate('/project2/not-found');
+  }
 
   return (
     <div className="layoutContainer">

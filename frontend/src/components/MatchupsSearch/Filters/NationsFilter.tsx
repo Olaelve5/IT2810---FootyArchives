@@ -34,7 +34,6 @@ export default function NationsFilter() {
   const [teamName, setTeamName] = useState('');
   const combobox = useCombobox();
 
-  // const [refetch, { data, loading }] = useLazyQuery(SEARCH);
   // Fetch teams based on the search term
   const [refetch, { data, loading }] = useLazyQuery(SEARCH_NATIONS);
 
