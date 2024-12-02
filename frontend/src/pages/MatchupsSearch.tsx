@@ -4,7 +4,6 @@ import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
 import PaginationComponent from '../components/MatchupsSearch/Pagination';
 import { useNavigate } from 'react-router-dom';
-import { QuerySortType } from '../types/QuerySortType';
 import { QueryFilterType } from '../types/QueryFilterType';
 import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
 import Filters from '../components/MatchupsSearch/Filters/Filters';
@@ -14,9 +13,7 @@ import Layout from '../components/Layout';
 
 export default function Matchups() {
   const { language } = useLanguageStore();
-  const [page, setPage] = useState(1);
-  const { selectedTeams, yearRange, selectedTournaments, exclusive } = useFilterStore();
-  const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
+  const { selectedTeams, yearRange, selectedTournaments, exclusive, page, sort} = useFilterStore();
   const [filters, setFilters] = useState<QueryFilterType>({
     teams: selectedTeams,
     tournaments: selectedTournaments,
@@ -66,11 +63,11 @@ export default function Matchups() {
         <div className={classes.titleDescriptionContainer}>
           <h2>{language === 'en' ? 'Matchups' : 'Kamper'}</h2>
         </div>
-        <Filters setFilters={setFilters} setPage={setPage} />
+        <Filters setFilters={setFilters} />
       </div>
       <div>
-        <MatchupsGrid totalResults={totalResults} results={results} sort={sort} setSort={setSort} loading={loading} />
-        <PaginationComponent totalPages={totalPages} page={page} setPage={setPage} />
+        <MatchupsGrid totalResults={totalResults} results={results} loading={loading} />
+        <PaginationComponent totalPages={totalPages}/>
       </div>
     </Layout>
   );

@@ -44,8 +44,9 @@
 .dropdown {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
   background-color: var(--mantine-color-darkmode-2);
+  padding: 0;
+  overflow: hidden;
 }
 
 #dropdownLight {

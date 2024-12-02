@@ -10,16 +10,19 @@ interface DescriptionButtonProps {
   tournamentName: string;
 }
 
+// Button that navigates to the matchups page with the selected tournament
 function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionButtonProps) {
-  const { resetFilters, setSelectedTournaments, setFilterCount, setLastQueriedFilters } = useFilterStore();
+  const { resetFilters, setSelectedTournaments, setFilterCount, setLastQueriedFilters, setPage } = useFilterStore();
   const navigate = useNavigate();
   const { language } = useLanguageStore();
 
+  // Handle button click by resetting filters and setting the selected tournament
   const handleClick = async () => {
     resetFilters();
     setSelectedTournaments([tournamentName]);
     setFilterCount(1);
     setLastQueriedFilters({ tournaments: [tournamentName] });
+    setPage(1);
     navigate('/project2/matchups');
   };
 

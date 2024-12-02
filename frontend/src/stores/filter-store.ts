@@ -1,4 +1,5 @@
 import { QueryFilterType } from '../types/QueryFilterType';
+import { QuerySortType } from '../types/QuerySortType';
 import { YearRange } from './../../../backend/src/types/FiltersType';
 import { create } from 'zustand';
 
@@ -7,6 +8,7 @@ interface Team {
   no: string;
 }
 
+// Interface for the filter store
 export interface FilterState {
   selectedTeams: Team[];
   setSelectedTeams: (selectedTeams: Team[]) => void;
@@ -25,6 +27,12 @@ export interface FilterState {
 
   lastQueriedFilters: QueryFilterType | null;
   setLastQueriedFilters: (filters: QueryFilterType) => void;
+
+  page: number;
+  setPage: (page: number) => void;
+
+  sort: QuerySortType;
+  setSort: (sort: QuerySortType) => void;
 
   // Function to reset all filters
   resetFilters: () => void;
@@ -49,6 +57,12 @@ export const useFilterStore = create<FilterState>((set) => ({
 
   lastQueriedFilters: null,
   setLastQueriedFilters: (filters: QueryFilterType) => set({ lastQueriedFilters: filters }),
+
+  page: 1,
+  setPage: (page: number) => set({ page }),
+
+  sort: { field: 'date', order: -1 },
+  setSort: (sort: QuerySortType) => set({ sort }),
 
   resetFilters: () =>
     set({

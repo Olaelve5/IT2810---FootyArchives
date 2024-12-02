@@ -5,16 +5,14 @@ import classes from '../../styles/MatchupsSearch/MatchupsGrid.module.css';
 import { useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { QuerySortType } from '../../types/QuerySortType';
 import { useLanguageStore } from '../../stores/language-store';
+import { useFilterStore } from '../../stores/filter-store';
 
 const sortOptions = [{en: 'Date', no: 'Dato'}, {en: 'Goal Difference', no: 'Målforskjell'}];
 
-interface SortButtonProps {
-  sort: QuerySortType;
-  setSort: (sort: QuerySortType) => void;
-}
 
-export default function SortButton({ sort, setSort }: SortButtonProps) {
-  const { order, field } = sort;
+export default function SortButton() {
+  const { setSort, sort } = useFilterStore();
+  const { field, order } = sort;
   const { language } = useLanguageStore();
   const [opened, setOpened] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>(language === 'en' ? sortOptions[0].en : sortOptions[0].no);
