@@ -1,7 +1,4 @@
-import Navbar from '../components/Navbar/Navbar';
-import SideBar from '../components/SideBar/SideBar';
 import MatchupsGrid from '../components/MatchupsSearch/MatchupsGrid';
-import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { useEffect, useState } from 'react';
 import { GET_RESULTS } from '../graphql/resultOperations';
 import { useQuery } from '@apollo/client';
@@ -13,9 +10,9 @@ import classes from '../styles/MatchupsSearch/MatchupsSearch.module.css';
 import Filters from '../components/MatchupsSearch/Filters/Filters';
 import { useFilterStore } from '../stores/filter-store';
 import { useLanguageStore } from '../stores/language-store';
+import Layout from '../components/Layout';
 
 export default function Matchups() {
-  const { isCollapsed } = useSidebarCollapseStore();
   const { language } = useLanguageStore();
   const [page, setPage] = useState(1);
   const { selectedTeams, yearRange, selectedTournaments, exclusive } = useFilterStore();
@@ -64,29 +61,17 @@ export default function Matchups() {
   }
 
   return (
-    <div className="layoutContainer">
-      <SideBar />
-      <div id="rightContainer" className={isCollapsed ? 'rightContainerCollapsed' : 'rightContainerExpanded'}>
-        <div className="rightInnerContainer">
-          <Navbar />
-          <div className={classes.topContainer}>
-            <div className={classes.titleDescriptionContainer}>
-              <h2>{language === 'en' ? 'Matchups' : 'Kamper'}</h2>
-            </div>
-            <Filters setFilters={setFilters} setPage={setPage} />
-          </div>
-          <div>
-            <MatchupsGrid
-              totalResults={totalResults}
-              results={results}
-              sort={sort}
-              setSort={setSort}
-              loading={loading}
-            />
-            <PaginationComponent totalPages={totalPages} page={page} setPage={setPage} />
-          </div>
+    <Layout>
+      <div className={classes.topContainer}>
+        <div className={classes.titleDescriptionContainer}>
+          <h2>{language === 'en' ? 'Matchups' : 'Kamper'}</h2>
         </div>
+        <Filters setFilters={setFilters} setPage={setPage} />
       </div>
-    </div>
+      <div>
+        <MatchupsGrid totalResults={totalResults} results={results} sort={sort} setSort={setSort} loading={loading} />
+        <PaginationComponent totalPages={totalPages} page={page} setPage={setPage} />
+      </div>
+    </Layout>
   );
 }

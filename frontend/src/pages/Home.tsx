@@ -1,11 +1,8 @@
 import '../styles/App.css';
 import '@mantine/core/styles.css';
-import Navbar from '../components/Navbar/Navbar';
-import SideBar from '../components/SideBar/SideBar';
 import MatchCardCarousel from '../components/Carousel/Carousel';
 import Logo from '../components/Home/BigLogo';
 import DiscoverButton from '../components/Home/DiscoverButton';
-import { useSidebarCollapseStore } from '../stores/sidebar-collapse-store';
 import { GET_RESULTS } from '../graphql/resultOperations';
 import { GET_NATION_STATS } from '../graphql/nationStatsOperations';
 import { useQuery } from '@apollo/client';
@@ -13,9 +10,9 @@ import { useEffect, useState } from 'react';
 import { NationType } from '../types/NationType';
 import { ResultType } from '../types/ResultType';
 import { nationStatsSort, recentResultsSort, biggestWinsSort } from '../utils/sortOptions';
+import Layout from '../components/Layout';
 
 function Home() {
-  const { isCollapsed } = useSidebarCollapseStore();
   const limit = 12;
   const [nationStatsProps, setNationStatsProps] = useState<NationType[]>([]);
   const [recentMatchupsProps, setRecentMatchupsProps] = useState<ResultType[]>([]);
@@ -42,46 +39,40 @@ function Home() {
   }, []);
 
   return (
-    <div className="layoutContainer">
-      <SideBar />
-      <div id="rightContainer" className={isCollapsed ? 'rightContainerCollapsed' : 'rightContainerExpanded'}>
-        <div className="rightInnerContainer">
-          <Navbar />
-          <Logo />
-          <DiscoverButton />
-          <div>
-            <MatchCardCarousel
-              titleEn={'Top teams'}
-              titleNo={'Beste lag'}
-              cardType={'team'}
-              data={nationStatsProps}
-              loading={nationStatsLoading}
-              error={nationStatsError}
-            />
-          </div>
-          <div>
-            <MatchCardCarousel
-              titleEn={'Recent matchups'}
-              titleNo={'Siste kamper'}
-              cardType={'match'}
-              data={recentMatchupsProps}
-              loading={recentMatchupsLoading}
-              error={recentMatchupsError}
-            />
-          </div>
-          <div style={{ border: 'none' }}>
-            <MatchCardCarousel
-              titleEn={'Biggest wins'}
-              titleNo={'Største seire'}
-              cardType={'match'}
-              data={biggestWinsProps}
-              loading={biggestWinsLoading}
-              error={biggestWinsError}
-            />
-          </div>
-        </div>
+    <Layout>
+      <Logo />
+      <DiscoverButton />
+      <div>
+        <MatchCardCarousel
+          titleEn={'Top teams'}
+          titleNo={'Beste lag'}
+          cardType={'team'}
+          data={nationStatsProps}
+          loading={nationStatsLoading}
+          error={nationStatsError}
+        />
       </div>
-    </div>
+      <div>
+        <MatchCardCarousel
+          titleEn={'Recent matchups'}
+          titleNo={'Siste kamper'}
+          cardType={'match'}
+          data={recentMatchupsProps}
+          loading={recentMatchupsLoading}
+          error={recentMatchupsError}
+        />
+      </div>
+      <div style={{ border: 'none' }}>
+        <MatchCardCarousel
+          titleEn={'Biggest wins'}
+          titleNo={'Største seire'}
+          cardType={'match'}
+          data={biggestWinsProps}
+          loading={biggestWinsLoading}
+          error={biggestWinsError}
+        />
+      </div>
+    </Layout>
   );
 }
 
