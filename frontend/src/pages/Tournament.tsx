@@ -10,6 +10,7 @@ import { tournamentData } from '../utils/tournamentUtils';
 import { IconTrophyFilled } from '@tabler/icons-react';
 import DescriptionButton from '../components/Tournament/DescriptionButton';
 import Layout from '../components/Layout';
+import { recentResultsSort } from '../utils/sortOptions';
 
 export default function Tournament() {
   const { tournamentName } = useParams<{ tournamentName: string }>();
@@ -71,6 +72,11 @@ export default function Tournament() {
           titleNo={tournament.year.toString()}
           loading={loading}
           error={error}
+          sort={recentResultsSort}
+          filters={{
+            yearRange: { startYear: tournament.year, endYear: tournament.year },
+            tournaments: [tournamentName ? tournamentName : ''],
+          }}
         />
       </div>
     );

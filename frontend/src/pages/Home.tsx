@@ -60,6 +60,7 @@ function Home() {
           data={recentMatchupsProps}
           loading={recentMatchupsLoading}
           error={recentMatchupsError}
+          sort={recentResultsSort}
         />
       </div>
       <div style={{ border: 'none' }}>
@@ -70,6 +71,7 @@ function Home() {
           data={biggestWinsProps}
           loading={biggestWinsLoading}
           error={biggestWinsError}
+          sort={biggestWinsSort}
         />
       </div>
     </Layout>

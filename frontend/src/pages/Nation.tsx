@@ -109,6 +109,8 @@ function Nation() {
               titleNo="Siste kamper"
               cardType="match"
               data={recentData.results.results}
+              sort={recentResultsSort}
+              filters={{ teams: [{ en: nation._id, no: nation.name_no }] }}
             />
           </div>
           <div className={classes.carouselSection}>
@@ -117,6 +119,8 @@ function Nation() {
               titleNo="Største seire"
               cardType="match"
               data={biggestWinsData.results.results}
+              sort={biggestWinsSort}
+              filters={{ teams: [{ en: nation._id, no: nation.name_no }] }}
             />
           </div>
           <div className={classes.carouselSection} style={{ border: 'none' }}>
@@ -125,6 +129,8 @@ function Nation() {
               titleNo="Verste tap"
               cardType="match"
               data={worstDefeatsData.results.results}
+              sort={biggestWinsSort}
+              filters={{ teams: [{ en: nation._id, no: nation.name_no }] }}
             />
           </div>
         </div>
