@@ -13,10 +13,9 @@ import { useState } from 'react';
 
 interface FiltersProps {
   setFilters: (filters: QueryFilterType) => void;
-  setPage: (page: number) => void;
 }
 
-export default function Filters({ setFilters, setPage }: FiltersProps) {
+export default function Filters({ setFilters }: FiltersProps) {
   const {
     selectedTeams,
     yearRange,
@@ -26,6 +25,7 @@ export default function Filters({ setFilters, setPage }: FiltersProps) {
     setFilterCount,
     setLastQueriedFilters,
     resetFilters,
+    setPage,
   } = useFilterStore();
 
   const { colorScheme } = useMantineColorScheme();

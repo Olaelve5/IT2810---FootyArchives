@@ -2,16 +2,16 @@ import { Pagination } from '@mantine/core';
 import classes from '../../styles/MatchupsSearch/Pagination.module.css';
 import { useMantineColorScheme } from '@mantine/core';
 import {IconArrowRight, IconArrowLeft} from '@tabler/icons-react';
+import { useFilterStore } from '../../stores/filter-store';
 
 interface PaginationProps {
   totalPages: number;
-  page: number;
-  setPage: (page: number) => void;
 }
 
-function PaginationComponent({ totalPages, page, setPage }: PaginationProps) {
+function PaginationComponent({ totalPages }: PaginationProps) {
     const { colorScheme } = useMantineColorScheme();
     const isDark = colorScheme === 'dark';
+    const { page, setPage } = useFilterStore();
 
   return (
     <div className={classes.container}>

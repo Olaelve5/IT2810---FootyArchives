@@ -14,8 +14,7 @@ import Layout from '../components/Layout';
 
 export default function Matchups() {
   const { language } = useLanguageStore();
-  const [page, setPage] = useState(1);
-  const { selectedTeams, yearRange, selectedTournaments, exclusive } = useFilterStore();
+  const { selectedTeams, yearRange, selectedTournaments, exclusive, page } = useFilterStore();
   const [sort, setSort] = useState<QuerySortType>({ field: 'date', order: -1 });
   const [filters, setFilters] = useState<QueryFilterType>({
     teams: selectedTeams,
@@ -66,11 +65,11 @@ export default function Matchups() {
         <div className={classes.titleDescriptionContainer}>
           <h2>{language === 'en' ? 'Matchups' : 'Kamper'}</h2>
         </div>
-        <Filters setFilters={setFilters} setPage={setPage} />
+        <Filters setFilters={setFilters} />
       </div>
       <div>
         <MatchupsGrid totalResults={totalResults} results={results} sort={sort} setSort={setSort} loading={loading} />
-        <PaginationComponent totalPages={totalPages} page={page} setPage={setPage} />
+        <PaginationComponent totalPages={totalPages}/>
       </div>
     </Layout>
   );
