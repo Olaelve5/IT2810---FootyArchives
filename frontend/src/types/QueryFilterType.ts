@@ -1,11 +1,8 @@
+import TeamType from "./TeamType";
+
 type YearRangeType = {
     startYear: number;
     endYear: number;
-}
-
-type TeamType = {
-    en: string;
-    no: string;
 }
 
 

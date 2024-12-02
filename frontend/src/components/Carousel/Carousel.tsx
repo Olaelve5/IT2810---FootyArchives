@@ -70,7 +70,6 @@ function MatchcardCarousel({
 
     // Calculate the filter count
     const count = calculateFilterCount(filters ? filters : {});
-    console.log(count, filters);
     setFilterCount(count);
 
     setLastQueriedFilters(filters ? filters : {});

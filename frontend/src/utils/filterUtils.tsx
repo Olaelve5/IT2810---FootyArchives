@@ -5,7 +5,6 @@ import { QueryFilterType } from "../types/QueryFilterType";
 
 // Function to calculate the filter count
 export const calculateFilterCount = (filters: QueryFilterType) => {
-    console.log(filters);
     if (filters === undefined || isEmpty(filters)) return 0;
 
     let count = 0;
