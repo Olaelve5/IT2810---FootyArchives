@@ -18,7 +18,7 @@ import debounce from 'lodash/debounce';
 import { useFilterStore } from '../../../stores/filter-store';
 import { IconX } from '@tabler/icons-react';
 import { SEARCH_NATIONS } from '../../../graphql/searchOperations';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 
 interface searchOption {
   en: string;
@@ -34,18 +34,19 @@ export default function NationsFilter() {
   const [teamName, setTeamName] = useState('');
   const combobox = useCombobox();
 
+  // const [refetch, { data, loading }] = useLazyQuery(SEARCH);
   // Fetch teams based on the search term
-  const { data, loading, refetch } = useQuery(SEARCH_NATIONS, {
-    variables: { searchTerm: teamName, language, limit: 8 },
-  });
+  const [refetch, { data, loading }] = useLazyQuery(SEARCH_NATIONS);
 
   const filteredTeams = data?.search.nations || [];
 
   const debouncedRefetch = useMemo(
     () =>
       debounce((value: string) => {
-        refetch({ searchTerm: value, language, limit: 8 });
-      }, 300),
+        if (value.trim() !== '') {
+          refetch({ variables: { searchTerm: value, language, limit: 8 } });
+        }
+      }, 250),
     [refetch, language],
   );
 
@@ -88,11 +89,11 @@ export default function NationsFilter() {
 
   // Handle selection of an option from the dropdown
   const handleOptionSubmit = (value: string) => {
-      const team = filteredTeams.find((team: searchOption) => team.en === value);
-      if (team && !selectedTeams.includes(team)) {
-        setSelectedTeams([...selectedTeams, team]);
-      }
-    };
+    const team = filteredTeams.find((team: searchOption) => team.en === value);
+    if (team && !selectedTeams.includes(team)) {
+      setSelectedTeams([...selectedTeams, team]);
+    }
+  };
 
   // Handle removal of a selected option
   const handleTeamRemove = (team: searchOption) => {
