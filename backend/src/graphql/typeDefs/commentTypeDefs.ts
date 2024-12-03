@@ -7,6 +7,7 @@ const commentTypeDefs = gql`
     date: String!
     comment: String!
     result_id: ID!
+    user_id: ID!
   }
   type CommentResponse {
     comments: [Comment]
@@ -18,7 +19,7 @@ const commentTypeDefs = gql`
   }
 
   type Mutation {
-    addComment(result_id: ID!, comment: String!, user_name: String!): Comment!
+    addComment(result_id: ID!, comment: String!, username: String!, user_id: String!): Comment!
   }
 `;
 

@@ -1,6 +1,7 @@
 import { get } from "http";
 import Comment from "../../models/Comment";
 import Result from "../../models/Result";
+import User from "../../models/User";
 
 interface QueryArgs {
   result_id: string;
@@ -11,7 +12,8 @@ interface QueryArgs {
 interface MutationArgs {
   result_id: string;
   comment: string;
-  user_name: string;
+  user_id: string;
+  username: string;
 }
 
 // Resolvers for the GraphQL queries and mutations related to comments
@@ -28,7 +30,9 @@ const commentResolvers = {
       const comments = await Comment.find({ result_id })
         .sort({ date: -1 })
         .skip(skip)
-        .limit(limit);
+        .limit(limit)
+        .populate("user_id", "username");
+
       return {
         comments,
         totalCount: count,
@@ -41,23 +45,29 @@ const commentResolvers = {
     // Add a new comment to a result
     addComment: async (
       _: any,
-      { result_id, comment, user_name }: MutationArgs
+      { result_id, comment, user_id, username }: MutationArgs
     ) => {
+      // Ensure the user exists in the `users` collection
+      let user = await User.findById(user_id);
+
+      if (!user) {
+        // If the user doesn't exist, create a new one
+        user = await User.create({
+          _id: user_id, // Use the provided user_id
+          username, // Save the username for this user
+        });
+      }
+
+      // Create a new comment
       const newComment = new Comment({
         date: new Date(),
-        user_name: user_name,
+        user_id: user._id,
         comment,
         result_id,
       });
 
-      // Save the new comment to get its _id
+      // Save the new comment
       const savedComment = await newComment.save();
-
-      // Update the Result document to include the new comment's _id
-      await Result.updateOne(
-        { _id: result_id },
-        { $push: { comments: savedComment._id } }
-      );
 
       return savedComment;
     },
