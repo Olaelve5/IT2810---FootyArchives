@@ -33,23 +33,44 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   const [commentText, setCommentText] = useState('');
   const [username, setUsername] = useState(getUsernameFromLocalStorage());
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
     awaitRefetchQueries: true,
     onCompleted: (data) => {
       console.log(data);
-    }
+    },
   });
 
   const getColor = () => {
     return isDark ? theme.colors.darkmode[2] : 'white';
   };
 
+  const validateComment = () => {
+    if (!commentText) {
+      return language === 'en' ? 'Comment is required' : 'Kommentar er påkrevd';
+    }
+    const wordCount = commentText.trim().split(/\s+/).length;
+    if (wordCount > 100) {
+      return language === 'en' ? 'Comment cannot exceed 100 words' : 'Kommentaren kan ikke overstige 100 ord';
+    }
+    const charCount = commentText.length;
+    if (charCount > 600) {
+      return language === 'en' ? 'Comment cannot exceed 500 characters' : 'Kommentaren kan ikke overstige 500 tegn';
+    }
+    return '';
+  };
+
   const handleClick = async () => {
     setButtonPressed(true);
+    const validationError = validateComment();
+    if (validationError) {
+      setErrorMessage(validationError);
+      return;
+    }
     if (username && commentText) {
       try {
-        const {data} = await postComment({
+        const { data } = await postComment({
           variables: {
             resultId: resultId,
             comment: commentText,
@@ -70,6 +91,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
         // Reset the input fields and close the modal
         setCommentText('');
         setUsername('');
+        setErrorMessage('');
         handleClose();
       } catch (error) {
         console.error(error);
@@ -93,7 +115,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
       <TextInput
         label={language === 'en' ? 'Username' : 'Brukernavn'}
         required
-        aria-label='Enter your username'
+        aria-label="Enter your username"
         error={
           buttonPressed && !username ? (language === 'en' ? 'Username is required' : 'Brukernavn er påkrevd') : null
         }
@@ -115,13 +137,12 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
         label={language === 'en' ? 'Comment' : 'Kommentar'}
         required
         value={commentText}
-        aria-label='Write a comment'
-        error={
-          buttonPressed && !commentText ? (language === 'en' ? 'Comment is required' : 'Kommentar er påkrevd') : null
-        }
+        aria-label="Write a comment"
+        error={buttonPressed ? errorMessage : null}
         onChange={(event) => {
           setCommentText(event.currentTarget.value);
           setButtonPressed(false);
+          setErrorMessage('');
         }}
         styles={{
           input: {
