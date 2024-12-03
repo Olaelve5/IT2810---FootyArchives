@@ -69,7 +69,10 @@ const commentResolvers = {
       // Save the new comment
       const savedComment = await newComment.save();
 
-      return savedComment;
+      return {
+        ...savedComment.toObject(),
+        username: user.username,
+      };
     },
   },
 };

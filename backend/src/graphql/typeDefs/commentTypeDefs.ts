@@ -3,7 +3,7 @@ import { gql } from 'graphql-tag';
 // Define the GraphQL schema - the types and queries that can be made
 const commentTypeDefs = gql`
   type Comment {
-    user_name: String!
+    username: String!
     date: String!
     comment: String!
     result_id: ID!
