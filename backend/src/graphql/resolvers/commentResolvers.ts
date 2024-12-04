@@ -81,6 +81,10 @@ const commentResolvers = {
 
         return populatedComment;
       } catch (error) {
+        if (error instanceof Error && error.message.includes("E11000") && error.message.includes("username")) {
+          throw new Error("The username is already taken");
+        }
+
         console.error("Error adding comment:", error);
         throw new Error("Failed to add comment");
       }

@@ -106,7 +106,9 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
           handleClose();
         }
       } catch (error) {
-        console.error('Error posting comment:', error);
+        if (!(error as Error).message.includes('The username is already taken')) {
+          console.error('Error posting comment:', error);
+        }
       }
     }
   };
@@ -123,14 +125,13 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
         <h3 className={classes.title}>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</h3>
       </div>
 
-      {error && <p>{language === 'en' ? 'Something went wrong' : 'Noe gikk galt'}</p>}
-
       <UsernameInput
         username={username}
         setUsername={setUsername}
         buttonPressed={buttonPressed}
         setButtonPressed={setButtonPressed}
         setUserIdState={setUserIdState}
+        parentError={error}
       />
       <Textarea
         label={language === 'en' ? 'Comment' : 'Kommentar'}
@@ -150,10 +151,10 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
         }}
       />
       <div className={classes.buttonContainer}>
-        <Button radius='xl' color="red" onClick={handleClose} className={classes.button}>
+        <Button radius="xl" color="red" onClick={handleClose} className={classes.button}>
           <p>{language === 'en' ? 'Cancel' : 'Avbryt'}</p>
         </Button>
-        <Button radius='xl' color="primary" onClick={handleClick} className={classes.button} loading={loading}>
+        <Button radius="xl" color="primary" onClick={handleClick} className={classes.button} loading={loading}>
           <p>{language === 'en' ? 'Post comment' : 'Post kommentar'}</p>
         </Button>
       </div>
