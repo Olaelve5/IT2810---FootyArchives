@@ -22,19 +22,11 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
-
-  const getUsernameFromLocalStorage = () => {
-    return localStorage.getItem('username') || '';
-  };
-
-  const storeUsernameInLocalStorage = (username: string) => {
-    localStorage.setItem('username', username);
-  };
-
   const [commentText, setCommentText] = useState('');
-  const [username, setUsername] = useState(getUsernameFromLocalStorage());
+  const [username, setUsername] = useState('');
   const [buttonPressed, setButtonPressed] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
     awaitRefetchQueries: true,
@@ -59,6 +51,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
     return '';
   };
 
+  // Post comment to backend and update state if successful
   const handleClick = async () => {
     setButtonPressed(true);
   
@@ -104,9 +97,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
           if (!userId && newComment.user.id) {
             setUserId(newComment.user.id);
           }
-  
-          // Store the username in localStorage
-          storeUsernameInLocalStorage(username);
+
   
           // Reset input fields and close modal
           setCommentText('');
