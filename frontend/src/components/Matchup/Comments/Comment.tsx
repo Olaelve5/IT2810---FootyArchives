@@ -1,10 +1,12 @@
 import { CommentType } from '../../../types/CommentType';
 import classes from '../../../styles/Matchup/Comment.module.css';
-import { Group, Text, useMantineTheme } from '@mantine/core';
+import { Button, Group, Text, useMantineTheme } from '@mantine/core';
 import { useMantineColorScheme } from '@mantine/core';
 import { calculateTimeDifference } from '../../../utils/dateUtils';
 import { useState } from 'react';
 import { useLanguageStore } from '../../../stores/language-store';
+import { IconEdit } from '@tabler/icons-react';
+import { getUserId } from '../../../utils/localStorageUtils';
 
 export default function Comment({ comment }: { comment: CommentType }) {
   const theme = useMantineTheme();
@@ -12,11 +14,6 @@ export default function Comment({ comment }: { comment: CommentType }) {
   const isDark = colorScheme === 'dark';
   const [showFullComment, setShowFullComment] = useState(false);
   const { language } = useLanguageStore();
-
-  if (!comment) {
-    console.error('Comment is undefined');
-    return null;
-  }
 
   const MAX_WORDS = 100;
   const getShortComment = (text: string) => {
@@ -37,13 +34,33 @@ export default function Comment({ comment }: { comment: CommentType }) {
     setShowFullComment(false);
   };
 
+  const canEdit = getUserId() === comment.user.id;
+
   return (
     <div className={classes.container}>
-      <Group className={classes.nameTimeContainer}>
-        <Text size="md">@{comment.user.username}</Text>
-        <Text size="xs" color={isDark ? theme.colors.darkmode[8] : 'black'}>
-          {calculateTimeDifference(comment.date)}
-        </Text>
+      <Group className={classes.headerContainer}>
+        <div className={classes.nameTimeContainer}>
+          <Text size="md">@{comment.user.username}</Text>
+          <Text size="xs" c={isDark ? theme.colors.darkmode[8] : 'black'}>
+            {calculateTimeDifference(comment.date)}
+          </Text>
+        </div>
+        {canEdit && (
+          <Button
+            variant="link"
+            className={classes.editButton}
+            onClick={() => console.log('Edit comment')}
+            size='xs'
+            leftSection={
+              <IconEdit
+                size={20}
+                className={`${classes.editIcon} ${isDark ? classes.editIconDark : classes.editIconLight}`}
+              />
+            }
+          >
+            {language == 'no' ? 'Rediger' : 'Edit'}
+          </Button>
+        )}
       </Group>
       <Text size="md">{showFullComment ? comment.comment : getShortComment(comment.comment)}</Text>
       {comment.comment.split(' ').length > MAX_WORDS && (

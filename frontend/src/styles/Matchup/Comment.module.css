@@ -6,10 +6,27 @@
   gap: 0.2rem;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nameTimeContainer {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.editButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background-color: var(--mantine-color-darkmode-2);
 }
 
 .showMore {

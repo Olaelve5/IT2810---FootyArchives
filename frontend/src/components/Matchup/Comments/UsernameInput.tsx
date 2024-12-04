@@ -86,6 +86,7 @@ function UsernameInput({
     }
   }, [parentError, buttonPressed, username, language]);
 
+  // Set error message based on the error
   useEffect(() => {
     if (error) {
       setErrorMessage(
