@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useLanguageStore } from '../../../stores/language-store';
 import { IconEdit } from '@tabler/icons-react';
 import { getUserId } from '../../../utils/localStorageUtils';
+import DelCommentBtn from './DelCommentBtn';
 
 interface CommentProps {
   comment: CommentType;
@@ -54,25 +55,26 @@ export default function Comment({ comment, open, setIsEditMode, setCommentText, 
           </Text>
         </div>
         {canEdit && (
-          <Button
-            className={classes.editButton}
-            onClick={() => {
-              setActiveCommentId(comment.id ?? '');
-              setCommentText(comment.comment);
-              setIsEditMode(true);
-              open();
-            }}
-            size="xs"
-            radius="xl"
-            leftSection={
+          <div className={classes.buttonContainer}>
+            <Button
+              className={classes.editButton}
+              onClick={() => {
+                setActiveCommentId(comment.id ?? '');
+                setCommentText(comment.comment);
+                setIsEditMode(true);
+                open();
+              }}
+              size="xs"
+              radius="xl"
+            >
               <IconEdit
                 size={20}
+                color='white'
                 className={`${classes.editIcon} ${isDark ? classes.editIconDark : classes.editIconLight}`}
               />
-            }
-          >
-            {language == 'no' ? 'Rediger' : 'Edit'}
-          </Button>
+            </Button>
+            <DelCommentBtn />
+          </div>
         )}
       </Group>
       <Text size="md">{showFullComment ? comment.comment : getShortComment(comment.comment)}</Text>

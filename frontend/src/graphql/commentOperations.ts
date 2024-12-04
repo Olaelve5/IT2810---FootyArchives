@@ -48,3 +48,11 @@ export const EDIT_COMMENT = gql`
   }
 `;
 
+// deleteComment(comment_id: ID!): Boolean!
+
+// Delete comment
+export const DELETE_COMMENT = gql`
+  mutation Mutation($commentId: ID!) {
+    deleteComment(comment_id: $commentId)
+  }
+`;
