@@ -3,8 +3,7 @@ import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import classes from '../../../styles/Matchup/CommentModal.module.css';
 import { useLanguageStore } from '../../../stores/language-store';
-import { POST_COMMENT } from '../../../graphql/commentOperations';
-import { GET_COMMENTS } from '../../../graphql/commentOperations';
+import { POST_COMMENT, GET_COMMENTS, EDIT_COMMENT } from '../../../graphql/commentOperations';
 import { useMutation } from '@apollo/client';
 import { CommentType } from '../../../types/CommentType';
 import UsernameInput from './UsernameInput';
@@ -20,6 +19,7 @@ interface CommentModalProps {
   setTotalCount: React.Dispatch<React.SetStateAction<number>>;
   isEditMode?: boolean;
   commentText: string;
+  commentId?: string;
   setCommentText: (commentText: string) => void;
 }
 
@@ -32,6 +32,7 @@ export default function CommentModal({
   isEditMode,
   commentText,
   setCommentText,
+  commentId,
 }: CommentModalProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -44,6 +45,11 @@ export default function CommentModal({
 
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
+    awaitRefetchQueries: true,
+  });
+
+  const [editComment] = useMutation(EDIT_COMMENT, {
+    refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after editing
     awaitRefetchQueries: true,
   });
 
@@ -70,53 +76,80 @@ export default function CommentModal({
   // Post comment to backend and update state if successful
   const handleClick = async () => {
     setButtonPressed(true);
-
+  
     const validationError = validateComment();
     if (validationError) {
       setErrorMessage(validationError);
       return; // Stop execution on validation error
     }
-
+  
     if (username && commentText) {
       try {
-        const { data } = await postComment({
-          variables: {
-            resultId: resultId,
-            comment: commentText,
-            username: username,
-            ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
-          },
-        });
-
-        if (data) {
-          const newComment = data.addComment;
-          setUserId(newComment.user.id);
-
-          // Update comments state
-          setComments((prevComments) => [
-            {
-              user: {
-                id: newComment.user.id,
-                username: newComment.user.username,
-              },
-              date: newComment.date,
-              comment: newComment.comment,
-              result_id: newComment.result_id,
+        if (isEditMode && commentId) {
+          // Edit comment
+          const { data } = await editComment({
+            variables: {
+              commentId: commentId,
+              comment: commentText,
+              username: username,
+              ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
             },
-            ...prevComments,
-          ]);
-
-          setTotalCount((prevTotalCount) => prevTotalCount + 1);
-
-          // Store user_id in localStorage if not already set
-          if (!userIdState && newComment.user.id) {
-            setUserId(newComment.user.id);
+          });
+  
+          if (data) {
+            const updatedComment = data.editComment;
+            setComments((prevComments) =>
+              prevComments.map((comment) =>
+                comment.id === updatedComment.id ? updatedComment : comment
+              )
+            );
+  
+            // Reset input fields and close modal
+            setCommentText('');
+            setErrorMessage('');
+            handleClose();
           }
-
-          // Reset input fields and close modal
-          setCommentText('');
-          setErrorMessage('');
-          handleClose();
+        } else {
+          // Post comment
+          const { data } = await postComment({
+            variables: {
+              resultId: resultId,
+              comment: commentText,
+              username: username,
+              ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
+            },
+          });
+  
+          if (data) {
+            const newComment = data.addComment;
+            setUserId(newComment.user.id);
+  
+            // Update comments state
+            setComments((prevComments) => [
+              {
+                user: {
+                  id: newComment.user.id,
+                  username: newComment.user.username,
+                },
+                date: newComment.date,
+                comment: newComment.comment,
+                result_id: newComment.result_id,
+              },
+              ...prevComments,
+            ]);
+  
+            setTotalCount((prevTotalCount) => prevTotalCount + 1);
+  
+            // Store user_id in localStorage if not already set
+            if (!userIdState && newComment.user.id) {
+              setUserId(newComment.user.id);
+            }
+  
+            // Reset input fields and close modal
+            setCommentText('');
+            setErrorMessage('');
+            handleClose();
+          }
         }
       } catch (error) {
         if (!(error as Error).message.includes('The username is already taken')) {

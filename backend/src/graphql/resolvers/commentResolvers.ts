@@ -81,12 +81,56 @@ const commentResolvers = {
 
         return populatedComment;
       } catch (error) {
-        if (error instanceof Error && error.message.includes("E11000") && error.message.includes("username")) {
+        if (
+          error instanceof Error &&
+          error.message.includes("E11000") &&
+          error.message.includes("username")
+        ) {
           throw new Error("The username is already taken");
         }
 
         console.error("Error adding comment:", error);
         throw new Error("Failed to add comment");
+      }
+    },
+
+    // Edit a comment
+    editComment: async (
+      _: any,
+      { comment_id, comment }: { comment_id: string; comment: string }
+    ) => {
+      try {
+        const updatedComment = await Comment.findByIdAndUpdate(
+          comment_id,
+          { comment },
+          { new: true }
+        ).populate("user", "username");
+
+        if (!updatedComment) {
+          throw new Error("Comment not found");
+        }
+
+        return updatedComment;
+      } catch (error) {
+        console.error("Error editing comment:", error);
+        throw new Error("Failed to edit comment");
+      }
+    },
+
+    // Delete a comment
+    deleteComment: async (_: any, { comment_id }: { comment_id: string }) => {
+      try {
+        const comment = await Comment.findById(comment_id);
+
+        if (!comment) {
+          throw new Error("Comment not found");
+        }
+
+        await comment.deleteOne();
+        return true;
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+        throw new Error("Failed to delete comment");
       }
     },
   },

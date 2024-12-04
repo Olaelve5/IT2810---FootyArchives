@@ -29,6 +29,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   const [comments, setComments] = useState<CommentType[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [commentText, setCommentText] = useState('');
+  const [activeCommentId, setActiveCommentId] = useState('');
 
   // Initialize comments only on the first page load
   useEffect(() => {
@@ -63,6 +64,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         isEditMode={isEditMode}
         commentText={commentText}
         setCommentText={setCommentText}
+        commentId={activeCommentId}
       />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
@@ -90,7 +92,14 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           <p className={classes.noComments}>{language === 'en' ? 'No comments yet' : 'Ingen kommentarer enda'}</p>
         )}
         {comments.map((comment: CommentType, index: Key | null | undefined) => (
-          <Comment key={index} comment={comment} open={open} setIsEditMode={setIsEditMode} setCommentText={setCommentText} />
+          <Comment
+            key={index}
+            comment={comment}
+            open={open}
+            setIsEditMode={setIsEditMode}
+            setCommentText={setCommentText}
+            setActiveCommentId={setActiveCommentId}
+          />
         ))}
         {comments.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>

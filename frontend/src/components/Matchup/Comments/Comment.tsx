@@ -13,9 +13,10 @@ interface CommentProps {
   open: () => void;
   setIsEditMode: (isEditMode: boolean) => void;
   setCommentText: (commentText: string) => void;
+  setActiveCommentId: (activeCommentId: string) => void;
 }
 
-export default function Comment({ comment, open, setIsEditMode, setCommentText }: CommentProps) {
+export default function Comment({ comment, open, setIsEditMode, setCommentText, setActiveCommentId }: CommentProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -56,6 +57,7 @@ export default function Comment({ comment, open, setIsEditMode, setCommentText }
           <Button
             className={classes.editButton}
             onClick={() => {
+              setActiveCommentId(comment.id ?? '');
               setCommentText(comment.comment);
               setIsEditMode(true);
               open();

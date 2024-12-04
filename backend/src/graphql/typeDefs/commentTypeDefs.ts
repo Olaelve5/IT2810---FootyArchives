@@ -8,6 +8,7 @@ const commentTypeDefs = gql`
   }
 
   type Comment {
+    id: ID!
     date: String!
     comment: String!
     result_id: ID!
@@ -29,6 +30,9 @@ const commentTypeDefs = gql`
       username: String!
       user_id: String
     ): Comment!
+
+    deleteComment(comment_id: ID!): Boolean!
+    editComment(comment_id: ID!, comment: String!): Comment!
   }
 `;
 

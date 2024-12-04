@@ -18,6 +18,7 @@ export const GET_COMMENTS = gql`
   query getComments($resultId: ID!, $limit: Int, $page: Int) {
     getComments(result_id: $resultId, limit: $limit, page: $page) {
       comments {
+        id
         user {
           id
           username
@@ -28,6 +29,21 @@ export const GET_COMMENTS = gql`
       }
       totalCount
       totalPages
+    }
+  }
+`;
+
+// Edit comment
+export const EDIT_COMMENT = gql`
+  mutation EditComment($commentId: ID!, $comment: String!) {
+    editComment(comment_id: $commentId, comment: $comment) {
+      user {
+        id
+        username
+      }
+      date
+      comment
+      result_id
     }
   }
 `;
