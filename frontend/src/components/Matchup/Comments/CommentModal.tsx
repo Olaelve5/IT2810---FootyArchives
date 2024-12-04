@@ -127,6 +127,7 @@ export default function CommentModal({
             // Update comments state
             setComments((prevComments) => [
               {
+                id: newComment.id,
                 user: {
                   id: newComment.user.id,
                   username: newComment.user.username,

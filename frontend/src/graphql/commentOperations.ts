@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export const POST_COMMENT = gql`
   mutation AddComment($resultId: ID!, $comment: String!, $username: String!, $user_id: String) {
     addComment(result_id: $resultId, comment: $comment, username: $username, user_id: $user_id) {
+      id
       user {
         id
         username
@@ -37,6 +38,7 @@ export const GET_COMMENTS = gql`
 export const EDIT_COMMENT = gql`
   mutation EditComment($commentId: ID!, $comment: String!) {
     editComment(comment_id: $commentId, comment: $comment) {
+      id
       user {
         id
         username
@@ -47,8 +49,6 @@ export const EDIT_COMMENT = gql`
     }
   }
 `;
-
-// deleteComment(comment_id: ID!): Boolean!
 
 // Delete comment
 export const DELETE_COMMENT = gql`

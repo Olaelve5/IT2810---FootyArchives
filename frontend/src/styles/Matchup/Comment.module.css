@@ -62,3 +62,19 @@
   color: #b3b3b3;
   text-decoration: underline;
 }
+
+
+
+.modalContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.modalButtons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}

@@ -99,6 +99,8 @@ export default function MatchComments({ result }: MatchCommentsProps) {
             setIsEditMode={setIsEditMode}
             setCommentText={setCommentText}
             setActiveCommentId={setActiveCommentId}
+            setComments={setComments}
+            setTotalCount={setTotalCount}
           />
         ))}
         {comments.length > 0 && (

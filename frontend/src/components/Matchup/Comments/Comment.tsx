@@ -15,9 +15,19 @@ interface CommentProps {
   setIsEditMode: (isEditMode: boolean) => void;
   setCommentText: (commentText: string) => void;
   setActiveCommentId: (activeCommentId: string) => void;
+  setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
+  setTotalCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Comment({ comment, open, setIsEditMode, setCommentText, setActiveCommentId }: CommentProps) {
+export default function Comment({
+  comment,
+  open,
+  setIsEditMode,
+  setCommentText,
+  setActiveCommentId,
+  setComments,
+  setTotalCount,
+}: CommentProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -69,11 +79,11 @@ export default function Comment({ comment, open, setIsEditMode, setCommentText, 
             >
               <IconEdit
                 size={20}
-                color='white'
+                color="white"
                 className={`${classes.editIcon} ${isDark ? classes.editIconDark : classes.editIconLight}`}
               />
             </Button>
-            <DelCommentBtn />
+            <DelCommentBtn commentId={comment.id ?? ''} setComments={setComments} setTotalCount={setTotalCount} />
           </div>
         )}
       </Group>
