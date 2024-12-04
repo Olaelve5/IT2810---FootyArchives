@@ -6,7 +6,8 @@ import { useLanguageStore } from '../../stores/language-store';
 import { POST_COMMENT } from '../../graphql/commentOperations';
 import { GET_COMMENTS } from '../../graphql/commentOperations';
 import { useMutation } from '@apollo/client';
-import { CommentType } from '../../types/ResultType';
+import { CommentType } from '../../types/CommentType';
+import { setUserId, getUserId } from '../../utils/localStorageUtils';
 
 interface CommentModalProps {
   opened: boolean;
@@ -37,9 +38,6 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
     awaitRefetchQueries: true,
-    onCompleted: (data) => {
-      console.log(data);
-    },
   });
 
   const getColor = () => {
@@ -63,41 +61,64 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
 
   const handleClick = async () => {
     setButtonPressed(true);
+  
     const validationError = validateComment();
     if (validationError) {
       setErrorMessage(validationError);
-      return;
+      return; // Stop execution on validation error
     }
+  
+    const userId = getUserId();
+  
     if (username && commentText) {
       try {
         const { data } = await postComment({
           variables: {
             resultId: resultId,
             comment: commentText,
-            userName: username,
+            username: username,
+            ...(userId && { user_id: userId }), // Only include user_id if it's available
           },
         });
-
-        // Add the new comment to the local state
+  
         if (data) {
-          const newComment = data.addComment; // Adjust field name as needed
-          setComments((prevComments) => [newComment, ...prevComments]);
+          const newComment = data.addComment;
+  
+          // Update comments state
+          setComments((prevComments) => [
+            {
+              user: {
+                id: newComment.user.id,
+                username: newComment.user.username,
+              },
+              date: newComment.date,
+              comment: newComment.comment,
+              result_id: newComment.result_id,
+            },
+            ...prevComments,
+          ]);
+  
           setTotalCount((prevTotalCount) => prevTotalCount + 1);
+  
+          // Store user_id in localStorage if not already set
+          if (!userId && newComment.user.id) {
+            setUserId(newComment.user.id);
+          }
+  
+          // Store the username in localStorage
+          storeUsernameInLocalStorage(username);
+  
+          // Reset input fields and close modal
+          setCommentText('');
+          setErrorMessage('');
+          handleClose();
         }
-
-        // Store the username in localStorage
-        storeUsernameInLocalStorage(username);
-
-        // Reset the input fields and close the modal
-        setCommentText('');
-        setUsername('');
-        setErrorMessage('');
-        handleClose();
       } catch (error) {
-        console.error(error);
+        console.error('Error posting comment:', error);
       }
     }
   };
+  
 
   const handleClose = () => {
     setButtonPressed(false);

@@ -40,7 +40,7 @@ export default function Comment({ comment }: { comment: CommentType }) {
   return (
     <div className={classes.container}>
       <Group className={classes.nameTimeContainer}>
-        <Text size="md">@{comment.user_name}</Text>
+        <Text size="md">@{comment.user.username}</Text>
         <Text size="xs" color={isDark ? theme.colors.darkmode[8] : 'black'}>
           {calculateTimeDifference(comment.date)}
         </Text>

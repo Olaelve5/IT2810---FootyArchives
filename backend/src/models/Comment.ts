@@ -3,7 +3,7 @@ import { model, Schema } from "mongoose";
 
 // Schema for the comments collection in the MongoDB database
 const CommentSchema = new Schema({
-  user_id: {
+  user: {
     type: ObjectId,
     required: true,
     ref: "User", // Reference to the User model

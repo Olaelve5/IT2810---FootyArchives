@@ -31,7 +31,7 @@ const commentResolvers = {
         .sort({ date: -1 })
         .skip(skip)
         .limit(limit)
-        .populate("user_id", "username");
+        .populate("user", "username");
 
       return {
         comments,
@@ -47,32 +47,43 @@ const commentResolvers = {
       _: any,
       { result_id, comment, user_id, username }: MutationArgs
     ) => {
-      // Ensure the user exists in the `users` collection
-      let user = await User.findById(user_id);
+      try {
+        let user;
 
-      if (!user) {
-        // If the user doesn't exist, create a new one
-        user = await User.create({
-          _id: user_id, // Use the provided user_id
-          username, // Save the username for this user
+        if (user_id) {
+          // Find the user by provided user_id
+          user = await User.findById(user_id);
+
+          if (!user) {
+            throw new Error("User not found");
+          }
+        } else {
+          // No user_id provided; create a new user
+          user = await User.create({ username });
+        }
+
+        // Create a new comment
+        const newComment = new Comment({
+          date: new Date(),
+          user: user._id, // Store only the ObjectId reference
+          comment,
+          result_id,
         });
+
+        // Save the new comment
+        const savedComment = await newComment.save();
+
+        // Populate the user field before returning
+        const populatedComment = await savedComment.populate(
+          "user",
+          "username"
+        );
+
+        return populatedComment;
+      } catch (error) {
+        console.error("Error adding comment:", error);
+        throw new Error("Failed to add comment");
       }
-
-      // Create a new comment
-      const newComment = new Comment({
-        date: new Date(),
-        user_id: user._id,
-        comment,
-        result_id,
-      });
-
-      // Save the new comment
-      const savedComment = await newComment.save();
-
-      return {
-        ...savedComment.toObject(),
-        username: user.username,
-      };
     },
   },
 };

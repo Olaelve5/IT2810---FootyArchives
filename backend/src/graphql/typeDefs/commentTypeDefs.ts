@@ -1,13 +1,17 @@
-import { gql } from 'graphql-tag';
+import { gql } from "graphql-tag";
 
 // Define the GraphQL schema - the types and queries that can be made
 const commentTypeDefs = gql`
-  type Comment {
+  type User {
+    id: ID!
     username: String!
+  }
+
+  type Comment {
     date: String!
     comment: String!
     result_id: ID!
-    user_id: ID!
+    user: User!
   }
   type CommentResponse {
     comments: [Comment]
@@ -19,7 +23,12 @@ const commentTypeDefs = gql`
   }
 
   type Mutation {
-    addComment(result_id: ID!, comment: String!, username: String!, user_id: String!): Comment!
+    addComment(
+      result_id: ID!
+      comment: String!
+      username: String!
+      user_id: String
+    ): Comment!
   }
 `;
 
