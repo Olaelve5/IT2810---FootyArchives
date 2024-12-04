@@ -1,5 +1,5 @@
 import { Button } from '@mantine/core';
-import classes from '../../styles/Matchup/MatchComments.module.css';
+import classes from '../../../styles/Matchup/MatchComments.module.css';
 
 interface LoadCommentsButtonProps {
   language: string;

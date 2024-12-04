@@ -1,10 +1,10 @@
-import { CommentType } from '../../types/CommentType';
-import classes from '../../styles/Matchup/Comment.module.css';
+import { CommentType } from '../../../types/CommentType';
+import classes from '../../../styles/Matchup/Comment.module.css';
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { useMantineColorScheme } from '@mantine/core';
-import { calculateTimeDifference } from '../../utils/dateUtils';
+import { calculateTimeDifference } from '../../../utils/dateUtils';
 import { useState } from 'react';
-import { useLanguageStore } from '../../stores/language-store';
+import { useLanguageStore } from '../../../stores/language-store';
 
 export default function Comment({ comment }: { comment: CommentType }) {
   const theme = useMantineTheme();

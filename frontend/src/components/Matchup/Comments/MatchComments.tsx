@@ -1,13 +1,13 @@
 import { Button, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import classes from '../../styles/Matchup/MatchComments.module.css';
+import classes from '../../../styles/Matchup/MatchComments.module.css';
 import { IconPlus } from '@tabler/icons-react';
-import { CommentType } from '../../types/CommentType';
+import { CommentType } from '../../../types/CommentType';
 import Comment from './Comment';
 import CommentModal from './CommentModal';
-import { useLanguageStore } from '../../stores/language-store';
-import { ResultType } from '../../types/ResultType';
-import { GET_COMMENTS } from '../../graphql/commentOperations';
+import { useLanguageStore } from '../../../stores/language-store';
+import { ResultType } from '../../../types/ResultType';
+import { GET_COMMENTS } from '../../../graphql/commentOperations';
 import { useQuery } from '@apollo/client';
 import { Key, useEffect } from 'react';
 import LoadCommentsButton from './LoadCommentsButton';
@@ -52,7 +52,13 @@ export default function MatchComments({ result }: MatchCommentsProps) {
 
   return (
     <div className={classes.container}>
-      <CommentModal opened={opened} onClose={close} resultId={result._id} setComments={setComments} setTotalCount={setTotalCount}/>
+      <CommentModal
+        opened={opened}
+        onClose={close}
+        resultId={result._id}
+        setComments={setComments}
+        setTotalCount={setTotalCount}
+      />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
           {totalCount} {language === 'en' ? 'comments' : 'kommentarer'}

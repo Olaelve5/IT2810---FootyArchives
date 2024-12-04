@@ -1,13 +1,15 @@
-import { Button, Modal, Textarea, TextInput, useMantineTheme } from '@mantine/core';
+import { Button, Modal, Textarea, useMantineTheme } from '@mantine/core';
 import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
-import classes from '../../styles/Matchup/CommentModal.module.css';
-import { useLanguageStore } from '../../stores/language-store';
-import { POST_COMMENT } from '../../graphql/commentOperations';
-import { GET_COMMENTS } from '../../graphql/commentOperations';
+import classes from '../../../styles/Matchup/CommentModal.module.css';
+import { useLanguageStore } from '../../../stores/language-store';
+import { POST_COMMENT } from '../../../graphql/commentOperations';
+import { GET_COMMENTS } from '../../../graphql/commentOperations';
 import { useMutation } from '@apollo/client';
-import { CommentType } from '../../types/CommentType';
-import { setUserId, getUserId } from '../../utils/localStorageUtils';
+import { CommentType } from '../../../types/CommentType';
+import UsernameInput from './UsernameInput';
+import { IconMessagePlus } from '@tabler/icons-react';
+import { setUserId } from '../../../utils/localStorageUtils';
 
 interface CommentModalProps {
   opened: boolean;
@@ -26,6 +28,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   const [username, setUsername] = useState('');
   const [buttonPressed, setButtonPressed] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [userIdState, setUserIdState] = useState('');
 
   const [postComment, { loading, error }] = useMutation(POST_COMMENT, {
     refetchQueries: [{ query: GET_COMMENTS, variables: { resultId: resultId } }], // Refetch after posting
@@ -54,15 +57,13 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   // Post comment to backend and update state if successful
   const handleClick = async () => {
     setButtonPressed(true);
-  
+
     const validationError = validateComment();
     if (validationError) {
       setErrorMessage(validationError);
       return; // Stop execution on validation error
     }
-  
-    const userId = getUserId();
-  
+
     if (username && commentText) {
       try {
         const { data } = await postComment({
@@ -70,13 +71,14 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
             resultId: resultId,
             comment: commentText,
             username: username,
-            ...(userId && { user_id: userId }), // Only include user_id if it's available
+            ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
           },
         });
-  
+
         if (data) {
           const newComment = data.addComment;
-  
+          setUserId(newComment.user.id);
+
           // Update comments state
           setComments((prevComments) => [
             {
@@ -90,15 +92,14 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
             },
             ...prevComments,
           ]);
-  
+
           setTotalCount((prevTotalCount) => prevTotalCount + 1);
-  
+
           // Store user_id in localStorage if not already set
-          if (!userId && newComment.user.id) {
+          if (!userIdState && newComment.user.id) {
             setUserId(newComment.user.id);
           }
 
-  
           // Reset input fields and close modal
           setCommentText('');
           setErrorMessage('');
@@ -109,7 +110,6 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
       }
     }
   };
-  
 
   const handleClose = () => {
     setButtonPressed(false);
@@ -117,33 +117,20 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      title={language === 'en' ? 'Add comment' : 'Legg til kommentar'}
-      className={classes.container}
-    >
-      {error && <p>{error.message}</p>}
-      <TextInput
-        label={language === 'en' ? 'Username' : 'Brukernavn'}
-        required
-        aria-label="Enter your username"
-        error={
-          buttonPressed && !username ? (language === 'en' ? 'Username is required' : 'Brukernavn er påkrevd') : null
-        }
-        value={username}
-        onChange={(event) => {
-          setUsername(event.currentTarget.value);
-          setButtonPressed(false);
-        }}
-        styles={{
-          root: {
-            marginBottom: 20,
-          },
-          input: {
-            backgroundColor: getColor(),
-          },
-        }}
+    <Modal opened={opened} onClose={onClose} className={classes.container} withCloseButton={false}>
+      <div className={classes.titleContainer}>
+        <IconMessagePlus size={25} color="white" />
+        <h3 className={classes.title}>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</h3>
+      </div>
+
+      {error && <p>{language === 'en' ? 'Something went wrong' : 'Noe gikk galt'}</p>}
+
+      <UsernameInput
+        username={username}
+        setUsername={setUsername}
+        buttonPressed={buttonPressed}
+        setButtonPressed={setButtonPressed}
+        setUserIdState={setUserIdState}
       />
       <Textarea
         label={language === 'en' ? 'Comment' : 'Kommentar'}
@@ -162,9 +149,14 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
           },
         }}
       />
-      <Button radius={100} color="primary" onClick={handleClick} className={classes.button} loading={loading}>
-        <p>{language === 'en' ? 'Post comment' : 'Post kommentar'}</p>
-      </Button>
+      <div className={classes.buttonContainer}>
+        <Button radius='xl' color="red" onClick={handleClose} className={classes.button}>
+          <p>{language === 'en' ? 'Cancel' : 'Avbryt'}</p>
+        </Button>
+        <Button radius='xl' color="primary" onClick={handleClick} className={classes.button} loading={loading}>
+          <p>{language === 'en' ? 'Post comment' : 'Post kommentar'}</p>
+        </Button>
+      </div>
     </Modal>
   );
 }
