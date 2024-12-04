@@ -81,6 +81,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           leftSection={<IconPlus size={20} color="white" />}
           onClick={() => {
             setIsEditMode(false);
+            setCommentText('');
             open();
           }}
         >

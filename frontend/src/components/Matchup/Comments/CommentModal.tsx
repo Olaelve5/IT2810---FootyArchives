@@ -7,7 +7,7 @@ import { POST_COMMENT, GET_COMMENTS, EDIT_COMMENT } from '../../../graphql/comme
 import { useMutation } from '@apollo/client';
 import { CommentType } from '../../../types/CommentType';
 import UsernameInput from './UsernameInput';
-import { IconMessagePlus } from '@tabler/icons-react';
+import { IconMessagePlus, IconEdit } from '@tabler/icons-react';
 import { setUserId } from '../../../utils/localStorageUtils';
 import CommentInput from './CommentInput';
 
@@ -76,13 +76,13 @@ export default function CommentModal({
   // Post comment to backend and update state if successful
   const handleClick = async () => {
     setButtonPressed(true);
-  
+
     const validationError = validateComment();
     if (validationError) {
       setErrorMessage(validationError);
       return; // Stop execution on validation error
     }
-  
+
     if (username && commentText) {
       try {
         if (isEditMode && commentId) {
@@ -95,15 +95,13 @@ export default function CommentModal({
               ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
             },
           });
-  
+
           if (data) {
             const updatedComment = data.editComment;
             setComments((prevComments) =>
-              prevComments.map((comment) =>
-                comment.id === updatedComment.id ? updatedComment : comment
-              )
+              prevComments.map((comment) => (comment.id === updatedComment.id ? updatedComment : comment)),
             );
-  
+
             // Reset input fields and close modal
             setCommentText('');
             setErrorMessage('');
@@ -119,11 +117,11 @@ export default function CommentModal({
               ...(userIdState && { user_id: userIdState }), // Only include user_id if it's available
             },
           });
-  
+
           if (data) {
             const newComment = data.addComment;
             setUserId(newComment.user.id);
-  
+
             // Update comments state
             setComments((prevComments) => [
               {
@@ -138,14 +136,14 @@ export default function CommentModal({
               },
               ...prevComments,
             ]);
-  
+
             setTotalCount((prevTotalCount) => prevTotalCount + 1);
-  
+
             // Store user_id in localStorage if not already set
             if (!userIdState && newComment.user.id) {
               setUserId(newComment.user.id);
             }
-  
+
             // Reset input fields and close modal
             setCommentText('');
             setErrorMessage('');
@@ -168,7 +166,7 @@ export default function CommentModal({
   return (
     <Modal opened={opened} onClose={onClose} className={classes.container} withCloseButton={false}>
       <div className={classes.titleContainer}>
-        <IconMessagePlus size={25} color="white" />
+        {isEditMode ? <IconEdit size={25} /> : <IconMessagePlus size={25} />}
         <h3 className={classes.title}>
           {isEditMode
             ? language === 'en'
