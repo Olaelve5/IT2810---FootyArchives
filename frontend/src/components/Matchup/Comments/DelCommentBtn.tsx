@@ -24,6 +24,7 @@ function DelCommentBtn({ commentId, setComments, setTotalCount }: DelCommentBtnP
 
   const [deleteComment] = useMutation(DELETE_COMMENT);
 
+  // Delete comment from database
   const handleDeleteComment = async () => {
     const { data } = await deleteComment({
       variables: {
@@ -31,6 +32,7 @@ function DelCommentBtn({ commentId, setComments, setTotalCount }: DelCommentBtnP
       },
     });
 
+    // If the comment was deleted, remove it from the list of comments
     if (data.deleteComment) {
       setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
       setTotalCount((prevTotalCount) => prevTotalCount - 1);
@@ -56,10 +58,10 @@ function DelCommentBtn({ commentId, setComments, setTotalCount }: DelCommentBtnP
           <h3>{language === 'en' ? 'Delete comment?' : 'Slett kommentar?'}</h3>
           <div className={classes.modalButtons}>
             <Button className={classes.modalButton} onClick={close} radius="xl" color="primary">
-              {language === 'en' ? 'Cancel' : 'Avbryt'}
+              <p>{language === 'en' ? 'Cancel' : 'Avbryt'}</p>
             </Button>
             <Button className={classes.modalButton} onClick={handleDeleteComment} color="red" radius="xl">
-              {language === 'en' ? 'Yes' : 'Ja'}
+              <p>{language === 'en' ? 'Yes' : 'Ja'}</p>
             </Button>
           </div>
         </div>
