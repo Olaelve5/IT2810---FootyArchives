@@ -27,6 +27,8 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   const [totalCount, setTotalCount] = useState(0);
   const totalPages = data?.getComments.totalPages || 0;
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [commentText, setCommentText] = useState('');
 
   // Initialize comments only on the first page load
   useEffect(() => {
@@ -58,6 +60,9 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         resultId={result._id}
         setComments={setComments}
         setTotalCount={setTotalCount}
+        isEditMode={isEditMode}
+        commentText={commentText}
+        setCommentText={setCommentText}
       />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
@@ -72,7 +77,10 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           color="primary"
           className={classes.button}
           leftSection={<IconPlus size={20} color="white" />}
-          onClick={open}
+          onClick={() => {
+            setIsEditMode(false);
+            open();
+          }}
         >
           <p>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</p>
         </Button>
@@ -82,7 +90,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           <p className={classes.noComments}>{language === 'en' ? 'No comments yet' : 'Ingen kommentarer enda'}</p>
         )}
         {comments.map((comment: CommentType, index: Key | null | undefined) => (
-          <Comment key={index} comment={comment} />
+          <Comment key={index} comment={comment} open={open} setIsEditMode={setIsEditMode} setCommentText={setCommentText} />
         ))}
         {comments.length > 0 && (
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>

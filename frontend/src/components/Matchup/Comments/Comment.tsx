@@ -8,7 +8,14 @@ import { useLanguageStore } from '../../../stores/language-store';
 import { IconEdit } from '@tabler/icons-react';
 import { getUserId } from '../../../utils/localStorageUtils';
 
-export default function Comment({ comment }: { comment: CommentType }) {
+interface CommentProps {
+  comment: CommentType;
+  open: () => void;
+  setIsEditMode: (isEditMode: boolean) => void;
+  setCommentText: (commentText: string) => void;
+}
+
+export default function Comment({ comment, open, setIsEditMode, setCommentText }: CommentProps) {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -47,10 +54,14 @@ export default function Comment({ comment }: { comment: CommentType }) {
         </div>
         {canEdit && (
           <Button
-            variant="link"
             className={classes.editButton}
-            onClick={() => console.log('Edit comment')}
-            size='xs'
+            onClick={() => {
+              setCommentText(comment.comment);
+              setIsEditMode(true);
+              open();
+            }}
+            size="xs"
+            radius="xl"
             leftSection={
               <IconEdit
                 size={20}

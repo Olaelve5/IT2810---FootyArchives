@@ -1,4 +1,4 @@
-import { Button, Modal, Textarea, useMantineTheme } from '@mantine/core';
+import { Button, Modal, useMantineTheme } from '@mantine/core';
 import { useMantineColorScheme } from '@mantine/core';
 import { useState } from 'react';
 import classes from '../../../styles/Matchup/CommentModal.module.css';
@@ -10,6 +10,7 @@ import { CommentType } from '../../../types/CommentType';
 import UsernameInput from './UsernameInput';
 import { IconMessagePlus } from '@tabler/icons-react';
 import { setUserId } from '../../../utils/localStorageUtils';
+import CommentInput from './CommentInput';
 
 interface CommentModalProps {
   opened: boolean;
@@ -17,14 +18,25 @@ interface CommentModalProps {
   resultId: string;
   setComments: React.Dispatch<React.SetStateAction<CommentType[]>>;
   setTotalCount: React.Dispatch<React.SetStateAction<number>>;
+  isEditMode?: boolean;
+  commentText: string;
+  setCommentText: (commentText: string) => void;
 }
 
-export default function CommentModal({ opened, onClose, resultId, setComments, setTotalCount }: CommentModalProps) {
+export default function CommentModal({
+  opened,
+  onClose,
+  resultId,
+  setComments,
+  setTotalCount,
+  isEditMode,
+  commentText,
+  setCommentText,
+}: CommentModalProps) {
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
-  const [commentText, setCommentText] = useState('');
   const [username, setUsername] = useState('');
   const [buttonPressed, setButtonPressed] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -39,6 +51,7 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
     return isDark ? theme.colors.darkmode[2] : 'white';
   };
 
+  // Validate comment input and return error message if invalid
   const validateComment = () => {
     if (!commentText) {
       return language === 'en' ? 'Comment is required' : 'Kommentar er påkrevd';
@@ -122,7 +135,15 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
     <Modal opened={opened} onClose={onClose} className={classes.container} withCloseButton={false}>
       <div className={classes.titleContainer}>
         <IconMessagePlus size={25} color="white" />
-        <h3 className={classes.title}>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</h3>
+        <h3 className={classes.title}>
+          {isEditMode
+            ? language === 'en'
+              ? 'Edit comment'
+              : 'Rediger kommentar'
+            : language === 'en'
+              ? 'Add comment'
+              : 'Legg til kommentar'}
+        </h3>
       </div>
 
       <UsernameInput
@@ -133,29 +154,29 @@ export default function CommentModal({ opened, onClose, resultId, setComments, s
         setUserIdState={setUserIdState}
         parentError={error}
       />
-      <Textarea
-        label={language === 'en' ? 'Comment' : 'Kommentar'}
-        required
-        value={commentText}
-        aria-label="Write a comment"
-        error={buttonPressed ? errorMessage : null}
-        onChange={(event) => {
-          setCommentText(event.currentTarget.value);
-          setButtonPressed(false);
-          setErrorMessage('');
-        }}
-        styles={{
-          input: {
-            backgroundColor: getColor(),
-          },
-        }}
+      <CommentInput
+        commentText={commentText}
+        setCommentText={setCommentText}
+        errorMessage={errorMessage}
+        buttonPressed={buttonPressed}
+        setButtonPressed={setButtonPressed}
+        setErrorMessage={setErrorMessage}
+        getColor={getColor}
       />
       <div className={classes.buttonContainer}>
         <Button radius="xl" color="red" onClick={handleClose} className={classes.button}>
           <p>{language === 'en' ? 'Cancel' : 'Avbryt'}</p>
         </Button>
         <Button radius="xl" color="primary" onClick={handleClick} className={classes.button} loading={loading}>
-          <p>{language === 'en' ? 'Post comment' : 'Post kommentar'}</p>
+          <p>
+            {language === 'en'
+              ? isEditMode
+                ? 'Edit comment'
+                : 'Post comment'
+              : isEditMode
+                ? 'Rediger kommentar'
+                : 'Post kommentar'}
+          </p>
         </Button>
       </div>
     </Modal>
