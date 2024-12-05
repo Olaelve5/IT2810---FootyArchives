@@ -16,13 +16,6 @@ export function MatchCard(props: ResultType) {
   const date = formatDate(props.date);
   const [countryCodes, setCountryCodes] = useState<string[]>([]);
 
-  const cardTitle = () => {
-    if (language === 'no') {
-      return `${props.home_team_no} vs ${props.away_team_no}`;
-    }
-    return `${props.home_team} vs ${props.away_team}`;
-  };
-
   useEffect(() => {
     const codes = getCountryCode([props.home_team, props.away_team]);
     setCountryCodes(codes as string[]);
@@ -40,37 +33,45 @@ export function MatchCard(props: ResultType) {
           backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
         }}
       >
-        <Group align="center" justify="center" display="flex" className={classes.detailsContainer}>
-          <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
-            {cardTitle()}
+        <div className={classes.dateTournamentContainer}>
+          <Text size="sm" fw={600} className={classes.tournamentName}>
+            {props.tournament}
           </Text>
-          <div className={classes.dateTournamentContainer}>
-            <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
-              {props.tournament}
-            </Text>
-            <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
-              {date}
-            </Text>
-          </div>
-        </Group>
+          <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
+            {date}
+          </Text>
+          <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
+            {props.city}, {props.country}
+          </Text>
+        </div>
 
         <Group>
-          <div className="flagImageContainer">
-            <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
+          <div className={classes.nationContainer}>
+            <div className="flagImageContainer">
+              <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
+            </div>
+            <Text fw={600} size="sm" className={classes.nationTitle}>
+              {language === 'no' ? props.home_team_no : props.home_team}
+            </Text>
           </div>
           <Group gap="xs">
-            <Text fw={600} size="lg">
+            <Text fw={600} size="md">
               {props.home_score}
             </Text>
-            <Text fw={600} size="lg">
+            <Text fw={600} size="md">
               -
             </Text>
-            <Text fw={600} size="lg">
+            <Text fw={600} size="md">
               {props.away_score}
             </Text>
           </Group>
-          <div className="flagImageContainer">
-            <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
+          <div className={classes.nationContainer}>
+            <div className="flagImageContainer">
+              <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
+            </div>
+            <Text fw={600} size="sm" className={classes.nationTitle}>
+              {language === 'no' ? props.away_team_no : props.away_team}
+            </Text>
           </div>
         </Group>
       </Card>
