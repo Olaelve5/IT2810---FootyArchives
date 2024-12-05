@@ -54,8 +54,13 @@
 }
 
 .seeMoreButtonDark {
-  background-color: var(--mantine-color-darkmode-2);
-  border-color: var(--mantine-color-darkmode-8);
+  background-color: var(--mantine-color-darkmode-1);
+  border-color: var(--mantine-color-darkmode-4) !important;
+
+  &:hover {
+    background-color: var(--mantine-color-darkmode-2);
+    border-color: var(--mantine-color-darkmode-6) !important;
+  }
 }
 
 .seeMoreButtonLight {
