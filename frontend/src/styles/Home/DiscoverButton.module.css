@@ -13,7 +13,6 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   position: relative;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,4 +60,10 @@
 
 #darkButton {
   color: white !important;
+}
+
+@media (max-width: 480px) {
+  .root {
+    padding: 0.5rem 0.8rem;
+  }
 }

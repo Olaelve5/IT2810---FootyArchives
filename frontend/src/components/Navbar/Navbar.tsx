@@ -11,7 +11,9 @@ export default function Navbar() {
       <div className={classes.logoSearchBarContainer}>
         <div className={classes.logoContainer}>
           <SideBarCollapse />
-          <Logo />
+          <div>
+            <Logo />
+          </div>
         </div>
         <div className={classes.searchbarContainer}>
           <Searchbar />

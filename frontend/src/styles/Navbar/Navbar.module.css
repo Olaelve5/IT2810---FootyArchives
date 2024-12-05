@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0rem;
+  padding: 1rem 0rem;
   position: relative;
   margin-bottom: 2rem;
   gap: 2rem;
@@ -64,6 +64,12 @@
 
 .logoContainer {
   display: none;
+
+  div {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 @media screen and (max-width: 780px) {
