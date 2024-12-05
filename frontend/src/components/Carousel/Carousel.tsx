@@ -116,7 +116,7 @@ function MatchcardCarousel({
         slideGap="1.5rem"
         slidesToScroll="auto"
         controlsOffset="0"
-        align='center'
+        align={windowWidth < 480 ? 'center' : 'start'}
         classNames={classes}
         styles={{
           control: {
