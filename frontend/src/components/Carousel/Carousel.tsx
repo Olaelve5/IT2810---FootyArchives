@@ -95,7 +95,7 @@ function MatchcardCarousel({
     <div className={classes.topContainer}>
       <div className={classes.headerContainer}>
         <h2 className={classes.title}>{language === 'en' ? titleEn : titleNo}</h2>
-        {(filters || sort) && (
+        {(filters || sort) && slides.length > 0 && (
           <Button
             radius="xl"
             variant="light"
@@ -103,13 +103,16 @@ function MatchcardCarousel({
             size="sm"
             aria-label={`See more matches in ${titleEn}`}
             onClick={handleSeeMoreClick}
-            className={classes.seeMoreButton}
+            className={isDark ? classes.seeMoreButtonDark : classes.seeMoreButtonLight}
           >
             {language === 'en' ? 'See more' : 'Se mer'}
           </Button>
         )}
       </div>
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
+      {slides.length === 0 && !loading && (
+        <p className={classes.noDataText}>{language === 'en' ? 'No data found' : 'Ingen data funnet'}</p>
+      )}
       <Carousel
         key={titleEn}
         slideSize={windowWidth < 480 ? '100%' : 'auto'}

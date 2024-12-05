@@ -47,6 +47,8 @@
   max-width: 6rem;
 }
 
+
+
 .scoreContainer {
   display: flex;
   gap: 0.5rem;
@@ -95,6 +97,13 @@
 }
 
 .nationCardHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nationCardInfo {
   display: flex;
   flex-direction: column;
   align-items: center;

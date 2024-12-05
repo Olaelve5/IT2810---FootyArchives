@@ -85,7 +85,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
             open();
           }}
         >
-          <p>{language === 'en' ? 'Add' : 'Legg til'}</p>
+          <p>{language === 'en' ? 'Add comment' : 'Skriv kommentar'}</p>
         </Button>
       </div>
       <div className={classes.commentsContainer}>
