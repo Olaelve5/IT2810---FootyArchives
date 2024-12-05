@@ -14,6 +14,8 @@ import tournamentResolvers from './graphql/resolvers/tournamentResolvers';
 import commentResolvers from './graphql/resolvers/commentResolvers';
 import commentTypeDefs from './graphql/typeDefs/commentTypeDefs';
 import searchResolvers from './graphql/resolvers/searchResolvers';
+import userResolvers from './graphql/resolvers/userResolvers';
+import userTypeDefs from './graphql/typeDefs/userTypeDefs';
 
 // MongoDB connection string
 const MONGODB =
@@ -26,10 +28,11 @@ const resolvers = mergeResolvers([
   tournamentResolvers,
   commentResolvers,
   searchResolvers,
+  userResolvers,
 ]);
 
 // Combine typeDefs
-const typeDefs = [resultsTypeDefs, nationStatsTypeDefs, commentTypeDefs];
+const typeDefs = [resultsTypeDefs, nationStatsTypeDefs, commentTypeDefs, userTypeDefs];
 
 // Define context interface
 interface MyContext {

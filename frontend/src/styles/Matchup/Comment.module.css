@@ -6,10 +6,35 @@
   gap: 0.2rem;
 }
 
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nameTimeContainer {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  background-color: var(--mantine-color-darkmode-2);
+  border: 1px solid var(--mantine-color-darkmode-4) !important;
+}
+
+.editButton:hover {
+  background-color: var(--mantine-color-darkmode-3);
+  border: 1px solid var(--mantine-color-darkmode-5) !important;
 }
 
 .showMore {
@@ -36,4 +61,24 @@
 .showMoreDark:hover {
   color: #b3b3b3;
   text-decoration: underline;
+}
+
+
+
+.modalContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.modalButtons {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+
+  p {
+    color: white !important;
+  }
 }

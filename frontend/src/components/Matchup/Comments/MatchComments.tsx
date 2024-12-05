@@ -1,13 +1,13 @@
 import { Button, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import classes from '../../styles/Matchup/MatchComments.module.css';
+import classes from '../../../styles/Matchup/MatchComments.module.css';
 import { IconPlus } from '@tabler/icons-react';
-import { CommentType } from '../../types/CommentType';
+import { CommentType } from '../../../types/CommentType';
 import Comment from './Comment';
 import CommentModal from './CommentModal';
-import { useLanguageStore } from '../../stores/language-store';
-import { ResultType } from '../../types/ResultType';
-import { GET_COMMENTS } from '../../graphql/commentOperations';
+import { useLanguageStore } from '../../../stores/language-store';
+import { ResultType } from '../../../types/ResultType';
+import { GET_COMMENTS } from '../../../graphql/commentOperations';
 import { useQuery } from '@apollo/client';
 import { Key, useEffect } from 'react';
 import LoadCommentsButton from './LoadCommentsButton';
@@ -27,6 +27,9 @@ export default function MatchComments({ result }: MatchCommentsProps) {
   const [totalCount, setTotalCount] = useState(0);
   const totalPages = data?.getComments.totalPages || 0;
   const [comments, setComments] = useState<CommentType[]>([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [commentText, setCommentText] = useState('');
+  const [activeCommentId, setActiveCommentId] = useState('');
 
   // Initialize comments only on the first page load
   useEffect(() => {
@@ -58,6 +61,10 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         resultId={result._id}
         setComments={setComments}
         setTotalCount={setTotalCount}
+        isEditMode={isEditMode}
+        commentText={commentText}
+        setCommentText={setCommentText}
+        commentId={activeCommentId}
       />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
@@ -72,7 +79,11 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           color="primary"
           className={classes.button}
           leftSection={<IconPlus size={20} color="white" />}
-          onClick={open}
+          onClick={() => {
+            setIsEditMode(false);
+            setCommentText('');
+            open();
+          }}
         >
           <p>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</p>
         </Button>
@@ -82,19 +93,28 @@ export default function MatchComments({ result }: MatchCommentsProps) {
           <p className={classes.noComments}>{language === 'en' ? 'No comments yet' : 'Ingen kommentarer enda'}</p>
         )}
         {comments.map((comment: CommentType, index: Key | null | undefined) => (
-          <Comment key={index} comment={comment} />
+          <Comment
+            key={index}
+            comment={comment}
+            open={open}
+            setIsEditMode={setIsEditMode}
+            setCommentText={setCommentText}
+            setActiveCommentId={setActiveCommentId}
+            setComments={setComments}
+            setTotalCount={setTotalCount}
+          />
         ))}
-        {comments.length >= 10 && comments.length < totalCount &&(
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-              <LoadCommentsButton
-                page={page}
-                language={language}
-                totalPages={totalPages || 0}
-                handleClick={handleClick}
-                loading={loading}
-              />
-            </div>
-          )}
+        {comments.length > 0 && (
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+            <LoadCommentsButton
+              page={page}
+              language={language}
+              totalPages={totalPages || 0}
+              handleClick={handleClick}
+              loading={loading}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
