@@ -7,8 +7,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 // const URL = 'http://localhost:3001/graphql'
 
 // Needed for mobile testing
-const URL = 'http://10.52.203.44:3001/graphql'
-
+const URL = 'http://10.52.232.58:3001/graphql'
 
 
 const client = new ApolloClient({

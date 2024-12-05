@@ -114,23 +114,5 @@
     top: 50%;
     transform: translate(-50%, -50%);
 }
-@media screen and (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-  
-}
-
-@media screen and(max-width: 556px) {
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  }
-}
-@media screen and (max-width: 391px){
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(61px, 1fr));
-  }
-
-}
   
 

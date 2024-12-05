@@ -99,7 +99,7 @@ function MatchcardCarousel({
       <Carousel
         key={titleEn}
         slideSize="1%"
-        slideGap="1.8rem"
+        slideGap="1rem"
         loop={false}
         align="start"
         slidesToScroll="auto"

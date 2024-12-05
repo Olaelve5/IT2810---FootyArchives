@@ -71,3 +71,10 @@
   background-color: var(--mantine-color-darkmode-3);
   border-color: var(--mantine-color-darkmode-8);
 }
+
+@media screen and (max-width: 480px) {
+  .control {
+    display: none;
+  }
+  
+}

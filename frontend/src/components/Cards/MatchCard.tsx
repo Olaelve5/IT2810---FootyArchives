@@ -54,7 +54,7 @@ export function MatchCard(props: ResultType) {
               {language === 'no' ? props.home_team_no : props.home_team}
             </Text>
           </div>
-          <Group gap="xs">
+          <Group className={classes.scoreContainer}>
             <Text fw={600} size="md">
               {props.home_score}
             </Text>
