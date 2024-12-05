@@ -36,10 +36,17 @@ export default function LanguageButton() {
         />
       }
       onClick={handleClick}
-      leftSection={<Image src={languageImage} alt={'Language flag'} className={classes.countryImage} />}
+      leftSection={
+        <Image
+          src={languageImage}
+          alt={language === 'en' ? 'English flag' : 'Norsk flag'}
+          className={classes.countryImage}
+        />
+      }
       className={isDark ? classes.languageButtonDark : classes.languageButtonLight}
       color={isDark ? theme.colors.darkmode[2] : 'white'}
       c={isDark ? 'white' : theme.colors.darkmode[2]}
+      aria-label={language === 'en' ? 'Toggle language to norwegian' : 'Endre språk til engelsk'}
     >
       <h4>{language === 'en' ? 'EN' : 'NO'}</h4>
     </Button>

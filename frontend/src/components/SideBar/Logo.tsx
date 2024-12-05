@@ -12,6 +12,7 @@ function Logo() {
           fw={700}
           c="primary"
           id={classes.logoText}
+          aria-label="Footy Archives logo"
         >
           Footy
         </Text>
@@ -20,6 +21,7 @@ function Logo() {
           size="xl"
           fw={700}
           id={classes.logoText}
+          aria-label="Footy Archives logo"
         >
           Archives
         </Text>

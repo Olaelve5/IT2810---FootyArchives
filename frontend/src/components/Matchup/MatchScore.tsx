@@ -19,8 +19,12 @@ export default function MatchScore(result: ResultType) {
     <Group className={classes.container} gap={100}>
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/nation/${result.home_team}`}>
-          <div className="flagImageContainer" id={classes.flagImageContainer}>
-            <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
+          <div className="flagImageContainer" id={classes.flagImageContainer} aria>
+            <span
+              className={`fi fi-${countryCodes[0]}`}
+              id="flagImage"
+              aria-label={language === 'en' ? `${result.home_team} flag` : `${result.home_team_no} flagg`}
+            ></span>
           </div>
         </Link>
         <h2 className={classes.name}>{language == 'no' ? result.home_team_no : result.home_team}</h2>
@@ -33,7 +37,11 @@ export default function MatchScore(result: ResultType) {
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/nation/${result.away_team}`}>
           <div className="flagImageContainer" id={classes.flagImageContainer}>
-            <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
+            <span
+              className={`fi fi-${countryCodes[1]}`}
+              id="flagImage"
+              aria-label={language === 'en' ? `${result.away_team} flag` : `${result.away_team_no} flagg`}
+            ></span>
           </div>
         </Link>
         <h2 className={classes.name}>{language == 'no' ? result.away_team_no : result.away_team}</h2>

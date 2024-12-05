@@ -76,7 +76,11 @@ function Nation() {
             <div>
               <div className={classes.flagTitleContainer}>
                 <div className="flagImageContainer" id={classes.flagImageContainer}>
-                  <span className={`fi fi-${getCountryCode([nation._id])}`} id="flagImage"></span>
+                  <span
+                    className={`fi fi-${getCountryCode([nation._id])}`}
+                    id="flagImage"
+                    aria-label={`${nation._id} flag`}
+                  ></span>
                 </div>
                 <h1 className={classes.nationName}>{language === 'no' ? nation.name_no : nation._id}</h1>
               </div>
