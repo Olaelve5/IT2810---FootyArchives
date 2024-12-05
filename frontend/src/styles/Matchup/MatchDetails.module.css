@@ -41,6 +41,8 @@
   position: relative;
   top: 2px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tournamentButton {
@@ -56,20 +58,31 @@
   margin-right: 0.4rem;
 }
 
-@media screen and (max-width: 480px) {
-    .bottomContainer {
-        gap: 1rem;
-        padding-left: 1rem;
+@media screen and (max-width: 780px) {
+    .detailText {
+      max-width: 90%;
     }
+}
 
+@media screen and (max-width: 480px) {
+  .bottomContainer {
+    gap: 1rem;
+    padding-left: 1rem;
+  }
+
+  .detailText {
+    max-width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .tournamentText {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
   .detailText {
     max-width: 75%;
     font-size: 0.8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
-
-    .tournamentText {
-        font-size: 1rem;
-    }
 }
