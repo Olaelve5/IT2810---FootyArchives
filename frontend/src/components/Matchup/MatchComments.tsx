@@ -52,7 +52,13 @@ export default function MatchComments({ result }: MatchCommentsProps) {
 
   return (
     <div className={classes.container}>
-      <CommentModal opened={opened} onClose={close} resultId={result._id} setComments={setComments} setTotalCount={setTotalCount}/>
+      <CommentModal
+        opened={opened}
+        onClose={close}
+        resultId={result._id}
+        setComments={setComments}
+        setTotalCount={setTotalCount}
+      />
       <div className={classes.topContainer}>
         <h1 className={classes.title}>
           {totalCount} {language === 'en' ? 'comments' : 'kommentarer'}
@@ -78,17 +84,17 @@ export default function MatchComments({ result }: MatchCommentsProps) {
         {comments.map((comment: CommentType, index: Key | null | undefined) => (
           <Comment key={index} comment={comment} />
         ))}
-        {comments.length > 0 && (
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-            <LoadCommentsButton
-              page={page}
-              language={language}
-              totalPages={totalPages || 0}
-              handleClick={handleClick}
-              loading={loading}
-            />
-          </div>
-        )}
+        {comments.length >= 10 && comments.length < totalCount &&(
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+              <LoadCommentsButton
+                page={page}
+                language={language}
+                totalPages={totalPages || 0}
+                handleClick={handleClick}
+                loading={loading}
+              />
+            </div>
+          )}
       </div>
     </div>
   );
