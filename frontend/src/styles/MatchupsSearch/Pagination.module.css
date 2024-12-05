@@ -30,3 +30,13 @@
         background-color: var(--mantine-color-darkmode-9);
     }
 }
+
+@media (max-width: 480px) {
+    .controlDark {
+        width: 0;
+    }
+
+    .root {
+        white-space: nowrap;
+    }
+}

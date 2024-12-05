@@ -7,7 +7,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 .grid {
@@ -16,21 +17,23 @@
   gap: 2rem;
   padding: 0.5rem;
 }
+
 .gridsCell{
   display:flex;
   justify-content: center;
   width:100%;
-
 }
 
 .sortButton {
   border: none;
   cursor: pointer;
+  padding-right: 0.5rem;
 }
 
 .sortButton:hover {
   background: transparent;
 }
+
 .sortButtonText {
   display: flex;
   align-items: center;
@@ -73,7 +76,6 @@
 }
 
 
-
 .sortOrderButtonDark {
     width: 2.2rem;
     border: 1px solid;
@@ -113,6 +115,18 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 500px) {
+  .topContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .matchFoundText {
+    font-size: 1rem;
+  }
 }
   
 
