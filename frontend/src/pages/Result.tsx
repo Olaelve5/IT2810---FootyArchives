@@ -1,7 +1,7 @@
 import MatchDetails from '../components/Matchup/MatchDetails';
 import MatchScore from '../components/Matchup/MatchScore';
 import MatchScorers from '../components/Matchup/MatchScorers';
-import MatchComments from '../components/Matchup/MatchComments';
+import MatchComments from '../components/Matchup/Comments/MatchComments';
 import { useNavigate } from 'react-router-dom';
 import { Group, Loader, useMantineTheme } from '@mantine/core';
 import { useParams } from 'react-router-dom';

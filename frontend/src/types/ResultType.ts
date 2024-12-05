@@ -1,3 +1,5 @@
+import { CommentType } from './CommentType';
+
 export type ResultType = {
   _id: string;
   home_team: string;
@@ -14,12 +16,4 @@ export type ResultType = {
   comments?: CommentType[];
   home_team_no: string;
   away_team_no: string;
-};
-
-export type CommentType = {
-  id?: string;
-  user_name: string;
-  comment: string;
-  date: string;
-  result_id: string;
 };
