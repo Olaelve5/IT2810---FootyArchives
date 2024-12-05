@@ -1,10 +1,10 @@
 import classes from '../../styles/SideBar/Sidebar.module.css';
-import { Group, NavLink, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Group, Text, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 import { IconTrophyFilled } from '@tabler/icons-react';
 import { tournamentData } from '../../utils/tournamentUtils';
+import NavLinkItem from './NavLinkItem';
 
 interface CompetitionsProps {
   selected: string;
@@ -32,30 +32,14 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
 
     return (
       <div className={classes.linkContainer} key={item.name}>
-        <NavLink
-          component={Link}
-          to={`/project2/tournament/${item.link}`}
+        <NavLinkItem
+          to={`/project2/tournament/${item.name}`}
           label={item.name}
-          active={selected === item.name}
-          color="primary"
-          variant="filled"
-          leftSection={<IconTrophyFilled stroke={1.5} size={25} color={themeColor} />}
-          noWrap
-          className={
-            selected === item.name
-              ? isDark
-                ? classes.linkSelectedDark
-                : classes.linkSelected
-              : isDark
-                ? classes.linkDark
-                : classes.link
-          }
-          onClick={() => setSelected(item.name)}
-          classNames={{
-            label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
-            body: classes.linkLabelBody,
-          }}
-          id={selected === item.name ? classes.linkSelected : classes.link}
+          icon={<IconTrophyFilled />}
+          selected={selected}
+          setSelected={setSelected}
+          isDark={isDark}
+          iconColor={themeColor}
         />
       </div>
     );

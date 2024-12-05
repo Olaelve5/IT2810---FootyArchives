@@ -1,43 +1,59 @@
 import Logo from './Logo';
-import { Group, useMantineTheme, useMantineColorScheme, NavLink } from '@mantine/core';
+import { Group, useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import Competitions from './Tournaments';
 import classes from '../../styles/SideBar/Sidebar.module.css';
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useLanguageStore } from '../../stores/language-store';
 import { useSidebarCollapseStore } from '../../stores/sidebar-collapse-store';
 import { IconHome, IconListSearch, IconSettings } from '@tabler/icons-react';
 import ColorSchemeBtn from '../Navbar/ColorSchemeBtn';
 import LanguageBtn from '../Navbar/LanguageButton';
 import SideBarCollapse from '../Navbar/SideBarCollapse';
-import Searchbar from '../Navbar/Searchbar';
+import NavLinkItem from './NavLinkItem';
 
 export default function SideBar() {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const language = useLanguageStore((state) => state.language);
   const { isCollapsed, setCollapsed } = useSidebarCollapseStore();
-
   const location = useLocation();
   const { tournamentName } = useParams<{ tournamentName: string }>(); // Get the tournament name from the URL
   const [selected, setSelected] = useState('');
-
   const isDark = colorScheme === 'dark';
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  // Update the window width state on resize
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [windowWidth]);
+
+  // Set the sidebar collapse state based on the window width on mount
+  useEffect(() => {
+    if (windowWidth < 900) {
+      setCollapsed(true);
+    }
+  }, [windowWidth, setCollapsed]);
 
   // Set the selected link based on the current URL
   useEffect(() => {
     const path = location.pathname;
 
     if (path === '/project2') {
-      setSelected('Home');
+      setSelected(language === 'en' ? 'Home' : 'Hjem');
     } else if (path.startsWith('/project2/matchups')) {
-      setSelected('Browse Matchups');
+      setSelected(language === 'en' ? 'Browse Matchups' : 'Uforsk kamper');
     } else if (path.startsWith('/project2/tournament')) {
       setSelected(tournamentName || '');
     } else {
       setSelected('');
     }
-  }, [location.pathname, tournamentName]);
+  }, [language, location.pathname, tournamentName]);
 
   return (
     <div
@@ -55,61 +71,24 @@ export default function SideBar() {
           </div>
         </div>
         <Group className={classes.links}>
-          <div className={classes.searchbarContainer}>
-            <Searchbar />
-          </div>
           <div className={classes.linkContainer}>
-            <NavLink
-              component={Link}
+            <NavLinkItem
               to="/project2"
               label={language === 'en' ? 'Home' : 'Hjem'}
-              leftSection={<IconHome stroke={1.5} size={25} />}
-              color="primary"
-              active={selected === 'Home'}
-              variant="filled"
-              onClick={() => setSelected('Home')}
-              noWrap
-              className={
-                selected === 'Home'
-                  ? isDark
-                    ? classes.linkSelectedDark
-                    : classes.linkSelected
-                  : isDark
-                    ? classes.linkDark
-                    : classes.link
-              }
-              classNames={{
-                label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
-                body: classes.linkLabelBody,
-              }}
-              id={selected === 'Home' ? classes.linkSelected : classes.link}
+              icon={<IconHome stroke={1.5} size={25} />}
+              selected={selected}
+              setSelected={setSelected}
+              isDark={isDark}
             />
           </div>
           <div className={classes.linkContainer}>
-            <NavLink
-              component={Link}
+            <NavLinkItem
               to="/project2/matchups"
               label={language === 'en' ? 'Browse Matchups' : 'Uforsk kamper'}
-              leftSection={<IconListSearch stroke={1.5} size={25} />}
-              color="primary"
-              active={selected === 'Browse Matchups'}
-              variant="filled"
-              onClick={() => setSelected('Browse Matchups')}
-              noWrap
-              className={
-                selected === 'Browse Matchups'
-                  ? isDark
-                    ? classes.linkSelectedDark
-                    : classes.linkSelected
-                  : isDark
-                    ? classes.linkDark
-                    : classes.link
-              }
-              classNames={{
-                label: isCollapsed ? classes.linkLabelCollapsed : classes.linkLabel,
-                body: classes.linkLabelBody,
-              }}
-              id={selected === 'Browse Matchups' ? classes.linkSelected : classes.link}
+              icon={<IconListSearch stroke={1.5} size={25} />}
+              selected={selected}
+              setSelected={setSelected}
+              isDark={isDark}
             />
           </div>
         </Group>
