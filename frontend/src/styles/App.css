@@ -2,7 +2,6 @@
   /* max-width: 1500px; */
   margin: 0 auto;
   text-align: center;
-
 }
 
 ::-webkit-scrollbar {
@@ -21,7 +20,7 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease; /* Add transition */
-    box-shadow: 0.2s ease;
+  box-shadow: 0.2s ease;
 
   a {
     color: black;
@@ -40,7 +39,7 @@
   transition:
     background-color 0.2s ease,
     color 0.2s ease; /* Add transition */
-    box-shadow: 0.2s ease;
+  box-shadow: 0.2s ease;
 
   a {
     color: white;
@@ -135,12 +134,10 @@ h2 {
   height: 104%;
 }
 
-
 /* Global CSS class to set the cursor style */
 .cursor-ns-resize * {
   cursor: ns-resize !important;
 }
-
 
 @media screen and (max-width: 900px) {
   .rightContainerExpanded {
@@ -152,11 +149,21 @@ h2 {
   .rightInnerContainer {
     padding: 0 2rem;
   }
-  
 }
 
-
 @media screen and (max-width: 480px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
   .rightContainerExpanded {
     padding-left: 0;
   }
@@ -166,29 +173,6 @@ h2 {
   }
 
   .rightInnerContainer {
-    padding: 0 2rem;
+    padding: 0 1.5rem;
   }
-}
-
-@media screen and (max-width: 768px) {
-  
-  #root{
-    --card-width: 1.5rem;
-  }
-  .flagImageContainer {
-    width: calc(2.8rem * 0.8);
-    height: calc(1.8rem * 0.8);
-  }
-  
-}
-
-@media screen and (max-width: 391px) {
-  #root{
-    --card-width: 1rem;
-  }
-.flagImageContainer {
-  width: calc(2rem * 0.8);
-  height: calc(1rem * 0.8);
-  
-}
 }

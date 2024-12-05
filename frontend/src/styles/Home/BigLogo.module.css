@@ -20,14 +20,9 @@
 
 #headerGreenDark {
   color: var(--mantine-color-primary-5);
-  /* background: -webkit-linear-gradient(45deg, var(--mantine-color-primary-6), #b9d100);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent; */
 }
 
 .header {
-  font-size: 3.5rem;
   padding: 0;
   margin: 0;
 }

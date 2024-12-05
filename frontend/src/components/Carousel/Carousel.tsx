@@ -43,6 +43,7 @@ function MatchcardCarousel({
   const [slides, setSlides] = useState<JSX.Element[]>([]);
   const { language } = useLanguageStore();
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const newSlides = data?.map((item) => (
@@ -52,6 +53,19 @@ function MatchcardCarousel({
     ));
     setSlides(newSlides);
   }, [data, cardType]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   if (error) {
     console.error(error);
@@ -98,12 +112,11 @@ function MatchcardCarousel({
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
       <Carousel
         key={titleEn}
-        slideSize="1%"
-        slideGap="1.8rem"
-        loop={false}
-        align="start"
+        slideSize={windowWidth < 480 ? '100%' : 'auto'}
+        slideGap="1.5rem"
         slidesToScroll="auto"
         controlsOffset="0"
+        align={windowWidth < 480 ? 'center' : 'start'}
         classNames={classes}
         styles={{
           control: {

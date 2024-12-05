@@ -18,7 +18,7 @@
     cursor: default;
   }
   background-color: rgb(255, 255, 255);
-  opacity: 1;
+  opacity: 0.9;
   color: rgb(0, 0, 0);
   z-index: 21;
   transition: transform 0.2s ease;
@@ -70,4 +70,11 @@
 .seeMoreButton:hover {
   background-color: var(--mantine-color-darkmode-3);
   border-color: var(--mantine-color-darkmode-8);
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 1.4rem;
+  }
+  
 }

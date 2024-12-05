@@ -16,13 +16,6 @@ export function MatchCard(props: ResultType) {
   const date = formatDate(props.date);
   const [countryCodes, setCountryCodes] = useState<string[]>([]);
 
-  const cardTitle = () => {
-    if (language === 'no') {
-      return `${props.home_team_no} vs ${props.away_team_no}`;
-    }
-    return `${props.home_team} vs ${props.away_team}`;
-  };
-
   useEffect(() => {
     const codes = getCountryCode([props.home_team, props.away_team]);
     setCountryCodes(codes as string[]);
@@ -30,50 +23,60 @@ export function MatchCard(props: ResultType) {
 
   return (
     <Link to={`/project2/matchup/${props._id}`}>
-      <Card
-        padding="xs"
-        radius="md"
-        shadow="xl"
-        className={classes.card}
-        id={isDark ? classes.darkCard : classes.lightCard}
-        style={{
-          backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
-        }}
-      >
-        <Group align="center" justify="center" display="flex" className={classes.detailsContainer}>
-          <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
-            {cardTitle()}
-          </Text>
+      <div className={classes.container}>
+        <Card
+          padding="xs"
+          radius="md"
+          shadow="xl"
+          className={classes.card}
+          id={isDark ? classes.darkCard : classes.lightCard}
+          style={{
+            backgroundColor: isDark ? theme.colors.darkmode[1] : 'white',
+          }}
+        >
           <div className={classes.dateTournamentContainer}>
-            <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
+            <Text size="sm" fw={600} className={classes.tournamentName}>
               {props.tournament}
             </Text>
             <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
               {date}
             </Text>
+            <Text className={isDark ? classes.darkText : classes.lightText} size="sm">
+              {props.city}, {props.country}
+            </Text>
           </div>
-        </Group>
 
-        <Group>
-          <div className="flagImageContainer">
-            <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
-          </div>
-          <Group gap="xs">
-            <Text fw={600} size="lg">
-              {props.home_score}
-            </Text>
-            <Text fw={600} size="lg">
-              -
-            </Text>
-            <Text fw={600} size="lg">
-              {props.away_score}
-            </Text>
+          <Group>
+            <div className={classes.nationContainer}>
+              <div className="flagImageContainer">
+                <span className={`fi fi-${countryCodes[0]}`} id="flagImage"></span>
+              </div>
+              <Text fw={600} size="sm" className={classes.nationTitle}>
+                {language === 'no' ? props.home_team_no : props.home_team}
+              </Text>
+            </div>
+            <Group className={classes.scoreContainer}>
+              <Text fw={600} size="md">
+                {props.home_score}
+              </Text>
+              <Text fw={600} size="md">
+                -
+              </Text>
+              <Text fw={600} size="md">
+                {props.away_score}
+              </Text>
+            </Group>
+            <div className={classes.nationContainer}>
+              <div className="flagImageContainer">
+                <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
+              </div>
+              <Text fw={600} size="sm" className={classes.nationTitle}>
+                {language === 'no' ? props.away_team_no : props.away_team}
+              </Text>
+            </div>
           </Group>
-          <div className="flagImageContainer">
-            <span className={`fi fi-${countryCodes[1]}`} id="flagImage"></span>
-          </div>
-        </Group>
-      </Card>
+        </Card>
+      </div>
     </Link>
   );
 }
