@@ -105,7 +105,7 @@ function Nation() {
                 </p>
               </div>
             </div>
-            <Rival rivalEn={nation.top_rival.opponent} rivalNO={nation.top_rival.name_no} a />
+            <Rival rivalEn={nation.top_rival.opponent} rivalNO={nation.top_rival.name_no} />
           </div>
           <div className={classes.carouselSection}>
             <MatchCardCarousel
