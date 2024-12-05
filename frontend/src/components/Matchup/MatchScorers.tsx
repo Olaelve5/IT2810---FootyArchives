@@ -53,8 +53,8 @@ export default function MatchScorers({ result }: MatchScorersProps) {
 
   // Get the position of the name based on the team
   const getNamePositionStyle = (home: boolean) => {
-    const homeStyle = { transform: 'translateX(-50%)', right: '2rem' };
-    const awayStyle = { transform: 'translateX(50%)', left: '2rem' };
+    const homeStyle = { transform: 'translateX(-50%)', right: '1.2rem' };
+    const awayStyle = { transform: 'translateX(50%)', left: '1.2rem' };
     return home ? homeStyle : awayStyle;
   };
 

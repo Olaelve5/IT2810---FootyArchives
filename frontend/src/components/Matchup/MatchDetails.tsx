@@ -4,11 +4,9 @@ import { useMantineColorScheme, useMantineTheme, Text, Button } from '@mantine/c
 import { ResultType } from '../../types/ResultType';
 import { useEffect, useState } from 'react';
 import { formatDate } from '../../utils/dateUtils';
-import { useLanguageStore } from '../../stores/language-store';
 import { useNavigate } from 'react-router-dom';
 
 export default function MatchDetails(data: ResultType) {
-  const { language } = useLanguageStore();
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
@@ -27,30 +25,21 @@ export default function MatchDetails(data: ResultType) {
     return null;
   }
 
-  const getTitle = () => {
-    if (language === 'no') {
-      return `${result.home_team_no} vs ${result.away_team_no}`;
-    } else {
-      return `${result.home_team} vs ${result.away_team}`;
-    }
-  };
-
   const handleTournamentClick = () => {
     navigate(`/project2/tournament/${result.tournament}`);
   };
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>{getTitle()}</h1>
+      <div>
+        <Button variant="transparent" p={0} className={classes.tournamentButton} c='white'>
+          <IconTrophy size={26} stroke={1.5} className={classes.icon} />
+          <Text className={classes.tournamentText} onClick={handleTournamentClick}>
+            {data.tournament}
+          </Text>
+        </Button>
+      </div>
       <div className={classes.bottomContainer}>
-        <div className={classes.detailContainer}>
-          <Button variant="transparent" p={0} className={classes.detailButton}>
-            <IconTrophy size={22} stroke={1.5} color={getColor()} className={classes.icon}/>
-            <Text c={getColor()} className={classes.detailText} onClick={handleTournamentClick}>
-              {data.tournament}
-            </Text>
-          </Button>
-        </div>
         <div className={classes.detailContainer}>
           <IconCalendarEvent size={22} stroke={1.5} color={getColor()} />
           <Text c={getColor()} className={classes.detailText}>
