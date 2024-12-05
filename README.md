@@ -47,8 +47,16 @@ International football has a variety of tournaments and every tournament has its
 ### Country page
 Every country has its own page, displaying the nations record, recent matches, biggest wins and worst defeats. You can even see their rival nation!
 
-### Accessibility
-There is a language button so you can view the page in both english and norwegian. You can also switch between lightmode and darkmode to fit your needs.
+## Accessibility
+#### Language
+There is a language button so you can view the page in both english and norwegian.
+#### Lightmode/Darkmode
+You can switch between lightmode and darkmode to fit your needs. 
+#### Aria labels
+Aria labels are used to support screen readers
+#### Keyboard accesibility
+We've made sure that users can use Footy Archives with a keyboard alone.
+
 
 ## Responsivness
 The app is currently not as responsive as we would've have liked, but this is something we are working on.
