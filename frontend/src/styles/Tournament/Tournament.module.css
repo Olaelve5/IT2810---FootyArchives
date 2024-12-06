@@ -13,6 +13,10 @@
     &[data-disabled] {
         display: none;
     }
+
+    p {
+        color: white !important;
+    }
 }
 
 .loadButton:hover {

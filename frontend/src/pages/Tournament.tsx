@@ -101,7 +101,7 @@ export default function Tournament() {
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
       <div className={classes.carouselSection}>{carousels}</div>
       <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
-        Load More
+        <p>Load More</p>
       </Button>
     </Layout>
   );
