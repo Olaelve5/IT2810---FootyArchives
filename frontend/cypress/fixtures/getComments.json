@@ -3,17 +3,25 @@
     "getComments": {
       "comments": [
         {
-          "user_name": "John Doe",
-          "date": "2024-11-19T12:00:00.000Z",
-          "comment": "This is a test comment.",
-          "result_id": "670d1429cc20a61eeae6e359",
+          "id": "6750ba58460a90bf99251afb",
+          "user": {
+            "id": "6750569e4dd64d6a93001c99",
+            "username": "John Doe"
+          },
+          "date": "2024-12-04T20:23:52.336+00:00",
+          "comment": "This is a test",
+          "result_id": "674c853f1dde3e61ff21695d",
           "__typename": "Comment"
         },
         {
-          "user_name": "Jane Smith",
-          "date": "2024-11-19T13:00:00.000Z",
-          "comment": "Another test comment.",
-          "result_id": "670d1429cc20a61eeae6e359",
+          "id": "6750ba58460a90bf99251afc",
+          "user": {
+            "id": "6750569e4dd64d6a93001c98",
+            "username": "Jane Smith"
+          },
+          "date": "2024-12-04T21:23:52.336+00:00",
+          "comment": "This is another test",
+          "result_id": "674c853f1dde3e61ff21695d",
           "__typename": "Comment"
         }
       ],
