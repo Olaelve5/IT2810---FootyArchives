@@ -47,7 +47,7 @@ International football has a variety of tournaments and every tournament has its
 ### Country page
 Every country has its own page, displaying the nations record, recent matches, biggest wins and worst defeats. You can even see their rival nation!
 
-## Accessibility
+## Accessibility :accessibility:
 
 ### Language
 There is a language button so you can view the page in both english and norwegian.
@@ -58,7 +58,7 @@ Aria labels are used to support screen readers
 ### Keyboard accesibility
 We've made sure that users can use Footy Archives with a keyboard alone.
 
-## Sustainability
+## Sustainability 🥬
 
 ### Caching
 We've utilized Apollo Clients's in-memory cache to store results of GraphQL queries locally. This reduces the need for repeated network request, which makes the website both faster and reduces the energy consumption from data transfers and server processing.
