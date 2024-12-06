@@ -45,7 +45,7 @@ describe('Test of filters on the matchup search page', () => {
     });
 
     // Test API fetch of results based on filters
-    it('Tests all filters applied and that data is fetched', () => {
+    it('Tests all filters applied and that data is fetched + naviagtion persistence', () => {
         cy.get('button').contains('Filters').click();
 
         // Select Norway and Brazil
@@ -68,11 +68,20 @@ describe('Test of filters on the matchup search page', () => {
         cy.get('[aria-label="Exclusive switch"]').click();
 
         cy.get('button').contains('Apply').click();
-        cy.contains('p', 'Brazil vs Norway').should('exist')
+        cy.contains('p', 'Brazil').should('exist')
+        cy.contains('p', 'Norway').should('exist')
+        cy.contains('p', '23.06.1998').should('exist')
 
         // Verify that the exclusive swith worked
         // This matchup will be included if not
         cy.contains('p', 'France vs Brazil').should('not.exist')
+
+        // Navigate to another page and back
+        cy.get('a').contains('Home').click();
+        cy.get('a').contains('Matchups').click();
+        cy.contains('p', 'Brazil').should('exist')
+        cy.contains('p', 'Norway').should('exist')
+        cy.contains('p', '23.06.1998').should('exist')
     })
 
     it('Tests if filters are consistent if filters popup is closed and opened again', () => {

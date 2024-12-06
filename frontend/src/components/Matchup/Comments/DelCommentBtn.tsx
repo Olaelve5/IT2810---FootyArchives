@@ -45,7 +45,14 @@ function DelCommentBtn({ commentId, setComments, setTotalCount }: DelCommentBtnP
 
   return (
     <>
-      <Button className={classes.deleteButton} size="xs" color="red" radius="xl" onClick={open}>
+      <Button
+        className={classes.deleteButton}
+        size="xs"
+        color="red"
+        radius="xl"
+        onClick={open}
+        aria-label={language === 'no' ? 'Slett kommentar' : 'Delete comment'}
+      >
         <IconTrash
           size={20}
           color="white"
@@ -57,10 +64,22 @@ function DelCommentBtn({ commentId, setComments, setTotalCount }: DelCommentBtnP
           {error && <Text c="red">{language === 'en' ? 'Something went wrong' : 'Noe gikk galt'}</Text>}
           <h3>{language === 'en' ? 'Delete comment?' : 'Slett kommentar?'}</h3>
           <div className={classes.modalButtons}>
-            <Button className={classes.modalButton} onClick={close} radius="xl" color="primary">
+            <Button
+              className={classes.modalButton}
+              onClick={close}
+              radius="xl"
+              color="primary"
+              aria-label={language === 'no' ? 'Avbryt' : 'Cancel'}
+            >
               <p>{language === 'en' ? 'Cancel' : 'Avbryt'}</p>
             </Button>
-            <Button className={classes.modalButton} onClick={handleDeleteComment} color="red" radius="xl">
+            <Button
+              className={classes.modalButton}
+              onClick={handleDeleteComment}
+              color="red"
+              radius="xl"
+              aria-label={language === 'no' ? 'Ja' : 'Yes'}
+            >
               <p>{language === 'en' ? 'Yes' : 'Ja'}</p>
             </Button>
           </div>

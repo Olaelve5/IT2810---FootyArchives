@@ -54,10 +54,12 @@ describe('Test of navigation and routing', () => {
   })
 
   it('Tests navigation to matchups page with API call', () => {
-    cy.contains('Australia vs American Samoa').click();
+    cy.contains('p', '11.04.2001').click();
 
     cy.url().should('include', '/matchup');
-    cy.contains('h1', 'Australia vs American Samoa');
+
+    // Assert that the page has loaded and contains the first goal scorer
+    cy.contains('Con Boutsianis');
 
     // Navigate back to the home page
     cy.contains('Home').click();

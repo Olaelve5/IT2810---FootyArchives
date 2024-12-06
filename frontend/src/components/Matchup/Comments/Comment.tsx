@@ -76,6 +76,7 @@ export default function Comment({
               }}
               size="xs"
               radius="xl"
+              aria-label={language == 'no' ? 'Rediger kommentar' : 'Edit comment'}
             >
               <IconEdit
                 size={20}
