@@ -122,7 +122,6 @@ describe('Test of comments on the matchup page', () => {
     cy.contains('canadaman');
     cy.contains('Canada good');
 
-
     // Edit the comment
     cy.get('button[aria-label="Edit comment"]').click();
     cy.get('textarea[aria-label="Write a comment"]').clear().type('Canada bad');
@@ -138,7 +137,7 @@ describe('Test of comments on the matchup page', () => {
     // Delete the comment
     cy.get('button[aria-label="Delete comment"]').click();
     cy.contains('button', 'Yes').click();
-    
+
     // Wait for the DeleteComment mutation
     cy.wait('@DeleteComment');
 

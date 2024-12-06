@@ -59,7 +59,9 @@ export default function Comment({
     <div className={classes.container}>
       <Group className={classes.headerContainer}>
         <div className={classes.nameTimeContainer}>
-          <Text size="md" className={classes.username}>@{comment.user.username}</Text>
+          <Text size="md" className={classes.username}>
+            @{comment.user.username}
+          </Text>
           <Text size="xs" c={isDark ? theme.colors.darkmode[8] : 'black'}>
             {calculateTimeDifference(comment.date)}
           </Text>

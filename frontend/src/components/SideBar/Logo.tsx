@@ -8,32 +8,21 @@ function Logo() {
   const navigate = useNavigate();
 
   return (
-      <div className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}>
-        <Text
-          size="xl"
-          fw={700}
-          c="primary"
-          id={classes.logoText}
-          aria-label="Footy Archives logo"
-        >
-          Footy
-        </Text>
-    <div
-      className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}
-      onClick={() => {
-        navigate('/project2');
-      }}
-    >
-
-        <Text
-          size="xl"
-          fw={700}
-          id={classes.logoText}
-        >
+    <div className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}>
+      <Text size="xl" fw={700} c="primary" id={classes.logoText} aria-label="Footy Archives logo">
+        Footy
+      </Text>
+      <div
+        className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}
+        onClick={() => {
+          navigate('/project2');
+        }}
+      >
+        <Text size="xl" fw={700} id={classes.logoText}>
           Archives
         </Text>
       </div>
-      </div>
+    </div>
   );
 }
 

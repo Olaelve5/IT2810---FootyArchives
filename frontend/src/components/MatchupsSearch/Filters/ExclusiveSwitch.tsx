@@ -33,8 +33,8 @@ export default function ExclusiveSwitch() {
         disabled={selectedTeams.length < 2}
         color={theme.colors.primary[6]}
         size="md"
-        onLabel={<IconCheck size={16} color="white" aria-label='Exclusive switch'/>}
-        offLabel={<IconX size={16} color={theme.colors.gray[5]} aria-label='Exclusive switch'/>}
+        onLabel={<IconCheck size={16} color="white" aria-label="Exclusive switch" />}
+        offLabel={<IconX size={16} color={theme.colors.gray[5]} aria-label="Exclusive switch" />}
         label={language === 'en' ? 'Exclusive' : 'Eksklusiv'}
         description={
           language === 'en'

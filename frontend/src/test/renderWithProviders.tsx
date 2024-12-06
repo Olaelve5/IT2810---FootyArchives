@@ -8,7 +8,7 @@ interface RenderOptions {
 
 export const renderWithProviders = (
   ui: React.ReactElement,
-  { mocks = [], ...options }: RenderOptions = {} // Include mocks in options
+  { mocks = [], ...options }: RenderOptions = {}, // Include mocks in options
 ) => {
   return render(ui, {
     wrapper: ({ children }) => <TestWrapper mocks={mocks}>{children}</TestWrapper>,

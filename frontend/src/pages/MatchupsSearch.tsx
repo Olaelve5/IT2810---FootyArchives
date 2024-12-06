@@ -13,7 +13,7 @@ import Layout from '../components/Layout';
 
 export default function Matchups() {
   const { language } = useLanguageStore();
-  const { selectedTeams, yearRange, selectedTournaments, exclusive, page, sort} = useFilterStore();
+  const { selectedTeams, yearRange, selectedTournaments, exclusive, page, sort } = useFilterStore();
   const [filters, setFilters] = useState<QueryFilterType>({
     teams: selectedTeams,
     tournaments: selectedTournaments,
@@ -67,7 +67,7 @@ export default function Matchups() {
       </div>
       <div>
         <MatchupsGrid totalResults={totalResults} results={results} loading={loading} />
-        <PaginationComponent totalPages={totalPages}/>
+        <PaginationComponent totalPages={totalPages} />
       </div>
     </Layout>
   );

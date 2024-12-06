@@ -7,15 +7,19 @@ import { QuerySortType } from '../../types/QuerySortType';
 import { useLanguageStore } from '../../stores/language-store';
 import { useFilterStore } from '../../stores/filter-store';
 
-const sortOptions = [{en: 'Date', no: 'Dato'}, {en: 'Goal Difference', no: 'Målforskjell'}];
-
+const sortOptions = [
+  { en: 'Date', no: 'Dato' },
+  { en: 'Goal Difference', no: 'Målforskjell' },
+];
 
 export default function SortButton() {
   const { setSort, sort } = useFilterStore();
   const { field, order } = sort;
   const { language } = useLanguageStore();
   const [opened, setOpened] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<string>(language === 'en' ? sortOptions[0].en : sortOptions[0].no);
+  const [selectedOption, setSelectedOption] = useState<string>(
+    language === 'en' ? sortOptions[0].en : sortOptions[0].no,
+  );
   const { colorScheme } = useMantineColorScheme();
   const isDark = colorScheme === 'dark';
   const theme = useMantineTheme();
@@ -101,7 +105,11 @@ export default function SortButton() {
         onClick={handleSortClick}
         className={isDark ? classes.sortOrderButtonDark : classes.sortOrderButtonLight}
       >
-        {order === 1 ? <IconSortAscending size={20} className={classes.orderIcon}/> : <IconSortDescending size={20} className={classes.orderIcon}/>}
+        {order === 1 ? (
+          <IconSortAscending size={20} className={classes.orderIcon} />
+        ) : (
+          <IconSortDescending size={20} className={classes.orderIcon} />
+        )}
       </Button>
     </div>
   );

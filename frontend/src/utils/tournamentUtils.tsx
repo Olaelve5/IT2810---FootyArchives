@@ -25,5 +25,3 @@ export const tournamentData = [
     color: 'green',
   },
 ];
-
-

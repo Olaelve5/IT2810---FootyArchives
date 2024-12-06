@@ -10,9 +10,8 @@ interface SideBarCollapseState {
 // Define the type for the persist configuration
 type SidebarPersist = (
   config: (set: (partial: Partial<SideBarCollapseState>) => void) => SideBarCollapseState,
-  options: PersistOptions<SideBarCollapseState>
+  options: PersistOptions<SideBarCollapseState>,
 ) => (set: (partial: Partial<SideBarCollapseState>) => void) => SideBarCollapseState;
-
 
 // Create a store for the sidebar collapse state
 export const useSidebarCollapseStore = create<SideBarCollapseState>(
@@ -23,6 +22,6 @@ export const useSidebarCollapseStore = create<SideBarCollapseState>(
     }),
     {
       name: 'sidebar-collapse-storage',
-    }
-  )
+    },
+  ),
 );

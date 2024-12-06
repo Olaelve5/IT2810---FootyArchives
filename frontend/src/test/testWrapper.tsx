@@ -13,10 +13,7 @@ export const TestWrapper = ({ children, mocks = [] }: TestWrapperProps) => {
   return (
     <MockedProvider mocks={mocks} addTypename={false}>
       <MemoryRouter>
-        <MantineProvider
-          defaultColorScheme="dark"
-          theme={theme}
-        >
+        <MantineProvider defaultColorScheme="dark" theme={theme}>
           {children}
         </MantineProvider>
       </MemoryRouter>

@@ -12,7 +12,7 @@ interface MatchupsGridProps {
   loading?: boolean;
 }
 
-export default function MatchupsGrid({ totalResults, results, loading  }: MatchupsGridProps) {
+export default function MatchupsGrid({ totalResults, results, loading }: MatchupsGridProps) {
   const theme = useMantineTheme();
   const { language } = useLanguageStore();
 

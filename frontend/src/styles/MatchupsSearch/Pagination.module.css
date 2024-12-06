@@ -1,54 +1,54 @@
 .container {
-    width: 100%;
-    justify-content: center;
-    display: flex;
-    margin: 2rem 0;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  margin: 2rem 0;
 }
 
 .controlDark {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 
-    &[data-active] {
-        background-color: var(--mantine-color-darkmode-4);
-        color: white;
-    }
+  &[data-active] {
+    background-color: var(--mantine-color-darkmode-4);
+    color: white;
+  }
 }
 
 .controlDark:hover {
-    background-color: var(--mantine-color-darkmode-4);
+  background-color: var(--mantine-color-darkmode-4);
 }
 
 .controlLight {
-    border: none;
-    &[data-active] {
-        background-color: var(--mantine-color-darkmode-4);
-        color: white;
-    }
+  border: none;
+  &[data-active] {
+    background-color: var(--mantine-color-darkmode-4);
+    color: white;
+  }
 
-    &:hover {
-        background-color: var(--mantine-color-darkmode-9);
-    }
+  &:hover {
+    background-color: var(--mantine-color-darkmode-9);
+  }
 }
 
 @media (max-width: 480px) {
-    .controlDark {
-        width: 0;
+  .controlDark {
+    width: 0;
 
-        &:hover {
-            background-color: transparent;
-        }
+    &:hover {
+      background-color: transparent;
     }
+  }
 
-    .controlLight {
-        width: 0;
+  .controlLight {
+    width: 0;
 
-        &:hover {
-            background-color: transparent;
-        }
+    &:hover {
+      background-color: transparent;
     }
+  }
 
-    .root {
-        white-space: nowrap;
-    }
+  .root {
+    white-space: nowrap;
+  }
 }

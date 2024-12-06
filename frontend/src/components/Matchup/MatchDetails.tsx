@@ -32,7 +32,7 @@ export default function MatchDetails(data: ResultType) {
   return (
     <div className={classes.container}>
       <div>
-        <Button variant="transparent" p={0} className={classes.tournamentButton} c='white'>
+        <Button variant="transparent" p={0} className={classes.tournamentButton} c="white">
           <IconTrophy size={26} stroke={1.5} className={classes.icon} />
           <Text className={classes.tournamentText} onClick={handleTournamentClick}>
             {data.tournament}

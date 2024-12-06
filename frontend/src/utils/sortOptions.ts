@@ -1,6 +1,5 @@
 import { QuerySortType } from '../types/QuerySortType';
 
-
 export const recentResultsSort: QuerySortType = {
   field: 'date',
   order: -1,

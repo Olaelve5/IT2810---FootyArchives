@@ -1,14 +1,13 @@
-import TeamType from "./TeamType";
+import TeamType from './TeamType';
 
 type YearRangeType = {
-    startYear: number;
-    endYear: number;
-}
-
+  startYear: number;
+  endYear: number;
+};
 
 export type QueryFilterType = {
-    teams?: TeamType[];
-    tournaments?: string[];
-    yearRange?: YearRangeType;
-    exclusive?: boolean;
-}
+  teams?: TeamType[];
+  tournaments?: string[];
+  yearRange?: YearRangeType;
+  exclusive?: boolean;
+};
