@@ -33,8 +33,8 @@ function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionBu
           ? `Oppdag ${tournamentName} kamper fra ${startYear} til ${endYear}`
           : `Discover ${tournamentName} matchups from ${startYear} to ${endYear}`}
       </p>
-      <Button onClick={handleClick} className={classes.button} radius="xl" color="primary" size='sm'>
-        {language === 'no' ? `Utforsk alle kamper` : `Explore all matchups`}
+      <Button onClick={handleClick} className={classes.button} radius="xl" color="primary" size="sm" c="white">
+        <p>{language === 'no' ? `Utforsk alle kamper` : `Explore all matchups`} </p>
       </Button>
     </div>
   );
