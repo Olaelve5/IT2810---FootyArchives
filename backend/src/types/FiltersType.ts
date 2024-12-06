@@ -1,20 +1,18 @@
 export type YearRange = {
-    startYear: number;
-    endYear: number;
-}
-
+  startYear: number;
+  endYear: number;
+};
 
 export type Filters = {
-    teams?: string[];
-    tournaments?: string[];
-    yearRange?: YearRange;
-    winningTeam?: string;
-    losingTeam?: string;
-    exclusive?: boolean;
-}
+  teams?: string[];
+  tournaments?: string[];
+  yearRange?: YearRange;
+  winningTeam?: string;
+  losingTeam?: string;
+  exclusive?: boolean;
+};
 
 export type SortInput = {
-    field: string;
-    order: number;
-}
-
+  field: string;
+  order: number;
+};

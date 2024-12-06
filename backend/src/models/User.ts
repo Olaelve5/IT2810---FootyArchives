@@ -1,5 +1,4 @@
-import { ObjectId } from "mongodb";
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 // Schema for the users collection in the MongoDB database
 const UserSchema = new Schema({
@@ -11,6 +10,6 @@ const UserSchema = new Schema({
 });
 
 // Model for the users collection in the MongoDB database
-const User = model("User", UserSchema, "users");
+const User = model('User', UserSchema, 'users');
 
 export default User;

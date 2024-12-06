@@ -1,12 +1,12 @@
-import { ObjectId } from "mongodb";
-import { model, Schema } from "mongoose";
+import { ObjectId } from 'mongodb';
+import { model, Schema } from 'mongoose';
 
 // Schema for the comments collection in the MongoDB database
 const CommentSchema = new Schema({
   user: {
     type: ObjectId,
     required: true,
-    ref: "User", // Reference to the User model
+    ref: 'User', // Reference to the User model
   },
   date: {
     type: Date,
@@ -19,11 +19,11 @@ const CommentSchema = new Schema({
   result_id: {
     type: ObjectId,
     required: true,
-    ref: "Result", // Reference to the Result model
+    ref: 'Result', // Reference to the Result model
   },
 });
 
 // Model for the comments collection in the MongoDB database
-const Comment = model("Comment", CommentSchema, "comments");
+const Comment = model('Comment', CommentSchema, 'comments');
 
 export default Comment;

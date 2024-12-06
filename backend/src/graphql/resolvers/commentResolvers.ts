@@ -1,7 +1,5 @@
-import { get } from "http";
-import Comment from "../../models/Comment";
-import Result from "../../models/Result";
-import User from "../../models/User";
+import Comment from '../../models/Comment';
+import User from '../../models/User';
 
 interface QueryArgs {
   result_id: string;
@@ -20,10 +18,7 @@ interface MutationArgs {
 const commentResolvers = {
   Query: {
     // Get the comments for a result
-    getComments: async (
-      _: any,
-      { result_id, limit = 10, page = 1 }: QueryArgs
-    ) => {
+    getComments: async (_: any, { result_id, limit = 10, page = 1 }: QueryArgs) => {
       const count = await Comment.countDocuments({ result_id });
       const totalPages = Math.ceil(count / limit);
       const skip = (page - 1) * limit;
@@ -31,7 +26,7 @@ const commentResolvers = {
         .sort({ date: -1 })
         .skip(skip)
         .limit(limit)
-        .populate("user", "username");
+        .populate('user', 'username');
 
       return {
         comments,
@@ -43,10 +38,7 @@ const commentResolvers = {
 
   Mutation: {
     // Add a new comment to a result
-    addComment: async (
-      _: any,
-      { result_id, comment, user_id, username }: MutationArgs
-    ) => {
+    addComment: async (_: any, { result_id, comment, user_id, username }: MutationArgs) => {
       try {
         let user;
 
@@ -55,7 +47,7 @@ const commentResolvers = {
           user = await User.findById(user_id);
 
           if (!user) {
-            throw new Error("User not found");
+            throw new Error('User not found');
           }
         } else {
           // No user_id provided; create a new user
@@ -74,46 +66,35 @@ const commentResolvers = {
         const savedComment = await newComment.save();
 
         // Populate the user field before returning
-        const populatedComment = await savedComment.populate(
-          "user",
-          "username"
-        );
+        const populatedComment = await savedComment.populate('user', 'username');
 
         return populatedComment;
       } catch (error) {
-        if (
-          error instanceof Error &&
-          error.message.includes("E11000") &&
-          error.message.includes("username")
-        ) {
-          throw new Error("The username is already taken");
+        if (error instanceof Error && error.message.includes('E11000') && error.message.includes('username')) {
+          throw new Error('The username is already taken');
         }
 
-        console.error("Error adding comment:", error);
-        throw new Error("Failed to add comment");
+        console.error('Error adding comment:', error);
+        throw new Error('Failed to add comment');
       }
     },
 
     // Edit a comment
-    editComment: async (
-      _: any,
-      { comment_id, comment }: { comment_id: string; comment: string }
-    ) => {
+    editComment: async (_: any, { comment_id, comment }: { comment_id: string; comment: string }) => {
       try {
-        const updatedComment = await Comment.findByIdAndUpdate(
-          comment_id,
-          { comment },
-          { new: true }
-        ).populate("user", "username");
+        const updatedComment = await Comment.findByIdAndUpdate(comment_id, { comment }, { new: true }).populate(
+          'user',
+          'username',
+        );
 
         if (!updatedComment) {
-          throw new Error("Comment not found");
+          throw new Error('Comment not found');
         }
 
         return updatedComment;
       } catch (error) {
-        console.error("Error editing comment:", error);
-        throw new Error("Failed to edit comment");
+        console.error('Error editing comment:', error);
+        throw new Error('Failed to edit comment');
       }
     },
 
@@ -123,14 +104,14 @@ const commentResolvers = {
         const comment = await Comment.findById(comment_id);
 
         if (!comment) {
-          throw new Error("Comment not found");
+          throw new Error('Comment not found');
         }
 
         await comment.deleteOne();
         return true;
       } catch (error) {
-        console.error("Error deleting comment:", error);
-        throw new Error("Failed to delete comment");
+        console.error('Error deleting comment:', error);
+        throw new Error('Failed to delete comment');
       }
     },
   },
