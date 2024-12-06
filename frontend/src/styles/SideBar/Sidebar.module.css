@@ -138,6 +138,10 @@
   display: flex;
 }
 
+.navLinkIcon *{
+  color: unset !important;
+}
+
 .hiddenLogoTextContainer {
   display: flex;
 }

@@ -19,7 +19,6 @@ const LoadCommentsButton: React.FC<LoadCommentsButtonProps> = ({ language, handl
         loading={loading}
         onClick={(event) => handleClick(event)}
         disabled={totalPages === page}
-        style={{ width: '25%' }} // Adjust the width and add margin
       >
         <p>{language === 'en' ? 'Load more comments' : 'Last inn flere kommentarer'}</p>
       </Button>

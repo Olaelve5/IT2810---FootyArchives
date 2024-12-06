@@ -18,7 +18,8 @@ interface NavLinkItemProps {
 export default function NavLinkItem({ to, label, icon, selected, setSelected, isDark, iconColor }: NavLinkItemProps) {
   // Clone the icon element and apply the color style
   const coloredIcon = cloneElement(icon as React.ReactElement, {
-    style: { color: iconColor },
+    style: { color: iconColor},
+    className: classes.navLinkIcon,
   });
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

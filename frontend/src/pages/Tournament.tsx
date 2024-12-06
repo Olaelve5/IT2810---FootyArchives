@@ -90,7 +90,7 @@ export default function Tournament() {
   return (
     <Layout>
       <div className={classes.titleContainer}>
-        <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
+        <IconTrophyFilled stroke={1.5} color={iconColor()} className={classes.iconTrophy} />
         <h1>{tournamentName}</h1>
       </div>
       <DescriptionButton

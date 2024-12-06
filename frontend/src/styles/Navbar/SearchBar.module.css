@@ -125,3 +125,11 @@
   color: var(--mantine-color-darkmode-7);
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 480px) {
+  .input {
+    &::placeholder {
+      font-size: 0.8rem;
+    }
+  }
+}
