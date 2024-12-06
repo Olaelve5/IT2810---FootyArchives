@@ -58,7 +58,7 @@ Aria labels are used to support screen readers
 ### Keyboard accesibility
 We've made sure that users can use Footy Archives with a keyboard alone.
 
-## Sustainability 🥬
+## Sustainability ♻️
 
 ### Caching
 We've utilized Apollo Clients's in-memory cache to store results of GraphQL queries locally. This reduces the need for repeated network request, which makes the website both faster and reduces the energy consumption from data transfers and server processing.
