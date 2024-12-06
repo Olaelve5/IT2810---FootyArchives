@@ -2,13 +2,15 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   padding-bottom: 4rem;
 }
 
 .headerContainer {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 1rem;
+  align-items: center;
 }
 
 
@@ -22,27 +24,12 @@
   color: rgb(0, 0, 0);
   z-index: 21;
   transition: transform 0.2s ease;
+  transform: scale(1.2);
 }
 
 .control:hover {
-  transform: scale(1.1);
+  transform: scale(1.3);
 }
-
-/* Overlay for the carousel, to make the controls more visible
- - not used */
-
-/* .controls::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, #00000000 0%, #00000000 10%, #00000000 90%, var(--mantine-color-darkmode-0) 100%);
-  pointer-events: none;
-  opacity: 0.8;
-  z-index: 20;
-} */
 
 .controls {
   height: 100%;
@@ -64,17 +51,35 @@
   font-size: 1.5rem;
   margin: 0;
   padding: 0;
-  margin-bottom: 1rem;
 }
 
-.seeMoreButton:hover {
-  background-color: var(--mantine-color-darkmode-3);
-  border-color: var(--mantine-color-darkmode-8);
+.seeMoreButtonDark {
+  background-color: var(--mantine-color-darkmode-1);
+  border-color: var(--mantine-color-darkmode-4) !important;
+
+  &:hover {
+    background-color: var(--mantine-color-darkmode-2);
+    border-color: var(--mantine-color-darkmode-6) !important;
+  }
+}
+
+.seeMoreButtonLight {
+  background-color: white;
+  border-color: var(--mantine-color-darkmode-2);
+}
+
+.noDataText {
+  align-self: center;
+  color: var(--mantine-color-darkmode-8);
 }
 
 @media screen and (max-width: 480px) {
   .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+  }
+
+  .seeMoreButton {
+    font-size: 0.8rem;
   }
   
 }

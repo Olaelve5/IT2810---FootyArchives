@@ -2,7 +2,7 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    margin: 4rem 0 2rem 0;
+    margin-top: 4rem;
 }
 
 .loadButton {
@@ -11,10 +11,11 @@
     background-color: var(--mantine-color-primary-9);
 
     &[data-disabled] {
-        background-color: var(--mantine-color-primary-9);
-        cursor: not-allowed;
-        opacity: 0.5;
-        color: var(--mantine-color-darkmode-0);
+        display: none;
+    }
+
+    p {
+        color: white !important;
     }
 }
 
@@ -31,12 +32,25 @@
 }
 
 .titleContainer > h1 {
-    font-size: 3rem;
+    font-size: 2rem;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
 .iconTrophy {
     position: relative;
     bottom: 2px;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .titleContainer {
+        h1 {
+            font-size: 1.5rem;
+        }
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

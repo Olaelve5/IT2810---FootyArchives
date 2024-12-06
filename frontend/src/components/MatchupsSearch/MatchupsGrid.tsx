@@ -19,7 +19,7 @@ export default function MatchupsGrid({ totalResults, results, loading  }: Matchu
   return (
     <div className={classes.container}>
       <div className={classes.topContainer}>
-        <Text c={theme.colors.darkmode[8]}>
+        <Text c={theme.colors.darkmode[8]} className={classes.matchFoundText}>
           {totalResults} {language === 'en' ? 'matchups found' : 'kamper funnet'}
         </Text>
         {loading && <Loader size={25} color={theme.colors.primary[5]} />}

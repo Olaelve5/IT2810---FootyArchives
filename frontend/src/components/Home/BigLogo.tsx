@@ -10,10 +10,8 @@ export default function BigLogo() {
   const subHeaderText = () => {
     if (language === 'en') {
       return 'Discover and explore international matches from 1872 to 2024';
-    } else if (language === 'no') {
-      return 'Oppdag og utforsk internasjonale kamper fra 1872 til 2024';
     } else {
-      return 'Discover and explore international matches from 1872 to 2024';
+      return 'Oppdag og utforsk internasjonale kamper fra 1872 til 2024';
     }
   }
 

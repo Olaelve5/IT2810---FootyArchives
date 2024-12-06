@@ -85,7 +85,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
             open();
           }}
         >
-          <p>{language === 'en' ? 'Add comment' : 'Legg til kommentar'}</p>
+          <p>{language === 'en' ? 'Add comment' : 'Skriv kommentar'}</p>
         </Button>
       </div>
       <div className={classes.commentsContainer}>
@@ -104,7 +104,7 @@ export default function MatchComments({ result }: MatchCommentsProps) {
             setTotalCount={setTotalCount}
           />
         ))}
-        {comments.length > 0 && (
+        {page < totalPages && (
           <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
             <LoadCommentsButton
               page={page}

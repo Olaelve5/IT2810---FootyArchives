@@ -90,7 +90,7 @@ export default function Tournament() {
   return (
     <Layout>
       <div className={classes.titleContainer}>
-        <IconTrophyFilled stroke={1.5} size={45} color={iconColor()} className={classes.iconTrophy} />
+        <IconTrophyFilled stroke={1.5} color={iconColor()} className={classes.iconTrophy} />
         <h1>{tournamentName}</h1>
       </div>
       <DescriptionButton
@@ -101,7 +101,7 @@ export default function Tournament() {
       {loading && <Loader size={25} color={theme.colors.primary[5]} />}
       <div className={classes.carouselSection}>{carousels}</div>
       <Button onClick={handleClick} className={classes.loadButton} radius="xl" disabled={4 * page > totalCount}>
-        Load More
+        <p>Load More</p>
       </Button>
     </Layout>
   );

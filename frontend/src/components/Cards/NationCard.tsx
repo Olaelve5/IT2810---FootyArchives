@@ -28,20 +28,28 @@ function NationCard(props: NationType) {
             <div className="flagImageContainer">
               <span className={`fi fi-${getCountryCode([props._id])}`} id="flagImage"></span>
             </div>
-            <Text size="lg" fw={600} style={{ whiteSpace: 'noWrap' }}>
+            <Text size="xl" fw={600} style={{ whiteSpace: 'noWrap' }}>
               {language === 'no' ? props.name_no : props._id}
             </Text>
           </Group>
-          <Group>
-            <Text fw={600} className={isDark ? classes.darkText : classes.lightText}>
-              {props.total_team_games} {language === 'no' ? 'kamper' : 'games'}
-            </Text>
-          </Group>
-          <Group>
-            <Text fw={600}>{props.total_team_wins} {language === 'no' ? 'S' : 'W'}</Text>
-            <Text fw={600}>{props.total_team_draws} {language === 'no' ? 'U' : 'D'}</Text>
-            <Text fw={600}>{props.total_team_losses} {language === 'no' ? 'T' : 'L'}</Text>
-          </Group>
+          <div className={classes.nationCardInfo}>
+            <Group>
+              <Text size="sm" fw={600} className={isDark ? classes.darkText : classes.lightText}>
+                {props.total_team_games} {language === 'no' ? 'kamper' : 'games'}
+              </Text>
+            </Group>
+            <Group>
+              <Text fw={600} size="sm">
+                {props.total_team_wins} {language === 'no' ? 'S' : 'W'}
+              </Text>
+              <Text fw={600} size="sm">
+                {props.total_team_draws} {language === 'no' ? 'U' : 'D'}
+              </Text>
+              <Text fw={600} size="sm">
+                {props.total_team_losses} {language === 'no' ? 'T' : 'L'}
+              </Text>
+            </Group>
+          </div>
         </Card>
       </div>
     </Link>

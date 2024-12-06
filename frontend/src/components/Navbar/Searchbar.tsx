@@ -1,14 +1,6 @@
 import { IconSearch } from '@tabler/icons-react';
 import classes from '../../styles/Navbar/SearchBar.module.css';
-import {
-  useMantineTheme,
-  Loader,
-  useMantineColorScheme,
-  Combobox,
-  useCombobox,
-  CloseButton,
-  TextInput,
-} from '@mantine/core';
+import { useMantineTheme, Loader, useMantineColorScheme, Combobox, useCombobox, TextInput } from '@mantine/core';
 import { useLanguageStore } from '../../stores/language-store';
 import { useMemo, useState, useEffect } from 'react';
 import { getCountryCode } from '../../utils/imageUtils';
@@ -127,13 +119,6 @@ export default function Searchbar() {
           radius="xl"
           value={teamName}
           classNames={classes}
-          rightSection={
-            <CloseButton
-              onClick={() => setTeamName('')}
-              className={teamName ? classes.visibleClose : classes.hiddenClose}
-              onMouseDown={(event) => event.preventDefault()}
-            />
-          }
           onChange={(event) => {
             setTeamName(event.currentTarget.value);
             combobox.openDropdown();

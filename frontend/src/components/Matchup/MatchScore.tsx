@@ -16,7 +16,7 @@ export default function MatchScore(result: ResultType) {
   }, [result.home_team, result.away_team]);
 
   return (
-    <Group className={classes.container} gap={100}>
+    <Group className={classes.container}>
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/nation/${result.home_team}`}>
           <div className="flagImageContainer" id={classes.flagImageContainer} aria>

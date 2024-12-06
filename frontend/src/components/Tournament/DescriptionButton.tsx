@@ -27,14 +27,14 @@ function DescriptionButton({ startYear, endYear, tournamentName }: DescriptionBu
   };
 
   return (
-    <div>
+    <div className={classes.container}>
       <p>
         {language === 'no'
-          ? `Oppdag ${tournamentName} turneringer fra ${startYear} til ${endYear}`
-          : `Discover ${tournamentName} tournaments from ${startYear} to ${endYear}`}
+          ? `Oppdag ${tournamentName} kamper fra ${startYear} til ${endYear}`
+          : `Discover ${tournamentName} matchups from ${startYear} to ${endYear}`}
       </p>
-      <Button onClick={handleClick} className={classes.button} radius="xl" variant="outline" color="primary" size='sm'>
-        {language === 'no' ? `Utforsk alle ${tournamentName} kamper` : `Explore all ${tournamentName} matchups`}
+      <Button onClick={handleClick} className={classes.button} radius="xl" color="primary" size="sm" c="white">
+        <p>{language === 'no' ? `Utforsk alle kamper` : `Explore all matchups`} </p>
       </Button>
     </div>
   );

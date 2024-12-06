@@ -30,3 +30,25 @@
         background-color: var(--mantine-color-darkmode-9);
     }
 }
+
+@media (max-width: 480px) {
+    .controlDark {
+        width: 0;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .controlLight {
+        width: 0;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .root {
+        white-space: nowrap;
+    }
+}
