@@ -13,7 +13,7 @@ export default function BigLogo() {
     } else {
       return 'Oppdag og utforsk internasjonale kamper fra 1872 til 2024';
     }
-  }
+  };
 
   return (
     <div className={classes.container}>

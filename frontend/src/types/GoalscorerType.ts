@@ -8,4 +8,4 @@ export type Goalscorer = {
   penalty: boolean;
   scorer: string;
   team: string;
-}
+};

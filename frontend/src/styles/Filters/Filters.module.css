@@ -23,7 +23,6 @@
   background: transparent;
 }
 
-
 .filterButtonDark:hover {
   background-color: var(--mantine-color-darkmode-2);
 }

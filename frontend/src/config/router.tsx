@@ -3,7 +3,7 @@ import Home from '../pages/Home.tsx';
 import NotFound from '../pages/NotFound.tsx';
 import Tournament from '../pages/Tournament.tsx';
 import Result from '../pages/Result.tsx';
-import Matchups from '../pages/MatchupsSearch.tsx'
+import Matchups from '../pages/MatchupsSearch.tsx';
 import Nation from '../pages/Nation.tsx';
 
 const router = createBrowserRouter([
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/project2/matchup/:resultId',
-    element: <Result/>,
+    element: <Result />,
     errorElement: <NotFound />,
   },
   {

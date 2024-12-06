@@ -1,5 +1,5 @@
-import Result from "../../models/Result";
-import { PipelineStage } from "mongoose";
+import Result from '../../models/Result';
+import { PipelineStage } from 'mongoose';
 
 interface tournamentResolversI {
   tournamentName: string;
@@ -11,12 +11,9 @@ const RESULT_LIMIT = 12; // Limit for results per tournament per year
 
 const tournamentResolvers = {
   Query: {
-    tournaments: async (
-      _: any,
-      { tournamentName, page }: tournamentResolversI
-    ) => {
+    tournaments: async (_: any, { tournamentName, page }: tournamentResolversI) => {
       if (!tournamentName || page === undefined) {
-        throw new Error("tournamentName and page are required parameters.");
+        throw new Error('tournamentName and page are required parameters.');
       }
 
       const aggregationPipeline: PipelineStage[] = [
@@ -32,21 +29,21 @@ const tournamentResolvers = {
           // Group by year and tournament
           $group: {
             _id: {
-              year: { $year: "$date" },
-              tournament: "$tournament",
+              year: { $year: '$date' },
+              tournament: '$tournament',
             },
             // Push the results into an array
             results: {
               $push: {
-                _id: "$_id",
-                tournament: "$tournament",
-                home_team: "$home_team",
-                away_team: "$away_team",
-                home_score: "$home_score",
-                away_score: "$away_score",
-                city: "$city",
-                country: "$country",
-                date: "$date",
+                _id: '$_id',
+                tournament: '$tournament',
+                home_team: '$home_team',
+                away_team: '$away_team',
+                home_score: '$home_score',
+                away_score: '$away_score',
+                city: '$city',
+                country: '$country',
+                date: '$date',
               },
             },
           },
@@ -55,49 +52,49 @@ const tournamentResolvers = {
           // Project the fields to be returned in the results
           $project: {
             _id: {
-              $concat: [{ $toString: "$_id.year" }, "_", "$_id.tournament"],
+              $concat: [{ $toString: '$_id.year' }, '_', '$_id.tournament'],
             },
-            year: "$_id.year",
-            tournament: "$_id.tournament",
-            results: { $slice: ["$results", RESULT_LIMIT] }, // Fetch the last RESULT_LIMIT matches
+            year: '$_id.year',
+            tournament: '$_id.tournament',
+            results: { $slice: ['$results', RESULT_LIMIT] }, // Fetch the last RESULT_LIMIT matches
           },
         },
         {
-          $unwind: "$results", // Unwind results to join translations
+          $unwind: '$results', // Unwind results to join translations
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "results.home_team",
-            foreignField: "_id",
-            as: "home_translation",
+            from: 'translations',
+            localField: 'results.home_team',
+            foreignField: '_id',
+            as: 'home_translation',
           },
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "results.away_team",
-            foreignField: "_id",
-            as: "away_translation",
+            from: 'translations',
+            localField: 'results.away_team',
+            foreignField: '_id',
+            as: 'away_translation',
           },
         },
         {
           // Add the home and away team numbers and codes to the results
           $addFields: {
-            "results.home_team_no": {
-              $arrayElemAt: ["$home_translation.No", 0],
+            'results.home_team_no': {
+              $arrayElemAt: ['$home_translation.No', 0],
             },
-            "results.away_team_no": {
-              $arrayElemAt: ["$away_translation.No", 0],
+            'results.away_team_no': {
+              $arrayElemAt: ['$away_translation.No', 0],
             },
           },
         },
         {
           $group: {
-            _id: "$_id",
-            year: { $first: "$year" },
-            tournament: { $first: "$tournament" },
-            results: { $push: "$results" },
+            _id: '$_id',
+            year: { $first: '$year' },
+            tournament: { $first: '$tournament' },
+            results: { $push: '$results' },
           },
         },
         {
@@ -112,14 +109,14 @@ const tournamentResolvers = {
               { $limit: LIMIT }, // Limit the number of tournament groups
             ],
             totalCount: [
-              { $count: "count" }, // Count the total number of tournament groups
+              { $count: 'count' }, // Count the total number of tournament groups
             ],
             yearRange: [
               {
                 $group: {
                   _id: null,
-                  startYear: { $min: "$year" },
-                  endYear: { $max: "$year" },
+                  startYear: { $min: '$year' },
+                  endYear: { $max: '$year' },
                 },
               },
             ],

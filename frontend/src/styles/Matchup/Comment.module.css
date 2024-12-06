@@ -49,21 +49,18 @@
 
 .showMoreDark {
   color: #6982ad;
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .showMoreLight:hover {
   color: #007bff;
   text-decoration: underline;
-  
 }
 
 .showMoreDark:hover {
   color: #b3b3b3;
   text-decoration: underline;
 }
-
-
 
 .modalContainer {
   display: flex;

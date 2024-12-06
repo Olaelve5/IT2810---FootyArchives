@@ -101,7 +101,7 @@ function MatchcardCarousel({
             variant="light"
             color="white"
             size="sm"
-            aria-label={language === 'en'? `See more matches in ${titleEn}`: `Se flere kamper i ${titleNo}`}  
+            aria-label={language === 'en' ? `See more matches in ${titleEn}` : `Se flere kamper i ${titleNo}`}
             onClick={handleSeeMoreClick}
             className={isDark ? classes.seeMoreButtonDark : classes.seeMoreButtonLight}
           >

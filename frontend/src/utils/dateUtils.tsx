@@ -30,10 +30,7 @@ export const calculateTimeDifference = (date: string): string => {
   }
 };
 
-
-
 export const formatDate = (date: string): string => {
-
   const dateObj = new Date(parseInt(date));
 
   // handle invalid date

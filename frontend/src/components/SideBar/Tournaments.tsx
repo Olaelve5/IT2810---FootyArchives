@@ -40,7 +40,7 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
           setSelected={setSelected}
           isDark={isDark}
           iconColor={themeColor}
-          aria-label={item.name}  
+          aria-label={item.name}
         />
       </div>
     );
@@ -53,11 +53,7 @@ export default function Tournaments({ selected, setSelected }: CompetitionsProps
           {language === 'en' ? 'Tournaments' : 'Turneringer'}
         </Text>
       </div>
-      <Group
-        className={classes.links}
-        style={{ border: 'none' }}
-        
-      >
+      <Group className={classes.links} style={{ border: 'none' }}>
         {links}
       </Group>
     </div>

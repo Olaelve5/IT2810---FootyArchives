@@ -46,7 +46,7 @@ function TournamentFilter() {
           fetchTournaments({ variables: { searchTerm: value, language, limit: 6 } }).then(({ data }) => {
             const tournaments = data?.search.tournaments || [];
             const options = tournaments.map((tournament: { en: string; no: string }) =>
-              language === 'en' ? tournament.en : tournament.no
+              language === 'en' ? tournament.en : tournament.no,
             );
             setDropDownOptions(options);
           });

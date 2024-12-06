@@ -14,7 +14,9 @@ export default function NotFound() {
       </p>
       <Link to="/project2">
         {/* <Button color="primary">Go to the home page</Button> */}
-        <Button radius={100} color="primary">{language === 'en' ? 'Go back to the home page' : 'Gå tilbake til startsiden'}</Button>
+        <Button radius={100} color="primary">
+          {language === 'en' ? 'Go back to the home page' : 'Gå tilbake til startsiden'}
+        </Button>
       </Link>
     </div>
   );

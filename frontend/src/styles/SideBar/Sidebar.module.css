@@ -138,7 +138,7 @@
   display: flex;
 }
 
-.navLinkIcon *{
+.navLinkIcon * {
   color: unset !important;
 }
 

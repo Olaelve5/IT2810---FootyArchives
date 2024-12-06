@@ -1,5 +1,5 @@
-import Result from "../../models/Result";
-import Translation from "../../models/Translation";
+import Result from '../../models/Result';
+import Translation from '../../models/Translation';
 
 interface SearchArgs {
   searchTerm: string;
@@ -10,18 +10,18 @@ interface SearchArgs {
 const searchResolvers = {
   Query: {
     search: async (_: any, { searchTerm, language, limit = 5 }: SearchArgs) => {
-      if (!searchTerm || searchTerm.trim() === "") {
-        throw new Error("Search term is required");
+      if (!searchTerm || searchTerm.trim() === '') {
+        throw new Error('Search term is required');
       }
 
       // Determine the fields to search based on language
-      const translationField = language === "no" ? "No" : "_id";
+      const translationField = language === 'no' ? 'No' : '_id';
 
       // Search for nations with sorting
       const nations = await Translation.aggregate([
         {
           $match: {
-            [translationField]: { $regex: searchTerm, $options: "i" },
+            [translationField]: { $regex: searchTerm, $options: 'i' },
           },
         },
         {
@@ -31,10 +31,7 @@ const searchResolvers = {
                 {
                   $eq: [
                     {
-                      $indexOfCP: [
-                        { $toLower: `$${translationField}` },
-                        searchTerm.toLowerCase(),
-                      ],
+                      $indexOfCP: [{ $toLower: `$${translationField}` }, searchTerm.toLowerCase()],
                     },
                     0,
                   ],
@@ -45,10 +42,7 @@ const searchResolvers = {
                     {
                       $gte: [
                         {
-                          $indexOfCP: [
-                            { $toLower: `$${translationField}` },
-                            searchTerm.toLowerCase(),
-                          ],
+                          $indexOfCP: [{ $toLower: `$${translationField}` }, searchTerm.toLowerCase()],
                         },
                         0,
                       ],
@@ -70,8 +64,8 @@ const searchResolvers = {
         {
           $project: {
             _id: 0,
-            en: { $ifNull: ["$_id", ""] },
-            no: { $ifNull: ["$No", ""] },
+            en: { $ifNull: ['$_id', ''] },
+            no: { $ifNull: ['$No', ''] },
           },
         },
         { $limit: limit },
@@ -81,12 +75,12 @@ const searchResolvers = {
       const tournaments = await Result.aggregate([
         {
           $match: {
-            tournament: { $regex: searchTerm, $options: "i" },
+            tournament: { $regex: searchTerm, $options: 'i' },
           },
         },
         {
           $group: {
-            _id: "$tournament",
+            _id: '$tournament',
           },
         },
         {
@@ -96,10 +90,7 @@ const searchResolvers = {
                 {
                   $eq: [
                     {
-                      $indexOfCP: [
-                        { $toLower: "$_id" },
-                        searchTerm.toLowerCase(),
-                      ],
+                      $indexOfCP: [{ $toLower: '$_id' }, searchTerm.toLowerCase()],
                     },
                     0,
                   ],
@@ -110,10 +101,7 @@ const searchResolvers = {
                     {
                       $gte: [
                         {
-                          $indexOfCP: [
-                            { $toLower: "$_id" },
-                            searchTerm.toLowerCase(),
-                          ],
+                          $indexOfCP: [{ $toLower: '$_id' }, searchTerm.toLowerCase()],
                         },
                         0,
                       ],
@@ -135,8 +123,8 @@ const searchResolvers = {
         {
           $project: {
             _id: 0,
-            en: "$_id",
-            no: "$_id",
+            en: '$_id',
+            no: '$_id',
           },
         },
         { $limit: limit }, // Limit after sorting

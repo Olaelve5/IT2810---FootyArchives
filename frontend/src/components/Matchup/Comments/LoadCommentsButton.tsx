@@ -9,8 +9,13 @@ interface LoadCommentsButtonProps {
   loading: boolean;
 }
 
-const LoadCommentsButton: React.FC<LoadCommentsButtonProps> = ({ language, handleClick, page, totalPages, loading }) => {
-  
+const LoadCommentsButton: React.FC<LoadCommentsButtonProps> = ({
+  language,
+  handleClick,
+  page,
+  totalPages,
+  loading,
+}) => {
   return (
     <>
       <Button

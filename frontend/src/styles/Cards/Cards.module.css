@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .card {
@@ -46,8 +46,6 @@
   white-space: nowrap;
   max-width: 6rem;
 }
-
-
 
 .scoreContainer {
   display: flex;
@@ -109,5 +107,3 @@
   align-items: center;
   gap: 0.5rem;
 }
-
-

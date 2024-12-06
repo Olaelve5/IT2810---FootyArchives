@@ -37,7 +37,12 @@ export const mockMatchupSearchData: MockedResponse[] = [
   {
     request: {
       query: GET_RESULTS,
-      variables: { limit: 24, page: 1, sort: { field: 'date', order: -1 }, filters: { teams: [], tournaments: [], yearRange: { startYear: 1872, endYear: 2024 }, exclusive: false } },
+      variables: {
+        limit: 24,
+        page: 1,
+        sort: { field: 'date', order: -1 },
+        filters: { teams: [], tournaments: [], yearRange: { startYear: 1872, endYear: 2024 }, exclusive: false },
+      },
     },
     result: {
       data: {

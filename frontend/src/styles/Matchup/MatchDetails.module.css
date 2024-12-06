@@ -59,9 +59,9 @@
 }
 
 @media screen and (max-width: 780px) {
-    .detailText {
-      max-width: 90%;
-    }
+  .detailText {
+    max-width: 90%;
+  }
 }
 
 @media screen and (max-width: 480px) {

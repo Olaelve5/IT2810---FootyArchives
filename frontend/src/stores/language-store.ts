@@ -11,7 +11,7 @@ export interface LanguageState {
 // Define the type for the persist configuration
 type LanguagePersist = (
   config: (set: (partial: Partial<LanguageState>) => void) => LanguageState,
-  options: PersistOptions<LanguageState>
+  options: PersistOptions<LanguageState>,
 ) => (set: (partial: Partial<LanguageState>) => void) => LanguageState;
 
 // The store is created with the initial state of 'en'
@@ -23,6 +23,6 @@ export const useLanguageStore = create<LanguageState>(
     }),
     {
       name: 'language-storage',
-    }
-  )
+    },
+  ),
 );

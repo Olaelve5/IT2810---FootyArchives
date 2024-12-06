@@ -24,7 +24,7 @@ export const SEARCH_NATIONS = gql`
       }
     }
   }
-`
+`;
 
 export const SEARCH_TOURNAMENTS = gql`
   query Search($searchTerm: String!, $language: String!, $limit: Int!) {
@@ -35,4 +35,4 @@ export const SEARCH_TOURNAMENTS = gql`
       }
     }
   }
-`
+`;

@@ -12,14 +12,23 @@ interface NavLinkItemProps {
   setSelected: (value: string) => void;
   isDark: boolean;
   iconColor?: string;
-  ariaLabel? : string;
+  ariaLabel?: string;
 }
 
 // Component for the sidebar navigation links
-export default function NavLinkItem({ to, label, icon, selected, setSelected, isDark, iconColor, ariaLabel }: NavLinkItemProps) {
+export default function NavLinkItem({
+  to,
+  label,
+  icon,
+  selected,
+  setSelected,
+  isDark,
+  iconColor,
+  ariaLabel,
+}: NavLinkItemProps) {
   // Clone the icon element and apply the color style
   const coloredIcon = cloneElement(icon as React.ReactElement, {
-    style: { color: iconColor},
+    style: { color: iconColor },
     className: classes.navLinkIcon,
   });
 

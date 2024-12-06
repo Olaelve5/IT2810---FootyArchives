@@ -13,7 +13,6 @@
   align-items: center;
 }
 
-
 .control {
   &[data-inactive] {
     opacity: 0;
@@ -81,5 +80,4 @@
   .seeMoreButton {
     font-size: 0.8rem;
   }
-  
 }

@@ -1,5 +1,4 @@
-import { ObjectId } from 'mongodb';
-import { model, Schema } from "mongoose";
+import { model, Schema } from 'mongoose';
 
 // Scheme for the results collection in the MongoDB database
 const ResultSchema = new Schema({
@@ -41,12 +40,11 @@ const ResultSchema = new Schema({
   },
 });
 
-ResultSchema.virtual('goal_difference').get(function() {
+ResultSchema.virtual('goal_difference').get(function () {
   return Math.abs(this.home_score - this.away_score);
-})
+});
 
 // Model for the results collection in the MongoDB database
-const Result = model("Result", ResultSchema, 'results');
-
+const Result = model('Result', ResultSchema, 'results');
 
 export default Result;

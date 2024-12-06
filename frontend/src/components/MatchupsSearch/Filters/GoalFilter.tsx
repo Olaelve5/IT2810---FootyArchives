@@ -1,21 +1,21 @@
-import { RangeSlider, Text } from "@mantine/core";
-import classes from "../../../styles/Filters/YearFilter.module.css";
-import { useState } from "react";
-import { useMantineColorScheme } from "@mantine/core";
-import { useLanguageStore } from "../../../stores/language-store";
+import { RangeSlider, Text } from '@mantine/core';
+import classes from '../../../styles/Filters/YearFilter.module.css';
+import { useState } from 'react';
+import { useMantineColorScheme } from '@mantine/core';
+import { useLanguageStore } from '../../../stores/language-store';
 
 const marks = [
-  { value: 10, label: "10" },
-  { value: 20, label: "20" },
-  { value: 30, label: "30" },
+  { value: 10, label: '10' },
+  { value: 20, label: '20' },
+  { value: 30, label: '30' },
 ];
 
 export default function GoalFilter() {
-    const [value, setValue] = useState<[number, number]>([0, 40]);
-    // const [endValue, setEndValue] = useState<[number, number]>([0, 40]);
-    const { colorScheme } = useMantineColorScheme();
-    const isDark = colorScheme === 'dark';
-    const language = useLanguageStore((state) => state.language);
+  const [value, setValue] = useState<[number, number]>([0, 40]);
+  // const [endValue, setEndValue] = useState<[number, number]>([0, 40]);
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
+  const language = useLanguageStore((state) => state.language);
 
   return (
     <div className={classes.container}>

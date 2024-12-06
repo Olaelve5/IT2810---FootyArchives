@@ -80,18 +80,9 @@ const resultTypeDefs = gql`
   }
 
   type Query {
-    results(
-      filters: FiltersInput
-      sort: SortInput
-      limit: Int
-      page: Int
-    ): PaginatedResults
+    results(filters: FiltersInput, sort: SortInput, limit: Int, page: Int): PaginatedResults
     result(_id: ID!): Result!
-    goalscorers(
-      home_team: String!
-      away_team: String!
-      date: String!
-    ): [Goalscorer]
+    goalscorers(home_team: String!, away_team: String!, date: String!): [Goalscorer]
     tournaments(tournamentName: String!, page: Int!): TournamentsResponse!
     search(searchTerm: String!, language: String!, limit: Int!): SearchResult!
   }

@@ -1,8 +1,8 @@
-import { ObjectId } from "mongodb";
-import Result from "../../models/Result";
-import Goalscorer from "../../models/Goalscorer";
-import { Filters, SortInput } from "../../types/FiltersType";
-import { QueryType } from "../../types/QueryType";
+import { ObjectId } from 'mongodb';
+import Result from '../../models/Result';
+import Goalscorer from '../../models/Goalscorer';
+import { Filters, SortInput } from '../../types/FiltersType';
+import { QueryType } from '../../types/QueryType';
 
 interface Args {
   filters?: Filters;
@@ -26,25 +26,16 @@ interface PaginatedResults {
 // Resolvers for the GraphQL queries
 const resultResolvers = {
   Query: {
-    results: async (
-      _: any,
-      { filters, sort, limit = 20, page = 1 }: Args
-    ): Promise<PaginatedResults> => {
+    results: async (_: any, { filters, sort, limit = 20, page = 1 }: Args): Promise<PaginatedResults> => {
       const query: QueryType = {};
 
       // Apply filters to the query
       if (filters) {
         if (filters.teams && filters.teams.length > 0) {
           if (!filters.exclusive) {
-            query.$or = [
-              { home_team: { $in: filters.teams } },
-              { away_team: { $in: filters.teams } },
-            ];
+            query.$or = [{ home_team: { $in: filters.teams } }, { away_team: { $in: filters.teams } }];
           } else {
-            query.$and = [
-              { home_team: { $in: filters.teams } },
-              { away_team: { $in: filters.teams } },
-            ];
+            query.$and = [{ home_team: { $in: filters.teams } }, { away_team: { $in: filters.teams } }];
           }
         }
 
@@ -57,11 +48,11 @@ const resultResolvers = {
           query.$or = [
             {
               home_team: { $in: [filters.winningTeam] },
-              $expr: { $gt: ["$home_score", "$away_score"] },
+              $expr: { $gt: ['$home_score', '$away_score'] },
             } as any,
             {
               away_team: { $in: [filters.winningTeam] },
-              $expr: { $gt: ["$away_score", "$home_score"] },
+              $expr: { $gt: ['$away_score', '$home_score'] },
             } as any,
           ];
         }
@@ -70,11 +61,11 @@ const resultResolvers = {
           query.$or = [
             {
               home_team: { $in: [filters.losingTeam] },
-              $expr: { $lt: ["$home_score", "$away_score"] },
+              $expr: { $lt: ['$home_score', '$away_score'] },
             } as any,
             {
               away_team: { $in: [filters.losingTeam] },
-              $expr: { $lt: ["$away_score", "$home_score"] },
+              $expr: { $lt: ['$away_score', '$home_score'] },
             } as any,
           ];
         }
@@ -88,9 +79,9 @@ const resultResolvers = {
         {
           $addFields: {
             goal_difference: {
-              $abs: { $subtract: ["$home_score", "$away_score"] },
+              $abs: { $subtract: ['$home_score', '$away_score'] },
             },
-            year: { $year: "$date" },
+            year: { $year: '$date' },
           },
         },
       ];
@@ -100,8 +91,8 @@ const resultResolvers = {
           $match: {
             $expr: {
               $and: [
-                { $gte: [{ $year: "$date" }, filters.yearRange.startYear] },
-                { $lte: [{ $year: "$date" }, filters.yearRange.endYear] },
+                { $gte: [{ $year: '$date' }, filters.yearRange.startYear] },
+                { $lte: [{ $year: '$date' }, filters.yearRange.endYear] },
               ],
             },
           },
@@ -116,7 +107,7 @@ const resultResolvers = {
       }
 
       // Count total results for pagination
-      const countPipeline = [...basePipeline, { $count: "total" }];
+      const countPipeline = [...basePipeline, { $count: 'total' }];
       const totalResult = await Result.aggregate(countPipeline).exec();
       const total = totalResult.length > 0 ? totalResult[0].total : 0;
 
@@ -135,30 +126,30 @@ const resultResolvers = {
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "home_team",
-            foreignField: "_id",
-            as: "home_translation",
+            from: 'translations',
+            localField: 'home_team',
+            foreignField: '_id',
+            as: 'home_translation',
           },
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "away_team",
-            foreignField: "_id",
-            as: "away_translation",
+            from: 'translations',
+            localField: 'away_team',
+            foreignField: '_id',
+            as: 'away_translation',
           },
         },
         {
           $addFields: {
             home_team_no: {
-              $arrayElemAt: ["$home_translation.No", 0],
+              $arrayElemAt: ['$home_translation.No', 0],
             },
             away_team_no: {
-              $arrayElemAt: ["$away_translation.No", 0],
+              $arrayElemAt: ['$away_translation.No', 0],
             },
             goal_difference: {
-              $abs: { $subtract: ["$home_score", "$away_score"] },
+              $abs: { $subtract: ['$home_score', '$away_score'] },
             },
           },
         },
@@ -169,9 +160,7 @@ const resultResolvers = {
         },
       ];
 
-      const enrichedResults = await Result.aggregate(
-        enrichedResultsPipeline
-      ).exec();
+      const enrichedResults = await Result.aggregate(enrichedResultsPipeline).exec();
 
       return {
         results: enrichedResults,
@@ -183,7 +172,7 @@ const resultResolvers = {
 
     result: async (_: any, { _id }: Args) => {
       if (!_id) {
-        throw new Error("ID is required");
+        throw new Error('ID is required');
       }
 
       const objectId = new ObjectId(_id);
@@ -195,35 +184,35 @@ const resultResolvers = {
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "home_team",
-            foreignField: "_id",
-            as: "home_translation",
+            from: 'translations',
+            localField: 'home_team',
+            foreignField: '_id',
+            as: 'home_translation',
           },
         },
         {
           $lookup: {
-            from: "translations",
-            localField: "away_team",
-            foreignField: "_id",
-            as: "away_translation",
+            from: 'translations',
+            localField: 'away_team',
+            foreignField: '_id',
+            as: 'away_translation',
           },
         },
         {
           $addFields: {
             home_team_no: {
-              $arrayElemAt: ["$home_translation.No", 0],
+              $arrayElemAt: ['$home_translation.No', 0],
             },
             away_team_no: {
-              $arrayElemAt: ["$away_translation.No", 0],
+              $arrayElemAt: ['$away_translation.No', 0],
             },
           },
         },
       ]);
 
       if (!resultWithTranslation || resultWithTranslation.length === 0) {
-        console.log("Result not found");
-        throw new Error("Result not found");
+        console.log('Result not found');
+        throw new Error('Result not found');
       }
 
       return resultWithTranslation[0]; // Return the single result

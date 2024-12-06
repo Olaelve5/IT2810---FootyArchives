@@ -1,7 +1,7 @@
 import { Pagination } from '@mantine/core';
 import classes from '../../styles/MatchupsSearch/Pagination.module.css';
 import { useMantineColorScheme } from '@mantine/core';
-import {IconArrowRight, IconArrowLeft} from '@tabler/icons-react';
+import { IconArrowRight, IconArrowLeft } from '@tabler/icons-react';
 import { useFilterStore } from '../../stores/filter-store';
 import { useEffect, useState } from 'react';
 
@@ -10,19 +10,19 @@ interface PaginationProps {
 }
 
 function PaginationComponent({ totalPages }: PaginationProps) {
-    const { colorScheme } = useMantineColorScheme();
-    const isDark = colorScheme === 'dark';
-    const { page, setPage } = useFilterStore();
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { colorScheme } = useMantineColorScheme();
+  const isDark = colorScheme === 'dark';
+  const { page, setPage } = useFilterStore();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    // Update window width on resize
-    useEffect(() => {
-      const handleResize = () => {
-        setWindowWidth(window.innerWidth);
-      };
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+  // Update window width on resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <div className={classes.container}>
