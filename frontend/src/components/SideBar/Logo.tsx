@@ -24,9 +24,6 @@ function Logo() {
         navigate('/project2');
       }}
     >
-      <Text size="xl" fw={700} c="primary" id={classes.logoText}>
-        Footy
-      </Text>
 
         <Text
           size="xl"
