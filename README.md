@@ -47,11 +47,33 @@ International football has a variety of tournaments and every tournament has its
 ### Country page
 Every country has its own page, displaying the nations record, recent matches, biggest wins and worst defeats. You can even see their rival nation!
 
-### Accessibility
-There is a language button so you can view the page in both english and norwegian. You can also switch between lightmode and darkmode to fit your needs.
+## Accessibility
+
+### Language
+There is a language button so you can view the page in both english and norwegian.
+### Lightmode/Darkmode
+You can switch between lightmode and darkmode to fit your needs. 
+### Aria labels
+Aria labels are used to support screen readers
+### Keyboard accesibility
+We've made sure that users can use Footy Archives with a keyboard alone.
+
+## Sustainability
+
+### Caching
+We've utilized Apollo Clients's in-memory cache to store results of GraphQL queries locally. This reduces the need for repeated network request, which makes the website both faster and reduces the energy consumption from data transfers and server processing.
+
+### Paging
+We've used paging to make sure that only small parts of our large dataset is loaded at a time. This minimizes memory usage loading time and server usage, making Footy Archives more sustainable and easier to scale.
+
+### Lightmode/Darkmode
+The Lightmode/Darkmode option not only enhances the user experience, it also saves energy, with dark mode in particulary saving energy on OLED and AMOLED screens.
+
+### Debounce
+To optimize our search function, we've used debouncing to delay the execution of the search query until the user has stopped typing. This reduces unnecessary requests, which reduces server load.
 
 ## Responsivness
-The app is currently not as responsive as we would've have liked, but this is something we are working on.
+Footy Archives is fully resposnive and will work for both desktop and mobile users. For the mobile version, we modified our sidebar and navbar by merging them together and displaying it as a hamburger menu, this saved us space without loosing any functionality.
 
 
 

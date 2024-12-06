@@ -8,6 +8,16 @@ function Logo() {
   const navigate = useNavigate();
 
   return (
+      <div className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}>
+        <Text
+          size="xl"
+          fw={700}
+          c="primary"
+          id={classes.logoText}
+          aria-label="Footy Archives logo"
+        >
+          Footy
+        </Text>
     <div
       className={isCollapsed ? classes.hiddenLogoTextContainer : classes.logoTextContainer}
       onClick={() => {
@@ -18,10 +28,15 @@ function Logo() {
         Footy
       </Text>
 
-      <Text size="xl" fw={700} id={classes.logoText}>
-        Archives
-      </Text>
-    </div>
+        <Text
+          size="xl"
+          fw={700}
+          id={classes.logoText}
+        >
+          Archives
+        </Text>
+      </div>
+      </div>
   );
 }
 
