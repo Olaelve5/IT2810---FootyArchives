@@ -19,7 +19,7 @@ export default function MatchScore(result: ResultType) {
     <Group className={classes.container}>
       <Group className={classes.imageNameContainer}>
         <Link to={`/project2/nation/${result.home_team}`}>
-          <div className="flagImageContainer" id={classes.flagImageContainer} aria>
+          <div className="flagImageContainer" id={classes.flagImageContainer}>
             <span
               className={`fi fi-${countryCodes[0]}`}
               id="flagImage"
