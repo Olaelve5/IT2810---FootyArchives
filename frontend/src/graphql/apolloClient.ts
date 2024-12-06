@@ -2,8 +2,8 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 // Switch between these for production/development
 
-// const URL = 'http://it2810-36.idi.ntnu.no:3001/graphql'
-const URL = 'http://localhost:3001/graphql';
+const URL = 'http://it2810-36.idi.ntnu.no:3001/graphql'
+// const URL = 'http://localhost:3001/graphql';
 
 // Needed for mobile testing
 //const URL = 'http://10.52.231.177:3001/graphql'
